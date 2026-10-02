@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 420" width="780" height="420" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16295A"/><stop offset="0.4" stop-color="#6A4C7C"/><stop offset="0.7" stop-color="#E58C78"/><stop offset="1" stop-color="#FBCB98"/></linearGradient>
+<radialGradient id="glow" cx="170" cy="250" r="260" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFEBC6"/><stop offset="0.3" stop-color="#FFC48E" stop-opacity="0.6"/><stop offset="1" stop-color="#F08A72" stop-opacity="0"/></radialGradient>
+<linearGradient id="tuffA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F0B286"/><stop offset="0.45" stop-color="#C4785A"/><stop offset="1" stop-color="#5A3A5E"/></linearGradient>
+<linearGradient id="tuffB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E49A72"/><stop offset="0.5" stop-color="#A25A58"/><stop offset="1" stop-color="#3C2C58"/></linearGradient>
+<linearGradient id="tuffC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C98066"/><stop offset="0.55" stop-color="#7C4A5C"/><stop offset="1" stop-color="#2C2450"/></linearGradient>
+<linearGradient id="mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8BE9A" stop-opacity="0"/><stop offset="0.5" stop-color="#F8BE9A" stop-opacity="0.6"/><stop offset="1" stop-color="#F8BE9A" stop-opacity="0"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6E4566"/><stop offset="1" stop-color="#241E48"/></linearGradient>
+<filter id="b8" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="8"/></filter>
+<filter id="rough" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.05 0.03" numOctaves="3" seed="21" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="12" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="5" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 0.93  0 0 0 0 0.85  0.8 0 0 0 -0.36"/></filter>
+</defs>
+<rect width="780" height="420" fill="url(#sky)"/>
+<rect width="780" height="420" fill="url(#glow)"/>
+<circle cx="170" cy="250" r="22" fill="#FFF4DE"/>
+<ellipse cx="400" cy="200" rx="300" ry="5" fill="#FFD2A6" opacity="0.4" filter="url(#b8)"/>
+<path d="M0 270C80 252 160 260 240 248S400 240 480 256S660 268 780 246V420H0Z" fill="#8F6385" opacity="0.8"/>
+<g filter="url(#rough)">
+<path d="M330 330C336 290 346 250 358 214C366 192 380 188 392 214C404 250 412 290 420 330Z" fill="url(#tuffC)"/>
+<path d="M470 336C474 296 482 262 494 234C502 218 514 218 522 236C534 266 542 302 548 336Z" fill="url(#tuffC)"/>
+<path d="M120 340C130 290 150 240 176 190C190 164 212 164 226 192C250 240 270 292 284 340Z" fill="url(#tuffA)"/>
+<path d="M560 346C570 300 592 252 618 208C632 184 654 184 668 210C692 252 712 304 724 346Z" fill="url(#tuffB)"/>
+<path d="M230 344C240 304 256 270 276 242C288 226 304 226 314 244C330 274 340 310 346 344Z" fill="url(#tuffB)"/>
+</g>
+<g fill="#2A1F48" opacity="0.85">
+<path d="M170 250c0-12 14-12 14 0v14h-14z"/><path d="M196 276c0-10 12-10 12 0v12h-12z"/><path d="M164 296c0-9 11-9 11 0v10h-11z"/>
+<path d="M608 262c0-12 14-12 14 0v14h-14z"/><path d="M636 292c0-10 12-10 12 0v12h-12z"/><path d="M602 310c0-9 11-9 11 0v10h-11z"/>
+<path d="M286 276c0-9 11-9 11 0v10h-11z"/><path d="M512 270c0-8 10-8 10 0v9h-10z"/>
+</g>
+<g fill="none" stroke="#FFDDB0" stroke-width="1.3" opacity="0.6"><path d="M158 200C150 240 138 290 128 336"/><path d="M606 218C592 250 578 300 568 344"/></g>
+<g fill="none" stroke="#2A1F48" stroke-width="1" opacity="0.35"><path d="M200 200C210 250 230 300 250 340"/><path d="M640 220C660 260 680 300 700 342"/></g>
+<rect x="0" y="300" width="780" height="70" fill="url(#mist)" filter="url(#b8)"/>
+<path d="M0 352C120 330 260 346 400 356S660 358 780 336V420H0Z" fill="url(#ground)"/>
+<path d="M-10 394C120 372 260 388 400 394S660 392 790 376" fill="none" stroke="#FFD8A4" stroke-width="3" stroke-dasharray="0.1 10" stroke-linecap="round" opacity="0.9"/>
+<rect width="780" height="420" filter="url(#grain)" opacity="0.22"/>
+</svg>

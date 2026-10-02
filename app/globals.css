@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FAF5EC;
+  --color-sand: #F1E9DA;
+  --color-line: #EADFCB;
+  --color-navy: #0F2547;
+  --color-navy-2: #17305F;
+  --color-ink-2: #3E4B66;
+  --color-mute: #5E6573;
+  --color-terra: #A64B22;
+  --color-terra-hi: #C25A2C;
+  --color-terra-lo: #9A4120;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+}
+
+body { background: var(--color-cream); color: var(--color-navy); font-family: var(--font-sans); }
+
+@utility glass {
+  background: rgba(255, 252, 247, 0.66);
+  backdrop-filter: blur(22px) saturate(1.7);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 28px rgba(15, 37, 71, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+@utility glass-dark {
+  background: rgba(12, 26, 56, 0.42);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+@utility terra-grad { background: linear-gradient(180deg, #C25A2C, #9A4120); }
+@utility photo-ph {
+  background-color: #E9E5DD;
+  background-image: url("/noise.svg");
+}

@@ -1,0 +1,16 @@
+/* Harita işaretçileri */
+.afy-pin { background: none; border: 0; padding: 0; cursor: pointer; }
+.afy-pin-dot {
+  display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 9999px;
+  background: linear-gradient(180deg, #C25A2C, #9A4120); color: #fff; font: 700 13px var(--font-jakarta), system-ui, sans-serif;
+  border: 2.5px solid #fff; box-shadow: 0 4px 10px rgba(15, 37, 71, 0.35); transition: transform .18s ease;
+}
+.afy-pin-dot.approx { background: #fff; color: #A64B22; border: 2.5px dashed #C25A2C; }
+.afy-pin-dot.static { flex-shrink: 0; }
+.afy-pin.sel .afy-pin-dot { transform: scale(1.3); box-shadow: 0 6px 16px rgba(15, 37, 71, 0.5); }
+.afy-pin.sel { z-index: 5; }
+.afy-me { position: relative; width: 22px; height: 22px; }
+.afy-me .dot { position: absolute; inset: 3px; border-radius: 9999px; background: #2F7BF6; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(47, 123, 246, .6); }
+.afy-me .pulse { position: absolute; inset: 0; border-radius: 9999px; background: rgba(47, 123, 246, .35); animation: afy-pulse 2s ease-out infinite; }
+@keyframes afy-pulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
+.maplibregl-ctrl-attrib { font-size: 10px; }
