@@ -47,7 +47,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="relative h-[240px] overflow-hidden bg-navy px-5 pt-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[40%_50%]" />
+        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[85%_50%]" />
         <div className="relative">
         <div className="flex items-center justify-between">
           <Link href="/rotalar" aria-label="Geri" className="glass-dark inline-flex h-11 w-11 items-center justify-center rounded-full text-white">‹</Link>

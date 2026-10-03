@@ -17,7 +17,7 @@ export default function SearchBox({ items }: { items: SearchItem[] }) {
     <div className="relative z-20">
       <label htmlFor={id} className="sr-only">Rota veya mekân ara</label>
       <input id={id} type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rota veya mekân ara" autoComplete="off"
-        className="glass h-[52px] w-full rounded-full px-5 text-[15px] text-navy outline-none placeholder:text-ink-2 focus:ring-2 focus:ring-terra/40" />
+        className="h-[52px] w-full rounded-full border border-white/70 bg-white/92 px-5 text-[15px] text-navy shadow-[0_12px_28px_-12px_rgba(0,0,0,.55)] outline-none backdrop-blur placeholder:text-ink-2 focus:ring-2 focus:ring-terra/40" />
       {q.trim().length >= 2 && (
         <ul className="absolute inset-x-0 top-[58px] max-h-[300px] overflow-y-auto rounded-3xl border border-line bg-white shadow-card p-1.5 text-navy shadow-xl">
           {hits.length === 0 && <li className="px-3.5 py-3 text-sm text-mute">Sonuç bulunamadı.</li>}

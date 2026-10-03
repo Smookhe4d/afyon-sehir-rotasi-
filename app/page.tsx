@@ -20,7 +20,7 @@ export default function Kesfet() {
       <section className="relative z-10 h-[316px] bg-navy px-5 pt-4 text-white">
       <div className="absolute inset-0 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[40%_50%]" />
+        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[85%_50%]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/70 via-[#08122c]/20 to-transparent" />
       </div>
         <SearchBox items={searchItems} />
