@@ -1,8 +1,6 @@
 /** Fotoğraflar Wikimedia Commons'tan; sahibi ve lisansı her kayıtta belirtilir. Doğrulanmamış duraklar bilerek yok. */
 export type Photo = { src: string; alt: string; author: string; license: string; page: string; pos?: string };
 
-export const heroPhoto: Photo = {"src": "/art/hero-kale.jpg", "alt": "Afyonkarahisar Kalesi ve şehir", "author": "Ingeborg Simon", "license": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Burgberg_Afyonkarahisar_01.jpg"};
-
 export const photos: Record<string, Photo> = {
   "afyon-muzesi": {"src": "/photos/afyon-muzesi.jpg", "alt": "Afyonkarahisar Müzesi fotoğrafı", "author": "Nabbegat", "license": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Afyonkarahisar_M%C3%BCzesi_01.jpg"},
   "ulu-cami": {"src": "/photos/ulu-cami.jpg", "alt": "Afyon Ulu Cami fotoğrafı", "author": "Dosseman", "license": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Afyonkarahisar_Ulu_Camii_Exterior_1881.jpg"},

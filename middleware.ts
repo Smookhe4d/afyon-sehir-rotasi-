@@ -22,7 +22,9 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  const { data: { user } } = await supabase.auth.getUser();
+  // getSession çerezi yerelde okur (ağ çağrısı yok) ve süresi dolmuşsa yeniler; sayfa açılışını hızlandırır.
+  const { data: { session } } = await supabase.auth.getSession();
+  const user = session?.user ?? null;
 
   if (user && !user.is_anonymous && path === "/giris") return NextResponse.redirect(new URL("/", request.url));
   return response;

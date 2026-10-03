@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import PhotoSlot from "@/components/PhotoSlot";
+import { routeCover } from "@/lib/covers";
 import { CategoryChip, routeMetaLine } from "@/components/RouteMeta";
 import { categoryLabels, routes, scopeLabels } from "@/lib/routes";
 import { getPlace } from "@/lib/places";
@@ -21,7 +22,7 @@ export default function RouteBrowser() {
   return (
     <>
       <div className="px-5">
-        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rota veya mekân ara (ör. Ulu Cami)" aria-label="Rota ara" className="h-12 w-full rounded-full border border-line bg-white px-5 text-[15px] outline-none focus:border-terra" />
+        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rota veya mekân ara (ör. Ulu Cami)" aria-label="Rota ara" className="h-12 w-full rounded-full border border-line bg-white shadow-card px-5 text-[15px] outline-none focus:border-terra" />
         <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1" role="group" aria-label="Kategori">
           {([["", "Tümü"], ...cats.map((c) => [c, categoryLabels[c]])] as [RouteCategory | "", string][]).map(([v, l]) => (
             <button key={v || "all"} type="button" aria-pressed={cat === v} onClick={() => setCat(v)} className={`h-10 shrink-0 rounded-full border px-4 text-[13px] font-semibold ${cat === v ? "border-navy bg-navy text-white" : "border-line bg-white"}`}>{l}</button>
@@ -32,11 +33,11 @@ export default function RouteBrowser() {
       {groups.map(({ s, items }) => (
         <section key={s} className="mt-6">
           <h2 className="px-5 pb-3 font-display text-lg font-semibold">{scopeLabels[s]} <span className="text-sm font-medium text-mute">· {items.length} rota</span></h2>
-          <ul className="flex flex-col gap-2.5 px-5">
+          <ul className="stagger flex flex-col gap-2.5 px-5">
             {items.map((r) => (
               <li key={r.slug}>
-                <Link href={`/rotalar/${r.slug}`} className="flex gap-3 rounded-3xl border border-line bg-white p-2.5 shadow-sm">
-                  <PhotoSlot ids={r.stops.map((s) => s.placeId)} label={false} className="h-[88px] w-[88px] shrink-0 rounded-2xl" />
+                <Link href={`/rotalar/${r.slug}`} className="flex gap-3 rounded-3xl border border-line bg-white shadow-card p-2.5">
+                  <PhotoSlot id={routeCover[r.slug]} label={false} className="h-[88px] w-[88px] shrink-0 rounded-2xl" />
                   <div className="flex min-w-0 flex-col gap-1"><CategoryChip r={r} /><span className="font-display text-[16px] font-semibold leading-tight">{r.title}</span><span className="mt-auto text-xs font-semibold text-mute">{routeMetaLine(r)}</span></div>
                 </Link>
               </li>

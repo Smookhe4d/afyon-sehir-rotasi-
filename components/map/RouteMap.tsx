@@ -195,7 +195,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
             </div>
             <div className="mt-3 flex gap-2">
               <Link href={`/duraklar/${sel.id}`} className="terra-grad flex h-11 flex-1 items-center justify-center rounded-full text-sm font-bold text-white">Durak bilgisi</Link>
-              <a href={directionsUrl(sel.coords, me?.pos)} target="_blank" rel="noopener noreferrer" className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-4 text-sm font-bold text-navy">Yol tarifi</a>
+              <a href={directionsUrl(sel.coords, me?.pos)} target="_blank" rel="noopener noreferrer" className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 shadow-card px-4 text-sm font-bold text-navy">Yol tarifi</a>
             </div>
           </div>
         )}

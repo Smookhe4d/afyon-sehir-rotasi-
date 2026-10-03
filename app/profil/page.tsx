@@ -33,7 +33,7 @@ export default async function Profil() {
         <p className="text-[12.5px] text-mute">{guest ? "Misafir hesabı" : user.email}</p>
         {guest && <p className="mt-3 rounded-2xl bg-sand px-4 py-3 text-sm text-ink-2">Misafir olarak rota gezebilir, favori ekleyebilirsiniz. Paylaşım ve yorum için hesap oluşturun.<Link href="/giris" className="ml-1 font-bold text-terra" prefetch={false}>Kayıt ol</Link></p>}
 
-        <dl className="mt-5 grid grid-cols-3 rounded-[22px] border border-line bg-white py-3 text-center shadow-sm">
+        <dl className="mt-5 grid grid-cols-3 rounded-[22px] border border-line bg-white shadow-card py-3 text-center">
           {[["Tamamlanan", completed.length], ["Ziyaret edilen durak", stops], ["Rozet", earned.size]].map(([k, v]) => (
             <div key={k as string}><dd className="font-display text-[22px] font-semibold leading-none">{v}</dd><dt className="mt-1 text-[11px] font-semibold text-mute">{k}</dt></div>
           ))}
@@ -56,17 +56,17 @@ export default async function Profil() {
 
         {ongoing.length > 0 && <><h2 className="mt-7 font-display text-xl font-semibold">Devam eden rotalar</h2>
           <ul className="mt-3 flex flex-col gap-2.5">{ongoing.map((p) => { const r = getRoute(p.route_slug); if (!r) return null; const total = new Set(r.stops.map((s) => s.placeId)).size; return (
-            <li key={p.route_slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white p-3.5 shadow-sm">
+            <li key={p.route_slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white shadow-card p-3.5">
               <div className="flex justify-between text-xs font-bold"><span className="text-terra">DEVAM EDEN</span><span>{p.visited_place_ids.length} / {total} durak</span></div>
               <p className="mt-1 font-display font-semibold leading-tight">{r.title}</p>
               <div className="mt-2 h-2 overflow-hidden rounded-full bg-sand"><div className="terra-grad h-full rounded-full" style={{ width: `${(p.visited_place_ids.length / total) * 100}%` }} /></div></Link></li>); })}</ul></>}
 
         <h2 className="mt-7 font-display text-xl font-semibold">Favori rotalar</h2>
         {(favs.data ?? []).length === 0 ? <p className="mt-2 text-sm text-mute">Henüz favori rota yok.</p> : (
-          <ul className="mt-3 flex flex-col gap-2">{(favs.data ?? []).map((f) => { const r = getRoute(f.route_slug); return r ? <li key={f.route_slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold">{r.title}</Link></li> : null; })}</ul>
+          <ul className="mt-3 flex flex-col gap-2">{(favs.data ?? []).map((f) => { const r = getRoute(f.route_slug); return r ? <li key={f.route_slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white shadow-card px-4 py-3 text-sm font-bold">{r.title}</Link></li> : null; })}</ul>
         )}
 
-        <form action="/auth/cikis" method="post" className="mt-8"><button className="h-12 w-full rounded-full border border-line bg-white text-sm font-bold">Çıkış yap</button></form>
+        <form action="/auth/cikis" method="post" className="mt-8"><button className="h-12 w-full rounded-full border border-line bg-white shadow-card text-sm font-bold">Çıkış yap</button></form>
       </div>
     </main>
   );

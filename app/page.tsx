@@ -3,7 +3,7 @@ import PhotoSlot from "@/components/PhotoSlot";
 import { CategoryChip, routeMetaLine } from "@/components/RouteMeta";
 import SearchBox, { type SearchItem } from "@/components/SearchBox";
 import { placeListFull } from "@/lib/placesFull";
-import { heroPhoto } from "@/lib/photos";
+import { routeCover } from "@/lib/covers";
 import { routes } from "@/lib/routes";
 
 const searchItems: SearchItem[] = [
@@ -18,9 +18,8 @@ export default function Kesfet() {
       <section className="relative z-10 h-[316px] bg-navy px-5 pt-4 text-white">
       <div className="absolute inset-0 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/hero-kale.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[30%_35%]" />
+        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[40%_50%]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/70 via-[#08122c]/20 to-transparent" />
-        <a href={heroPhoto.page} target="_blank" rel="noopener noreferrer" className="absolute bottom-2 right-3 text-[9px] text-white/80">Foto: {heroPhoto.author} · {heroPhoto.license}</a>
       </div>
         <SearchBox items={searchItems} />
         <div className="relative mt-5">
@@ -30,10 +29,10 @@ export default function Kesfet() {
         </div>
       </section>
       <h2 className="mx-5 mt-14 font-display text-xl font-semibold">Afyonkarahisar rotaları</h2>
-      <div className="mt-4 flex gap-3 overflow-x-auto px-5 pb-2">
+      <div className="stagger mt-4 flex gap-3 overflow-x-auto px-5 pb-4">
         {local.map((r) => (
-          <Link key={r.slug} href={`/rotalar/${r.slug}`} className="flex w-[236px] shrink-0 flex-col rounded-[28px] border border-line bg-white p-2.5 shadow-sm">
-            <PhotoSlot ids={r.stops.map((s) => s.placeId)} label={false} className="h-[150px] rounded-[20px]" />
+          <Link key={r.slug} href={`/rotalar/${r.slug}`} className="flex w-[236px] shrink-0 flex-col rounded-[28px] border border-line bg-white shadow-card p-2.5">
+            <PhotoSlot id={routeCover[r.slug]} label={false} className="h-[150px] rounded-[20px]" />
             <div className="mt-3 flex flex-1 flex-col gap-1.5"><CategoryChip r={r} />
               <p className="font-display text-[17px] font-semibold leading-tight">{r.title}</p>
               <p className="mt-auto text-xs font-semibold text-mute">{routeMetaLine(r)}</p></div>

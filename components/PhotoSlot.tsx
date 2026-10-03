@@ -1,10 +1,9 @@
 import { photos } from "@/lib/photos";
 
-type Props = { className?: string; label?: boolean; /** Tek durak */ id?: string; /** Rota kapağı: ilk fotoğraflı durak */ ids?: string[]; /** Küçük telif etiketi */ credit?: boolean };
+type Props = { className?: string; label?: boolean; /** Tek durak */ id?: string; /** Küçük telif etiketi */ credit?: boolean };
 
-export default function PhotoSlot({ className = "", label = true, id, ids, credit = false }: Props) {
-  const key = id && photos[id] ? id : ids?.find((i) => photos[i]);
-  const ph = key ? photos[key] : undefined;
+export default function PhotoSlot({ className = "", label = true, id, credit = false }: Props) {
+  const ph = id ? photos[id] : undefined;
   if (!ph) {
     return (
       <div className={`photo-ph flex items-center justify-center ${className}`} role="img" aria-label="Fotoğraf yakında eklenecek">

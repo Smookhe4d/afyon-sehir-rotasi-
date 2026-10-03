@@ -37,10 +37,10 @@ export function Composer({ userId, canPost }: { userId: string; canPost: boolean
   }
 
   return (
-    <form onSubmit={submit} className="mx-5 rounded-[28px] border border-line bg-white p-3 shadow-sm">
+    <form onSubmit={submit} className="mx-5 rounded-[28px] border border-line bg-white shadow-card p-3">
       <textarea value={text} onChange={(e) => setText(e.target.value)} maxLength={1000} required rows={3} placeholder="Bugünkü rotanı paylaş…" aria-label="Paylaşım metni" className="w-full resize-none rounded-2xl bg-cream px-3.5 py-3 text-sm outline-none" />
       <div className="mt-2 flex flex-wrap items-center gap-2">
-        <select value={slug} onChange={(e) => setSlug(e.target.value)} aria-label="Rota" className="h-10 min-w-0 flex-1 rounded-full border border-line bg-white px-3 text-xs font-semibold">
+        <select value={slug} onChange={(e) => setSlug(e.target.value)} aria-label="Rota" className="h-10 min-w-0 flex-1 rounded-full border border-line bg-white shadow-card px-3 text-xs font-semibold">
           <option value="">Rota seç (isteğe bağlı)</option>
           {routes.map((r) => <option key={r.slug} value={r.slug}>{r.title}</option>)}
         </select>
@@ -59,7 +59,7 @@ export function PostCard({ p, userId, canComment }: { p: PostRow; userId: string
   const [liked, setLiked] = useState(p.liked); const [likes, setLikes] = useState(p.likes);
   const [open, setOpen] = useState(false); const [c, setC] = useState(""); const [err, setErr] = useState("");
   return (
-    <article className="mx-5 rounded-[28px] border border-line bg-white p-3 shadow-sm">
+    <article className="mx-5 rounded-[28px] border border-line bg-white shadow-card p-3">
       <div className="flex items-start justify-between gap-2">
         <div><p className="text-sm font-bold">{p.author}</p><p className="text-[11px] text-mute">{p.route_title ? `${p.route_title} · ` : ""}{fmt.format(new Date(p.created_at))}</p></div>
         {p.user_id === userId && <button type="button" onClick={() => run(async () => { await deletePost(p.id); })} className="text-[11px] font-bold text-terra">Sil</button>}

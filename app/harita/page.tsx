@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MapView from "@/components/map/MapView";
+import MapView from "@/components/map/LazyMap";
 import { allMapStops, mapStopsForIds, mapStopsForRoute, routeOptions } from "@/lib/map/data";
 
 export const metadata = { title: "Harita" };
