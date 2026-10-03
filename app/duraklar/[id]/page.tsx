@@ -61,6 +61,8 @@ export default async function Durak({ params }: { params: Promise<{ id: string }
           <ul className="mt-2 flex flex-col gap-2">{inRoutes.map((r) => <li key={r.slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white shadow-card px-4 py-3 text-sm font-semibold">{r.title}</Link></li>)}</ul></>
         )}
 
+        <Link href={`/geri-bildirim?durak=${p.id}&tur=katki`} className="mt-6 flex items-center justify-between rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold shadow-card">Bilgi hatalı mı, eklemek istediğiniz var mı? <span className="text-terra" aria-hidden>›</span></Link>
+
         {p.sources && p.sources.length > 0 && (
           <><h2 className="mt-6 font-display text-base font-semibold">Kaynaklar</h2>
           <ul className="mt-1.5 space-y-1 text-[12px] text-mute">{p.sources.map((s) => <li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-2">{s.title}</a></li>)}</ul></>

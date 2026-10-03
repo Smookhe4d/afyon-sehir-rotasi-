@@ -6,11 +6,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AttributionControl, LngLatBounds, Map as MLMap, Marker, setWorkerUrl } from "maplibre-gl";
 import { setVisited } from "@/app/actions";
 import { bearingText, fetchNav, formatDuration, type NavResult, type TravelMode } from "@/lib/map/nav";
+import { useGroup } from "@/lib/map/useGroup";
 import { loadWarmStyle } from "@/lib/map/style";
 import { circlePolygon, directionsUrl, formatDistance, haversineM, type LngLat } from "@/lib/map/geo";
 
 export type MapStop = { id: string; name: string; area: string; coords: LngLat; approx: boolean; index: number; note?: string };
-type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode };
+type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode; grup?: string; lider?: boolean };
 
 // MapLibre 6 çalışma dosyası (worker) ayrı bir modüldür; aynı kökenli bir blob üzerinden CDN'den içe aktarılır.
 const MAPLIBRE_VERSION = "6.11.2";
@@ -29,7 +30,7 @@ function pinEl(label: string, approx: boolean) {
   return el;
 }
 
-export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus" }: Props) {
+export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false }: Props) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MLMap | null>(null);
   const markers = useRef<Marker[]>([]);
@@ -52,6 +53,17 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   const lastFetch = useRef<{ t: number; pos: LngLat; cur: number } | null>(null);
   const lastSpoken = useRef("");
   const target = guide ? stops[cur] ?? null : null;
+  const [gname, setGname] = useState("");
+  const [gdraft, setGdraft] = useState("");
+  const [gopen, setGopen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const gMarkers = useRef<globalThis.Map<string, Marker>>(new globalThis.Map());
+  useEffect(() => { try { setGname(localStorage.getItem("afyon-ad") ?? ""); } catch { /* yok say */ } }, []);
+  const applyStop = useCallback((n: number) => {
+    if (n < 0 || n >= stops.length) return;
+    setCur(n); setArrivedId(null); setNav(null); setFinished(false); lastFetch.current = null; follow.current = true;
+  }, [stops.length]);
+  const group = useGroup({ code: grup, leader: lider, name: gname, pos: me?.pos ?? null, cur, onStop: applyStop });
 
   const sel = useMemo(() => stops.find((s) => s.id === selected) ?? null, [stops, selected]);
   const selIdx = sel ? stops.findIndex((s) => s.id === sel.id) : -1;
@@ -128,27 +140,29 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   }, [stops]);
   useEffect(() => { if (ready && initialStopId) focusStop(initialStopId); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [ready]);
 
-  // Canlı konum
+  // Canlı konum: önce önbellekteki/ağ tabanlı hızlı konum, ardından yüksek doğruluklu takip
   const startLive = useCallback(() => {
     if (!("geolocation" in navigator)) { setGeoState("error"); return; }
     setGeoState("asking");
     follow.current = true;
     if (watchId.current !== null) navigator.geolocation.clearWatch(watchId.current);
     let first = true;
+    const handle = (p: GeolocationPosition) => {
+      const pos: LngLat = [p.coords.longitude, p.coords.latitude];
+      setMe({ pos, acc: p.coords.accuracy }); setGeoState("on");
+      const m = map.current; if (!m) return;
+      if (!meMarker.current) {
+        const el = document.createElement("div"); el.className = "afy-me"; el.innerHTML = '<span class="pulse"></span><span class="dot"></span>';
+        meMarker.current = new Marker({ element: el }).setLngLat(pos).addTo(m);
+      } else meMarker.current.setLngLat(pos);
+      (m.getSource("acc") as unknown as { setData: (d: GeoJSON.FeatureCollection) => void } | undefined)?.setData({ type: "FeatureCollection", features: [circlePolygon(pos, Math.max(p.coords.accuracy, 8))] });
+      if (first || follow.current) { m.easeTo({ center: pos, zoom: Math.max(m.getZoom(), 15), duration: first ? 500 : 800 }); first = false; }
+    };
+    navigator.geolocation.getCurrentPosition(handle, () => {}, { enableHighAccuracy: false, maximumAge: 600000, timeout: 6000 });
     watchId.current = navigator.geolocation.watchPosition(
-      (p) => {
-        const pos: LngLat = [p.coords.longitude, p.coords.latitude];
-        setMe({ pos, acc: p.coords.accuracy }); setGeoState("on");
-        const m = map.current; if (!m) return;
-        if (!meMarker.current) {
-          const el = document.createElement("div"); el.className = "afy-me"; el.innerHTML = '<span class="pulse"></span><span class="dot"></span>';
-          meMarker.current = new Marker({ element: el }).setLngLat(pos).addTo(m);
-        } else meMarker.current.setLngLat(pos);
-        (m.getSource("acc") as unknown as { setData: (d: GeoJSON.FeatureCollection) => void } | undefined)?.setData({ type: "FeatureCollection", features: [circlePolygon(pos, Math.max(p.coords.accuracy, 8))] });
-        if (first || follow.current) { m.easeTo({ center: pos, zoom: Math.max(m.getZoom(), 15), duration: 800 }); first = false; }
-      },
-      (err) => setGeoState(err.code === 1 ? "denied" : "error"),
-      { enableHighAccuracy: true, maximumAge: 4000, timeout: 20000 },
+      handle,
+      (err) => setGeoState((g) => (g === "on" ? g : err.code === 1 ? "denied" : "error")),
+      { enableHighAccuracy: true, maximumAge: 8000, timeout: 20000 },
     );
   }, []);
   const stopLive = useCallback(() => {
@@ -157,6 +171,24 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     (map.current?.getSource("acc") as unknown as { setData: (d: GeoJSON.FeatureCollection) => void } | undefined)?.setData({ type: "FeatureCollection", features: [] });
     setMe(null); setGeoState("off");
   }, []);
+
+  // Grup üyelerinin işaretçileri
+  useEffect(() => {
+    const m = map.current; if (!m || !ready) return;
+    const seen = new Set<string>();
+    for (const g of group.members) {
+      if (g.id === group.myId || !g.pos) continue;
+      seen.add(g.id);
+      let mk = gMarkers.current.get(g.id);
+      if (!mk) {
+        const el = document.createElement("div");
+        el.style.cssText = `width:30px;height:30px;border-radius:50%;background:${g.color};color:#fff;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font:700 12px sans-serif`;
+        el.textContent = g.name.slice(0, 1).toLocaleUpperCase("tr"); el.title = g.name;
+        mk = new Marker({ element: el }).setLngLat(g.pos).addTo(m); gMarkers.current.set(g.id, mk);
+      } else mk.setLngLat(g.pos);
+    }
+    gMarkers.current.forEach((mk, id) => { if (!seen.has(id)) { mk.remove(); gMarkers.current.delete(id); } });
+  }, [group.members, group.myId, ready]);
 
   // Yönlendirme: açılışta canlı konumu başlat, ekranı açık tut
   useEffect(() => {
@@ -175,13 +207,17 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     if (lf && lf.cur === cur && Date.now() - lf.t < 30000 && haversineM(lf.pos, me.pos) < 40) return;
     lastFetch.current = { t: Date.now(), pos: me.pos, cur };
     const ctl = new AbortController();
+    const slow = setTimeout(() => ctl.abort(), 9000);
+    // Yol hesaplanırken anında düz çizgi göster
+    (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.Feature) => void } | undefined)?.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [me.pos, target.coords] } });
     fetchNav(me.pos, target.coords, travelMode, ctl.signal).then((r) => {
-      if (ctl.signal.aborted) return;
+      clearTimeout(slow);
+      if (ctl.signal.aborted && !r) { setNav(null); setNavFail(true); return; }
       setNav(r); setNavFail(!r);
       (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.Feature | GeoJSON.FeatureCollection) => void } | undefined)?.setData(
         r ? { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: r.coords } } : { type: "FeatureCollection", features: [] });
     });
-    return () => ctl.abort();
+    return () => { clearTimeout(slow); ctl.abort(); };
   }, [guide, target, me, cur, arrivedId, finished, travelMode]);
 
   // Varış algılama (45 m)
@@ -198,7 +234,8 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     const n = cur + 1;
     if (n >= stops.length) { setFinished(true); setNav(null); (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.FeatureCollection) => void } | undefined)?.setData({ type: "FeatureCollection", features: [] }); return; }
     setCur(n); setArrivedId(null); setNav(null); lastFetch.current = null; focusStop(stops[n].id); follow.current = true;
-  }, [cur, stops, focusStop]);
+    if (grup && lider) group.broadcastStop(n);
+  }, [cur, stops, focusStop, grup, lider, group]);
 
   const step = nav?.steps[0];
   const straightD = target && me ? haversineM(me.pos, target.coords) : null;
@@ -237,6 +274,17 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
         </div>
       </div>
 
+      {grup && !gname && (
+        <div className="absolute inset-0 z-30 flex items-center justify-center bg-navy/50 p-6">
+          <form className="glass w-full max-w-[340px] rounded-[28px] p-5" onSubmit={(e) => { e.preventDefault(); const n = gdraft.trim().slice(0, 24); if (n.length < 2) return; try { localStorage.setItem("afyon-ad", n); } catch { /* yok say */ } setGname(n); }}>
+            <p className="font-display text-xl font-semibold text-navy">Gruba katılın</p>
+            <p className="mt-1 text-xs text-ink-2">Kod: <b className="tracking-[2px]">{grup}</b>. Grup arkadaşlarınız adınızı ve konumunuzu haritada görecek.</p>
+            <input value={gdraft} onChange={(e) => setGdraft(e.target.value)} placeholder="Adınız" maxLength={24} autoFocus className="mt-3 h-12 w-full rounded-2xl border border-line bg-white px-4 text-[15px] outline-none focus:border-terra" />
+            <button disabled={gdraft.trim().length < 2} className="terra-grad mt-3 h-12 w-full rounded-full text-sm font-bold text-white disabled:opacity-50">Katıl</button>
+          </form>
+        </div>
+      )}
+
       {/* Yönlendirme: sıradaki manevra */}
       {guide && target && !finished && arrivedId !== target.id && (
         <div className="absolute left-3 right-[68px] top-[64px] z-10 flex items-center gap-3 rounded-[22px] bg-navy/95 p-3 text-white shadow-lift backdrop-blur">
@@ -245,7 +293,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
           </span>
           <div className="min-w-0 flex-1">
             {step ? (<><p className="font-display text-[20px] font-semibold leading-none">{step.dist < 950 ? `${Math.round(step.dist / 10) * 10} m` : formatDistance(step.dist)}</p><p className="mt-1 truncate text-[13px] font-medium opacity-90">{step.text}</p></>)
-              : me ? (<p className="text-[13px] font-semibold leading-snug">{navFail && straightD != null ? `${target.name} ${bearingText(me.pos, target.coords)} yönünde, ${formatDistance(straightD)}` : "Yol hesaplanıyor…"}</p>) : <p className="text-[13px] font-semibold">Konumunuz bekleniyor…</p>}
+              : me ? (<p className="text-[13px] font-semibold leading-snug">{straightD != null ? `${target.name} ${bearingText(me.pos, target.coords)} yönünde, ${formatDistance(straightD)}${navFail ? "" : " · yol hesaplanıyor"}` : "Yol hesaplanıyor…"}</p>) : <p className="text-[13px] font-semibold">Konumunuz bekleniyor…</p>}
           </div>
           <button type="button" aria-pressed={voiceOn} aria-label="Sesli yönlendirme" onClick={() => setVoiceOn((v) => !v)} className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${voiceOn ? "bg-white text-navy" : "bg-white/15 text-white"}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" /></svg>
@@ -255,6 +303,31 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
 
       {/* Alt: durak kartı */}
       <div className="absolute inset-x-3 z-10 flex flex-col gap-2" style={{ bottom: full ? 12 : bottomInset }}>
+        {grup && gname && (
+          <div className="flex flex-col items-center gap-2">
+            {gopen && (
+              <div className="glass w-full rounded-[22px] p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-mute">Grup kodu <b className="ml-1 font-display text-[17px] tracking-[3px] text-navy">{grup}</b></p>
+                  <button type="button" onClick={() => { const u = `${location.origin}/harita?rota=${routeSlug ?? ""}&takip=1&mod=${travelMode}&grup=${grup}`; if (navigator.share) { navigator.share({ title: "Afyon turuna katıl", text: `Afyon Şehir Rotası grup turuna katıl (kod ${grup})`, url: u }).catch(() => {}); } else { navigator.clipboard?.writeText(u); setCopied(true); setTimeout(() => setCopied(false), 1800); } }} className="rounded-full bg-navy px-3 py-1.5 text-[11px] font-bold text-white">{copied ? "Kopyalandı" : "Davet et"}</button>
+                </div>
+                <ul className="mt-2 flex flex-col gap-1.5">
+                  {[{ id: group.myId, name: `${gname} (siz)`, color: "#B4532A", pos: me?.pos ?? null, cur, leader: lider }, ...group.members.filter((g) => g.id !== group.myId)].map((g) => (
+                    <li key={g.id} className="flex items-center gap-2 text-[13px] font-semibold">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold text-white" style={{ background: g.color }}>{g.name.slice(0, 1).toLocaleUpperCase("tr")}</span>
+                      <span className="min-w-0 flex-1 truncate">{g.name}{g.leader ? " · rehber" : ""}</span>
+                      <span className="text-[11px] text-mute">{g.id === group.myId ? "" : g.pos && me ? formatDistance(haversineM(me.pos, g.pos)) : "konum yok"}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <button type="button" onClick={() => setGopen((o) => !o)} aria-expanded={gopen} className="glass rounded-full px-4 py-2 text-xs font-bold text-navy">
+              <span className={`mr-1.5 inline-block h-2 w-2 rounded-full ${group.status === "ok" ? "bg-[#1F9D6B]" : group.status === "error" ? "bg-[#C2410C]" : "bg-[#CA8A04]"}`} />
+              Grup {grup} · {Math.max(1, group.members.length)} kişi{group.status === "error" ? " · bağlantı yok" : group.status === "connecting" ? " · bağlanıyor" : ""}
+            </button>
+          </div>
+        )}
         {geoState === "asking" && <p className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">Konumunuz aranıyor…</p>}
         {geoState === "denied" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">Konum izni verilmedi. Tarayıcı ayarlarından izin verebilirsiniz.</p>}
         {geoState === "error" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">Konum alınamadı. Daha açık bir alanda tekrar deneyin.</p>}
@@ -268,7 +341,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
                 <p className="mt-1 text-xs text-ink-2">Durak ziyaret edildi olarak işaretlendi.</p>
                 <div className="mt-3 flex gap-2">
                   <Link href={`/duraklar/${target.id}`} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-4 text-sm font-bold text-navy shadow-card">Anlatımı dinle</Link>
-                  <button type="button" onClick={nextStop} className="terra-grad h-11 flex-1 rounded-full text-sm font-bold text-white">{cur + 1 < stops.length ? `Sonraki: ${stops[cur + 1].name}` : "Rotayı bitir"}</button>
+                  {grup && !lider ? <p className="flex h-11 flex-1 items-center rounded-full bg-sand px-4 text-xs font-semibold text-ink-2">Rehber ilerletince grup sonraki durağa geçer</p> : <button type="button" onClick={nextStop} className="terra-grad h-11 flex-1 rounded-full text-sm font-bold text-white">{cur + 1 < stops.length ? `Sonraki: ${stops[cur + 1].name}` : "Rotayı bitir"}</button>}
                 </div>
               </>
             ) : (
@@ -284,7 +357,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
                 </div>
                 <div className="mt-3 flex gap-2">
                   <Link href={`/duraklar/${target.id}`} className="flex h-11 flex-1 items-center justify-center rounded-full border border-line bg-white/80 text-sm font-bold text-navy shadow-card">Durak bilgisi</Link>
-                  <button type="button" onClick={nextStop} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-5 text-sm font-bold text-navy shadow-card">Atla</button>
+                  {!(grup && !lider) && <button type="button" onClick={nextStop} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-5 text-sm font-bold text-navy shadow-card">Atla</button>}
                 </div>
               </>
             )}

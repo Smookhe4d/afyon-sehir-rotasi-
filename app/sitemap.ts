@@ -5,7 +5,7 @@ import { routes } from "@/lib/routes";
 const base = "https://afyon-sehir-rotasi.vercel.app";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    ...["", "/rotalar", "/harita", "/rotani-belirle", "/sosyal", "/gizlilik", "/sartlar"].map((p) => ({ url: base + p })),
+    ...["", "/rotalar", "/harita", "/rotani-belirle", "/sosyal", "/gizlilik", "/sartlar", "/hakkinda", "/geri-bildirim"].map((p) => ({ url: base + p })),
     ...routes.map((r) => ({ url: `${base}/rotalar/${r.slug}` })),
     ...placeList.map((p) => ({ url: `${base}/duraklar/${p.id}` })),
   ];

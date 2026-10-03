@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Track from "@/components/Track";
 import SwRegister from "@/components/SwRegister";
 import Onboarding from "@/components/Onboarding";
 import GlassTab from "@/components/GlassTab";
@@ -30,6 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <GlassTab />
         <Onboarding />
         <SwRegister />
+        <Track />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CategoryChip, routeMetaLine } from "@/components/RouteMeta";
+import StartPanel from "@/components/route/StartPanel";
 import { FavoriteButton, ShareButton, StopChecklist } from "@/components/route/RouteControls";
 import Comments, { type CommentRow } from "@/components/route/Comments";
 import { routes, getRoute, routeStops, modeLabels, difficultyLabels } from "@/lib/routes";
@@ -58,7 +59,9 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
         <CategoryChip r={r} />
         <h1 className="mt-2 font-display text-[25px] font-semibold leading-tight">{r.title}</h1>
         <p className="mt-1.5 text-xs font-semibold text-mute">{routeMetaLine(r)}{r.provinces ? ` · ${r.provinces.join(", ")}` : ""}</p>
-        <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-ink-2">{r.description.map((p, i) => <p key={i}>{p}</p>)}</div>
+        <StartPanel slug={slug} mode={r.modes?.includes("yuruyus") ? "yuruyus" : r.modes?.[0] ?? "arac"} defaultName={profile && !profile.is_guest ? profile.display_name : ""} />
+
+        <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink-2">{r.description.map((p, i) => <p key={i}>{p}</p>)}</div>
 
         <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
           {r.distanceKm && <div className="rounded-2xl border border-line bg-white/70 shadow-card p-3"><dt className="text-[11px] font-semibold text-mute">Uzunluk</dt><dd className="font-display text-lg font-semibold">{r.distanceKm} km</dd>{r.distanceNote && <dd className="text-[11px] text-mute">{r.distanceNote}</dd>}</div>}

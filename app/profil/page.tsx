@@ -21,6 +21,8 @@ export default async function Profil() {
   const ongoing = progress.filter((p) => !p.completed_at);
   const stops = progress.reduce((n, p) => n + p.visited_place_ids.length, 0);
   const earned = earnedBadges({ started: progress.map((p) => p.route_slug), completed, hasPhotoPost: (photo.count ?? 0) > 0 });
+  const adminRes = await supabase.rpc("is_admin");
+  const isAdmin = adminRes.data === true;
   const guest = profile?.is_guest ?? false;
   const name = profile?.display_name ?? "Gezgin";
 
@@ -66,6 +68,11 @@ export default async function Profil() {
           <ul className="mt-3 flex flex-col gap-2">{(favs.data ?? []).map((f) => { const r = getRoute(f.route_slug); return r ? <li key={f.route_slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white shadow-card px-4 py-3 text-sm font-bold">{r.title}</Link></li> : null; })}</ul>
         )}
 
+        <nav aria-label="Diğer" className="mt-8 flex flex-col gap-2">
+          {[["/geri-bildirim", "Öneri, katkı ve şikayet"], ["/hakkinda", "Hakkında"], ["/gizlilik", "Gizlilik"], ["/sartlar", "Kullanım Şartları"], ...(isAdmin ? [["/yonetim", "Yönetim paneli"]] : [])].map(([h, l]) => (
+            <Link key={h} href={h} className="flex h-12 items-center justify-between rounded-2xl border border-line bg-white px-4 text-sm font-bold shadow-card">{l}<span className="text-terra" aria-hidden>›</span></Link>
+          ))}
+        </nav>
         <form action="/auth/cikis" method="post" className="mt-8"><button className="h-12 w-full rounded-full border border-line bg-white shadow-card text-sm font-bold">Çıkış yap</button></form>
       </div>
     </main>

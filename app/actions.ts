@@ -183,3 +183,17 @@ export async function updateDisplayName(name: string): Promise<Result> {
   revalidatePath("/profil"); revalidatePath("/sosyal");
   return { ok: true };
 }
+
+const KINDS = ["oneri", "sikayet", "katki", "hata"] as const;
+export async function sendFeedback(input: { kind: string; placeId?: string; message: string; contact?: string; website?: string }): Promise<Result> {
+  if (input.website) return { ok: true }; // bal küpü: botlar bu alanı doldurur
+  if (!KINDS.includes(input.kind as (typeof KINDS)[number])) return fail("Geçersiz tür.");
+  const message = input.message.trim();
+  if (message.length < 5 || message.length > 2000) return fail("Mesaj 5 ile 2000 karakter arasında olmalı.");
+  const placeId = input.placeId && places[input.placeId] ? input.placeId : null;
+  const contact = input.contact?.trim().slice(0, 120) || null;
+  const { supabase } = await getSession();
+  const { error } = await supabase.from("feedback").insert({ kind: input.kind, place_id: placeId, message, contact });
+  if (error) return fail(/PGRST205|42P01|does not exist/i.test(`${error.code} ${error.message}`) ? "Geri bildirim sistemi henüz etkinleştirilmedi." : "Gönderilemedi. Lütfen tekrar deneyin.");
+  return { ok: true };
+}
