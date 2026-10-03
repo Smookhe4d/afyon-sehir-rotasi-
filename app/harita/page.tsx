@@ -14,7 +14,7 @@ export default async function Harita({ searchParams }: { searchParams: Promise<{
   const chip = "shrink-0 rounded-full px-3.5 py-2 text-xs font-bold";
   return (
     <main className="relative h-dvh">
-      <MapView key={custom ? `ozel-${duraklar}` : opt?.slug ?? "tum"} stops={stops} line={data?.line} title={custom?.stops.length ? "Rotam" : opt ? opt.title : "Tüm duraklar"} initialStopId={durak} bottomInset={108} guide={takip === "1" && Boolean(opt || custom)} routeSlug={opt?.slug} grup={takip === "1" ? code : undefined} lider={lider === "1"} travelMode={mod === "arac" || mod === "bisiklet" ? mod : "yuruyus"} className="h-full w-full" />
+      <MapView key={custom ? `ozel-${duraklar}` : opt?.slug ?? "tum"} stops={stops} line={data?.line} title={custom?.stops.length ? "Rotam" : opt ? opt.title : "Tüm duraklar"} initialStopId={durak} bottomInset={108} guide={takip === "1" && Boolean(opt || custom)} routeSlug={opt?.slug} overview={!opt && !(custom && custom.stops.length)} grup={takip === "1" ? code : undefined} lider={lider === "1"} travelMode={mod === "arac" || mod === "bisiklet" ? mod : "yuruyus"} className="h-full w-full" />
       {takip !== "1" && <nav aria-label="Rota seçimi" className="absolute inset-x-0 top-[68px] z-10 flex gap-2 overflow-x-auto pl-3 pr-[68px] pb-1 [scrollbar-width:none]">
         <Link href="/harita" className={`${chip} ${!opt && !custom ? "terra-grad text-white" : "glass text-navy"}`}>Tümü</Link>
         {routeOptions.map((r) => (

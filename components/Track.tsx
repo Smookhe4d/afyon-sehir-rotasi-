@@ -12,7 +12,9 @@ export default function Track() {
     try {
       let sid = sessionStorage.getItem("afyon-sid");
       if (!sid) { sid = Math.random().toString(36).slice(2, 12); sessionStorage.setItem("afyon-sid", sid); }
-      void createClient().from("events").insert({ path: path.slice(0, 200), sid }).then(() => {}, () => {});
+      // Tablo henüz yoksa (SQL çalıştırılmadıysa) bu oturumda tekrar denenmez
+      if (sessionStorage.getItem("afyon-noevents")) return;
+      void createClient().from("events").insert({ path: path.slice(0, 200), sid }).then(({ error }) => { if (error) sessionStorage.setItem("afyon-noevents", "1"); }, () => {});
     } catch { /* ölçüm başarısızsa sessizce geç */ }
   }, [path]);
   return null;

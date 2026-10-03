@@ -3,7 +3,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "@/app/map.css";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AttributionControl, LngLatBounds, Map as MLMap, Marker, setWorkerUrl } from "maplibre-gl";
+import { AttributionControl, LngLatBounds, Map as MLMap, Marker, setWorkerUrl, type GeoJSONSource } from "maplibre-gl";
 import { setVisited } from "@/app/actions";
 import { bearingText, fetchNav, formatDuration, type NavResult, type TravelMode } from "@/lib/map/nav";
 import { useGroup } from "@/lib/map/useGroup";
@@ -11,7 +11,7 @@ import { loadWarmStyle } from "@/lib/map/style";
 import { circlePolygon, directionsUrl, formatDistance, haversineM, type LngLat } from "@/lib/map/geo";
 
 export type MapStop = { id: string; name: string; area: string; coords: LngLat; approx: boolean; index: number; note?: string };
-type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode; grup?: string; lider?: boolean };
+type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode; grup?: string; lider?: boolean; /** Tüm duraklar: çizgi yok, yakın duraklar kümelenir */ overview?: boolean };
 
 // MapLibre 6 çalışma dosyası (worker) ayrı bir modüldür; aynı kökenli bir blob üzerinden CDN'den içe aktarılır.
 const MAPLIBRE_VERSION = "6.11.2";
@@ -30,7 +30,7 @@ function pinEl(label: string, approx: boolean) {
   return el;
 }
 
-export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false }: Props) {
+export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false, overview = false }: Props) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MLMap | null>(null);
   const markers = useRef<Marker[]>([]);
@@ -39,7 +39,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   const follow = useRef(false);
   const roRef = useRef<ResizeObserver | null>(null);
   const [ready, setReady] = useState(false);
-  const [selected, setSelected] = useState<string | null>(initialStopId ?? stops[0]?.id ?? null);
+  const [selected, setSelected] = useState<string | null>(initialStopId ?? (overview ? null : stops[0]?.id ?? null));
   const [me, setMe] = useState<{ pos: LngLat; acc: number } | null>(null);
   const [geoState, setGeoState] = useState<"off" | "asking" | "on" | "denied" | "error">("off");
   const [full, setFull] = useState(false);
@@ -97,7 +97,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
       m.addControl(new AttributionControl({ compact: true }), "bottom-left");
       m.on("load", () => {
         if (!m) return;
-        m.addSource("route", { type: "geojson", data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: line && line.length > 1 ? line : stops.map((s) => s.coords) } } });
+        m.addSource("route", { type: "geojson", data: overview ? { type: "FeatureCollection", features: [] } : { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: line && line.length > 1 ? line : stops.map((s) => s.coords) } } });
         const real = Boolean(line && line.length > 1);
         m.addLayer({ id: "route-casing", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#FFFFFF", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 5, 15, 10], "line-opacity": 0.95 } });
         m.addLayer({ id: "route-line", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": TERRA, "line-width": ["interpolate", ["linear"], ["zoom"], 8, 2.5, 15, 5], ...(real ? {} : { "line-dasharray": [1.5, 2] }) } });
@@ -119,6 +119,31 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   useEffect(() => {
     const m = map.current; if (!m || !ready) return;
     markers.current.forEach((k) => k.remove()); markers.current = [];
+    if (overview) {
+      const fc: GeoJSON.FeatureCollection = { type: "FeatureCollection", features: stops.map((s) => ({ type: "Feature", properties: { id: s.id, approx: s.approx, name: s.name }, geometry: { type: "Point", coordinates: s.coords } })) };
+      const src = m.getSource("stops") as GeoJSONSource | undefined;
+      if (src) src.setData(fc);
+      else {
+        m.addSource("stops", { type: "geojson", data: fc, cluster: true, clusterRadius: 44, clusterMaxZoom: 13 });
+        m.addLayer({ id: "cl", type: "circle", source: "stops", filter: ["has", "point_count"], paint: { "circle-color": TERRA, "circle-radius": ["step", ["get", "point_count"], 15, 5, 19, 15, 24], "circle-stroke-width": 3, "circle-stroke-color": "#FFFFFF", "circle-opacity": 0.95 } });
+        m.addLayer({ id: "cl-n", type: "symbol", source: "stops", filter: ["has", "point_count"], layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Bold"], "text-size": 13, "text-allow-overlap": true }, paint: { "text-color": "#FFFFFF" } });
+        m.addLayer({ id: "pt", type: "circle", source: "stops", filter: ["!", ["has", "point_count"]], paint: { "circle-color": "#FFFFFF", "circle-radius": 7, "circle-stroke-width": 3, "circle-stroke-color": ["case", ["get", "approx"], "#C98A63", TERRA] } });
+        m.addLayer({ id: "pt-sel", type: "circle", source: "stops", filter: ["==", ["get", "id"], ""], paint: { "circle-color": TERRA, "circle-radius": 10, "circle-stroke-width": 3.5, "circle-stroke-color": "#FFFFFF" } });
+        m.addLayer({ id: "pt-label", type: "symbol", source: "stops", filter: ["!", ["has", "point_count"]], minzoom: 13.5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Bold"], "text-size": 11, "text-offset": [0, 1.3], "text-anchor": "top", "text-optional": true }, paint: { "text-color": "#0F2547", "text-halo-color": "#FFFFFF", "text-halo-width": 1.6 } });
+        m.on("click", "cl", async (e) => {
+          const f = e.features?.[0]; if (!f) return;
+          const z = await (m.getSource("stops") as GeoJSONSource).getClusterExpansionZoom(f.properties?.cluster_id);
+          m.easeTo({ center: (f.geometry as GeoJSON.Point).coordinates as LngLat, zoom: z + 0.4, duration: 600 });
+        });
+        m.on("click", "pt", (e) => { const id = e.features?.[0]?.properties?.id; if (id) { setSelected(String(id)); follow.current = false; } });
+        for (const l of ["cl", "pt"]) { m.on("mouseenter", l, () => { m.getCanvas().style.cursor = "pointer"; }); m.on("mouseleave", l, () => { m.getCanvas().style.cursor = ""; }); }
+      }
+      // Genel bakış: il dışındaki uzak duraklar (İstanbul vb.) görünümü uzaklaştırmasın; Afyonkarahisar çevresine odaklan
+      const near = stops.filter((x) => haversineM(x.coords, AFYON) < 130000).map((x) => x.coords);
+      if (near.length > 1) { const bb = new LngLatBounds(near[0], near[0]); near.forEach((c) => bb.extend(c)); m.fitBounds(bb, { padding: { top: 120, bottom: 140 + bottomInset, left: 30, right: 30 }, duration: 0, maxZoom: 12 }); }
+      else fitAll();
+      return;
+    }
     for (const s of stops) {
       const el = pinEl(String(s.index), s.approx);
       el.addEventListener("click", (e) => { e.stopPropagation(); setSelected(s.id); follow.current = false; });
@@ -132,7 +157,8 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   useEffect(() => {
     const els = markers.current.map((k) => k.getElement());
     els.forEach((el, i) => el.classList.toggle("sel", stops[i]?.id === selected));
-  }, [selected, stops, ready]);
+    if (overview && ready && map.current?.getLayer("pt-sel")) map.current.setFilter("pt-sel", ["==", ["get", "id"], selected ?? ""]);
+  }, [selected, stops, ready, overview]);
   const focusStop = useCallback((id: string) => {
     const s = stops.find((x) => x.id === id); if (!s) return;
     setSelected(id); follow.current = false;
@@ -370,10 +396,11 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
             <Link href={routeSlug ? `/rotalar/${routeSlug}` : "/"} className="terra-grad mt-3 flex h-11 items-center justify-center rounded-full text-sm font-bold text-white">Rotaya dön</Link>
           </div>
         )}
+        {overview && !sel && !live && <p className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">Bir durağa dokunun · kümelere dokununca yakınlaşır</p>}
         {sel && !guide && (
           <div className="glass rounded-[26px] p-3.5">
             <div className="flex items-start gap-3">
-              <span className={`afy-pin-dot static ${sel.approx ? "approx" : ""}`}>{sel.index}</span>
+              <span className={`afy-pin-dot static ${sel.approx ? "approx" : ""}`}>{overview ? "" : sel.index}</span>
               <div className="min-w-0 flex-1">
                 <p className="font-display text-[17px] font-semibold leading-tight text-navy">{sel.name}</p>
                 <p className="text-[11px] font-semibold text-mute">{sel.area}{live && me ? ` · ${formatDistance(haversineM(me.pos, sel.coords))} uzaklıkta` : ""}</p>
