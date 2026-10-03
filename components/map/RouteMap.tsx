@@ -313,7 +313,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
 
       {/* Yönlendirme: sıradaki manevra */}
       {guide && target && !finished && arrivedId !== target.id && (
-        <div className="absolute left-3 right-[68px] top-[64px] z-10 flex items-center gap-3 rounded-[22px] bg-navy/95 p-3 text-white shadow-lift backdrop-blur">
+        <div className="absolute left-3 right-[68px] top-[64px] z-10 lg:right-auto lg:w-[420px] flex items-center gap-3 rounded-[22px] bg-navy/95 p-3 text-white shadow-lift backdrop-blur">
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/12" aria-hidden>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" style={{ transform: `rotate(${step?.rot ?? 0}deg)`, transition: "transform .3s" }}><path d="M12 20V5M5 11l7-7 7 7" /></svg>
           </span>
@@ -328,7 +328,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
       )}
 
       {/* Alt: durak kartı */}
-      <div className="absolute inset-x-3 z-10 flex flex-col gap-2" style={{ bottom: full ? 12 : bottomInset }}>
+      <div className="absolute inset-x-3 z-10 flex flex-col gap-2 lg:right-auto lg:w-[400px] lg:bottom-4!" style={{ bottom: full ? 12 : bottomInset }}>
         {grup && gname && (
           <div className="flex flex-col items-center gap-2">
             {gopen && (

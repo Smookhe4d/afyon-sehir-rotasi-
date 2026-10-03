@@ -19,14 +19,14 @@ export default async function Durak({ params }: { params: Promise<{ id: string }
   if (!p) notFound();
   const inRoutes = routes.filter((r) => r.stops.some((s) => s.placeId === id));
   return (
-    <main className="pb-36">
-      <section className="relative">
-        <PhotoSlot id={id} className="h-[230px] w-full" credit />
+    <main className="wide pb-36 lg:pb-16">
+      <section className="relative lg:mx-4 lg:mt-4">
+        <PhotoSlot id={id} className="h-[230px] w-full lg:h-[400px] lg:rounded-[32px]" credit />
         <BackButton className="glass-dark absolute left-4 top-6 inline-flex h-11 w-11 items-center justify-center rounded-full text-white" />
       </section>
-      <article className="relative -mt-7 rounded-t-[34px] bg-cream px-5 pt-5">
+      <article className="split relative -mt-7 rounded-t-[34px] bg-cream px-5 pt-5 lg:mt-0 lg:rounded-none lg:bg-transparent lg:px-9 lg:pt-8">
         <p className="text-xs font-bold text-terra">{p.area}</p>
-        <h1 className="mt-1 font-display text-[26px] font-semibold leading-tight">{p.name}</h1>
+        <h1 className="mt-1 font-display text-[26px] font-semibold leading-tight lg:text-[40px]">{p.name}</h1>
 
         <AudioGuide title={p.name} text={(p.about?.length ? p.about : p.note ? [p.note] : []).join(" ")} />
 
@@ -47,14 +47,16 @@ export default async function Durak({ params }: { params: Promise<{ id: string }
           <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-ink-2">{p.visitTips.map((t) => <li key={t}>{t}</li>)}</ul></>
         )}
 
+        <div className="side">
         <h2 className="mt-6 font-display text-xl font-semibold">Haritada</h2>
         {p.coords ? (
           <>
-            <div className="mt-2 h-[280px] overflow-hidden rounded-3xl border border-line">
+            <div className="mt-2 h-[280px] overflow-hidden rounded-3xl border border-line lg:h-[460px]">
               <MapView stops={[{ id: p.id, name: p.name, area: p.area, coords: p.coords, approx: p.precision !== "exact", index: 1 }]} className="h-full w-full" />
             </div>
           </>
         ) : <p className="mt-2 rounded-2xl border border-line bg-white/70 shadow-card p-3 text-sm text-ink-2">Bu durağın konumu henüz doğrulanmadı; doğrulandığında haritada görünecek.</p>}
+        </div>
 
         {inRoutes.length > 0 && (
           <><h2 className="mt-6 font-display text-xl font-semibold">Bu durağın yer aldığı rotalar</h2>

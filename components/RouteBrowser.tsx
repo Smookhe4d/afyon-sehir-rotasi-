@@ -21,7 +21,7 @@ export default function RouteBrowser() {
 
   return (
     <>
-      <div className="px-5">
+      <div className="px-5 lg:max-w-[720px]">
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rota veya mekân ara (ör. Ulu Cami)" aria-label="Rota ara" className="h-12 w-full rounded-full border border-line bg-white shadow-card px-5 text-[15px] outline-none focus:border-terra" />
         <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1" role="group" aria-label="Kategori">
           {([["", "Tümü"], ...cats.map((c) => [c, categoryLabels[c]])] as [RouteCategory | "", string][]).map(([v, l]) => (
@@ -33,7 +33,7 @@ export default function RouteBrowser() {
       {groups.map(({ s, items }) => (
         <section key={s} className="mt-6">
           <h2 className="px-5 pb-3 font-display text-lg font-semibold">{scopeLabels[s]} <span className="text-sm font-medium text-mute">· {items.length} rota</span></h2>
-          <ul className="stagger flex flex-col gap-2.5 px-5">
+          <ul className="stagger flex flex-col gap-2.5 px-5 lg:grid lg:grid-cols-3 lg:gap-4">
             {items.map((r) => (
               <li key={r.slug}>
                 <Link href={`/rotalar/${r.slug}`} className="flex gap-3 rounded-3xl border border-line bg-white shadow-card p-2.5">

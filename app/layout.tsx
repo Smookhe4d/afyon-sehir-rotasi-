@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Track from "@/components/Track";
 import SwRegister from "@/components/SwRegister";
 import Onboarding from "@/components/Onboarding";
+import TopNav from "@/components/TopNav";
 import GlassTab from "@/components/GlassTab";
 import "./globals.css";
 
@@ -28,8 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://tiles.openfreemap.org" crossOrigin="" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
       </head>
-      <body className="mx-auto min-h-dvh max-w-[520px] pb-32">
-        {children}
+      <body className="mx-auto min-h-dvh max-w-[520px] pb-32 lg:max-w-none lg:pb-0">
+        <TopNav />
+        <div className="lg:mx-auto lg:max-w-[1280px]">{children}</div>
         <GlassTab />
         <Onboarding />
         <SwRegister />

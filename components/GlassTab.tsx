@@ -8,7 +8,7 @@ export default function GlassTab() {
   if (path.startsWith("/giris")) return null;
   const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   return (
-    <nav aria-label="Ana gezinme" className="glass fixed inset-x-3.5 bottom-6 z-50 mx-auto flex h-[70px] max-w-[520px] items-center justify-between rounded-[35px] px-1.5">
+    <nav aria-label="Ana gezinme" className="glass fixed inset-x-3.5 lg:hidden bottom-6 z-50 mx-auto flex h-[70px] max-w-[520px] items-center justify-between rounded-[35px] px-1.5">
       {tabs.map((t) => {
         const on = isActive(t.href);
         return (

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import QRCode from "qrcode";
 import { notFound } from "next/navigation";
 import { CategoryChip, routeMetaLine } from "@/components/RouteMeta";
 import StartPanel from "@/components/route/StartPanel";
@@ -24,6 +25,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
   if (!r) notFound();
   const stops = routeStops(r);
   const geo = mapStopsForRoute(slug);
+  const qr = await QRCode.toString(`https://afyon-sehir-rotasi.vercel.app/rotalar/${slug}`, { type: "svg", margin: 0, color: { dark: "#0F2547", light: "#FFFFFF" } });
   const { supabase, user, profile } = await getSession();
   const noRow = Promise.resolve({ data: null as { visited_place_ids?: string[]; route_slug?: string } | null });
   const [fav, progress, comments] = await Promise.all([
@@ -43,11 +45,11 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
   };
 
   return (
-    <main>
+    <main className="wide">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="relative h-[240px] overflow-hidden bg-navy px-5 pt-8">
+      <section className="relative h-[240px] overflow-hidden bg-navy px-5 pt-8 lg:mx-4 lg:mt-4 lg:h-[320px] lg:rounded-[32px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[85%_50%]" />
+        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[85%_50%] lg:object-[50%_25%]" />
         <div className="relative">
         <div className="flex items-center justify-between">
           <Link href="/rotalar" aria-label="Geri" className="glass-dark inline-flex h-11 w-11 items-center justify-center rounded-full text-white">‹</Link>
@@ -55,9 +57,9 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
         </div>
         </div>
       </section>
-      <article className="relative -mt-8 rounded-t-[34px] bg-cream px-5 pt-5">
+      <article className="split relative -mt-8 rounded-t-[34px] bg-cream px-5 pt-5 lg:mt-0 lg:rounded-none lg:bg-transparent lg:px-9 lg:pb-16 lg:pt-8">
         <CategoryChip r={r} />
-        <h1 className="mt-2 font-display text-[25px] font-semibold leading-tight">{r.title}</h1>
+        <h1 className="mt-2 font-display text-[25px] font-semibold leading-tight lg:text-[40px]">{r.title}</h1>
         <p className="mt-1.5 text-xs font-semibold text-mute">{routeMetaLine(r)}{r.provinces ? ` · ${r.provinces.join(", ")}` : ""}</p>
         <StartPanel slug={slug} mode={r.modes?.includes("yuruyus") ? "yuruyus" : r.modes?.[0] ?? "arac"} defaultName={profile && !profile.is_guest ? profile.display_name : ""} />
 
@@ -71,14 +73,15 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
         </dl>
 
         {geo.stops.length > 0 && (
-          <section aria-label="Harita" className="mt-7">
+          <section aria-label="Harita" className="side mt-7">
             <div className="flex items-end justify-between">
               <h2 className="font-display text-xl font-semibold">Haritada</h2>
               <Link href={`/harita?rota=${slug}`} className="text-xs font-bold text-terra">Tam ekran harita ›</Link>
             </div>
-            <div className="mt-2 h-[360px] overflow-hidden rounded-3xl border border-line">
+            <div className="mt-2 h-[360px] overflow-hidden rounded-3xl border border-line lg:h-[calc(100dvh-260px)] lg:min-h-[420px]">
               <MapView stops={geo.stops} line={geo.line} className="h-full w-full" />
             </div>
+            <div className="mt-4 hidden items-center gap-4 rounded-3xl border border-line bg-white p-4 shadow-card lg:flex"><div className="h-[96px] w-[96px] shrink-0" dangerouslySetInnerHTML={{ __html: qr }} /><div><p className="font-display text-lg font-semibold">Telefona gönder</p><p className="mt-1 text-sm text-ink-2">Telefon kamerasıyla okutun; rota telefonunuzda açılır ve oradan canlı yönlendirmeyle başlarsınız.</p></div></div>
             {geo.missing.length > 0 && <p className="mt-1.5 text-[11px] text-mute">Haritada gösterilemeyen duraklar (konum doğrulanıyor): {geo.missing.join(", ")}.</p>}
           </section>
         )}
