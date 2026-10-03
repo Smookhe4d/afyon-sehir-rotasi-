@@ -80,7 +80,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
           </section>
         )}
 
-        <StopChecklist slug={slug} stops={stops.map((s) => ({ ...s, hasMap: Boolean(placesFull[s.placeId]?.coords) }))} started={Boolean(progress.data)} visited={progress.data?.visited_place_ids ?? []} signedIn={Boolean(user)} />
+        <StopChecklist slug={slug} stops={stops.map((s) => ({ ...s, hasMap: Boolean(placesFull[s.placeId]?.coords) }))} started={Boolean(progress.data)} visited={progress.data?.visited_place_ids ?? []} signedIn={Boolean(user)} mode={r.modes?.includes("yuruyus") ? "yuruyus" : r.modes?.[0] ?? "arac"} />
 
         {r.tips && <><h2 className="mt-7 font-display text-xl font-semibold">İpuçları</h2><ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2">{r.tips.map((t) => <li key={t}>{t}</li>)}</ul></>}
         <Comments slug={slug} rows={rows} userId={user?.id ?? ""} canWrite={Boolean(profile && !profile.is_guest)} />

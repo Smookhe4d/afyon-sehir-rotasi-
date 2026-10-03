@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { resetRoute, setVisited, startRoute, toggleFavorite } from "@/app/actions";
 import PhotoSlot from "@/components/PhotoSlot";
@@ -39,7 +40,8 @@ export function ShareButton({ title, slug }: { title: string; slug: string }) {
   );
 }
 
-export function StopChecklist({ slug, stops, started, visited, signedIn = true }: { slug: string; stops: Stop[]; started: boolean; visited: string[]; signedIn?: boolean }) {
+export function StopChecklist({ slug, stops, started, visited, signedIn = true, mode = "yuruyus" }: { slug: string; stops: Stop[]; started: boolean; visited: string[]; signedIn?: boolean; mode?: string }) {
+  const router = useRouter();
   const [pending, run] = useTransition();
   const [local, setLocal] = useState(new Set(visited));
   const [isStarted, setStarted] = useState(started);
@@ -53,6 +55,7 @@ export function StopChecklist({ slug, stops, started, visited, signedIn = true }
   function begin() {
     setStarted(true);
     act(() => startRoute(slug), () => setStarted(false));
+    router.push(`/harita?rota=${slug}&takip=1&mod=${mode}`);
   }
   function toggle(id: string) {
     const next = new Set(local); const on = !next.has(id); if (on) next.add(id); else next.delete(id);
@@ -96,10 +99,11 @@ export function StopChecklist({ slug, stops, started, visited, signedIn = true }
         })}
       </ol>
       {!isStarted ? (
-        <button type="button" onClick={begin} disabled={pending} className="terra-grad mt-5 flex h-14 w-full items-center justify-center rounded-full font-bold text-white shadow-[0_8px_20px_rgba(166,75,34,.4)] disabled:opacity-60">Rotayı Başlat</button>
+        <button type="button" onClick={begin} disabled={pending} className="terra-grad mt-5 flex h-14 w-full items-center justify-center rounded-full font-bold text-white shadow-[0_8px_20px_rgba(166,75,34,.4)] disabled:opacity-60">Rotayı Başlat <span className="ml-2 text-xs font-medium opacity-90">canlı yönlendirme</span></button>
       ) : (
         <div className="mt-5 flex items-center justify-between gap-3">
           <p className="text-sm font-semibold text-ink-2">{done === total ? "Tebrikler, rotayı tamamladınız!" : "Rota devam ediyor."}</p>
+          <Link href={`/harita?rota=${slug}&takip=1&mod=${mode}`} className="terra-grad ml-auto flex h-10 items-center rounded-full px-4 text-xs font-bold text-white">Yönlendirmeyi sürdür</Link>
           <button type="button" onClick={reset} disabled={pending} className="h-10 rounded-full border border-line bg-white shadow-card px-4 text-xs font-bold">Sıfırla</button>
         </div>
       )}

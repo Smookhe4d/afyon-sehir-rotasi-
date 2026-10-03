@@ -4,11 +4,13 @@ import "@/app/map.css";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AttributionControl, LngLatBounds, Map as MLMap, Marker, setWorkerUrl } from "maplibre-gl";
+import { setVisited } from "@/app/actions";
+import { bearingText, fetchNav, formatDuration, type NavResult, type TravelMode } from "@/lib/map/nav";
 import { loadWarmStyle } from "@/lib/map/style";
 import { circlePolygon, directionsUrl, formatDistance, haversineM, type LngLat } from "@/lib/map/geo";
 
 export type MapStop = { id: string; name: string; area: string; coords: LngLat; approx: boolean; index: number; note?: string };
-type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number };
+type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode };
 
 // MapLibre 6 çalışma dosyası (worker) ayrı bir modüldür; aynı kökenli bir blob üzerinden CDN'den içe aktarılır.
 const MAPLIBRE_VERSION = "6.11.2";
@@ -27,7 +29,7 @@ function pinEl(label: string, approx: boolean) {
   return el;
 }
 
-export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12 }: Props) {
+export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus" }: Props) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MLMap | null>(null);
   const markers = useRef<Marker[]>([]);
@@ -40,6 +42,16 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   const [me, setMe] = useState<{ pos: LngLat; acc: number } | null>(null);
   const [geoState, setGeoState] = useState<"off" | "asking" | "on" | "denied" | "error">("off");
   const [full, setFull] = useState(false);
+  // Yönlendirme modu
+  const [cur, setCur] = useState(0);
+  const [nav, setNav] = useState<NavResult | null>(null);
+  const [navFail, setNavFail] = useState(false);
+  const [arrivedId, setArrivedId] = useState<string | null>(null);
+  const [finished, setFinished] = useState(false);
+  const [voiceOn, setVoiceOn] = useState(false);
+  const lastFetch = useRef<{ t: number; pos: LngLat; cur: number } | null>(null);
+  const lastSpoken = useRef("");
+  const target = guide ? stops[cur] ?? null : null;
 
   const sel = useMemo(() => stops.find((s) => s.id === selected) ?? null, [stops, selected]);
   const selIdx = sel ? stops.findIndex((s) => s.id === sel.id) : -1;
@@ -80,6 +92,9 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
         m.addSource("acc", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
         m.addLayer({ id: "acc-fill", type: "fill", source: "acc", paint: { "fill-color": "#2F7BF6", "fill-opacity": 0.14 } }, "route-casing");
         m.addLayer({ id: "acc-line", type: "line", source: "acc", paint: { "line-color": "#2F7BF6", "line-opacity": 0.35, "line-width": 1 } }, "route-casing");
+        m.addSource("nav", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+        m.addLayer({ id: "nav-casing", type: "line", source: "nav", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#FFFFFF", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 6, 17, 13] } });
+        m.addLayer({ id: "nav-line", type: "line", source: "nav", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#2F7BF6", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 3.5, 17, 7.5] } });
         setReady(true);
       });
       m.on("dragstart", () => { follow.current = false; });
@@ -143,6 +158,57 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     setMe(null); setGeoState("off");
   }, []);
 
+  // Yönlendirme: açılışta canlı konumu başlat, ekranı açık tut
+  useEffect(() => {
+    if (!guide || !ready) return;
+    startLive();
+    let lock: { release: () => Promise<void> } | null = null;
+    (navigator as unknown as { wakeLock?: { request: (t: string) => Promise<{ release: () => Promise<void> }> } }).wakeLock?.request("screen").then((l) => { lock = l; }).catch(() => {});
+    return () => { lock?.release().catch(() => {}); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guide, ready]);
+
+  // Hedef durağa yürüyüş/sürüş yönlendirmesi (konum 40 m değişince veya 30 sn'de bir tazelenir)
+  useEffect(() => {
+    if (!guide || !target || !me || arrivedId === target.id || finished) return;
+    const lf = lastFetch.current;
+    if (lf && lf.cur === cur && Date.now() - lf.t < 30000 && haversineM(lf.pos, me.pos) < 40) return;
+    lastFetch.current = { t: Date.now(), pos: me.pos, cur };
+    const ctl = new AbortController();
+    fetchNav(me.pos, target.coords, travelMode, ctl.signal).then((r) => {
+      if (ctl.signal.aborted) return;
+      setNav(r); setNavFail(!r);
+      (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.Feature | GeoJSON.FeatureCollection) => void } | undefined)?.setData(
+        r ? { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: r.coords } } : { type: "FeatureCollection", features: [] });
+    });
+    return () => ctl.abort();
+  }, [guide, target, me, cur, arrivedId, finished, travelMode]);
+
+  // Varış algılama (45 m)
+  useEffect(() => {
+    if (!guide || !target || !me || arrivedId === target.id || finished) return;
+    if (haversineM(me.pos, target.coords) <= 45) {
+      setArrivedId(target.id);
+      if (routeSlug) setVisited(routeSlug, target.id, true).catch(() => {});
+      if ("vibrate" in navigator) navigator.vibrate?.(200);
+    }
+  }, [guide, target, me, arrivedId, finished, routeSlug]);
+
+  const nextStop = useCallback(() => {
+    const n = cur + 1;
+    if (n >= stops.length) { setFinished(true); setNav(null); (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.FeatureCollection) => void } | undefined)?.setData({ type: "FeatureCollection", features: [] }); return; }
+    setCur(n); setArrivedId(null); setNav(null); lastFetch.current = null; focusStop(stops[n].id); follow.current = true;
+  }, [cur, stops, focusStop]);
+
+  const step = nav?.steps[0];
+  const straightD = target && me ? haversineM(me.pos, target.coords) : null;
+  // Sesli yönlendirme
+  useEffect(() => {
+    if (!guide || !voiceOn || !step || !("speechSynthesis" in window)) return;
+    const msg = step.dist < 400 ? `${Math.round(step.dist / 10) * 10} metre sonra, ${step.text}` : "";
+    if (msg && msg !== lastSpoken.current && step.dist < 200) { lastSpoken.current = msg; const u = new SpeechSynthesisUtterance(msg); u.lang = "tr-TR"; u.rate = 0.95; window.speechSynthesis.speak(u); }
+  }, [guide, voiceOn, step]);
+
   useEffect(() => { const t = setTimeout(() => map.current?.resize(), 60); return () => clearTimeout(t); }, [full]);
   const go = (d: number) => { const n = stops[(selIdx + d + stops.length) % stops.length]; if (n) focusStop(n.id); };
   const live = geoState === "on";
@@ -171,13 +237,67 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
         </div>
       </div>
 
+      {/* Yönlendirme: sıradaki manevra */}
+      {guide && target && !finished && arrivedId !== target.id && (
+        <div className="absolute left-3 right-[68px] top-[64px] z-10 flex items-center gap-3 rounded-[22px] bg-navy/95 p-3 text-white shadow-lift backdrop-blur">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/12" aria-hidden>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" style={{ transform: `rotate(${step?.rot ?? 0}deg)`, transition: "transform .3s" }}><path d="M12 20V5M5 11l7-7 7 7" /></svg>
+          </span>
+          <div className="min-w-0 flex-1">
+            {step ? (<><p className="font-display text-[20px] font-semibold leading-none">{step.dist < 950 ? `${Math.round(step.dist / 10) * 10} m` : formatDistance(step.dist)}</p><p className="mt-1 truncate text-[13px] font-medium opacity-90">{step.text}</p></>)
+              : me ? (<p className="text-[13px] font-semibold leading-snug">{navFail && straightD != null ? `${target.name} ${bearingText(me.pos, target.coords)} yönünde, ${formatDistance(straightD)}` : "Yol hesaplanıyor…"}</p>) : <p className="text-[13px] font-semibold">Konumunuz bekleniyor…</p>}
+          </div>
+          <button type="button" aria-pressed={voiceOn} aria-label="Sesli yönlendirme" onClick={() => setVoiceOn((v) => !v)} className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${voiceOn ? "bg-white text-navy" : "bg-white/15 text-white"}`}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" /></svg>
+          </button>
+        </div>
+      )}
+
       {/* Alt: durak kartı */}
       <div className="absolute inset-x-3 z-10 flex flex-col gap-2" style={{ bottom: full ? 12 : bottomInset }}>
         {geoState === "asking" && <p className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">Konumunuz aranıyor…</p>}
         {geoState === "denied" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">Konum izni verilmedi. Tarayıcı ayarlarından izin verebilirsiniz.</p>}
         {geoState === "error" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">Konum alınamadı. Daha açık bir alanda tekrar deneyin.</p>}
         {live && nearest && <button type="button" onClick={() => focusStop(nearest.stop.id)} className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">En yakın durak: <b>{nearest.stop.name}</b> · {formatDistance(nearest.d)}</button>}
-        {sel && (
+        {guide && target && !finished && (
+          <div className="glass rounded-[26px] p-3.5">
+            {arrivedId === target.id ? (
+              <>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#4F6B2F]">Vardınız · {cur + 1}/{stops.length}</p>
+                <p className="mt-0.5 font-display text-[19px] font-semibold leading-tight text-navy">{target.name}</p>
+                <p className="mt-1 text-xs text-ink-2">Durak ziyaret edildi olarak işaretlendi.</p>
+                <div className="mt-3 flex gap-2">
+                  <Link href={`/duraklar/${target.id}`} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-4 text-sm font-bold text-navy shadow-card">Anlatımı dinle</Link>
+                  <button type="button" onClick={nextStop} className="terra-grad h-11 flex-1 rounded-full text-sm font-bold text-white">{cur + 1 < stops.length ? `Sonraki: ${stops[cur + 1].name}` : "Rotayı bitir"}</button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex items-start gap-3">
+                  <span className={`afy-pin-dot static ${target.approx ? "approx" : ""}`}>{target.index}</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-mute">Sıradaki durak · {cur + 1}/{stops.length}</p>
+                    <p className="font-display text-[18px] font-semibold leading-tight text-navy">{target.name}</p>
+                    <p className="mt-0.5 text-[12px] font-semibold text-terra">{nav ? `${formatDistance(nav.dist)} · yaklaşık ${formatDuration(nav.dur)}` : straightD != null ? `${formatDistance(straightD)} (kuş uçuşu)` : "Konum bekleniyor"}</p>
+                    {target.approx && <p className="mt-1 text-[11px] font-semibold text-terra">Konum yaklaşıktır; varış algılanmazsa “Atla”yı kullanın.</p>}
+                  </div>
+                </div>
+                <div className="mt-3 flex gap-2">
+                  <Link href={`/duraklar/${target.id}`} className="flex h-11 flex-1 items-center justify-center rounded-full border border-line bg-white/80 text-sm font-bold text-navy shadow-card">Durak bilgisi</Link>
+                  <button type="button" onClick={nextStop} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-5 text-sm font-bold text-navy shadow-card">Atla</button>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+        {guide && finished && (
+          <div className="glass rounded-[26px] p-4 text-center">
+            <p className="font-display text-xl font-semibold text-navy">Rotayı tamamladınız!</p>
+            <p className="mt-1 text-xs text-ink-2">Tüm duraklar bitti. Yolculuğunuz için teşekkürler.</p>
+            <Link href={routeSlug ? `/rotalar/${routeSlug}` : "/"} className="terra-grad mt-3 flex h-11 items-center justify-center rounded-full text-sm font-bold text-white">Rotaya dön</Link>
+          </div>
+        )}
+        {sel && !guide && (
           <div className="glass rounded-[26px] p-3.5">
             <div className="flex items-start gap-3">
               <span className={`afy-pin-dot static ${sel.approx ? "approx" : ""}`}>{sel.index}</span>

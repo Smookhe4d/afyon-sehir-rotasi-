@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PhotoSlot from "@/components/PhotoSlot";
 import { CategoryChip, routeMetaLine } from "@/components/RouteMeta";
+import WeatherCard from "@/components/WeatherCard";
 import SearchBox, { type SearchItem } from "@/components/SearchBox";
 import { placeListFull } from "@/lib/placesFull";
 import { routeCover } from "@/lib/covers";
@@ -28,7 +29,8 @@ export default function Kesfet() {
         <p className="mt-2 max-w-[280px] text-sm opacity-90">Frig vadilerinden Ulu Cami'ye, Afyonkarahisar'ın {routes.length} önerilen tur rotası.</p>
         </div>
       </section>
-      <h2 className="mx-5 mt-14 font-display text-xl font-semibold">Afyonkarahisar rotaları</h2>
+      <WeatherCard />
+      <h2 className="mx-5 mt-8 font-display text-xl font-semibold">Afyonkarahisar rotaları</h2>
       <div className="stagger mt-4 flex gap-3 overflow-x-auto px-5 pb-4">
         {local.map((r) => (
           <Link key={r.slug} href={`/rotalar/${r.slug}`} className="flex w-[236px] shrink-0 flex-col rounded-[28px] border border-line bg-white shadow-card p-2.5">
