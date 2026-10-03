@@ -72,7 +72,7 @@ export function StopChecklist({ slug, stops, started, visited }: { slug: string;
           const seen = local.has(s.placeId);
           return (
             <li key={`${s.placeId}-${i}`} className={`flex gap-3 rounded-3xl border p-2.5 ${seen ? "border-[#C9D8A8] bg-[#F3F7E8]" : "border-line bg-white"}`}>
-              <PhotoSlot className="h-[64px] w-[72px] shrink-0 rounded-xl" label={false} />
+              <PhotoSlot id={s.placeId} className="h-[64px] w-[72px] shrink-0 rounded-xl" label={false} />
               <div className="min-w-0 flex-1">
                 <p className="font-display font-semibold leading-tight"><Link href={`/duraklar/${s.placeId}`}><span className="text-terra">{i + 1}</span> · {s.place.name}</Link></p>
                 <p className="text-[11px] font-semibold text-mute">{s.place.area}{s.role ? ` · ${roleLabel[s.role]}` : ""}</p>

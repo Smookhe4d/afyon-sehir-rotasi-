@@ -47,7 +47,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="relative h-[240px] overflow-hidden bg-navy px-5 pt-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/art/hero-kale.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[30%_35%]" />
         <div className="relative">
         <div className="flex items-center justify-between">
           <Link href="/rotalar" aria-label="Geri" className="glass-dark inline-flex h-11 w-11 items-center justify-center rounded-full text-white">‹</Link>
@@ -65,6 +65,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ slug: st
           {r.distanceKm && <div className="rounded-2xl border border-line bg-white/70 p-3"><dt className="text-[11px] font-semibold text-mute">Uzunluk</dt><dd className="font-display text-lg font-semibold">{r.distanceKm} km</dd>{r.distanceNote && <dd className="text-[11px] text-mute">{r.distanceNote}</dd>}</div>}
           {r.modes && <div className="rounded-2xl border border-line bg-white/70 p-3"><dt className="text-[11px] font-semibold text-mute">Yapılabilirlik</dt><dd className="font-semibold">{r.modes.map((m) => modeLabels[m]).join(" · ")}</dd></div>}
           {r.difficulty && <div className="col-span-2 rounded-2xl border border-line bg-white/70 p-3"><dt className="text-[11px] font-semibold text-mute">Zorluk</dt><dd className="font-semibold">{difficultyLabels[r.difficulty]}</dd>{r.difficultyNote && <dd className="mt-0.5 text-xs text-ink-2">{r.difficultyNote}</dd>}</div>}
+          {(r.difficulty === "orta" || r.difficulty === "zor") && <div className="col-span-2 rounded-2xl bg-[#FBE9D8] p-3 text-xs font-medium leading-relaxed text-[#7A3A14]">Güvenlik: Hava ve patika durumunu kontrol edin, yeterli su ve uygun ayakkabı alın, mümkünse yalnız çıkmayın. Acil durumda 112.</div>}
         </dl>
 
         {geo.stops.length > 0 && (

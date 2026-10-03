@@ -1,19 +1,14 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC = ["/giris", "/auth", "/manifest.webmanifest", "/robots.txt", "/sitemap.xml", "/noise.svg", "/icon", "/apple-icon"];
 
 export async function middleware(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const path = request.nextUrl.pathname;
-  const isPublic = PUBLIC.some((p) => path === p || path.startsWith(p + "/"));
 
-  // Yapılandırma yoksa giriş sayfası kurulum uyarısı gösterir
-  if (!url || !key) {
-    if (!isPublic) return NextResponse.redirect(new URL("/giris", request.url));
-    return NextResponse.next();
-  }
+  // Tüm sayfalar misafirlere açık; middleware yalnızca oturumu tazeler.
+  if (!url || !key) return NextResponse.next();
 
   let response = NextResponse.next({ request });
   const supabase = createServerClient(url, key, {
@@ -29,12 +24,7 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user && !isPublic) {
-    const to = new URL("/giris", request.url);
-    if (path !== "/") to.searchParams.set("next", path);
-    return NextResponse.redirect(to);
-  }
-  if (user && path === "/giris") return NextResponse.redirect(new URL("/", request.url));
+  if (user && !user.is_anonymous && path === "/giris") return NextResponse.redirect(new URL("/", request.url));
   return response;
 }
 

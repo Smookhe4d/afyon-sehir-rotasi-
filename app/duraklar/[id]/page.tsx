@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AudioGuide from "@/components/AudioGuide";
 import BackButton from "@/components/BackButton";
 import PhotoSlot from "@/components/PhotoSlot";
 import MapView from "@/components/map/MapView";
@@ -20,12 +21,14 @@ export default async function Durak({ params }: { params: Promise<{ id: string }
   return (
     <main className="pb-36">
       <section className="relative">
-        <PhotoSlot className="h-[230px] w-full" label />
+        <PhotoSlot id={id} className="h-[230px] w-full" credit />
         <BackButton className="glass-dark absolute left-4 top-6 inline-flex h-11 w-11 items-center justify-center rounded-full text-white" />
       </section>
       <article className="relative -mt-7 rounded-t-[34px] bg-cream px-5 pt-5">
         <p className="text-xs font-bold text-terra">{p.area}</p>
         <h1 className="mt-1 font-display text-[26px] font-semibold leading-tight">{p.name}</h1>
+
+        <AudioGuide title={p.name} text={(p.about?.length ? p.about : p.note ? [p.note] : []).join(" ")} />
 
         <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-ink-2">
           {p.about?.length ? p.about.map((t, i) => <p key={i}>{t}</p>) : p.note && <p>{p.note}</p>}

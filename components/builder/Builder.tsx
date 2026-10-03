@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { deleteCustomRoute, saveCustomRoute } from "@/app/actions";
 import { placeList } from "@/lib/places";
@@ -60,7 +61,10 @@ export default function Builder({ saved }: { saved: SavedRoute[] }) {
 
       <label className="mt-4 flex items-center gap-2.5 text-sm font-semibold"><input type="checkbox" checked={isPublic} onChange={(e) => setPublic(e.target.checked)} className="h-5 w-5 accent-[#A64B22]" />Diğer kullanıcılar görebilsin</label>
       {msg && <p role="alert" className={`mt-3 rounded-2xl px-3.5 py-2.5 text-[13px] font-semibold ${msg.ok ? "bg-[#E6EDD7] text-[#3F5A24]" : "bg-[#FBE4DC] text-[#8E2C12]"}`}>{msg.text}</p>}
-      <button type="button" onClick={save} disabled={pending || picked.length < 2 || title.trim().length < 3} className="terra-grad mt-4 h-14 w-full rounded-full font-bold text-white shadow-[0_8px_20px_rgba(166,75,34,.4)] disabled:opacity-50">Rotayı Kaydet</button>
+      <Link href={`/harita?duraklar=${picked.join(",")}`} aria-disabled={picked.length < 2} tabIndex={picked.length < 2 ? -1 : 0}
+        className={`terra-grad mt-4 flex h-14 w-full items-center justify-center rounded-full font-bold text-white shadow-[0_8px_20px_rgba(166,75,34,.4)] ${picked.length < 2 ? "pointer-events-none opacity-50" : ""}`}>Başla</Link>
+      <button type="button" onClick={save} disabled={pending || picked.length < 2 || title.trim().length < 3} className="mt-2.5 h-12 w-full rounded-full border border-line bg-white text-sm font-bold text-navy disabled:opacity-50">Rotayı Kaydet</button>
+      <p className="mt-1.5 text-center text-[11px] text-mute">Başla, rotayı haritada açar. Kaydetmek için giriş gerekir.</p>
 
       <h2 className="mt-9 font-display text-lg font-semibold">Kayıtlı rotalarım</h2>
       <ul className="mt-2 flex flex-col gap-2.5">
@@ -69,7 +73,8 @@ export default function Builder({ saved }: { saved: SavedRoute[] }) {
           <li key={r.id} className="rounded-2xl border border-line bg-white p-3">
             <div className="flex items-start justify-between gap-2"><p className="font-display font-semibold leading-tight">{r.title}</p><span className="shrink-0 text-[11px] font-bold text-mute">{r.is_public ? "Herkese açık" : "Özel"}</span></div>
             <p className="mt-1 text-xs text-ink-2">{r.place_ids.map((id) => names[id]?.name ?? id).join(" → ")}</p>
-            <button type="button" onClick={() => run(async () => { await deleteCustomRoute(r.id); })} className="mt-1.5 text-[11px] font-bold text-terra">Sil</button>
+            <div className="mt-2 flex gap-4"><Link href={`/harita?duraklar=${r.place_ids.join(",")}`} className="text-[12px] font-bold text-navy">Başla</Link>
+            <button type="button" onClick={() => run(async () => { await deleteCustomRoute(r.id); })} className="text-[12px] font-bold text-terra">Sil</button></div>
           </li>
         ))}
       </ul>

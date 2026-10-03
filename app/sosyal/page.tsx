@@ -1,4 +1,5 @@
 import PageHeader from "@/components/PageHeader";
+import SignInPrompt from "@/components/SignInPrompt";
 import { Composer, PostCard, type PostRow } from "@/components/social/Feed";
 import { getRoute } from "@/lib/routes";
 import { getSession } from "@/lib/session";
@@ -12,7 +13,7 @@ const nameOf = (p: Prof) => (Array.isArray(p) ? p[0]?.display_name : p?.display_
 
 export default async function Sosyal() {
   const { supabase, user, profile } = await getSession();
-  if (!user) return null;
+  if (!user) return (<main><PageHeader eyebrow="TOPLULUK" title="Sosyal" /><SignInPrompt title="Topluluğa katılın" text="Gezginlerin fotoğraflarını ve rota yorumlarını görmek, kendi paylaşımınızı yapmak için giriş yapın." /></main>);
   const { data, error } = await supabase
     .from("posts")
     .select("id, body, photo_path, route_slug, created_at, user_id, profiles(display_name), post_likes(user_id), comments(id, body, user_id, created_at, profiles(display_name))")

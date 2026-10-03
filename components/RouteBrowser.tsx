@@ -36,7 +36,7 @@ export default function RouteBrowser() {
             {items.map((r) => (
               <li key={r.slug}>
                 <Link href={`/rotalar/${r.slug}`} className="flex gap-3 rounded-3xl border border-line bg-white p-2.5 shadow-sm">
-                  <PhotoSlot className="h-[88px] w-[88px] shrink-0 rounded-2xl" />
+                  <PhotoSlot ids={r.stops.map((s) => s.placeId)} label={false} className="h-[88px] w-[88px] shrink-0 rounded-2xl" />
                   <div className="flex min-w-0 flex-col gap-1"><CategoryChip r={r} /><span className="font-display text-[16px] font-semibold leading-tight">{r.title}</span><span className="mt-auto text-xs font-semibold text-mute">{routeMetaLine(r)}</span></div>
                 </Link>
               </li>

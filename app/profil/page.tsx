@@ -1,4 +1,6 @@
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
+import SignInPrompt from "@/components/SignInPrompt";
 import ProfileName from "@/components/ProfileName";
 import { badgeDefs, earnedBadges } from "@/lib/badges";
 import { getRoute } from "@/lib/routes";
@@ -8,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Profil() {
   const { supabase, user, profile } = await getSession();
-  if (!user) return null;
+  if (!user) return (<main><PageHeader eyebrow="HESABIM" title="Profil" /><SignInPrompt title="İlerlemenizi kaydedin" text="Giriş yaparak favori rotalarınızı, ziyaret ettiğiniz durakları ve rozetlerinizi saklayın." /></main>);
   const [prog, favs, photo] = await Promise.all([
     supabase.from("route_progress").select("route_slug, visited_place_ids, completed_at").eq("user_id", user.id),
     supabase.from("favorites").select("route_slug").eq("user_id", user.id).order("created_at", { ascending: false }),

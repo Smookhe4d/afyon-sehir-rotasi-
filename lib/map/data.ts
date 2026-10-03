@@ -20,3 +20,14 @@ export function allMapStops(): MapStop[] {
 }
 
 export const routeOptions = routes.map((r) => ({ slug: r.slug, title: r.title }));
+
+/** Rotanı Belirle: seçilen durakları verilen sırayla haritaya döker (duraklar arası düz çizgi). */
+export function mapStopsForIds(ids: string[]): { stops: MapStop[]; line?: [number, number][] } {
+  const stops: MapStop[] = [];
+  ids.forEach((id) => {
+    const p = placesFull[id];
+    if (!p?.coords) return;
+    stops.push({ id, name: p.name, area: p.area, coords: p.coords, approx: p.precision !== "exact", index: stops.length + 1 });
+  });
+  return { stops, line: stops.length > 1 ? stops.map((s) => s.coords) : undefined };
+}

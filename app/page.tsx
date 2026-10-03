@@ -1,28 +1,39 @@
 import Link from "next/link";
 import PhotoSlot from "@/components/PhotoSlot";
 import { CategoryChip, routeMetaLine } from "@/components/RouteMeta";
+import SearchBox, { type SearchItem } from "@/components/SearchBox";
+import { placeListFull } from "@/lib/placesFull";
+import { heroPhoto } from "@/lib/photos";
 import { routes } from "@/lib/routes";
+
+const searchItems: SearchItem[] = [
+  ...routes.map((r) => ({ href: `/rotalar/${r.slug}`, label: r.title, sub: "Rota" })),
+  ...placeListFull.map((p) => ({ href: `/duraklar/${p.id}`, label: p.name, sub: `Durak · ${p.area}` })),
+];
 
 export default function Kesfet() {
   const local = routes.filter((r) => r.scope === "il-ici");
   return (
     <main>
-      <section className="relative h-[316px] overflow-hidden bg-navy px-5 pt-8 text-white">
+      <section className="relative z-10 h-[316px] bg-navy px-5 pt-4 text-white">
+      <div className="absolute inset-0 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/50 to-transparent" />
-        <div className="relative">
+        <img src="/art/hero-kale.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[30%_35%]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/70 via-[#08122c]/20 to-transparent" />
+        <a href={heroPhoto.page} target="_blank" rel="noopener noreferrer" className="absolute bottom-2 right-3 text-[9px] text-white/80">Foto: {heroPhoto.author} · {heroPhoto.license}</a>
+      </div>
+        <SearchBox items={searchItems} />
+        <div className="relative mt-5">
         <p className="text-[10.5px] font-bold tracking-[2px] opacity-90">AFYONKARAHİSAR</p>
         <h1 className="mt-1.5 font-display text-[46px] font-semibold leading-none tracking-tight">Keşfet</h1>
         <p className="mt-2 max-w-[280px] text-sm opacity-90">Frig vadilerinden Ulu Cami'ye, Afyonkarahisar'ın {routes.length} önerilen tur rotası.</p>
         </div>
       </section>
-      <Link href="/rotalar" className="glass relative z-10 mx-5 -mt-7 flex h-[52px] items-center rounded-full px-5 text-sm text-ink-2">Rota veya mekân ara</Link>
-      <h2 className="mx-5 mt-8 font-display text-xl font-semibold">Afyonkarahisar rotaları</h2>
+      <h2 className="mx-5 mt-14 font-display text-xl font-semibold">Afyonkarahisar rotaları</h2>
       <div className="mt-4 flex gap-3 overflow-x-auto px-5 pb-2">
         {local.map((r) => (
           <Link key={r.slug} href={`/rotalar/${r.slug}`} className="flex w-[236px] shrink-0 flex-col rounded-[28px] border border-line bg-white p-2.5 shadow-sm">
-            <PhotoSlot className="h-[150px] rounded-[20px]" />
+            <PhotoSlot ids={r.stops.map((s) => s.placeId)} label={false} className="h-[150px] rounded-[20px]" />
             <div className="mt-3 flex flex-1 flex-col gap-1.5"><CategoryChip r={r} />
               <p className="font-display text-[17px] font-semibold leading-tight">{r.title}</p>
               <p className="mt-auto text-xs font-semibold text-mute">{routeMetaLine(r)}</p></div>
