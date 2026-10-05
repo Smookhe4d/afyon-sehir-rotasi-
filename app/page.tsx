@@ -17,19 +17,19 @@ export default function Kesfet() {
   const local = routes.filter((r) => r.scope === "il-ici");
   return (
     <main className="wide">
-      <section className="relative z-10 h-[316px] bg-navy px-5 pt-4 text-white lg:mx-4 lg:mt-4 lg:h-[560px] lg:rounded-[36px] lg:px-14 lg:pt-12">
-      <div className="absolute inset-0 overflow-hidden lg:rounded-[36px]">
+      <section className="relative z-10 h-[316px] bg-navy px-5 pt-4 text-white lg:mx-4 lg:mt-2 lg:h-[560px] lg:bg-transparent lg:px-14 lg:pt-12 lg:text-navy">
+      <div className="soft-edge absolute inset-0 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/hero-kale.svg" alt="" className="absolute inset-0 h-full w-full object-cover object-[85%_50%] lg:object-[50%_70%]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/70 via-[#08122c]/20 to-transparent" />
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-[#08122c]/70 via-[#08122c]/15 to-transparent lg:block" />
+        <img src="/art/banner-afyon-1200.webp" srcSet="/art/banner-afyon-1200.webp 1200w, /art/banner-afyon-2000.webp 2000w" sizes="(min-width: 1024px) 1280px, 100vw" alt="Afyonkarahisar Kalesi ve eski şehir, suluboya" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover object-[58%_50%] lg:object-[50%_45%]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/75 via-[#08122c]/35 to-transparent lg:hidden" />
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-[#FAF5EC]/90 via-[#FAF5EC]/40 to-transparent lg:block" />
       </div>
         <div className="lg:max-w-[560px]"><SearchBox items={searchItems} /></div>
         <div className="relative mt-5 lg:mt-16">
-        <p className="text-[10.5px] font-bold tracking-[2px] opacity-90 lg:text-xs lg:tracking-[4px]">AFYONKARAHİSAR</p>
+        <p className="text-[10.5px] font-bold tracking-[2px] opacity-90 lg:text-xs lg:tracking-[4px] lg:text-terra lg:opacity-100">AFYONKARAHİSAR</p>
         <h1 className="mt-1.5 font-display text-[46px] font-semibold leading-none tracking-tight lg:mt-3 lg:text-[88px]">Keşfet</h1>
-        <p className="mt-2 max-w-[280px] text-sm opacity-90 lg:mt-4 lg:max-w-[440px] lg:text-lg lg:leading-relaxed">Frig vadilerinden Ulu Cami'ye, Afyonkarahisar'ın {routes.length} önerilen tur rotası.</p>
-        <div className="mt-8 hidden gap-3 lg:flex"><Link href="/rotalar" className="terra-grad rounded-full px-7 py-3.5 font-bold text-white">Rotaları keşfet</Link><Link href="/harita" className="rounded-full border border-white/40 bg-white/10 px-7 py-3.5 font-bold text-white backdrop-blur">Haritayı aç</Link></div>
+        <p className="mt-2 max-w-[280px] text-sm opacity-90 lg:mt-4 lg:text-ink-2 lg:opacity-100 lg:max-w-[440px] lg:text-lg lg:leading-relaxed">Frig vadilerinden Ulu Cami'ye, Afyonkarahisar'ın {routes.length} önerilen tur rotası.</p>
+        <div className="mt-8 hidden gap-3 lg:flex"><Link href="/rotalar" className="terra-grad rounded-full px-7 py-3.5 font-bold text-white">Rotaları keşfet</Link><Link href="/harita" className="rounded-full border border-navy/15 bg-white/80 px-7 py-3.5 font-bold text-navy shadow-card backdrop-blur">Haritayı aç</Link></div>
         </div>
       </section>
       <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-2 lg:px-4"><div className="lg:order-2"><Announcements /></div><WeatherCard /></div>

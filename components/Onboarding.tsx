@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const KEY = "afyon-onb-v1";
 const slides = [
-  { art: "/art/hero-kale.svg", title: "Afyonkarahisar'ı keşfedin", text: "Kale'den Ulu Cami'ye, Frig vadilerinden termal sulara; şehrin rehberli rotaları tek yerde." },
+  { art: "/art/banner-afyon-1200.webp", title: "Afyonkarahisar'ı keşfedin", text: "Kale'den Ulu Cami'ye, Frig vadilerinden termal sulara; şehrin rehberli rotaları tek yerde." },
   { art: "/art/map-city.svg", title: "Haritada gezin", text: "Duraklar, yürüyüş ve araç rotaları canlı haritada. Kendi rotanızı seçip tek dokunuşla başlatın." },
   { art: "/art/banner-frig.svg", title: "Sesli rehber eşlik etsin", text: "Her durağın hikâyesini dinleyin. Giriş yapmadan da her şeyi gezebilirsiniz." },
 ];
@@ -21,7 +21,7 @@ export default function Onboarding() {
       <div className="flex w-full max-w-[520px] flex-col">
         <div className="relative h-[52%] overflow-hidden bg-navy">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img key={s.art} src={s.art} alt="" className="page-in absolute inset-0 h-full w-full object-cover object-[85%_50%]" />
+          <img key={s.art} src={s.art} alt="" className="page-in absolute inset-0 h-full w-full object-cover object-[70%_50%]" />
           <button type="button" onClick={done} className="glass-dark absolute right-4 top-5 rounded-full px-4 py-2 text-xs font-bold text-white">Atla</button>
         </div>
         <div className="-mt-6 flex flex-1 flex-col rounded-t-[32px] bg-cream px-6 pb-8 pt-7">

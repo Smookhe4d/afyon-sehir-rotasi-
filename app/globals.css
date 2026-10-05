@@ -75,3 +75,7 @@ body {
   .split > * { grid-column: 1; }
   .split > .side { grid-column: 2; grid-row: 1 / span 40; position: sticky; top: 84px; margin-top: 0; }
 }
+@media (min-width: 1024px) {
+  /* Suluboya banner kenarları sayfa zeminine yumuşakça karışsın */
+  .soft-edge { -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, #000 80%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, #000 80%, transparent); mask-composite: intersect; }
+}
