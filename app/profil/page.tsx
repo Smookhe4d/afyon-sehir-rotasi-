@@ -31,7 +31,7 @@ export default async function Profil() {
   return (
     <main>
       <ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "gece"} />
-      <div className="-mt-10 px-5">
+      <div className="relative z-10 -mt-10 px-5">
         <span className="terra-grad flex h-[84px] w-[84px] items-center justify-center rounded-full border-4 border-cream font-display text-[34px] font-semibold text-white" aria-hidden>{name.charAt(0).toLocaleUpperCase("tr")}</span>
         <div className="mt-2"><ProfileName name={name} /></div>
         <p className="text-[12.5px] text-mute">{guest ? "Misafir hesabı" : user.email}</p>
