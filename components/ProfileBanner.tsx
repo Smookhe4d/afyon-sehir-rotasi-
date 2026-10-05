@@ -94,13 +94,13 @@ export default function ProfileBanner({ initial }: { initial: string }) {
   return (
     <section className="relative h-44 overflow-hidden transition-colors" style={{ background: `linear-gradient(170deg, ${t.a} 0%, ${t.b} 100%)` }}>
       <svg aria-hidden viewBox="0 0 400 176" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full"><Scene id={t.id} /></svg>
-      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="glass absolute right-4 top-4 z-10 flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-bold text-navy">
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className={`glass absolute right-4 top-4 z-10 flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-bold text-navy ${open ? "pointer-events-none opacity-0" : ""}`}>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.5 17 3 12 3Z" /><circle cx="7.5" cy="11" r="1" /><circle cx="10" cy="7.5" r="1" /><circle cx="14.5" cy="7.5" r="1" /></svg>
         Tema
       </button>
       {open && (
-        <div className="glass absolute inset-x-4 bottom-3 z-10 rounded-2xl p-2.5">
-          <ul className="flex gap-2.5 overflow-x-auto pb-0.5" role="radiogroup" aria-label="Profil teması">
+        <div className="glass absolute inset-x-3 top-3 z-10 flex items-center gap-1 rounded-2xl py-2 pl-3 pr-2">
+          <ul className="flex min-w-0 flex-1 gap-3 overflow-x-auto px-1 pb-0.5" role="radiogroup" aria-label="Profil teması">
             {themes.map((x) => (
               <li key={x.id} className="shrink-0 text-center">
                 <button type="button" role="radio" aria-checked={x.id === id} aria-label={x.label} onClick={() => pick(x.id)} className={`h-9 w-9 rounded-full border-2 shadow-card ${x.id === id ? "border-navy ring-2 ring-white" : "border-white"}`} style={{ background: `linear-gradient(150deg, ${x.a}, ${x.b})` }} />
@@ -108,6 +108,7 @@ export default function ProfileBanner({ initial }: { initial: string }) {
               </li>
             ))}
           </ul>
+          <button type="button" onClick={() => setOpen(false)} aria-label="Kapat" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/70 text-lg font-bold leading-none text-navy">×</button>
         </div>
       )}
     </section>
