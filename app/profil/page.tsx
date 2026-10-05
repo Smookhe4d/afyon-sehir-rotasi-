@@ -2,6 +2,8 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import SignInPrompt from "@/components/SignInPrompt";
 import ProfileName from "@/components/ProfileName";
+import ProfileBanner from "@/components/ProfileBanner";
+import { cookies } from "next/headers";
 import { badgeDefs, earnedBadges } from "@/lib/badges";
 import { getRoute } from "@/lib/routes";
 import { getSession } from "@/lib/session";
@@ -28,7 +30,7 @@ export default async function Profil() {
 
   return (
     <main>
-      <section className="h-40 bg-gradient-to-b from-navy to-[#B0586B]" />
+      <ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "gece"} />
       <div className="-mt-10 px-5">
         <span className="terra-grad flex h-[84px] w-[84px] items-center justify-center rounded-full border-4 border-cream font-display text-[34px] font-semibold text-white" aria-hidden>{name.charAt(0).toLocaleUpperCase("tr")}</span>
         <div className="mt-2"><ProfileName name={name} /></div>
