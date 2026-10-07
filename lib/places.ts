@@ -91,6 +91,23 @@ const list: Place[] = [
   { id: "istanbul", name: "İstanbul (hareket noktası)", kind: "diger", area: "İstanbul", note: "Rota sabah erken saatlerde İstanbul'dan başlar; Eskişehir'e yaklaşık beş saatlik yolculuk." },
   { id: "gazligol", name: "Gazlıgöl Termal Bölgesi", kind: "termal", area: "Afyonkarahisar · Gazlıgöl", note: "Konaklama ve şifalı su deneyimi." },
   { id: "pamukkale", name: "Pamukkale Travertenleri ve Hierapolis", kind: "doga", area: "Denizli · Pamukkale", note: "UNESCO Dünya Mirası; antik tiyatro, nekropol alanı ve müze." },
+  // ---- Ankara–İzmir YHT Kültür Rotası (MEP, çevre illerle bağlantılı rotalar) ----
+  { id: "anitkabir", name: "Anıtkabir", kind: "anit", area: "Ankara · Çankaya", coords: [32.8369, 39.92501], precision: "exact", note: "Atatürk'ün anıt mezarı; rehber anlatımıyla Atatürk'ün yaşamı, inkılapları ve mücadelesi aktarılır." },
+  { id: "birinci-meclis", name: "I. Meclis Binası (Kurtuluş Savaşı Müzesi)", kind: "muze", area: "Ankara · Ulus", coords: [32.85369, 39.94189], precision: "exact", note: "Kurtuluş Savaşı kararlarının alındığı ilk Meclis binası." },
+  { id: "ikinci-meclis", name: "II. Meclis Binası (Cumhuriyet Müzesi)", kind: "muze", area: "Ankara · Ulus", coords: [32.85162, 39.94138], precision: "exact", note: "Cumhuriyet'in teşkilatlanma dönemine tanıklık eden ikinci Meclis binası." },
+  { id: "anadolu-medeniyetleri", name: "Anadolu Medeniyetleri Müzesi", kind: "muze", area: "Ankara · Altındağ", coords: [32.86176, 39.93795], precision: "exact", note: "Hitit, Frig, Urartu ve Lidya uygarlıklarının binlerce yıllık birikimi." },
+  { id: "haci-bayram", name: "Hacı Bayram Veli Camii", kind: "cami", area: "Ankara · Ulus", coords: [32.85791, 39.94435], precision: "exact", note: "Augustus Tapınağı ile yan yana; Roma döneminden Osmanlı'ya uzanan kültürel süreklilik." },
+  { id: "augustus-tapinagi", name: "Augustus Tapınağı", kind: "oren-yeri", area: "Ankara · Ulus", coords: [32.85824, 39.94417], precision: "exact", note: "Roma dönemi tapınağı; Hacı Bayram Veli Camii'nin hemen yanında." },
+  { id: "afyon-kalesi", name: "Afyonkarahisar Kalesi", kind: "kale", area: "Merkez", coords: [30.53177, 38.75671], precision: "exact", note: "Kentin simgesi; rotada dışarıdan tanıtılarak bölgenin çok katmanlı tarihi anlatılır." },
+  { id: "aslantas-yilantas", name: "Aslantaş, Yılantaş ve Maltaş", kind: "oren-yeri", area: "İhsaniye · Döğer çevresi", coords: [30.52427, 39.0483], precision: "area", note: "Frig dönemi kaya anıtları ve mezarları; Frigya Bölgesi'nin önemli durakları." },
+  { id: "usak-arkeoloji", name: "Uşak Arkeoloji Müzesi (Karun Hazineleri)", kind: "muze", area: "Uşak · Merkez", coords: [29.40732, 38.66514], precision: "exact", note: "Lidya uygarlığına ait eserler; en değerli koleksiyonlarından biri Karun Hazineleri." },
+  { id: "blaundos", name: "Blaundos Antik Kenti", kind: "oren-yeri", area: "Uşak · Ulubey (Sülümenli)", coords: [29.20234, 38.35297], precision: "area", note: "Kanyonlarla çevrili plato üzerinde Hellenistik–Roma dönemi kent dokusu, tapınak alanları ve kaya mezarları." },
+  { id: "clandiras-koprusu", name: "Clandıras Köprüsü", kind: "oren-yeri", area: "Uşak · Karahallı", coords: [29.48483, 38.40786], precision: "area", note: "Friglerin su mühendisliğinin önemli örneklerinden; inşa tekniği ve tarihî işlevi anlatılır." },
+  { id: "ulubey-kanyonu", name: "Ulubey Kanyonu", kind: "doga", area: "Uşak · Ulubey", coords: [29.30868, 38.41537], precision: "area", note: "Jeolojik yapılar ve manzara eşliğinde fotoğraf molası." },
+  { id: "izmir-kordon", name: "Kordon", kind: "park", area: "İzmir · Alsancak", coords: [27.1399, 38.43537], precision: "area", note: "İzmir'in modern kent kimliğini yansıtan sahil şeridi." },
+  { id: "konak-saat-kulesi", name: "Konak Meydanı ve Saat Kulesi", kind: "anit", area: "İzmir · Konak", coords: [27.1287, 38.41886], precision: "exact", note: "Kentin simgesi Saat Kulesi ve tarihsel önemi." },
+  { id: "kemeralti", name: "Kemeraltı Çarşısı", kind: "carsi", area: "İzmir · Konak", coords: [27.13075, 38.41874], precision: "area", note: "Geleneksel ticaret yaşamının deneyimlendiği tarihî çarşı." },
+  { id: "izmir-agora", name: "Smyrna Agorası (Agora Ören Yeri)", kind: "oren-yeri", area: "İzmir · Konak", coords: [27.13843, 38.41907], precision: "exact", note: "Antik Smyrna'nın kent dokusu, stoa mimarisi ve Roma Dönemi kamusal alan düzeni." },
 ];
 
 export const places: Record<string, Place> = Object.fromEntries(list.map((p) => [p.id, p]));

@@ -205,6 +205,27 @@ export const routes: Route[] = [
     ],
     source: SRC,
   },
+  {
+    slug: "ankara-izmir-yht-kultur-rotasi", title: "Ankara–İzmir YHT Kültür Rotası", scope: "cevre-il", category: "kultur",
+    summary: "Yüksek hızlı tren hattına entegre, Ankara'dan İzmir'e beş günlük kültür yolculuğu: Anıtkabir, Afyon Ulu Cami, Karun Hazineleri ve Agora.",
+    description: [
+      "Ankara–İzmir yüksek hızlı tren hattına entegre olarak planlanan bu kültür turu, misafirlerin Anadolu'nun tarihsel ve kültürel zenginliğini kesintisiz bir akış içinde deneyimlemesini amaçlar. Tur Ankara'da Anıtkabir ziyaretiyle başlar; I. ve II. Meclis binalarında Türkiye'nin kuruluş süreci kronolojik olarak aktarılır, Anadolu Medeniyetleri Müzesi'nde Hitit, Frig, Urartu ve Lidya birikimi incelenir, Hacı Bayram Veli Camii ile Augustus Tapınağı'nda Roma'dan Osmanlı'ya kültürel süreklilik anlatılır.",
+      "Misafirler yüksek hızlı trenle Afyonkarahisar'a geçerek burada konaklar. Ertesi gün Ulu Cami, Afyonkarahisar Kalesi ve Mevlevihane gezilir. İsteğe bağlı bir günlük Frigya gezisiyle Ayazini, Avdalaz Kalesi, Aslantaş, Yılantaş ve Maltaş, Kral Yolu, Aslankaya Tapınağı ve Memeç Kayalıkları ziyaret edilebilir.",
+      "Dördüncü gün trenle Uşak'a geçilir; Uşak Arkeoloji Müzesi'nde Karun Hazineleri, Blaundos Antik Kenti, Clandıras Köprüsü ve Ulubey Kanyonu gezilir. Akşam İzmir'e varılır; son gün Kordon, Konak Meydanı ve Saat Kulesi, Kemeraltı Çarşısı ve Agora Ören Yeri gezilir. Ertesi sabah yüksek hızlı trenle Ankara'ya dönülür.",
+    ],
+    provinces: ["Ankara", "Afyonkarahisar", "Uşak", "İzmir"],
+    stops: [
+      { placeId: "anitkabir", role: "baslangic", note: "1. gün · Ankara" }, { placeId: "birinci-meclis" }, { placeId: "ikinci-meclis" }, { placeId: "anadolu-medeniyetleri" },
+      { placeId: "haci-bayram" }, { placeId: "augustus-tapinagi", note: "Akşam YHT ile Afyonkarahisar'a geçiş" },
+      { placeId: "ulu-cami", note: "2. gün · Afyonkarahisar" }, { placeId: "afyon-kalesi", note: "Dışarıdan tanıtım" }, { placeId: "mevlevihane", role: "konaklama", note: "Afyonkarahisar'da konaklama" },
+      { placeId: "ayazini", note: "3. gün · İsteğe bağlı Frigya gezisi" }, { placeId: "avdalaz-kalesi", note: "İsteğe bağlı" }, { placeId: "aslantas-yilantas", note: "İsteğe bağlı" },
+      { placeId: "bayramaliler", note: "İsteğe bağlı · Kral Yolu" }, { placeId: "aslankaya", note: "İsteğe bağlı" }, { placeId: "memec", note: "İsteğe bağlı" },
+      { placeId: "usak-arkeoloji", note: "4. gün · YHT ile Uşak" }, { placeId: "blaundos" }, { placeId: "clandiras-koprusu" }, { placeId: "ulubey-kanyonu", note: "Akşam YHT ile İzmir'e geçiş" },
+      { placeId: "izmir-kordon", note: "5. gün · İzmir" }, { placeId: "konak-saat-kulesi" }, { placeId: "kemeralti" }, { placeId: "izmir-agora", role: "bitis", note: "İzmir'de konaklama; ertesi sabah YHT ile Ankara'ya dönüş" },
+    ],
+    tips: ["Rota, Ankara–İzmir yüksek hızlı tren hattına göre planlanmıştır; hattın hizmete giriş durumunu ve sefer saatlerini TCDD Taşımacılık duyurularından kontrol edin."],
+    source: SRC,
+  },
 ];
 
 export const categoryLabels: Record<Route["category"], string> = {
