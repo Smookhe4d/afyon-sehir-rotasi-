@@ -236,7 +236,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-007: Ana sayfa ve rota sayfasına hareket ve yumuşak kaydırma
 
-- **Durum:** Hazır
+- **Durum:** Uygulamada
 - **İş akışı:** A (tasarım)
 - **Dal:** `codex/G-007-hareket`
 - **Amaç:** Ana sayfa ile rota ayrıntı sayfasını, yerleşimlerine dokunmadan, daha canlı ve özenli hissettirmek. Bu görevde yalnızca hareket eklenir. Görsel tasarım aynen kalır.
@@ -284,4 +284,13 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 **Uygulayıcı notu**
 
-_(Uygulayıcı dolduracak)_
+- Plan onayı bekleniyor. f97bb29 başındaki görev dalı origin'e gönderildi. G-005 denetimi ve öğrenme notu 4 okundu. Uygulama kodu değiştirilmedi.
+- components/motion altında MotionProvider (LazyMotion/domAnimation), Reveal, Stagger, Parallax, Pressable ve SmoothScroll oluşturulacak. Değerler lib/motion.ts içinde tutulacak. Sunucu sayfaları, mevcut HTML yerleşimi ve görsel sınıflar korunacak. CSS animasyon çakışmaları yalnızca iki görev sayfasında giderilecek.
+- Değişecek mevcut dosyalar: app/[locale]/(pages)/page.tsx, app/[locale]/rotalar/[slug]/page.tsx, components/route/StartPanel.tsx, components/route/RouteControls.tsx, components/LanguageChoice.tsx, components/Onboarding.tsx, app/globals.css, package.json ve package-lock.json. İlgili testler ve doğrulama belgeleri eklenecek. Yalnızca motion ve lenis kurulacak ve kararlı sürümleri sabitlenecek.
+- Lenis yalnızca görev sayfalarında pointer:fine ve hareket azaltma kapalıyken çalışacak. Harita, yatay şeritler ve pencereler data-lenis-prevent ile dışarıda kalacak. JavaScript yokken içerik görünür, hareket azaltma açıkken doğrudan son görünüm sağlanacak.
+- Madde 8: Pencere yalnızca gerçek pathname / ve dil çerezi yokken açılacak. /en adreslerinde sessizce en yazılacak. Doğrudan rota, durak ve QR girişlerinde adresin dili yazılıp pencere ve tanıtım engellenecek. Onboarding kendi URL denetimini yapacak, çerez yazım sırasına güvenilmeyecek. Türkçe kökte seçim sonrası tanıtım korunacak.
+- Testler: main ile dört adresin 390/1280 px piksel karşılaştırması, JavaScript kapalı ve azaltılmış hareket, dokunmatik doğal kaydırma ve masaüstü Lenis, harita/şerit/pencere istisnaları, çapalar, build, First Load JS ve sıkıştırılmış yük farkı, mobil Lighthouse ve CLS, mevcut testler ve HTTP durumları. Dinamik veriler karşılaştırmalarda aynı tutulacak. WebM ve WebP çıktılar docs/ekip/ekranlar/G-007 altında tutulacak.
+- Yöneticiye soru: Paralaksın kaydırma durduğunda farklı konumda kalması, her kaydırma konumunda main ile piksel eşitliğiyle çelişir. Kaydırma sırasında hareket edip durduğunda özgün konuma dönmesini öneriyorum. Bu yorum uygun mu? Onay gelmeden kod ve paket değişikliği yapılmayacak.
+- Claude yönetici için erişilebilir bir sohbet bulunamadı. Plan bu notta ve sohbet yanıtında yöneticiye iletilmek üzere sunuldu.
+
+- Plan onayı sonrası kararlar: Paralaks scrollY=0 konumunda sıfır olacak ve kaydırma konumuna bağlı kalacak, durunca geri dönmeyecek. Tam sayfa piksel karşılaştırması en üstte yapılacak, aşağıdaki ayrı karşılaştırmalarda paralaks görseli maskelenecek. Sunucuda initial={false} ile görünür çıktı seçildi, beliriş istemcide başlatılacak. JavaScript kapalı ekran eklenecek. Yol değişiminde lenis.scrollTo(0, {immediate:true}) uygulanacak, popstate geri dönüşünde önceki konum ayrıca korunup test edilecek. Doğrudan rota/durak/QR girişinde tanıtım kalıcı olarak tamamlanmış işaretlenecek, sonradan ana sayfaya geçince de açılmayacak. template.tsx kapsam dışı sayfalar için korunacak, /harita ve /profil önce/sonra karşılaştırılacak.
