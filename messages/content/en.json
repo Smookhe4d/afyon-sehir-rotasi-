@@ -1,0 +1,2123 @@
+{
+  "routes": {
+    "merkez-kultur-rotasi": {
+      "title": "Afyonkarahisar City Center Cultural Route",
+      "summary": "From UNESCO-listed Ulu Cami to Zafer Müzesi, explore the city center’s Seljuk and Ottoman heritage and museums.",
+      "description": [
+        "Combining Anatolian Seljuk and Ottoman monuments in the city center with nearby museums, this route covers historical, cultural, and social sites between UNESCO World Heritage-listed Afyon Ulu Cami and Zafer Müzesi.",
+        "The planned starting point is the İbrahim Alimoğlu Music Collection at the AKÜ State Conservatory, although groups can start elsewhere depending on their arrival route. Lunch is at local restaurants in Uzun Çarşı, where businesses such as Aşçı Bacaksız, Salim Usta Lokantası, Musakka, and İkbal Lokantası serve regional food."
+      ],
+      "distanceNote": "Approximately",
+      "tips": [
+        "Kaymak, Turkish delight, sucuk, and poppy products are available in Uzun Çarşı."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "uzun-carsi": "Lunch and a short shopping break"
+      }
+    },
+    "frig-yolu-afyonkarahisar": {
+      "title": "Frig Yolu: Afyonkarahisar Cultural Route",
+      "summary": "From Seydiler to Üçlerkayası, with fairy chimneys, rock-cut tombs and churches, and Phrygian temples.",
+      "description": [
+        "Covering the part of mountainous Phrygia within Afyonkarahisar, this route brings together Phrygian, Roman, and Eastern Roman remains, rock-cut tombs, caves, and churches.",
+        "The route starts in Seydiler on the Ankara–Afyonkarahisar highway and ends in Üçlerkayası. It can also be followed on foot or by bicycle, on your own or as a group."
+      ],
+      "distanceNote": "Approximately",
+      "tips": [
+        "Souvenirs and local food are sold at Ayazini Ören Yeri and Emre Gölü."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "demirli": "Accommodation is available at Frig Evi"
+      }
+    },
+    "zafer-yolu": {
+      "title": "Zafer Yolu: Afyonkarahisar Route",
+      "summary": "From Şuhut to Çiğiltepe, through the Great Offensive battlefields in Başkomutanlık Tarihi Milli Parkı.",
+      "description": [
+        "The Great Offensive battlefields, extending from Kocatepe in Afyonkarahisar to the area around Dumlupınar in Kütahya, have been designated Başkomutanlık Tarihi Milli Parkı. This route presents the Afyonkarahisar section as a battlefield tourism route.",
+        "The starting point is Şuhut district. The approximately 20 km route beginning at Atatürk Evi is known as Zafer Yolu. An Independence Walk takes place every August 26 between Şuhut Atatürk Evi and Kocatepe."
+      ],
+      "distanceNote": "The Zafer Yolu section starting at Atatürk Evi, approximately",
+      "tips": [
+        "The route can start at different points depending on your arrival direction and can be extended to include the Kütahya and Uşak sections."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {}
+    },
+    "anadolu-selcuklu-rotasi": {
+      "title": "Afyon Anatolian Seljuk Route",
+      "summary": "From Sultandağı to Boyalı Köyü, with caravanserais, Ulu Cami, and a Seljuk religious complex.",
+      "description": [
+        "Afyonkarahisar has important Anatolian Seljuk monuments because it lies at a crossroads between Konya and the Aegean. This route consists mainly of caravanserais and starts from the Konya direction.",
+        "Most of the route follows main roads and central settlements, so transport and basic services are readily accessible."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {}
+    },
+    "gastronomi-rotasi": {
+      "title": "Afyonkarahisar Gastronomy Route",
+      "summary": "From Gastronomi Konağı to Şuhut Keşkek Evi, with sucuk, Turkish delight, kaymak, and regional dishes.",
+      "description": [
+        "A suggested route to introduce the province’s food culture and raise awareness of it. The starting point is Gastronomi Konağı, where local dishes are served.",
+        "The route then visits Belediye Kültür ve Sanat Evi, which displays food examples and kitchen tools, and Uzun Çarşı, where sucuk, Turkish delight, and kaymak are sold. It ends at Keşkek Evi in Şuhut."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "uzun-carsi": "Sucuk, Turkish delight, and kaymak tasting"
+      }
+    },
+    "akdag-milli-park-rotasi": {
+      "title": "Akdağ National Park Route",
+      "summary": "Kocayayla, Kurtini Mağarası, and Tokalı Kanyon in Sandıklı, with free-roaming horses, photo safaris, and walking.",
+      "description": [
+        "Akdağ in Sandıklı district is Türkiye’s 49th national park. The starting point is Kocayayla, where visitors can stop for photos by the pond and may see wildlife such as free-roaming horses and red deer.",
+        "From Kocayayla, an approximately 6 km walk leads to Kurtini Mağarası. Following the streambed then brings visitors to Kanyon Vadi and the entrance to Tokalı Kanyon."
+      ],
+      "difficultyNote": "Crossing the canyon requires equipment and is recommended only for special-interest groups. Kocayayla and Kurtini Mağarası, which can be reached by bus, are the easier sections.",
+      "tips": [
+        "Bungalow accommodation is available in the park.",
+        "Do not light fires or leave glass waste in summer because of the risk of forest fires."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "tokali-kanyon": "Return to Kocayayla or cross the canyon to the Denizli Çivril exit"
+      }
+    },
+    "termal-turizm-rotasi": {
+      "title": "Phrygia Thermal Tourism Route",
+      "summary": "A thermal route linking five provinces from Uşak to Ankara, with two days at Ömer–Gecek in Afyonkarahisar.",
+      "description": [
+        "Developed for the Phrygia Thermal Tourism Region in the Thermal Tourism Master Plan 2007–2023, this route covers Uşak, Afyonkarahisar, Kütahya, Eskişehir, and Ankara. The region has 11 thermal tourism centers in total.",
+        "Visitors are scheduled to stay for two days at the Ömer–Gecek thermal centers in Afyonkarahisar. Alongside traditional Turkish baths, mud baths, and aromatherapy, the route includes cultural stops such as Ulu Cami, Zafer Müzesi, and Mevlevihane."
+      ],
+      "source": "Thermal Tourism Master Plan 2007–2023 / Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "banaz-hamambogazi": "One-day stay",
+        "omer-gecek": "Two-day stay",
+        "gediz-ilicasi": "One-day stay",
+        "kizilcahamam": "One-night stay"
+      }
+    },
+    "inanc-turizmi-rotasi": {
+      "title": "Afyonkarahisar Faith Tourism Route",
+      "summary": "From Ulu Cami to İmaret Camii ve Hamamı, with Seljuk and Ottoman mosques, tombs, and Mevlevihane.",
+      "description": [
+        "This route introduces the architectural variety and spiritual character of the city center’s religious buildings, including mosques and tombs surviving from Seljuk and Ottoman times. It starts at UNESCO-listed Afyon Ulu Cami and ends at Gedik Ahmet Paşa (İmaret) Camii ve Hamamı.",
+        "Along the route, short breaks can be taken in traditional coffeehouses around Ulu Cami, shops near Tacahmet Camii, the courtyard of Millet Hamamı, and around Ot Pazarı."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "ulu-cami": "Short break at nearby traditional coffeehouses",
+        "tacahmet-cami": "Tea break at nearby shops",
+        "millet-hamami": "Short rest in the courtyard",
+        "otpazari-cami": "Ice cream or drink break nearby"
+      }
+    },
+    "frig-yolu-ankara-eskisehir-afyon": {
+      "title": "Frig Yolu (Ankara–Eskişehir–Afyonkarahisar) Cultural Route",
+      "summary": "From Gordion to Seydiler, 506 km from the capital of the Phrygian Kingdom to Afyonkarahisar’s Phrygia.",
+      "description": [
+        "The approximately 506 km Frig Yolu Cultural Route spans four provinces and starts at Gordion Antik Kenti, the capital of the Phrygian Kingdom. Near Polatlı, the city was the center of Phrygian civilization from the ninth century BCE onward.",
+        "The route continues to Yazılıkaya (Midas Anıtı) and enters Afyonkarahisar through Han, Seyitgazi, and İhsaniye. Ayazini preserves multiple layers of settlement extending from the Phrygian to the Eastern Roman period."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {}
+    },
+    "frig-yolu-yuruyus-rotasi": {
+      "title": "Frig Yolu Walking Route",
+      "summary": "Türkiye’s third-longest walking trail: 506 km, 67 sections, with international red-and-white waymarks.",
+      "description": [
+        "This 506 km walking route follows roads used by the Phrygians and is waymarked to international standards. Much of the trail can be cycled. A volunteer team completed it in 2013 after approximately five years of work.",
+        "The route includes 140 km in Afyonkarahisar, 147 km in Kütahya, 200 km in Eskişehir, and approximately 20 km in Ankara. It passes through four provinces, eight districts, six neighborhoods, 44 villages, and five towns, with red-and-white waymarks along the way."
+      ],
+      "distanceNote": "Total; Afyonkarahisar section 140 km",
+      "source": "Phrygian Cultural Heritage Conservation and Development Union / Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "gordion": "One of three starting points",
+        "seydiler": "One of three starting points",
+        "yenice-ciftligi": "One of three starting points",
+        "yazilikaya": "Meeting point of the three branches"
+      }
+    },
+    "eskisehir-afyon-kultur-rotasi": {
+      "title": "Eskişehir–Afyonkarahisar Cultural Route",
+      "summary": "A day trip from Odunpazarı and Sazova to Afyon Ulu Cami and Zafer Müzesi.",
+      "description": [
+        "The approximately 170 km between the two cities is suitable for day trips focused on culture. The route begins in the morning at Odunpazarı Tarihi Evleri in Eskişehir. After Balmumu Heykeller Müzesi and Sazova Parkı, visitors set off for Afyonkarahisar around midday.",
+        "During the approximately two-hour journey, a guide can introduce Frig Vadisi and its cultural landscape. In Afyonkarahisar, lunch is in Uzun Çarşı, followed by the city center cultural route."
+      ],
+      "distanceNote": "Total, approximately",
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "uzun-carsi": "Lunch with sucuk, kaymak, poppy products, and tandır, followed by a shopping break"
+      }
+    },
+    "hanlar-rotasi": {
+      "title": "Denizli–Afyonkarahisar–Konya Inns Route",
+      "summary": "From Akhan to Kızılören Hanı, following Seljuk and Ottoman caravanserais from Western to Central Anatolia.",
+      "description": [
+        "This cultural journey from Western to Central Anatolia brings together notable examples of Seljuk and Ottoman inns. Starting in Denizli, it passes through Çay Kervansarayı and the city center’s Taş Han in Afyonkarahisar before ending at Zazadin and Kızılören inns in Konya."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {}
+    },
+    "istanbul-pamukkale-kultur-rotasi": {
+      "title": "İstanbul–Eskişehir–Afyonkarahisar–Pamukkale Cultural Route",
+      "summary": "A three-day cultural journey through Eskişehir’s museums, central Afyonkarahisar, Gazlıgöl’s thermal area, and Pamukkale.",
+      "description": [
+        "This route through several layers of history starts early in İstanbul and heads from Marmara into the inland Aegean. Eskişehir is reached after approximately five hours. Lunch introduces regional dishes such as çibörek and balaban kebap.",
+        "In Afyonkarahisar, visits include Alimoğlu Müzik Koleksiyonu, Afyonkarahisar Müzesi, Ulu Cami, Millet Hamamı, and Mevlevihane. Lunch is in Uzun Çarşı at restaurants serving sucuk, kaymak, poppy katmer, and ekmek kadayıfı. The day ends with a stay in Gazlıgöl Termal Bölgesi.",
+        "On the last day, an approximately three-hour journey leads to Pamukkale for visits to Hierapolis Antik Kenti and Pamukkale Travertenleri."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "uzun-carsi": "Lunch and shopping break"
+      }
+    },
+    "ankara-izmir-yht-kultur-rotasi": {
+      "title": "Ankara–İzmir High-Speed Rail Cultural Route",
+      "summary": "A five-day cultural journey planned around the high-speed rail line from Ankara to İzmir, including Anıtkabir, Afyon Ulu Cami, the Karun treasures, and Agora.",
+      "description": [
+        "Planned around the Ankara–İzmir high-speed rail line, this cultural tour aims to offer a continuous journey through Anatolia’s historical and cultural heritage. It begins at Anıtkabir in Ankara. Visits to the first and second parliament buildings present the founding of Türkiye in chronological order, Anadolu Medeniyetleri Müzesi introduces Hittite, Phrygian, Urartian, and Lydian cultures, and Hacı Bayram Veli Camii and Augustus Tapınağı illustrate cultural continuity from Roman to Ottoman times.",
+        "Visitors travel by high-speed train to Afyonkarahisar for an overnight stay. The next day includes Ulu Cami, Afyonkarahisar Kalesi, and Mevlevihane. An optional day trip to Phrygia can include Ayazini, Avdalaz Kalesi, Aslantaş, Yılantaş and Maltaş, Kral Yolu, Aslankaya Tapınağı, and Memeç Kayalıkları.",
+        "On the fourth day, the tour continues by train to Uşak for Uşak Arkeoloji Müzesi and the Karun treasures, Blaundos Antik Kenti, Clandıras Köprüsü, and Ulubey Kanyonu. Visitors arrive in İzmir in the evening. The final day includes Kordon, Konak Meydanı and Saat Kulesi, Kemeraltı Çarşısı, and Agora Ören Yeri. The next morning, the tour returns to Ankara by high-speed train."
+      ],
+      "tips": [
+        "The route was planned around the Ankara–İzmir high-speed rail line. Check TCDD Taşımacılık announcements for the line’s operating status and train schedules."
+      ],
+      "source": "Suggested Tour Routes Developed Specifically for Afyonkarahisar",
+      "stopNotes": {
+        "anitkabir": "Day 1 · Ankara",
+        "augustus-tapinagi": "Evening high-speed train transfer to Afyonkarahisar",
+        "ulu-cami": "Day 2 · Afyonkarahisar",
+        "afyon-kalesi": "Introduction from outside",
+        "mevlevihane": "Overnight stay in Afyonkarahisar",
+        "ayazini": "Day 3 · Optional Phrygia excursion",
+        "avdalaz-kalesi": "Optional",
+        "aslantas-yilantas": "Optional",
+        "bayramaliler": "Optional · Kral Yolu",
+        "aslankaya": "Optional",
+        "memec": "Optional",
+        "usak-arkeoloji": "Day 4 · High-speed train to Uşak",
+        "ulubey-kanyonu": "Evening high-speed train transfer to İzmir",
+        "izmir-kordon": "Day 5 · İzmir",
+        "izmir-agora": "Overnight stay in İzmir; return to Ankara by high-speed train the next morning"
+      }
+    }
+  },
+  "places": {
+    "alimoglu-muzik": {
+      "area": "City center · AKÜ State Conservatory",
+      "note": "Instruments from different cultures around the world, used from the past to the present, are displayed here.",
+      "about": [
+        "Housed in the Afyon Kocatepe University State Conservatory building, this collection brings together instruments from Turkish music and many cultures worldwide. It offers a compact but varied introduction to the sounds and instruments of different regions.",
+        "The collection opened to visitors in 2013. Initiated by businessman İbrahim Alimoğlu, it grew with donations from German musicologist Wolfgang Ott. It received the Ministry of Culture and Tourism Special Award in 2023."
+      ],
+      "facts": [
+        {
+          "label": "Opened",
+          "value": "September 30, 2013"
+        },
+        {
+          "label": "Location",
+          "value": "AKÜ State Conservatory building"
+        },
+        {
+          "label": "Collection",
+          "value": "According to AKÜ news, 433 types of instruments from seven continents"
+        },
+        {
+          "label": "Award",
+          "value": "2023 Ministry of Culture and Tourism Special Award"
+        }
+      ],
+      "visitTips": [
+        "As the museum is inside a university conservatory building, check current visiting hours and entry conditions before visiting."
+      ]
+    },
+    "afyon-muzesi": {
+      "area": "City center",
+      "note": "Completed in 2023, this museum has five floors of indoor displays, with Phrygian, Roman, Byzantine, and Ottoman artifacts.",
+      "about": [
+        "The new museum building opened in 2023 and presents Afyonkarahisar’s history chronologically. The exhibition begins in the Chalcolithic Age and continues through the Bronze Age, Hittite, Phrygian, Lydian, Persian, Hellenistic, Roman, Byzantine, Seljuk, and Ottoman periods to the early Republic.",
+        "Highlights include terracotta, stone and marble objects, sarcophagi, glass and metal vessels, and coins. Architectural fragments illustrate Afyon’s marble tradition. The fifth floor is dedicated to the War of Independence. Roman and Byzantine stelae and sarcophagi can be seen in the garden."
+      ],
+      "facts": [
+        {
+          "label": "Opened",
+          "value": "April 20, 2023 (new building)"
+        },
+        {
+          "label": "Indoor area",
+          "value": "Approximately 25,500 m²"
+        },
+        {
+          "label": "Exhibition coverage",
+          "value": "From the Chalcolithic period to the early Republic"
+        },
+        {
+          "label": "Museum history",
+          "value": "The museum directorate was established in 1933 and operated in Taş Medrese until 1971"
+        }
+      ],
+      "visitTips": [
+        "The museum is reported to have an audio description system for visitors with visual impairments.",
+        "Do not miss the outdoor exhibition in the garden.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "ulu-cami": {
+      "area": "City center",
+      "note": "An Anatolian Seljuk mosque built in 1272, with 40 wooden columns, on the UNESCO World Heritage List.",
+      "about": [
+        "One of Afyonkarahisar’s largest mosques, Ulu Cami was built between 1272 and 1277 during the Anatolian Seljuk period. Supported by wooden columns, it is known for its refined interior, said to have been built without nails, and is also called Kırk Direkli Cami, the Mosque of Forty Columns.",
+        "The pulpit door preserves its original woodwork, and the marble mihrab bears the Throne Verse. In 2023, the mosque joined the UNESCO World Heritage List as part of the group of medieval wooden-columned mosques of Anatolia."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Anatolian Seljuks, 1272–1277"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "According to the inscription, Sahipata Nusretüddin Hasan"
+        },
+        {
+          "label": "Architecture",
+          "value": "Wooden-columned; known as the Mosque of Forty Columns and repaired many times"
+        },
+        {
+          "label": "First major repair",
+          "value": "1341"
+        },
+        {
+          "label": "UNESCO",
+          "value": "Added to the World Heritage List in 2023 by decision of the 45th World Heritage Committee"
+        }
+      ],
+      "visitTips": [
+        "Many painted decorations on the wooden column capitals are worn, so they can be difficult to see.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "millet-hamami": {
+      "area": "City center",
+      "note": "A historic bath near Ulu Cami.",
+      "about": [
+        "Thought to date from the second half of the seventeenth century, this bath is an example of Ottoman architecture. Because it was built by Armenian craftspeople, it was once called Gavur Hamamı; the name Millet Hamamı became established later.",
+        "Built with rubble and dressed stone, the building covers approximately 2,000 square meters. The men’s section is to the north and the women’s to the south. It retains its bathhouse appearance but now serves as an exhibition hall, conference space, workshop venue, and cafeteria. Municipal pages also call it Hamam Müzesi."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Second half of the seventeenth century (estimated)"
+        },
+        {
+          "label": "Built by",
+          "value": "Armenian craftspeople"
+        },
+        {
+          "label": "Area",
+          "value": "Approximately 2,000 m²"
+        },
+        {
+          "label": "Address",
+          "value": "Tac-ı Ahmet Mahallesi, Hamam Aralığı Sokak"
+        }
+      ],
+      "visitTips": [
+        "Some sections also serve as exhibition spaces, workshops, and a cafeteria. Check current hours before visiting."
+      ]
+    },
+    "mevlevihane": {
+      "area": "City center",
+      "note": "Founded in the late thirteenth century, it was among the first centers of the Mevlevi tradition’s westward expansion. Visitors can see the ceremonial hall and tomb section.",
+      "about": [
+        "Afyonkarahisar Mevlevihanesi is one of the earliest Mevlevi lodges established in Anatolia and is regarded as an important center after Konya. It takes its name from Sultan Divani, who increased its prominence in the sixteenth century.",
+        "The mosque section includes the semahane, or ceremonial hall, and a tomb containing the cenotaphs of Sultan Divani and eleven others. The dervish rooms and kitchen, known as the matbah, opened as a museum in 2008. The rooms recreate daily Mevlevi life. The tradition of 40 Hatimli Şifalı Aşure, a ceremonial aşure pudding, continues here."
+      ],
+      "facts": [
+        {
+          "label": "Foundation",
+          "value": "According to Kültür Portalı, its origins date to the thirteenth century"
+        },
+        {
+          "label": "Current building",
+          "value": "Opened in 1908 after the 1902 fire"
+        },
+        {
+          "label": "Museum",
+          "value": "Opened as Sultan Divani Mevlevihane Müzesi in 2008"
+        },
+        {
+          "label": "Sections",
+          "value": "Semahane, tomb, dervish rooms, matbah, and hâmuşân (cemetery)"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kadinanalar-turbesi": {
+      "area": "City center",
+      "about": [
+        "The Kadınanalar were three sisters, Melek Peyker, Naime Gevher, and Asiye, who came from Konya to Afyonkarahisar fleeing the Mongol threat. Kültür Portalı records describe them as daughters of Seljuk Sultan Alaaddin Keykubat III. They are remembered for their services to the city.",
+        "Asiye Hatun’s square, single-domed tomb is on Kadınana Caddesi. The tomb built for Melek Peyker and Naime Gevher is near Mevlevi Camii. The spring water they brought into the city through a covered channel is still known as Kadınana water."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Seljuk period"
+        },
+        {
+          "label": "People",
+          "value": "Melek Peyker, Naime Gevher, and Asiye Hatun"
+        },
+        {
+          "label": "Tombs",
+          "value": "Two tombs: Asiye Hatun on Kadınana Caddesi, and Melek Peyker and Naime Gevher near Mevlevi Camii"
+        },
+        {
+          "label": "Architecture",
+          "value": "Asiye Hatun’s tomb has a square plan and a single dome"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "afyon-konaklari": {
+      "area": "City center",
+      "note": "Examples of Ottoman domestic architecture restored by Afyon Municipality.",
+      "about": [
+        "Afyonkarahisar is known for historic mansions representing Ottoman and Republican domestic architecture. They are particularly concentrated around Ulu Cami and Mevlevihane.",
+        "Noted for their woodwork, projecting bay windows, and colorful exteriors, these buildings are being renewed through municipal restoration. Some, including Mihrioğlu, Şehitoğlu, Çeşmeli, and Kadınana, serve as cultural houses offering regional food."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Ottoman and Republican domestic architecture"
+        },
+        {
+          "label": "Location",
+          "value": "Around Ulu Cami and Mevlevihane"
+        },
+        {
+          "label": "Notable names",
+          "value": "Mihrioğlu, Şehitoğlu, Çeşmeli, Kadınana"
+        },
+        {
+          "label": "Current use",
+          "value": "Some are cultural houses serving regional food"
+        }
+      ],
+      "visitTips": [
+        "Some mansions serve as cultural houses. If you would like to try regional food, check the business information in advance."
+      ]
+    },
+    "tashan-merkez": {
+      "area": "City center",
+      "note": "A two-story seventeenth-century Ottoman city inn with a large courtyard.",
+      "about": [
+        "Taşhan, also known as Hoca Üveys Hanı, is a two-story Ottoman inn. Kadı Abdullah Efendi commissioned it in the mid-seventeenth century with contributions from traditional shoemakers. It stands in Yemeniciler Çarşısı.",
+        "Built in alternating courses of rubble stone and brick, it has a central open courtyard and arcades on all four sides of the upper floor. Following restoration, it opened for cultural and tourism use in 2018. It now houses craft workshops and souvenir shops under the name Alem-i Çarşı."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Mid-seventeenth century, Ottoman"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Kadı Abdullah Efendi, with contributions from traditional shoemakers"
+        },
+        {
+          "label": "Architecture",
+          "value": "Two stories, roughly square plan, central open courtyard"
+        },
+        {
+          "label": "Restoration",
+          "value": "Kütahya Regional Directorate of Foundations; opened in March 2018"
+        }
+      ],
+      "visitTips": [
+        "Workshop and shop schedules may vary. Check current hours before visiting."
+      ]
+    },
+    "uzun-carsi": {
+      "area": "City center",
+      "note": "Shops sell kaymak, Turkish delight, sucuk, and poppy products, while restaurants serve regional dishes.",
+      "about": [
+        "Uzun Çarşı has been known as a center of trade in Afyonkarahisar for more than a century. Local specialties such as Afyon sucuk, kaymak, Turkish delight, poppy products, and regional desserts can be found together here.",
+        "The bazaar was renewed through street rehabilitation and facade improvements completed in 2023. Visitors come to shop, take photos, and learn about the city’s everyday culture."
+      ],
+      "facts": [
+        {
+          "label": "History",
+          "value": "According to the municipality, a trading center for over 100 years"
+        },
+        {
+          "label": "Renovation",
+          "value": "Opened after street rehabilitation work in November 2023"
+        },
+        {
+          "label": "Local products",
+          "value": "Sucuk, kaymak, Turkish delight, and poppy products"
+        }
+      ],
+      "visitTips": [
+        "Opening and closing times vary by business. Check current hours before visiting."
+      ]
+    },
+    "imaret-cami": {
+      "area": "City center",
+      "note": "A fifteenth-century Ottoman complex built in 1472, consisting of a mosque, madrasa, and bath.",
+      "about": [
+        "Commissioned in 1472 by Gedik Ahmet Paşa, one of Sultan Mehmet II’s grand viziers, the complex includes a mosque, madrasa, bath, and public kitchen. Its architect is recorded as Ayaz Ağa. It is an important foundation monument in Afyonkarahisar.",
+        "The mosque reflects the Bursa style, with an inverted-T plan and two large domes aligned in sequence. Its twisted, fluted minaret has a single balcony and dark blue decoration in the grooves. The adjacent Taş Medrese has 26 domes and can now be visited for local handicrafts."
+      ],
+      "facts": [
+        {
+          "label": "Construction",
+          "value": "1472 (877 AH)"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Grand Vizier Gedik Ahmet Paşa"
+        },
+        {
+          "label": "Architect",
+          "value": "Ayaz Ağa"
+        },
+        {
+          "label": "Plan",
+          "value": "Inverted-T plan with two large domes"
+        },
+        {
+          "label": "Complex",
+          "value": "Mosque, madrasa, bath, and public kitchen"
+        }
+      ],
+      "visitTips": [
+        "Regional handicrafts are sold in Taş Medrese.",
+        "The mosque is an active place of worship. Check current visiting hours."
+      ]
+    },
+    "anitpark": {
+      "area": "City center",
+      "note": "A group of sculptures and reliefs symbolizing the War of Independence.",
+      "about": [
+        "Anıtpark is in the city center and houses Zafer (Utku) Anıtı, a monument symbolizing the Great Offensive and the city’s liberation from occupation.",
+        "Austrian sculptor Heinrich Krippel designed the monument in 1932. İsmet İnönü inaugurated it on March 25, 1936. Atatürk examined it during his 1937 visit and is reported to have called it the monument that best expresses the great victory."
+      ],
+      "facts": [
+        {
+          "label": "Monument",
+          "value": "Zafer (Utku) Anıtı"
+        },
+        {
+          "label": "Design",
+          "value": "Heinrich Krippel, 1932"
+        },
+        {
+          "label": "Opened",
+          "value": "March 25, 1936, İsmet İnönü"
+        },
+        {
+          "label": "Location",
+          "value": "City center, opposite Zafer Müzesi"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "zafer-muzesi": {
+      "area": "City center",
+      "note": "Opposite Anıtpark; also used as a headquarters after liberation.",
+      "about": [
+        "The building opposite Anıtpark was constructed by Armenian craftspeople in 1913–1914 as a municipal service building. It was used as Western Front headquarters during the War of Independence. The Battle of Dumlupınar is reported to have been planned here.",
+        "Transferred for conversion into a museum in 1985, the building has offered visits since 1995 to the restored rooms used by Atatürk, İsmet İnönü, Fevzi Çakmak, and other commanders. The museum holds 213 items, including photographs, documents, weapons, and the silver scissors made for the inauguration of Zafer Anıtı."
+      ],
+      "facts": [
+        {
+          "label": "Construction",
+          "value": "1913–1914, during the tenure of Esbabzade Hüseyin Tevfik Efendi"
+        },
+        {
+          "label": "Transfer for museum use",
+          "value": "1985; opened in 1995 after the rooms were reorganized"
+        },
+        {
+          "label": "Number of objects",
+          "value": "213"
+        },
+        {
+          "label": "Location",
+          "value": "Opposite Anıtpark, Milli Birlik Caddesi"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "vesvese-dede": {
+      "area": "City center",
+      "note": "Known in local belief as a place for wishes and healing.",
+      "about": [
+        "Vesvese Dede is a figure regarded locally as a friend of God, known through a modest tomb beside Namık Kemal Primary School in the city center. It is particularly visited for prayer by people experiencing anxiety or unease.",
+        "There is no clear academic information about when Vesvese Dede lived. Written sources are limited, although the tradition of visiting is strong."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Beside Namık Kemal Primary School, city center"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kubbeli-cami": {
+      "area": "City center",
+      "note": "A simple yet distinctive example of Seljuk stonework.",
+      "about": [
+        "Kubeli (Kubbeli) Camii stands in its namesake neighborhood between the castle and Hıdırlık. It is a simple building with a square plan, a single dome, and neatly dressed stone.",
+        "According to the inscription above its door, it was built in 1330. Part of the stone ceiling at the entrance incorporates reused Byzantine material. Its minaret was rebuilt in 1937–1938."
+      ],
+      "facts": [
+        {
+          "label": "Construction",
+          "value": "1330 (731 AH), according to the inscription above the door"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Nusretüddin Ahmed bin Mehmed"
+        },
+        {
+          "label": "Built by",
+          "value": "Hacı Ali bin İdris"
+        },
+        {
+          "label": "Architecture",
+          "value": "Square plan, single dome, dressed stone"
+        },
+        {
+          "label": "Location",
+          "value": "Kubeli Mahallesi, between the castle and Hıdırlık"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "tacahmet-cami": {
+      "area": "City center",
+      "note": "Reflects classical Ottoman architecture."
+    },
+    "akmescit-cami": {
+      "area": "City center",
+      "about": [
+        "Akmescit Camii is a single-domed mosque built of dressed stone on Zaviye Caddesi in Akmescit Mahallesi. The dome is covered with lead, and its brick minaret stands in the middle of the eastern facade.",
+        "According to its inscription, Ketencioğlu Hacı Hamza commissioned it in 1397. His grave is in the garden, and a fountain bearing the same name stands beside the minaret base."
+      ],
+      "facts": [
+        {
+          "label": "Construction",
+          "value": "1397 (800 AH)"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Ketencioğlu Hacı Hamza"
+        },
+        {
+          "label": "Architecture",
+          "value": "Dressed stone, single dome, brick minaret"
+        },
+        {
+          "label": "Surroundings",
+          "value": "Fountain and Hacı Hamza’s grave"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "otpazari-cami": {
+      "area": "City center",
+      "note": "The surrounding bazaar preserves local shopkeeping traditions.",
+      "about": [
+        "Ot Pazarı Camii was commissioned by Felezade Süleyman Çavuş around 1590 in the bazaar area. Records state that Hacı İsmail Mescidi previously stood on the site and was replaced by this mosque after demolition.",
+        "Built of dressed stone, it has a square plan and a single dome. Its entrance portico is covered by three domes. The patron’s domed tomb stands in the garden. Its single-balcony minaret was renewed in 1958."
+      ],
+      "facts": [
+        {
+          "label": "Construction",
+          "value": "Before 1590 (998 AH)"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Felezade Süleyman Çavuş"
+        },
+        {
+          "label": "Architecture",
+          "value": "Square plan, single dome, three-domed entrance portico"
+        },
+        {
+          "label": "Minaret",
+          "value": "Renewed in 1958, with a single balcony"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "yoncaalti-cami": {
+      "area": "City center",
+      "about": [
+        "Yoncaaltı Camii appears in foundation records as Tevfikiye Camisi. Built as a two-story wooden structure in the central bazaar area known as Tuzpazarı, it originally had a mosque and madrasa upstairs and shops below.",
+        "According to its inscription, the mosque was built in 1840. It was completely destroyed by fire in 1909 and rebuilt. Sahipler Türbesi stands to the south. It can easily be reached on foot from Anıtpark along Uzun Çarşı."
+      ],
+      "facts": [
+        {
+          "label": "Construction",
+          "value": "1840, according to the inscription"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Hacı Ahmet Ağa, son of Süleyman"
+        },
+        {
+          "label": "Reconstruction",
+          "value": "After the 1909 fire"
+        },
+        {
+          "label": "Also known as",
+          "value": "Tevfikiye Camisi"
+        },
+        {
+          "label": "Nearby",
+          "value": "Sahipler Türbesi"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "gastronomi-konagi": {
+      "area": "City center",
+      "note": "A mansion serving regional food.",
+      "about": [
+        "Afyonkarahisar Gastronomi Konağı operates in the restored Benlioğlu Konağı, serving the city’s regional food in a historic mansion setting.",
+        "Its rooms are named after local cultural landmarks such as Kocatepe, Kadınana, Sultan Divani, and Frigya. Meals can be eaten at a table or at a traditional floor setting. The mansion also has a children’s play area and a prayer room."
+      ],
+      "facts": [
+        {
+          "label": "Building",
+          "value": "Benlioğlu Konağı, restored"
+        },
+        {
+          "label": "Ownership",
+          "value": "Afyonkarahisar Municipality"
+        },
+        {
+          "label": "Capacity",
+          "value": "Can serve 100 people at a time"
+        },
+        {
+          "label": "Area",
+          "value": "670 m² indoors, 380 m² outdoors"
+        }
+      ],
+      "visitTips": [
+        "It is described as suitable for groups and private events. Contact the business in advance for reservations.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kultur-sanat-evi": {
+      "area": "City center",
+      "note": "Displays include food examples and tools used in Afyonkarahisar’s cuisine.",
+      "about": [
+        "The municipal Kültür Sanat Evi ve Gastronomi Müzesi occupies a three-story mansion built in 1910. Scenes with silicone figures introduce Afyonkarahisar’s cultural traditions and cuisine.",
+        "Visitors can see a bridal room, rooms showing felt and Turkish delight production, and recreations of old kitchens. The basement contains objects related to agriculture, livestock, and farriery. Food models are displayed on the ground and first floors."
+      ],
+      "facts": [
+        {
+          "label": "Building",
+          "value": "Mansion dating to 1910, with basement, ground floor, and first floor"
+        },
+        {
+          "label": "Operator",
+          "value": "Afyonkarahisar Municipality"
+        },
+        {
+          "label": "Exhibitions",
+          "value": "Bridal room, felt and Turkish delight rooms, and recreated old kitchens"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "seydiler": {
+      "area": "Seydiler town",
+      "note": "Starting point of the Frig Yolu Afyonkarahisar Cultural Route, with fairy chimneys and rock-cut settlements.",
+      "about": [
+        "Seydiler is a town in İscehisar district and the starting point of Frig Yolu’s Afyonkarahisar section. Fairy chimneys of different sizes and shapes stand within the settlement and in the surrounding valleys.",
+        "The approximately 1–2 square kilometer area is regarded as one of the best places to see fairy chimneys in Frig Vadisi. Beside the Afyonkarahisar–Ankara highway, these are the region’s most easily accessible fairy chimneys."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "İscehisar district, 11 km from İscehisar and 34 km from Afyonkarahisar"
+        },
+        {
+          "label": "Frig Yolu",
+          "value": "The Afyonkarahisar section (Route 1) starts at Seydiler and is approximately 140 km long"
+        },
+        {
+          "label": "Geology",
+          "value": "Fairy chimneys formed in volcanic tuff"
+        }
+      ],
+      "visitTips": [
+        "Easy to reach from the Ankara highway."
+      ]
+    },
+    "alanyurt-selimiye": {
+      "area": "Around Seydiler",
+      "note": "Fairy chimneys, rock-cut tombs, and rock-cut settlements.",
+      "about": [
+        "Alanyurt and Selimiye near Seydiler are villages on Frig Yolu where fairy chimneys and rock-cut tombs can be seen together. Fairy chimneys are also abundant in Alanyurt and around Selimiye.",
+        "A crescent-shaped rock mass southwest of Selimiye contains Byzantine family and individual burial chambers and grave basins. Some entrances have reliefs and inscriptions painted in red. Late Roman cist graves are found on top of the rock."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "İscehisar district, Alanyurt and Selimiye (Sarıçayır)"
+        },
+        {
+          "label": "Burial chambers",
+          "value": "Byzantine period, with Late Roman cist graves"
+        },
+        {
+          "label": "Frig Yolu",
+          "value": "Alanyurt and Selimiye are stops on the Afyonkarahisar section"
+        }
+      ]
+    },
+    "ayazini": {
+      "area": "İhsaniye",
+      "note": "Rock-cut churches, burial chambers, and remains of multistory dwellings from Phrygian through Roman and Eastern Roman times.",
+      "about": [
+        "Ayazini has been inhabited since the Phrygian period. It was settled in Roman times, became the region’s religious center and metropolis during the Byzantine period, and remained in use under the Seljuks and Ottomans. Its easily worked volcanic tuff was suitable for rock-cut houses, burial chambers, and churches.",
+        "Ayazini (Meryem Ana) Kilisesi, at the village entrance, differs from other Anatolian rock-cut churches because its apsed and domed exterior was carved into the rock face. Roman and Byzantine burial chambers have pediments with Medusa heads and lion reliefs."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Phrygian, Roman, Byzantine, Seljuk, and Ottoman periods"
+        },
+        {
+          "label": "Highlights",
+          "value": "Ayazini Kilisesi, multistory rock-cut houses, and rock-cut tombs"
+        },
+        {
+          "label": "Church date",
+          "value": "Around 1000 CE; some sources give the eighth to tenth centuries"
+        },
+        {
+          "label": "Location",
+          "value": "İhsaniye, approximately 32 km from central Afyonkarahisar"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "avdalaz-kalesi": {
+      "area": "İhsaniye",
+      "about": [
+        "Avdalaz Kalesi is a rock-cut settlement northwest of Ayazini and northeast of Göynüş Vadisi. It first came into use during the Phrygian period and was also inhabited in Roman and Byzantine times.",
+        "Its position carved into a rock mass overlooking the surroundings suggests a defensive function. Inside are a large cistern reached by steps, interconnected multistory living spaces above, and Roman and Byzantine burial chambers below. Fairy chimneys can also be seen in and around Ayazini."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Phrygian, Roman, and Byzantine periods"
+        },
+        {
+          "label": "Building type",
+          "value": "Rock-cut settlement / fortress"
+        },
+        {
+          "label": "Highlights",
+          "value": "Cistern with steps, multistory settlement, and burial chambers"
+        }
+      ]
+    },
+    "goynus-vadisi": {
+      "area": "İhsaniye",
+      "note": "This valley, regarded as sacred, contains the monumental Aslantaş and Yılantaş tombs and Maltaş, an open-air temple of Cybele.",
+      "about": [
+        "Göynüş (Köhnüş) Vadisi is a major Phrygian necropolis. Many tombs are cut into rocks reaching ten meters high. The most monumental are Aslantaş and Yılantaş, noted for their reliefs.",
+        "Maltaş Anıtı, shaped like a temple facade with a triangular roof, is about 500 meters from Aslantaş and Yılantaş. Kumcaboğaz Anıtı, roughly one kilometer away, has a relief of Cybele in a niche. The valley forms part of mountainous Phrygia."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Mainly eighth to sixth centuries BCE, Phrygian"
+        },
+        {
+          "label": "Main monuments",
+          "value": "Aslantaş, Yılantaş, Maltaş, Kumcaboğaz"
+        },
+        {
+          "label": "Location",
+          "value": "İhsaniye, Kayıhan town"
+        },
+        {
+          "label": "Protection status",
+          "value": "Mountainous Frig Vadisi has been on the UNESCO World Heritage Tentative List since 2015"
+        }
+      ],
+      "visitTips": [
+        "According to the source, visitors can take a Kayıhan minibus from Afyonkarahisar’s village bus terminal and explore the valley on foot.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "demirli": {
+      "area": "Demirli",
+      "note": "Accommodation is available at Frig Evi.",
+      "about": [
+        "Demirli Kalesi is a settlement carved into a natural rock formation northwest of Göynüş Vadisi. It first came into use in Phrygian times and was also inhabited during the Byzantine period.",
+        "Alongside various spaces, the fortress contains a large stepped cistern filled with stones. Immediately beside it is a necropolis with rock-cut chamber tombs and cist graves."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Phrygian and Byzantine periods"
+        },
+        {
+          "label": "Location",
+          "value": "İhsaniye, northwest of Göynüş Vadisi"
+        },
+        {
+          "label": "Highlights",
+          "value": "Stepped cistern, chamber tombs, and cist graves"
+        }
+      ]
+    },
+    "bayramaliler": {
+      "area": "Bayramaliler",
+      "about": [
+        "Bayramaliler Kalesi is a prominent rock-cut settlement northeast of Bayramaliler village. Numerous niches and offering pits in the rocks to its south indicate that the area was used for worship in the first millennium BCE.",
+        "Vaulted rooms, cisterns, and stores carved into the slopes gradually formed a settlement. The upper plateau was enclosed by walls to create a fortress. In the Eastern Roman period, it was the center of a settlement called Leonto Kefal."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "First millennium BCE to the Eastern Roman period"
+        },
+        {
+          "label": "Former name",
+          "value": "Leonto Kefal, an Eastern Roman settlement"
+        },
+        {
+          "label": "Location",
+          "value": "İhsaniye, northeast of Bayramaliler village"
+        },
+        {
+          "label": "Highlights",
+          "value": "Niches, offering pits, cisterns, and defensive walls"
+        }
+      ]
+    },
+    "emre-golu": {
+      "area": "Around Emre Gölü",
+      "note": "Like Ayazini Ören Yeri, it has areas selling souvenirs and local products.",
+      "about": [
+        "Emre Gölü lies in Döğer, İhsaniye district, within Frig Vadisi. Phrygian rock monuments and Yunus Emre Tekkesi stand along the shore of this approximately five-square-kilometer lake.",
+        "Canoe and rowing-boat trips are available on the lake, with walking, cycling, picnicking, and camping nearby. The lake lies on a flamingo migration route. The lodge stands on a hill to the southeast and is a rectangular building faced with dressed stone."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Döğer town, İhsaniye"
+        },
+        {
+          "label": "Lake area",
+          "value": "Approximately 5 km²"
+        },
+        {
+          "label": "Activities",
+          "value": "Canoeing, rowing boats, walking, cycling, picnicking, and camping"
+        },
+        {
+          "label": "Lodge",
+          "value": "Stone-faced building on a hill southeast of the lake"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "memec": {
+      "area": "Phrygia region",
+      "about": [
+        "Memeç Kayalıkları stands on the road to Emre Gölü in Döğer. Byzantine chapels and rock-cut settlements can be seen here, along with traces of the Phrygian period on the rock.",
+        "Phrygian rock monuments stand in the surrounding area. Afyonkarahisar Governorship’s visitor information also describes the rocks as a filming location for Arog."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Döğer, İhsaniye, on the road to Emre Gölü"
+        },
+        {
+          "label": "Period",
+          "value": "Phrygian traces and a Byzantine chapel / rock-cut settlement"
+        }
+      ]
+    },
+    "aslankaya": {
+      "area": "Phrygia region",
+      "note": "The first stop on Frig Yolu in Afyonkarahisar when approaching from Eskişehir.",
+      "about": [
+        "Aslankaya stands by Emre Gölü in Döğer. A temple facade with a triangular roof is carved into the southern face of a tall, steep rock. It is thought to date to the seventh century BCE.",
+        "A roaring lion stands on its hind legs on the northern side. The main facade has geometric reliefs, two sphinxes in the roof-beam spaces, and Cybele between two lions in the niche."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Seventh century BCE, estimated"
+        },
+        {
+          "label": "Type",
+          "value": "Phrygian open-air temple / rock monument"
+        },
+        {
+          "label": "Depictions",
+          "value": "Lion, sphinx, and Cybele"
+        },
+        {
+          "label": "Location",
+          "value": "Döğer, shore of Emre Gölü"
+        }
+      ]
+    },
+    "uclerkayasi": {
+      "area": "Üçlerkayası",
+      "note": "End point of the Frig Yolu Afyonkarahisar Cultural Route.",
+      "about": [
+        "Üçlerkayası is an inhabited village in İhsaniye with Phrygian, Roman, Byzantine, Seljuk, and Ottoman traces. Its open-air temples, rock-cut tombs and dwellings, and fairy chimneys make it an alternative Phrygia route.",
+        "Kapıkaya I (Küçük Kapıkaya) is a simple temple facade with a triangular roof and a relief of standing Cybele in its niche. Kapıkaya II (Büyük Kapıkaya) has a geometrically decorated facade resembling a wooden temple, with a ceremonial area, rock seat, and stepped altar in front. Both date to the seventh century BCE."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Kapıkaya monuments: seventh century BCE, estimated"
+        },
+        {
+          "label": "Monuments",
+          "value": "Kapıkaya I and II, Phrygian open-air temples"
+        },
+        {
+          "label": "Location",
+          "value": "İhsaniye, Üçlerkayası village, near Emre Gölü"
+        },
+        {
+          "label": "Condition",
+          "value": "Damage has been reported at Kapıkaya II"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "suhut-sehitligi": {
+      "area": "Şuhut",
+      "about": [
+        "Şuhut Kurtuluş Savaşı Şehitliği is in the district center and commemorates soldiers killed in the War of Independence. Before and during the Great Offensive, wounded and sick officers and soldiers were brought to Şuhut for initial treatment in Büyük Cami, which remains in use today.",
+        "Those who died were first buried near the present-day Demirciler Çarşısı and later moved to the plot used as the military cemetery. A small pyramidal monument was erected in 1971 with an inscription honoring the martyrs of the War of Independence."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Şuhut district center"
+        },
+        {
+          "label": "Monument",
+          "value": "Small pyramidal monument built in 1971"
+        },
+        {
+          "label": "Inscription",
+          "value": "Honored martyrs of the War of Independence"
+        }
+      ]
+    },
+    "suhut-ataturk-evi": {
+      "area": "Şuhut",
+      "note": "The house where Atatürk stayed before moving to Kocatepe. The approximately 20 km route starting here is known as Zafer Yolu.",
+      "about": [
+        "Şuhut Atatürk Evi is Hacı Veli Konağı, where Mustafa Kemal Paşa stayed after arriving in Şuhut on the evening of August 24, 1922. It is also known as the Great Offensive Headquarters. On August 24–25, it served as the joint headquarters of the Supreme Command, General Staff, Western Front, and First Army Command.",
+        "Atatürk made the final preparations for the Great Offensive here and ordered communications between Anatolia and the outside world to be cut from this mansion. The building was acquired by the state in 1999, restored in 2003, and opened as Atatürk Kültür ve Sanat Evi in 2005."
+      ],
+      "facts": [
+        {
+          "label": "Building",
+          "value": "Hacı Veli Konağı, Yalı Mahallesi, Şuhut"
+        },
+        {
+          "label": "Historical event",
+          "value": "August 24–25, 1922, Great Offensive Headquarters"
+        },
+        {
+          "label": "State acquisition / restoration",
+          "value": "1999 / 2003"
+        },
+        {
+          "label": "Opened",
+          "value": "2005, Atatürk Kültür ve Sanat Evi"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kocatepe-aniti": {
+      "area": "Kocatepe",
+      "about": [
+        "Kocatepe is a hill at an elevation of 1,874 meters, overlooking the Afyonkarahisar and Sinanpaşa plains. Mustafa Kemal Atatürk and his commanders arrived on the evening of August 25, 1922. They launched the Great Offensive from here the next morning and directed its initial phase from the headquarters and the trench that still survives.",
+        "The first hilltop monument was built by the Ministry of National Defense in 1953. The current bronze Atatürk monument was installed by the Ministry of Culture and opened to visitors in 1993. Including its base, it is 7.5 meters high. Victory Week celebrations begin here every August 26."
+      ],
+      "facts": [
+        {
+          "label": "Elevation",
+          "value": "1,874 m"
+        },
+        {
+          "label": "Historical event",
+          "value": "August 26, 1922, start of the Great Offensive"
+        },
+        {
+          "label": "Monument",
+          "value": "Bronze, 7.5 m including base; installed in 1993"
+        },
+        {
+          "label": "Location",
+          "value": "Within Büyükkalecik town, central district"
+        }
+      ],
+      "visitTips": [
+        "The paved road is closed in winter because of heavy snow.",
+        "The first Victory Week ceremony takes place here on August 26.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "buyukkalecik": {
+      "area": "Büyükkalecik",
+      "about": [
+        "Büyükkalecik is approximately 12 km from central Afyonkarahisar. Yüzbaşı Agâh Efendi Şehitliği commemorates Captain Agâh Efendi, First Lieutenant Feyzullah, and their soldiers, killed on August 27, 1922, the second day of the Great Offensive, while defending Kalecik and Kurtkaya, described as the only passage to Kocatepe.",
+        "The cemetery was first built by the Ministry of National Defense on August 26, 1972. In 1993, the Ministry of Culture renewed it with graves, a monument, a ceremonial area, and paths. The two commanders’ graves are covered by a Seljuk-style arched dome."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Büyükkalecik town, 12 km from the city center"
+        },
+        {
+          "label": "Historical event",
+          "value": "August 27, 1922, defense of Kalecik–Kurtkaya"
+        },
+        {
+          "label": "Construction",
+          "value": "1972, Ministry of National Defense; renewed in 1993 by the Ministry of Culture"
+        },
+        {
+          "label": "Architecture",
+          "value": "Seljuk-style arched dome over the graves"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kurtkayasi": {
+      "area": "Around Büyükkalecik",
+      "note": "Reached on foot.",
+      "about": [
+        "Kurtkaya, near Büyükkalecik, is described as the only passage to Kocatepe, where the Supreme Command headquarters stood. Intense fighting took place here in the first days of the Great Offensive.",
+        "On August 27, 1922, the unit commanded by Captain Agâh Efendi attacked enemy positions here and was killed in action. The nearby Yüzbaşı Agâh Efendi Şehitliği commemorates this fighting."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Around Büyükkalecik, Kalecik–Kurtkaya area"
+        },
+        {
+          "label": "Historical event",
+          "value": "August 27, 1922"
+        },
+        {
+          "label": "Associated monument",
+          "value": "Yüzbaşı Agâh Efendi Şehitliği"
+        }
+      ]
+    },
+    "koru-tepe": {
+      "area": "Başkomutanlık Tarihi Milli Parkı",
+      "note": "Rest stop."
+    },
+    "karatepe": {
+      "area": "Küçükkalecik",
+      "note": "Rest stop with Greek trenches.",
+      "about": [
+        "The area around Küçükkalecik lies among the hills on the front line of the Great Offensive, which began on August 26, 1922. Intense fighting between Turkish and Greek units took place in this part of Başkomutan Tarihî Millî Parkı.",
+        "According to accounts, the Greek command wanted to retake Küçük Kalecik on the first night of the offensive, but the regimental commander considered a night attack too risky and postponed it until morning."
+      ],
+      "facts": [
+        {
+          "label": "Event",
+          "value": "Great Offensive, August 26, 1922"
+        },
+        {
+          "label": "Protection status",
+          "value": "Başkomutan Tarihî Millî Parkı, designated November 8, 1981"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "tinaztepe": {
+      "area": "Başkomutanlık Tarihi Milli Parkı",
+      "about": [
+        "Tınaztepe was one of the hills captured by Turkish forces on the first morning of the Great Offensive. According to accounts, the 38th Regiment of the 15th Division captured Tınaz Tepe shortly after Kalecik Sivrisi on August 26, 1922. Positions lost during Greek counterattacks were retaken later that day.",
+        "The settlement was formerly called Sinirköy. Accounts describe villagers warmly welcoming troops advancing from here when Afyon was liberated on August 27."
+      ],
+      "facts": [
+        {
+          "label": "Event",
+          "value": "Great Offensive, August 26, 1922"
+        },
+        {
+          "label": "Former name",
+          "value": "Sinirköy"
+        },
+        {
+          "label": "Protection status",
+          "value": "Başkomutan Tarihî Millî Parkı, 1981"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "sumbul-tepe": {
+      "area": "Başkomutanlık Tarihi Milli Parkı",
+      "note": "Stop at the rest point to the north."
+    },
+    "kuzukulakli": {
+      "area": "Başkomutanlık Tarihi Milli Parkı",
+      "note": "Explore the Turkish and Greek trenches on foot."
+    },
+    "ciltepe": {
+      "area": "Başkomutanlık Tarihi Milli Parkı",
+      "note": "Final stop on the Kocatepe section tour.",
+      "about": [
+        "On August 27, 1922, the second day of the Great Offensive, Çiğiltepe was targeted as a strongpoint overlooking Sinanpaşa Ovası. Colonel Reşat Bey, commander of the 57th Division, had promised the Commander-in-Chief that he would capture it quickly.",
+        "Believing he had failed to keep his promise, Reşat Bey took his own life. The hill was captured shortly afterward. Atatürk gave his family the surname Çiğiltepe. A military cemetery and monument now commemorate Colonel Reşat Çiğiltepe and the fallen soldiers here."
+      ],
+      "facts": [
+        {
+          "label": "Event date",
+          "value": "August 27, 1922"
+        },
+        {
+          "label": "Commander",
+          "value": "Colonel Reşat Bey, 57th Division"
+        },
+        {
+          "label": "Monument works",
+          "value": "Road paved in 2004; monument restored in 2005"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "sahipata-han": {
+      "area": "Sultandağı",
+      "note": "Its raised courtyard prayer room is known as the last example of this plan type.",
+      "about": [
+        "According to its inscriptions, this inn in central Sultandağı was commissioned in September 1249 by Vizier Sahib Ata Fahreddin Ali during the reign of Seljuk Sultan İzzeddin Keykavus II. It is regarded as Sahib Ata’s earliest building with a known date.",
+        "The inn consists of an enclosed winter hall and a large courtyard in front. A small domed prayer room rises in the center of the courtyard, reached by a double staircase. Its monumental portal is decorated with muqarnas."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Anatolian Seljuk, September 1249, reign of İzzeddin Keykavus II"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Vizier Sahib Ata Fahreddin Ali"
+        },
+        {
+          "label": "Plan",
+          "value": "Five-aisled enclosed hall and square courtyard with a raised prayer room"
+        },
+        {
+          "label": "Repair",
+          "value": "Restored by the General Directorate of Foundations in 1964"
+        }
+      ],
+      "visitTips": [
+        "The building, particularly the raised prayer room, was damaged in the 2002 Sultandağı–Çay earthquake. Check access conditions before visiting.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "tashan-cay": {
+      "area": "Çay",
+      "note": "A Seljuk stone complex combining square-plan, courtyard, and enclosed building types.",
+      "about": [
+        "Taşhan is an Anatolian Seljuk stone building in central Çay. With external buttresses, a square plan, and a monumental portal, it resembles a fortress. Inside, four large central piers around a skylight and twelve surrounding piers support the vaults.",
+        "A leopard emblem, the architect’s symbol, is carved above the door, giving the building its description as the caravanserai with the leopard emblem. Its square plan is regarded as unique in Anatolian Seljuk architecture."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Anatolian Seljuk, thirteenth century, reign of Gıyaseddin Keyhüsrev III"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Ebul-Mücahit Yusufhan"
+        },
+        {
+          "label": "Architect",
+          "value": "Architect Oğul Bey, son of Mehmet"
+        },
+        {
+          "label": "Plan",
+          "value": "Square plan combining courtyard and enclosed caravanserai types"
+        },
+        {
+          "label": "Decoration",
+          "value": "Leopard emblem above the door"
+        }
+      ],
+      "visitTips": [
+        "According to an Anadolu Ajansı report, the building was restored in 2016 and operates as a tea garden. Confirm its current use before visiting.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "boyali-kulliye": {
+      "area": "Sinanpaşa · Boyalı Köyü",
+      "note": "A complex with Anatolian Seljuk architectural features whose patron is not known with certainty.",
+      "about": [
+        "Boyalı Külliyesi is in Boyalı Köyü, Sinanpaşa, and consists of two tombs and a hankah, or dervish lodge. Its construction date and founder are uncertain; researchers suggest the early thirteenth century.",
+        "The hankah is a single-story rectangular building whose walls incorporate reused Byzantine pieces. The complex includes an iwan-shaped tomb and an octagonal tomb with a pyramidal roof. Evliya Çelebi visited in the seventeenth century and described it as a lodge."
+      ],
+      "facts": [
+        {
+          "label": "Commissioned by",
+          "value": "Not known with certainty"
+        },
+        {
+          "label": "Period",
+          "value": "No definite date; estimated early thirteenth century"
+        },
+        {
+          "label": "Components",
+          "value": "Two tombs, one iwan-shaped and one octagonal, and a hankah"
+        },
+        {
+          "label": "Repair",
+          "value": "Repaired by the Foundations Administration in 1970"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "keskek-evi": {
+      "area": "Şuhut",
+      "about": [
+        "Keşkek Evi is a project developed to introduce and serve Şuhut’s traditional keşkek dish. It was planned near Şuhut Atatürk Evi, with a garden setting for families and children.",
+        "The project was supported by Şuhut District Governorship, the Village Services Union, and Zafer Development Agency, with the aim of creating employment for local women."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Şuhut, Afyonkarahisar"
+        },
+        {
+          "label": "Support",
+          "value": "Zafer Development Agency"
+        },
+        {
+          "label": "Served here",
+          "value": "Traditional Şuhut keşkek"
+        }
+      ],
+      "visitTips": [
+        "Check whether it is open and how it operates before visiting."
+      ]
+    },
+    "kocayayla": {
+      "area": "Sandıklı · Akdağ Milli Parkı",
+      "note": "Pond surroundings, free-roaming horses and red deer, with photo safari and camping opportunities.",
+      "about": [
+        "Kocayayla is a plateau at the foot of Akdağ in Sandıklı, near the Afyonkarahisar–Denizli border. It is surrounded by pine and oak forests, at a reported elevation of approximately 1,550–1,600 meters.",
+        "Free-roaming horses and red deer can be seen in the area. There is a pond, bungalow accommodation, and camping areas, with opportunities for walking, cycling, and photo safaris."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Sandıklı, Akdağ, on the Afyonkarahisar–Denizli border"
+        },
+        {
+          "label": "Elevation",
+          "value": "Approximately 1,550–1,600 m"
+        },
+        {
+          "label": "Wildlife watching",
+          "value": "Free-roaming horses and red deer"
+        },
+        {
+          "label": "Accommodation",
+          "value": "Bungalows and camping"
+        }
+      ],
+      "visitTips": [
+        "Approximately 35 km from Sandıklı. Check transport and accommodation conditions before visiting.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kurtini": {
+      "area": "Sandıklı · Akdağ Milli Parkı",
+      "note": "Reached by an approximately 6 km walk from Kocayayla.",
+      "about": [
+        "Kurtini Mağarası is a karst cave in Karanlıkdere Vadisi, Akdağ, known for stalactites and stalagmites in its limestone formations.",
+        "According to Kültür Portalı, the cave is about 6 km south of Kocayayla. Follow Akçay Deresi, turn left at the third small bridge, and climb for 10–15 minutes to reach the cave."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Akdağ, Sandıklı, Karanlıkdere Vadisi"
+        },
+        {
+          "label": "Distance from Kocayayla",
+          "value": "Approximately 6 km to the south"
+        },
+        {
+          "label": "Final section",
+          "value": "10–15 minute climb after the third bridge over Akçay Deresi"
+        }
+      ],
+      "visitTips": [
+        "Check the weather, ground conditions, and current access information before going to the cave."
+      ]
+    },
+    "tokali-kanyon": {
+      "area": "Sandıklı · Akdağ Milli Parkı",
+      "note": "A difficult crossing requiring equipment, for special-interest groups only.",
+      "about": [
+        "Tokalı Kanyonu is a canyon in Akdağ, approached from around Kocayayla and known to hikers. At its narrowest it is only 1–1.5 meters wide, and crossing takes approximately 7–8 hours.",
+        "According to Kültür Portalı, the route may require swimming or jumping between rocks. The canyon ends in a broad valley. Free-roaming horses, red deer, bearded vultures, and griffon vultures may be seen nearby."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Akdağ, Sandıklı"
+        },
+        {
+          "label": "Crossing time",
+          "value": "Approximately 7–8 hours"
+        },
+        {
+          "label": "Difficulty",
+          "value": "Swimming and jumping between rocks may be required, according to Kültür Portalı"
+        }
+      ],
+      "visitTips": [
+        "As the route is difficult, visitors are advised to prepare properly and check current conditions.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "banaz-hamambogazi": {
+      "area": "Uşak · Banaz",
+      "about": [
+        "Hamamboğazı is in Banaz district, Uşak, about 7.5 km northeast of Banaz on the İzmir–Ankara highway. The springs emerge in dense black pine forest at approximately 950–1,000 meters elevation.",
+        "According to Banaz District Governorship, the spring water is approximately 60 °C with a flow rate of 40 liters per second. The area was designated a tourism center by a Council of Ministers decision in 2004. Day-use thermal facilities and an aquapark are reported here."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Banaz, Uşak, on the İzmir–Ankara highway"
+        },
+        {
+          "label": "Status",
+          "value": "Tourism center, Council of Ministers decision of October 22, 2004"
+        },
+        {
+          "label": "Water temperature",
+          "value": "Approximately 60 °C"
+        },
+        {
+          "label": "Flow rate",
+          "value": "40 liters/second"
+        }
+      ],
+      "visitTips": [
+        "Türkiye Turizm Ansiklopedisi states that the water must not be used for drinking because of its arsenic content.",
+        "Consult a physician before using thermal water for treatment.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "omer-gecek": {
+      "area": "Afyonkarahisar",
+      "note": "Traditional Turkish baths, mud baths, and aromatherapy.",
+      "about": [
+        "Ömer-Gecek, approximately 15 km from central Afyonkarahisar toward Kütahya, is one of Türkiye’s prominent thermal areas. It takes its name from the first two thermal centers established here.",
+        "The spring water is saline, alkaline, sodium bicarbonate-rich, highly mineralized, and rich in carbon dioxide. The area has five-star thermal hotels supervised by the Ministry of Culture and Tourism, as well as a physical therapy hospital affiliated with Afyonkarahisar Health Sciences University."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Approximately 15 km from central Afyonkarahisar toward Kütahya"
+        },
+        {
+          "label": "Water type",
+          "value": "Sodium bicarbonate-rich, highly mineralized, with carbon dioxide"
+        },
+        {
+          "label": "Capacity",
+          "value": "Approximately 20% of the province’s roughly 27,000 beds are in this area"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "gediz-ilicasi": {
+      "area": "Kütahya",
+      "about": [
+        "Gediz Ilıcasu lies south of Kütahya, about 13 km from Gediz on the Simav road. The spring water is reported at 40–85 °C. Municipal facilities include accommodation, baths, pools, and an aquapark with an opening roof.",
+        "Ilıca Harlek is north of Kütahya, 4 km off the Kütahya–Eskişehir highway at kilometer 23, among pine forests. Its water is 25–43 °C. Facilities include a four-star thermal hotel and day-use outdoor pools and baths."
+      ],
+      "facts": [
+        {
+          "label": "Gediz Ilıcasu",
+          "value": "Thermal Tourism Center, Council of Ministers decision of April 19, 1987; elevation 750 m"
+        },
+        {
+          "label": "Ilıca Harlek location",
+          "value": "North of Kütahya, 4 km off the Kütahya–Eskişehir highway at kilometer 23"
+        },
+        {
+          "label": "Water temperatures",
+          "value": "Gediz Ilıcasu 40–85 °C; Ilıca Harlek 25–43 °C"
+        }
+      ],
+      "visitTips": [
+        "The two centers are far apart, in Gediz and north of Kütahya. Plan your route accordingly.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "sakarilica": {
+      "area": "Eskişehir",
+      "about": [
+        "Sakarılıca lies approximately 30–35 km north of central Eskişehir, within Mihalgazi district, in a stream valley among the forested Bozdağlar. Its bicarbonate- and magnesium-rich water is reported at approximately 43–58 °C.",
+        "Hasırca Kaplıcası is approximately 30 km from Eskişehir, in pine forests beside Porsuk Barajı. Its water is around 32 °C, and there is an outdoor pool and picnic area."
+      ],
+      "facts": [
+        {
+          "label": "Sakarılıca location",
+          "value": "Mihalgazi, Eskişehir"
+        },
+        {
+          "label": "Sakarılıca water temperature",
+          "value": "Approximately 43–58 °C"
+        },
+        {
+          "label": "Hasırca water temperature",
+          "value": "Approximately 32 °C, flow rate 4 liters/second"
+        },
+        {
+          "label": "Hasırca location",
+          "value": "Approximately 30 km from Eskişehir and 15 km from Kızılinler Köyü"
+        }
+      ],
+      "visitTips": [
+        "Consult a physician before using thermal water for treatment.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "hamam-muzesi-es": {
+      "area": "Eskişehir",
+      "about": [
+        "Eskişehir Hamam Müzesi opened in historic Odunpazarı in October 2022 under Eskişehir Metropolitan Municipality. The domed, three-story museum combines a modern design with traditional Turkish bath architecture.",
+        "The entrance floor represents the bath’s changing-room section. Beneath the dome is a decorative pool with lion heads on four sides. Eight exhibition areas explore bathing history from antiquity and Rome to Anatolia, women’s and men’s bath culture, and fragrance traditions.",
+        "Odunpazarı contains Seljuk, Ottoman, and Republican buildings. Its traditional wooden mansions form part of Odunpazarı’s historic urban conservation area on the UNESCO World Heritage Tentative List."
+      ],
+      "facts": [
+        {
+          "label": "Opened",
+          "value": "October 2022"
+        },
+        {
+          "label": "Operator",
+          "value": "Eskişehir Metropolitan Municipality"
+        },
+        {
+          "label": "Exhibition space",
+          "value": "Eight sections and a documentary screening room"
+        },
+        {
+          "label": "Odunpazarı",
+          "value": "UNESCO World Heritage Tentative List, 2012"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "beypazari": {
+      "area": "Ankara · Beypazarı",
+      "about": [
+        "Beypazarı is an Ankara district known for its two- and three-story Ottoman wooden and stone mansions. Along its historic streets, mansions have become restaurants, guesthouses, and shops selling regional products. Silver filigree workshops are also part of the bazaar.",
+        "The town’s museums are close together. Kent Tarihi Müzesi occupies the former Rüstempaşa School, built in 1928, and presents the town’s history from antiquity to today through models and documents. Yaşayan Müze is an interactive museum in a mansion where visitors can try practices such as marbling and linden-wood block printing."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Ankara, Beypazarı"
+        },
+        {
+          "label": "Kent Tarihi Müzesi building",
+          "value": "Rüstempaşa School, built in 1928"
+        },
+        {
+          "label": "Yaşayan Müze foundation",
+          "value": "April 23, 2007; Dr. Sema Demir"
+        },
+        {
+          "label": "UNESCO",
+          "value": "Beypazarı’s historic town was added to the World Heritage Tentative List in 2020"
+        },
+        {
+          "label": "Handicrafts",
+          "value": "Silver filigree, weaving, and traditional shoemaking"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kizilcahamam": {
+      "area": "Ankara · Kızılcahamam",
+      "about": [
+        "Kızılcahamam is a mountainous, forested district north of Ankara, known for thermal springs thought to have been used since Roman times. Remains of an ancient Roman bath stand near Büyük Kaplıca.",
+        "According to the district municipality, Atatürk inspected Büyük and Küçük Kaplıca on July 16–17, 1934, and a modern thermal facility was completed in 1945. Thermal relaxation can be combined with walks and forest visits in Soğuksu Millî Parkı."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Ankara, Kızılcahamam"
+        },
+        {
+          "label": "Former name",
+          "value": "Yabanabad"
+        },
+        {
+          "label": "Thermal spring history",
+          "value": "Thought to date back to Roman times"
+        },
+        {
+          "label": "Soğuksu Millî Parkı",
+          "value": "Established in 1959, approximately 1,187 hectares"
+        },
+        {
+          "label": "Distance from Ankara",
+          "value": "Approximately 79 km, according to Wikipedia"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "gordion": {
+      "area": "Ankara · Polatlı",
+      "note": "Political and cultural center of Phrygian civilization from the ninth century BCE.",
+      "about": [
+        "Gordion is the historic capital of Phrygia. It is at Yassıhüyük in Polatlı, near the confluence of Sakarya Nehri and Porsuk Çayı. Settlement continued from the Early Bronze Age through the Roman period, and it developed into a fortified citadel in the ninth century BCE.",
+        "Approximately 85–100 burial mounds surround the site. The largest is Midas Tümülüsü, known for its height of over 50 meters. Its wooden burial chamber is described as the world’s oldest known intact wooden structure. Gordion joined the UNESCO World Heritage List in 2023. Some finds are displayed at Gordion Müzesi."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Early Bronze Age to fourth century CE, centered on the Phrygian period"
+        },
+        {
+          "label": "Location",
+          "value": "Yassıhüyük, Polatlı, Ankara"
+        },
+        {
+          "label": "Excavations",
+          "value": "Körte brothers in the 1900s; Penn Museum under Rodney Young, 1950–1973"
+        },
+        {
+          "label": "UNESCO",
+          "value": "Added to the World Heritage List in 2023"
+        },
+        {
+          "label": "Gordion Müzesi",
+          "value": "Established in 1963"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "yazilikaya": {
+      "area": "Eskişehir",
+      "note": "The city of Midas, where the three branches of Frig Yolu meet.",
+      "about": [
+        "Yazılıkaya, also known as Midas Anıtı, is a major example of Phrygian rock facades. It stands at the northeastern foot of the plateau of the city of Midas in Han district. The monument takes its name from Midai in its inscription. Local people call it Yazılıkaya because of the inscriptions.",
+        "Dated to the first half of the sixth century BCE, the monument was carved as a temple facade decorated with geometric patterns. The large central niche is interpreted as the sacred space for a statue of the Mother Goddess Matar, or Cybele. All three branches of Frig Yolu meet at the city of Midas."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "First half of the sixth century BCE"
+        },
+        {
+          "label": "Dimensions",
+          "value": "Approximately 17 m high and 16.5 m wide"
+        },
+        {
+          "label": "Location",
+          "value": "Yazılı, Han, Eskişehir"
+        },
+        {
+          "label": "Dedication",
+          "value": "Mother Goddess Matar, or Cybele"
+        },
+        {
+          "label": "Frig Yolu",
+          "value": "Three routes meet at Yazılıkaya"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "han-seyitgazi-ihsaniye": {
+      "area": "Eskişehir – Afyonkarahisar",
+      "about": [
+        "This route links Han and Seyitgazi districts in Eskişehir with İhsaniye in Afyonkarahisar, passing through Phrygian landscapes. Highlights include Yazılıkaya (Midas Anıtı) and the city of Midas in Han, Seyyid Battal Gazi Külliyesi in Seyitgazi, and rock-cut settlements such as Ayazini in İhsaniye.",
+        "According to legend, Seyyid Battal Gazi Külliyesi developed around the grave of Seyyid Battal Gazi. A madrasa, public kitchen, and lodge were added in Ottoman times. At Ayazini, tuff rocks inhabited since the Phrygian period contain carved houses, burial chambers, and churches."
+      ],
+      "facts": [
+        {
+          "label": "Han",
+          "value": "Eskişehir; Yazılıkaya and the city of Midas are in this district"
+        },
+        {
+          "label": "Seyitgazi",
+          "value": "Seyyid Battal Gazi Külliyesi ve Türbesi"
+        },
+        {
+          "label": "İhsaniye",
+          "value": "Afyonkarahisar; Phrygian settlements such as Ayazini and Döğer"
+        },
+        {
+          "label": "Ayazini",
+          "value": "Settled since Phrygian times; a religious center, or metropolis, during the Byzantine period"
+        }
+      ]
+    },
+    "yenice-ciftligi": {
+      "area": "Kütahya",
+      "note": "One of the three starting points of Frig Yolu.",
+      "about": [
+        "Yenice Çiftliği is a small settlement in Ahmetoluğu village, in Kütahya’s central district. The Kütahya branch of Frig Yolu starts here.",
+        "Frig Yolu is a waymarked walking and cycling route using ancient Phrygian roads. Its three starting points, Seydiler, Yenice Çiftliği, and Gordion, meet at the city of Midas in Yazılıkaya. Yenice Çiftliği was registered as a Qualified Natural Conservation Area in September 2022."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Ahmetoluğu village, Kütahya"
+        },
+        {
+          "label": "Frig Yolu Kütahya route",
+          "value": "Approximately 147 km"
+        },
+        {
+          "label": "Frig Yolu total",
+          "value": "Approximately 506 km; completed in 2013"
+        },
+        {
+          "label": "Protection status",
+          "value": "Qualified Natural Conservation Area, September 2022"
+        }
+      ]
+    },
+    "odunpazari": {
+      "area": "Eskişehir",
+      "note": "Distinctive examples of Turkish domestic architecture on the UNESCO World Heritage Tentative List.",
+      "about": [
+        "Odunpazarı is a historic neighborhood on hills overlooking the plain south of Eskişehir. Narrow streets, projecting and cantilevered bay windows, and brown timber frames against white walls preserve a traditional Ottoman townscape.",
+        "Places to visit include Atlıhan El Sanatları Çarşısı, Lületaşı Müzesi, and Kurşunlu Camii ve Külliyesi. Odunpazarı’s historic city center was added to the UNESCO World Heritage Tentative List in 2012."
+      ],
+      "facts": [
+        {
+          "label": "UNESCO",
+          "value": "Added to the World Heritage Tentative List in 2012"
+        },
+        {
+          "label": "Protection",
+          "value": "Historic and urban conservation area"
+        },
+        {
+          "label": "Architecture",
+          "value": "Adjoining houses with projecting and cantilevered bay windows"
+        },
+        {
+          "label": "Places to see",
+          "value": "Atlıhan, Lületaşı Müzesi, Kurşunlu Külliyesi"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "balmumu-muzesi": {
+      "area": "Eskişehir",
+      "note": "Türkiye’s first wax museum.",
+      "about": [
+        "Yılmaz Büyükerşen Balmumu Heykeller Müzesi, Türkiye’s first wax museum, opened in Odunpazarı on May 19, 2013. It is part of the Kent Müzeleri Kompleksi created by restoring old mansions and shares the site with Çağdaş Cam Sanatları Müzesi and Kent Belleği Müzesi.",
+        "The museum displays about 230 wax figures of notable Turkish and international people, made by Prof. Dr. Yılmaz Büyükerşen and his students. The figures are arranged by theme in six halls."
+      ],
+      "facts": [
+        {
+          "label": "Opened",
+          "value": "May 19, 2013"
+        },
+        {
+          "label": "Location",
+          "value": "Odunpazarı, Eskişehir"
+        },
+        {
+          "label": "Exhibition",
+          "value": "Approximately 230 wax figures"
+        },
+        {
+          "label": "Area",
+          "value": "1,573 m²"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting.",
+        "Can be visited together with Çağdaş Cam Sanatları Müzesi and Kent Belleği Müzesi on the same site."
+      ]
+    },
+    "sazova": {
+      "area": "Eskişehir",
+      "note": "Themed areas such as Masal Şatosu, Korsan Gemisi, and Bilim Deney Merkezi.",
+      "about": [
+        "Sazova Bilim, Sanat ve Kültür Parkı is a park of approximately 400,000 square meters in Eskişehir, popular with families. Formerly vacant land belonging to the Faculty of Agriculture, the site was converted into a park and first opened in October 2008.",
+        "The park includes Masal Şatosu, Korsan Gemisi, Bilim Deney Merkezi, Sabancı Uzay Evi, a zoo, a pond, and a miniature train. Its green spaces are also suitable for walking and picnics."
+      ],
+      "facts": [
+        {
+          "label": "Opened",
+          "value": "October 2008"
+        },
+        {
+          "label": "Area",
+          "value": "Approximately 400,000 m²"
+        },
+        {
+          "label": "Themed areas",
+          "value": "Masal Şatosu, Korsan Gemisi, Bilim Deney Merkezi, Sabancı Uzay Evi"
+        },
+        {
+          "label": "Administration",
+          "value": "Eskişehir Metropolitan Municipality"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "akhan": {
+      "area": "Denizli",
+      "note": "Built in the thirteenth century during the reign of Gıyaseddin Keyhüsrev II.",
+      "about": [
+        "Akhan Kervansarayı is on the Denizli–Afyonkarahisar–Ankara road in Pamukkale district, Denizli. One of the westernmost Anatolian Seljuk caravanserais, it is a small building following the royal inn plan.",
+        "The courtyard gate is decorated with geometric motifs and reliefs of animals including deer, sphinxes, eagles, lions, and dragons. Reused stone is common throughout the building. The inn is on the UNESCO Tentative List as part of the Seljuk Caravanserais on the Denizli–Doğubayazıt Route."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "1253, enclosed section; 1254, courtyard"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Governor Seyfettin Karasungur bin Abdullah"
+        },
+        {
+          "label": "Sultan",
+          "value": "Reign of İzzettin Keykavus II"
+        },
+        {
+          "label": "Location",
+          "value": "Akhan Mahallesi, Pamukkale, Denizli"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "cardak-han": {
+      "area": "Denizli · Çardak",
+      "note": "Known to have been commissioned by Alaeddin Keykubad I in the early thirteenth century.",
+      "about": [
+        "Çardak Hanı, also locally known as Hanabad, is an Anatolian Seljuk caravanserai on the Denizli–Eğridir caravan road. It stands just outside Çardak, approximately 500 meters off the highway. It is regarded as a small, simple example of the Seljuk royal inn type.",
+        "Built of dressed stone, the inn resembles a fortress with tower-like buttresses. In its five-aisled enclosed hall, the column capitals in the central aisle bear reliefs of a bull’s head, two fish, and a human head."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "1230 (627 AH)"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Esedüddin Ayaz b. Abdullah eş-Şehabi, master of the stables to Alâeddin Keykubad I and governor of Honaz province"
+        },
+        {
+          "label": "Location",
+          "value": "Çardak, Denizli"
+        },
+        {
+          "label": "Plan",
+          "value": "Square courtyard and a five-aisled enclosed hall"
+        }
+      ],
+      "visitTips": [
+        "EBA visiting notes advise against bringing food or drinks inside, touching the building, or using flash. Follow the designated route.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "zazadin-han": {
+      "area": "Konya",
+      "note": "Commissioned in 1236 by Seljuk vizier Sadeddin Köpek.",
+      "about": [
+        "Zazadin Hanı is a thirteenth-century Anatolian Seljuk caravanserai on the Konya–Aksaray road near Selçuklu district, Konya, approximately 22 km from the city center.",
+        "The inn has two main sections: an open courtyard for summer and an enclosed hall for winter. It is noted for its monumental portal and dressed stonework. Enclosing walls and corner towers give it a defensive appearance. Selçuklu Municipality carried out a major restoration in 2017."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "1235–1236; completed in 1236 according to the inscription"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Vizier Sadeddin Köpek"
+        },
+        {
+          "label": "Location",
+          "value": "Konya–Aksaray road, Selçuklu, Konya"
+        },
+        {
+          "label": "Dimensions",
+          "value": "Approximately 104 × 62 m, according to Kültür Envanteri"
+        },
+        {
+          "label": "Restoration",
+          "value": "2017, Selçuklu Municipality"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "kizileren-han": {
+      "area": "Konya",
+      "note": "Thought to have been built in the second half of the thirteenth century.",
+      "about": [
+        "Kızılören Hanı is a Seljuk caravanserai near Kızılören village in Meram district, on the Konya–Beyşehir route. It stands on the Konya–Beyşehir–Antalya branch of the historic Silk Road and is locally also known as Kızılhan or Emir Kandemir Hanı.",
+        "The inn combines an open courtyard with an enclosed shelter. The courtyard entrance has two stories, with a prayer room in the facade. Local red tuff stone was used in its construction."
+      ],
+      "facts": [
+        {
+          "label": "Period",
+          "value": "Approximately 1206–1207, reign of Gıyaseddin Keyhüsrev I"
+        },
+        {
+          "label": "Commissioned by",
+          "value": "Emir Kutluğ, also known as Emir Kandemir"
+        },
+        {
+          "label": "Location",
+          "value": "Meram, Konya, on the Konya–Beyşehir road"
+        },
+        {
+          "label": "Material",
+          "value": "Red tuff stone"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "istanbul": {
+      "area": "İstanbul",
+      "note": "The route starts early in İstanbul, with an approximately five-hour journey to Eskişehir.",
+      "about": [
+        "İstanbul is Türkiye’s economic, cultural, and historical center and its most populous city. It stretches along the Bosporus between the Sea of Marmara and the Black Sea, spanning two continents.",
+        "On this route, İstanbul is only the departure point. The journey starts here toward Eskişehir."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Along the Bosporus, between the Sea of Marmara and the Black Sea"
+        },
+        {
+          "label": "Area",
+          "value": "5,461 km² within provincial boundaries"
+        },
+        {
+          "label": "Continents",
+          "value": "Europe and Asia"
+        }
+      ]
+    },
+    "gazligol": {
+      "area": "Afyonkarahisar · Gazlıgöl",
+      "note": "Accommodation and a thermal spring experience.",
+      "about": [
+        "Gazlıgöl is a town and thermal area in İhsaniye district, Afyonkarahisar. Its thermal spring is on the Afyonkarahisar–Eskişehir highway, approximately 21 km from the provincial center. Drinking and bathing treatments are used here.",
+        "The spring water is classified by its bicarbonate, sodium, carbon dioxide, and hydrogen sulfide content, with a reported temperature of approximately 64 degrees. Kızılay Maden Suyu, Türkiye’s oldest bottled mineral water, has also been produced in Gazlıgöl since 1868."
+      ],
+      "facts": [
+        {
+          "label": "Location",
+          "value": "Gazlıgöl, İhsaniye, Afyonkarahisar"
+        },
+        {
+          "label": "Water temperature",
+          "value": "Approximately 64 °C, according to Wikipedia"
+        },
+        {
+          "label": "Water type",
+          "value": "Bicarbonate, sodium, carbon dioxide, and hydrogen sulfide"
+        },
+        {
+          "label": "Kızılay Maden Suyu",
+          "value": "Operating since 1868"
+        }
+      ],
+      "visitTips": [
+        "Check current opening hours before visiting."
+      ]
+    },
+    "pamukkale": {
+      "area": "Denizli · Pamukkale",
+      "note": "UNESCO World Heritage, with an ancient theater, necropolis, and museum.",
+      "about": [
+        "Pamukkale is known for white travertine formed when thermal water meets the air, creating terraces and pools resembling a frozen waterfall. The travertine and adjacent Hierapolis Antik Kenti are on the UNESCO World Cultural and Natural Heritage List.",
+        "Hierapolis was founded during the Kingdom of Pergamon and functioned as a thermal health center. Remains include the ancient theater, temples, monumental fountains, necropolis, agora, and gymnasium. The Roman bath now serves as an archaeology museum."
+      ],
+      "facts": [
+        {
+          "label": "UNESCO",
+          "value": "World Cultural and Natural Heritage List"
+        },
+        {
+          "label": "Ancient city",
+          "value": "Hierapolis, founded during the Kingdom of Pergamon"
+        },
+        {
+          "label": "Museum",
+          "value": "Hierapolis Arkeoloji Müzesi in the Roman bath"
+        },
+        {
+          "label": "Location",
+          "value": "Pamukkale, Denizli"
+        }
+      ],
+      "visitTips": [
+        "The travertine is fragile. Walking and entering the water are permitted only in designated sections. Follow these rules.",
+        "Check current opening hours before visiting."
+      ]
+    },
+    "anitkabir": {
+      "area": "Ankara · Çankaya",
+      "note": "Atatürk’s mausoleum, with guided accounts of his life, reforms, and struggle."
+    },
+    "birinci-meclis": {
+      "area": "Ankara · Ulus",
+      "note": "The first parliament building, where decisions on the War of Independence were made."
+    },
+    "ikinci-meclis": {
+      "area": "Ankara · Ulus",
+      "note": "The second parliament building, which witnessed the Republic’s institutional development."
+    },
+    "anadolu-medeniyetleri": {
+      "area": "Ankara · Altındağ",
+      "note": "Thousands of years of Hittite, Phrygian, Urartian, and Lydian culture."
+    },
+    "haci-bayram": {
+      "area": "Ankara · Ulus",
+      "note": "Beside Augustus Tapınağı, illustrating cultural continuity from Roman to Ottoman times."
+    },
+    "augustus-tapinagi": {
+      "area": "Ankara · Ulus",
+      "note": "A Roman temple immediately beside Hacı Bayram Veli Camii."
+    },
+    "afyon-kalesi": {
+      "area": "City center",
+      "note": "A symbol of the city, introduced from outside on this route to explain the area’s layered history."
+    },
+    "aslantas-yilantas": {
+      "area": "İhsaniye · Around Döğer",
+      "note": "Phrygian rock monuments and tombs, important stops in the Phrygia region."
+    },
+    "usak-arkeoloji": {
+      "area": "Uşak · City center",
+      "note": "Lydian artifacts, including the Karun treasures, one of its most valuable collections."
+    },
+    "blaundos": {
+      "area": "Uşak · Ulubey (Sülümenli)",
+      "note": "A Hellenistic–Roman townscape, temple areas, and rock-cut tombs on a plateau surrounded by canyons."
+    },
+    "clandiras-koprusu": {
+      "area": "Uşak · Karahallı",
+      "note": "An important example of Phrygian water engineering, with an introduction to its construction technique and historical function."
+    },
+    "ulubey-kanyonu": {
+      "area": "Uşak · Ulubey",
+      "note": "A photo stop with geological formations and views."
+    },
+    "izmir-kordon": {
+      "area": "İzmir · Alsancak",
+      "note": "A waterfront reflecting İzmir’s modern urban identity."
+    },
+    "konak-saat-kulesi": {
+      "area": "İzmir · Konak",
+      "note": "The city’s landmark Saat Kulesi and its historical significance."
+    },
+    "kemeralti": {
+      "area": "İzmir · Konak",
+      "note": "A historic bazaar where traditional commercial life can be experienced."
+    },
+    "izmir-agora": {
+      "area": "İzmir · Konak",
+      "note": "The urban layout of ancient Smyrna, stoa architecture, and organization of Roman public spaces."
+    }
+  }
+}
