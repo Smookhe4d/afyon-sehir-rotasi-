@@ -27,6 +27,53 @@ Güçlü yönler:
 
 ---
 
+### G-007: Ana sayfa ve rota sayfasına hareket (yönetici tamamladı), 15 Ekim 2026
+Sonuç: Yönetici düzeltmeleriyle onaya sunuldu.
+
+Uygulayıcının işinde güçlü yönler:
+- Plan aşamasında piksel eşitliği ile paralaks arasındaki çelişkiyi fark edip kod yazmadan sordu.
+- Dil penceresi düzeltmesi eksiksiz. Doğrudan rota, durak ve QR girişlerinde pencere ve tanıtım açılmıyor, adresin dili çereze yazılıyor.
+- Lenis yalnızca ince imleçli cihazlarda ve dinamik içe aktarmayla yükleniyor. Geri tuşunda kaydırma konumu korunuyor.
+- Lighthouse ve CLS sonuçlarını olduğu gibi raporlayıp karar için durdu. Doğru davranış.
+
+Bulunan hata ve düzeltme:
+- Sunucu çıktısı görünür gönderilip beliriş istemcide başlatıldığı için ilk ekrandaki öğeler önce görünüp yaklaşık 470. milisaniyede kayboluyor, sonra yeniden beliriyordu. Bu yolu yönetici önermişti, sorumluluk yönetimde. Ayrıntılar G-007 uygulayıcı notunun "Yönetici müdahalesi" bölümünde.
+
+Öğrenme notları:
+5. **Hidrasyonla başlayan animasyon:** Sunucunun gönderdiği ve ilk karede görünen bir öğeye JavaScript ile "görünmezden görünüre" animasyonu uygulanmaz, çünkü öğe önce görünür sonra kaybolur. İlk ekrandaki giriş animasyonu CSS ile ilk karede başlatılır. Gizli başlaması gereken öğeler yalnızca JavaScript'in çalıştığı kesinleştiğinde, boyamadan önce çalışan bir işaretle gizlenir.
+6. **Taşınabilir test:** Test betiklerine kişisel bilgisayar yolu yazılmaz. Tarayıcı ve paket yolları ortam değişkeniyle verilir, varsayılan değer yalnızca son çaredir.
+7. **Ölçüm önce:** Bir animasyonun doğruluğu ekran görüntüsüyle değil kare kare ölçümle doğrulanır. Örneğin opaklığın hiçbir karede düşmediğini gösteren bir ölçüm.
+
+---
+
+### G-005: Arayüz ve içerik çevirisi, İngilizce ses, ilk dil seçimi (PR #3), 15 Ekim 2026
+Sonuç: Onaylandı. Proje sahibi birleştirdi.
+
+Denetimde yapılanlar:
+- `npm ci` ve `npm run build` geçti. `tests/i18n.test.cjs` ve `tests/check-translations.cjs` geçti.
+- 28 adres denendi. Geçerli sayfalar 200, bilinmeyen sayfa, rota ve durak 404, yanlış dil yolları (`/en/rotalar`, `/tr/rotalar`) 307 döndü.
+- `/en`, `/en/routes/frig-yolu-afyonkarahisar`, `/en/stops/ulu-cami`, `/en/map`, `/en/plan-your-route`, `/en/profile` 390 px telefon öykünmesinde incelendi. Arayüzde Türkçe kalan tek şey yer adları, bu da kurala uygun.
+- `hreflang` bağlantıları (tr, en, x-default) ve `<html lang>` doğru.
+- Ulu Cami içeriğindeki UNESCO bilgisi iki dilde de doğru: 2023'te Dünya Mirası Listesi'ne alındı.
+- Türkçe sayfalar önceki hâliyle aynı.
+
+Güçlü yönler:
+- Kapsam genişlemesi proje sahibinin açık onayıyla yapıldı ve uygulayıcı notunda kaydedildi. Bu doğru yöntem.
+- Kalan Türkçe dizgiler gerekçeleriyle ayrı bir belgeye yazıldı.
+- Sesli rehberin dil değişiminde eski kuyruğu iptal etmesi gibi kenar durumları düşünülmüş.
+
+Sonraki göreve aktarılan düzeltme:
+- [ ] İlk ziyaret dil penceresi, adres dili zaten belli ederken de (`/en/...`) açılıyor. QR ile rotaya gelen yeni ziyaretçi rotayı görmeden önce dil penceresi ve üç adımlı tanıtımı geçmek zorunda kalıyor. Proje sahibinin onayıyla G-007'nin 8. maddesine eklendi.
+
+Açık kalan doğrulama:
+- Kayıtlı kullanıcıyla yorum paylaşımı ve yönetici veri işlemleri denenmedi. Canlı sitede kontrol edilecek.
+- Durak adlarındaki "Ören Yeri", "Kalesi" gibi ortak adlar İngilizcede açıklamasız kaldı. İçerik son okumasında (G-006) ele alınacak.
+
+Öğrenme notu:
+4. **Kapsam genişlerse:** Proje sahibi doğrudan ek iş onayladığında bunu bu görevde yaptığın gibi uygulayıcı notuna yaz ve yöneticiye bildir. Görev tanımındaki "kapsam dışı" maddeleri o zaman güncellenir.
+
+---
+
 ### G-002: Dil desteği altyapısı (PR #2), ikinci inceleme, 15 Ekim 2026
 Sonuç: Onaylandı
 

@@ -1,26 +1,37 @@
 "use client";
 import {useTranslations} from "next-intl";
 import { useEffect, useState } from "react";
+import {usePathname} from "next/navigation";
 
 const KEY = "afyon-onb-v1";
 const slides = ["/art/banner-afyon-1200.webp", "/art/map-city.svg", "/art/banner-frig.svg"];
 
 export default function Onboarding() {
+  const pathname = usePathname();
   const t = useTranslations("onboarding");
   const [i, setI] = useState<number | null>(null);
   useEffect(() => {
     const begin = () => {
+      let fromRoot = false;
+      try {fromRoot = sessionStorage.getItem("afyon-intro-origin") === "root";} catch { /* storage unavailable */ }
+      if (pathname !== "/" && !(pathname === "/en" && fromRoot)) {
+        try {localStorage.setItem(KEY, "1");} catch { /* storage unavailable */ }
+        setI(null);
+        return;
+      }
+      // /en can be reached from the root language choice, but a direct /en visit
+      // is handled by LanguageChoice before this effect and skips the tour.
       try { if (document.cookie.split(";").some(value => value.trim().startsWith("NEXT_LOCALE=")) && !localStorage.getItem(KEY)) setI(0); } catch { /* storage unavailable */ }
     };
     begin();
     window.addEventListener("afyon-language-chosen", begin);
     return () => window.removeEventListener("afyon-language-chosen", begin);
-  }, []);
+  }, [pathname]);
   if (i === null) return null;
-  const done = () => { try { localStorage.setItem(KEY, "1"); } catch { /* yok say */ } setI(null); };
+  const done = () => { try { localStorage.setItem(KEY, "1"); sessionStorage.removeItem("afyon-intro-origin"); } catch { /* yok say */ } setI(null); };
   const s = slides[i]; const last = i === slides.length - 1;
   return (
-    <div role="dialog" aria-modal="true" aria-label={t("label")} className="fixed inset-0 z-[100] flex justify-center bg-cream" style={{ animation: "fade-in .3s both" }}>
+    <div data-lenis-prevent role="dialog" aria-modal="true" aria-label={t("label")} className="fixed inset-0 z-[100] flex justify-center bg-cream" style={{ animation: "fade-in .3s both" }}>
       <div className="flex w-full max-w-[520px] flex-col">
         <div className="relative h-[52%] overflow-hidden bg-navy">
           {/* eslint-disable-next-line @next/next/no-img-element */}

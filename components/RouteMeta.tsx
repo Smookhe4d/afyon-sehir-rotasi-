@@ -18,7 +18,7 @@ export function routeMetaLine(r: Route, locale: Locale = "tr"): string {
   if (r.difficulty) parts.push(messages.labels.difficulty[r.difficulty]);
   return parts.join(" · ");
 }
-export function CategoryChip({r}: {r: Route}) {
+export function CategoryChip({r, motionOrder}: {r: Route; motionOrder?: string}) {
   const {categoryLabels} = getContent(useLocale() as Locale);
-  return <span className="self-start rounded-full bg-sand px-2.5 py-0.5 text-[10.5px] font-bold">{categoryLabels[r.category]}</span>;
+  return <span data-enter={motionOrder} className="self-start rounded-full bg-sand px-2.5 py-0.5 text-[10.5px] font-bold">{categoryLabels[r.category]}</span>;
 }

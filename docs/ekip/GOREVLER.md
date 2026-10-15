@@ -146,7 +146,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-005: Kalan arayüz metinlerinin taşınması ve İngilizce çevirisi
 
-- **Durum:** İncelemede
+- **Durum:** Tamamlandı (PR #3, 15 Ekim 2026)
 - **İş akışı:** D
 - **Dal:** `codex/G-005-arayuz-cevirisi`
 - **Amaç:** Sitenin arayüzünü İngilizce sayfalarda tamamen İngilizce yapmak. Rota ve durak içeriği (G-006) bu görevin dışındadır.
@@ -228,6 +228,86 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-006: Rota ve durak içeriğinin İngilizce çevirisi
 
-- **Durum:** Taslak
+- **Durum:** Taslak (ilk çeviri G-005'te yapıldı, yönetici denetimi ve proje sahibinin son okuması kaldı)
 - **İş akışı:** D
 - **Not:** Uygulayıcı ilk çeviriyi yapar, yönetici yer adlarını ve olgusal doğruluğu denetler, proje sahibi yayından önce son okumayı yapar. Yer adları özgün Türkçe yazımıyla korunur.
+
+---
+
+## G-007: Ana sayfa ve rota sayfasına hareket ve yumuşak kaydırma
+
+- **Durum:** Uygulamada
+- **İş akışı:** A (tasarım)
+- **Dal:** `codex/G-007-hareket`
+- **Amaç:** Ana sayfa ile rota ayrıntı sayfasını, yerleşimlerine dokunmadan, daha canlı ve özenli hissettirmek. Bu görevde yalnızca hareket eklenir. Görsel tasarım aynen kalır.
+
+**Proje sahibinin kararları (değiştirilmez)**
+
+- Yerleşim, bölüm sırası, renk, yazı karakteri, yazı boyu, boşluk, köşe ve gölge değerleri değişmez. Hiçbir öğe yer değiştirmez, eklenmez ya da kaldırılmaz.
+- Paketler: `motion` (MIT) ve `lenis` (MIT). Eklenmeleri bu görev için onaylıdır. Güncel kararlı sürümler `package.json` içinde sabitlenir. Başka paket eklenmez. Commons Clause ya da ticari kullanımı kısıtlayan lisanslı kod (React Bits gibi) kullanılmaz.
+- Kapsam yalnızca `/` ve `/rotalar/[slug]` sayfaları ile İngilizce karşılıklarıdır. Diğer sayfalar bu görevde değişmez.
+
+**Yapılacaklar**
+
+1. **Açılışta sıralı beliriş.** Sayfanın ilk ekranındaki öğeler (ana sayfada üst başlık alanı, arama, hava durumu, ilk bölüm başlığı, rota sayfasında kategori etiketi, başlık, özet satırı, düğmeler) yukarıdan aşağı sırayla belirir. Öğe başına 60 ms gecikme, 450 ms süre, en fazla 12 px dikey kayma ve saydamlık. Toplam açılış 800 ms'yi geçmez.
+2. **Görünür alana girişte beliriş.** Rota kartları, rota listesi, durak listesi satırları ve bilgi kutuları ekrana ilk girdiklerinde bir kez belirir. Geri kaydırınca tekrar oynamaz. Yatay rota şeridinde yalnızca ilk görünen kartlar oynar.
+3. **Fotoğrafta hafif paralaks.** Ana sayfadaki kale resmi ve rota sayfasındaki kapak fotoğrafı, sayfa kaydırılırken içeriğe göre daha yavaş hareket eder. Kayma en fazla görsel yüksekliğinin %15'i kadardır, görsel kenarlarında boşluk açılmaz. Yalnızca `transform` kullanılır.
+4. **Basılma hissi.** Birincil ve ikincil düğmeler ile rota kartları basıldığında 0,97 ölçeğine iner ve bırakılınca yay hareketiyle döner. Masaüstünde fare üstüne gelince yalnızca imleç ve mevcut renk değişimi kalır, yeni bir efekt eklenmez.
+5. **Yumuşak kaydırma (Lenis).** Yalnızca ince imleçli cihazlarda (`(pointer: fine)`) ve hareket azaltma tercihi kapalıyken açılır. Dokunmatik cihazlarda tarayıcının doğal kaydırması kullanılır. Harita alanları, yatay kaydırılan şeritler, açılır pencereler ve dil seçimi penceresi Lenis dışında tutulur (`data-lenis-prevent`). Sayfa değişiminde kaydırma en üste döner, bağlantı çapaları çalışmaya devam eder.
+6. **Mevcut CSS animasyonlarıyla uyum.** `app/globals.css` içindeki `.page-in`, `.stagger` ve `rise` animasyonları bu iki sayfada yeni hareketlerle çift oynamamalı. Bu iki sayfada yeni sistem kullanılır, diğer sayfalardaki mevcut animasyonlar olduğu gibi kalır.
+7. **Kod düzeni.** Sayfalar sunucu bileşeni olarak kalır. Hareket, `components/motion/` altında küçük istemci bileşenleriyle (örneğin `Reveal`, `Stagger`, `Parallax`, `Pressable`, `SmoothScroll`) sağlanır. Boyutu küçük tutmak için `LazyMotion` ve `domAnimation` kullanılır. Süre, gecikme ve eğri değerleri tek bir dosyada (`lib/motion.ts`) tanımlanır, bileşenlere sayı yazılmaz.
+
+8. **Dil penceresi düzeltmesi (G-005 denetiminden).** İlk ziyaret dil penceresi (`components/LanguageChoice.tsx`) yalnızca öneksiz Türkçe kök sayfada (`/`) ve dil çerezi yokken açılır. `/en` ile başlayan bir adreste pencere açılmaz, `NEXT_LOCALE=en` sessizce yazılır. Rota (`/rotalar/...`, `/en/routes/...`), durak ve `/qr` adreslerine doğrudan gelen ziyaretçide ne dil penceresi ne de tanıtım (`components/Onboarding.tsx`) açılır, adresin dili çereze yazılır. Bu madde iki sayfa sınırının tek istisnasıdır, başka davranış değişmez.
+
+**Erişilebilirlik ve performans**
+
+- `prefers-reduced-motion: reduce` açıkken bütün hareketler kapanır, içerik doğrudan son hâliyle görünür. Paralaks ve Lenis devre dışı kalır.
+- En büyük içerik öğesi olan görsel (ana sayfada kale resmi, rota sayfasında kapak) saydamlık animasyonuyla gizli başlamaz. Paralaks dışında bu görsele animasyon uygulanmaz.
+- JavaScript yüklenmeden ya da çalışmadan da içerik görünür olmalıdır. Gizli başlayan öğe JavaScript yoksa görünmez kalmamalı.
+- Yerleşim kayması (CLS) oluşmaz. Animasyonlar yalnızca `opacity` ve `transform` kullanır.
+- Ana sayfanın ilk yüklemedeki JavaScript miktarı en fazla 40 kB (sıkıştırılmış) artabilir. `npm run build` çıktısındaki First Load JS değerleri önce ve sonra olarak not edilir.
+
+**Kapsam dışı**
+
+- Sayfalar arası geçiş animasyonu, başlığın harf harf açılması, iskelet ekranlar.
+- Harita, durak, profil ve diğer sayfalar.
+- Görsel tasarımda herhangi bir değişiklik.
+
+**Kabul ölçütleri**
+
+- Animasyonlar bittikten sonra alınan ekran görüntüleri, `main` dalındaki aynı sayfaların görüntüleriyle aynıdır. `/`, `/en`, `/rotalar/frig-yolu-afyonkarahisar`, `/en/routes/frig-yolu-afyonkarahisar` için 390 ve 1280 px genişlikte, piksel karşılaştırması yapılarak doğrulanır. Fark varsa nedeni yazılır.
+- Hareket azaltma tercihi açık bir tarayıcı oturumunda hiçbir öğe hareket etmez ve içerik ilk karede görünür.
+- Dokunmatik telefon öykünmesinde (390 × 844) Lenis etkin değildir, kaydırma doğaldır. Masaüstünde (1280 px) Lenis etkindir. Harita kutusu ve yatay şerit Lenis'ten etkilenmez.
+- Lighthouse mobil ölçümü `/` ve `/rotalar/frig-yolu-afyonkarahisar` için önce ve sonra alınır. Performans puanı 3 puandan fazla düşmez, CLS 0,02'yi geçmez.
+- HTTP durum kodları ve mevcut testler G-005'teki gibi geçer. `npm run build` hatasızdır.
+- Kayıtlar: iki sayfanın 390 px ve 1280 px ekran kaydı (WebM ya da GIF, her biri en fazla 4 MB) ve hareket azaltma açıkken alınmış birer ekran görüntüsü (WebP, en fazla 400 KB). Dosyalar `docs/ekip/ekranlar/G-007/` altına.
+
+**Uygulayıcı notu**
+
+- Plan onayı bekleniyor. f97bb29 başındaki görev dalı origin'e gönderildi. G-005 denetimi ve öğrenme notu 4 okundu. Uygulama kodu değiştirilmedi.
+- components/motion altında MotionProvider (LazyMotion/domAnimation), Reveal, Stagger, Parallax, Pressable ve SmoothScroll oluşturulacak. Değerler lib/motion.ts içinde tutulacak. Sunucu sayfaları, mevcut HTML yerleşimi ve görsel sınıflar korunacak. CSS animasyon çakışmaları yalnızca iki görev sayfasında giderilecek.
+- Değişecek mevcut dosyalar: app/[locale]/(pages)/page.tsx, app/[locale]/rotalar/[slug]/page.tsx, components/route/StartPanel.tsx, components/route/RouteControls.tsx, components/LanguageChoice.tsx, components/Onboarding.tsx, app/globals.css, package.json ve package-lock.json. İlgili testler ve doğrulama belgeleri eklenecek. Yalnızca motion ve lenis kurulacak ve kararlı sürümleri sabitlenecek.
+- Lenis yalnızca görev sayfalarında pointer:fine ve hareket azaltma kapalıyken çalışacak. Harita, yatay şeritler ve pencereler data-lenis-prevent ile dışarıda kalacak. JavaScript yokken içerik görünür, hareket azaltma açıkken doğrudan son görünüm sağlanacak.
+- Madde 8: Pencere yalnızca gerçek pathname / ve dil çerezi yokken açılacak. /en adreslerinde sessizce en yazılacak. Doğrudan rota, durak ve QR girişlerinde adresin dili yazılıp pencere ve tanıtım engellenecek. Onboarding kendi URL denetimini yapacak, çerez yazım sırasına güvenilmeyecek. Türkçe kökte seçim sonrası tanıtım korunacak.
+- Testler: main ile dört adresin 390/1280 px piksel karşılaştırması, JavaScript kapalı ve azaltılmış hareket, dokunmatik doğal kaydırma ve masaüstü Lenis, harita/şerit/pencere istisnaları, çapalar, build, First Load JS ve sıkıştırılmış yük farkı, mobil Lighthouse ve CLS, mevcut testler ve HTTP durumları. Dinamik veriler karşılaştırmalarda aynı tutulacak. WebM ve WebP çıktılar docs/ekip/ekranlar/G-007 altında tutulacak.
+- Yöneticiye soru: Paralaksın kaydırma durduğunda farklı konumda kalması, her kaydırma konumunda main ile piksel eşitliğiyle çelişir. Kaydırma sırasında hareket edip durduğunda özgün konuma dönmesini öneriyorum. Bu yorum uygun mu? Onay gelmeden kod ve paket değişikliği yapılmayacak.
+- Claude yönetici için erişilebilir bir sohbet bulunamadı. Plan bu notta ve sohbet yanıtında yöneticiye iletilmek üzere sunuldu.
+
+- Plan onayı sonrası kararlar: Paralaks scrollY=0 konumunda sıfır olacak ve kaydırma konumuna bağlı kalacak, durunca geri dönmeyecek. Tam sayfa piksel karşılaştırması en üstte yapılacak, aşağıdaki ayrı karşılaştırmalarda paralaks görseli maskelenecek. Sunucuda initial={false} ile görünür çıktı seçildi, beliriş istemcide başlatılacak. JavaScript kapalı ekran eklenecek. Yol değişiminde lenis.scrollTo(0, {immediate:true}) uygulanacak, popstate geri dönüşünde önceki konum ayrıca korunup test edilecek. Doğrudan rota/durak/QR girişinde tanıtım kalıcı olarak tamamlanmış işaretlenecek, sonradan ana sayfaya geçince de açılmayacak. template.tsx kapsam dışı sayfalar için korunacak, /harita ve /profil önce/sonra karşılaştırılacak.
+
+- Uygulama bulgusu: JavaScript kapalıyken main ana sayfası (pages)/loading.tsx sınırında iskelette kalıyor. Görevdeki görünür içerik şartı için yalnızca ana sayfa app/[locale]/page.tsx konumuna alınacak. URL, template.tsx ve diğer sayfaların yükleme sınırı korunacak. RouteMeta mevcut kategori span öğesine isteğe bağlı hareket sırası almak için değişiyor, ek yerleşim kutusu oluşmuyor.
+
+- Yöneticiye açık soru: Son Lighthouse serisinde ana sayfa ortanca performansı 74 -> 67, rota 49 -> 49. Ana sayfada CLS üç ölçümde 0,020509 / 0 / 0, main tabanında 0 / 0,023253 / 0,023253. Ana sayfanın 3 puan sınırı ve tek ölçümde 0,02 CLS sınırı sağlanmıyor. Kayma mevcut WeatherCard iskeletinin içeriğe dönüşmesinde rota şeridinde oluşuyor, yerleşim ve yükseklik değerleri bu görevde değiştirilemez. Bu bulgular açık bırakılarak denetime gönderilsin mi, yoksa önce ek performans planı mı hazırlansın? Harita işaretçisinin tek karedeki dinamik raster farkı da ayrıca belgelenecek.
+
+**Yönetici müdahalesi (15 Ekim 2026)**
+
+Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici tarafından bitirilmesini istedi. Uygulayıcının commit edilmemiş çalışması önce olduğu gibi ayrı bir commit olarak kaydedildi, düzeltmeler ikinci commit'te yapıldı.
+
+- Titreme giderildi. Açılıştaki sıralı beliriş (`data-enter`) artık `app/globals.css` içindeki `motion-enter` CSS animasyonuyla ilk karede başlıyor. Ölçüm: dört sayfa ve iki genişlikte, ilk ekrandaki hareketli öğelerin opaklığı hiçbir karede düşmüyor.
+- Kaydırmayla beliren öğeler (`data-reveal` ve `data-motion-list` çocukları) yalnızca `<head>` içindeki küçük betik `html[data-motion="on"]` yazdığında gizli başlıyor. Bu betik hareket azaltma açıkken çalışmıyor. Sayfa 4 saniye içinde hidrasyon olmazsa öznitelik kaldırılıyor ve içerik görünür kalıyor. Gösterilen öğe `data-shown` ile işaretleniyor. Listeye sonradan eklenen öğeler doğrudan görünür.
+- `MotionProvider` içindeki `LazyMotion` ve `m.main` kaldırıldı. Hareketler zaten `motion/react-mini` ile yapıldığı için bu çalışma zamanına gerek yoktu. İlk yükleme JavaScript'i main'e göre ana sayfada 210 kB'tan 218 kB'a, rota sayfasında 142 kB'tan 150 kB'a çıktı (sıkıştırılmamış). `components/motion/features.ts` silindi.
+- Test betiklerindeki sabit Chrome yolu `CHROME_PATH` ortam değişkeniyle değiştirilebilir oldu. `motion-capture.cjs` tam sayfa görüntüden önce sayfayı iki aşamada da aynı biçimde kaydırıyor, böylece kaydırmayla beliren öğeler karşılaştırmaya dahil oluyor.
+- Piksel karşılaştırması (sabit hava durumu ve boş harita stiliyle): 12 görüntünün 10'unda fark 0 piksel. 390 px rota sayfalarındaki 4.018 ve 2.977 piksellik fark yalnızca harita işaretçilerinin rasterleştirilmesinde, uygulayıcının da belirttiği dinamik fark.
+- Lighthouse mobil, aynı ortamda beşer ölçüm, ortanca: ana sayfa main 59, G-007 65. Rota main 40, G-007 40. Ana sayfadaki CLS her iki sürümde de hava durumu kartının iskeletten içeriğe geçmesinden kaynaklanıyor (main 0,021 ile 0,077 arası, G-007 0 ile 0,082 arası). Bu kayma görev kapsamı dışında, ayrı görev olarak açılacak.
+- `tests/browser-motion.cjs` geçti. `npm run build`, `tests/i18n.test.cjs` ve `tests/check-translations.cjs` geçti. HTTP durum kodları değişmedi.
+- Ekran kayıtları ve görüntüler düzeltilmiş sürümle yeniden alındı. `tmp-g007/` git dışında bırakıldı.
