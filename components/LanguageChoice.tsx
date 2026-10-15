@@ -38,7 +38,7 @@ function Choice() {
     window.dispatchEvent(new Event("afyon-language-chosen"));
   }
   return <dialog ref={dialog} data-lenis-prevent aria-labelledby="language-choice-title" onCancel={event => event.preventDefault()}
-    className="fixed inset-0 m-auto w-[calc(100%_-_2rem)] max-w-md rounded-3xl border border-line bg-cream p-6 text-navy shadow-lift backdrop:bg-navy/60">
+    className="language-choice fixed inset-0 m-auto w-[calc(100%_-_2rem)] max-w-md rounded-3xl border border-line bg-cream p-6 text-navy shadow-lift backdrop:bg-navy/60">
     <h2 id="language-choice-title" className="font-display text-2xl font-semibold"><span lang="tr">{t("titleTr")}</span><br /><span lang="en">{t("titleEn")}</span></h2>
     <p className="mt-3 text-sm text-ink-2"><span lang="tr">{t("descriptionTr")}</span><br /><span lang="en">{t("descriptionEn")}</span></p>
     <div className="mt-6 grid gap-3">

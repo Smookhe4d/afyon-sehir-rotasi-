@@ -311,3 +311,16 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - Lighthouse mobil, aynı ortamda beşer ölçüm, ortanca: ana sayfa main 59, G-007 65. Rota main 40, G-007 40. Ana sayfadaki CLS her iki sürümde de hava durumu kartının iskeletten içeriğe geçmesinden kaynaklanıyor (main 0,021 ile 0,077 arası, G-007 0 ile 0,082 arası). Bu kayma görev kapsamı dışında, ayrı görev olarak açılacak.
 - `tests/browser-motion.cjs` geçti. `npm run build`, `tests/i18n.test.cjs` ve `tests/check-translations.cjs` geçti. HTTP durum kodları değişmedi.
 - Ekran kayıtları ve görüntüler düzeltilmiş sürümle yeniden alındı. `tmp-g007/` git dışında bırakıldı.
+
+## G-008: Mobil görsel tasarım ilk uygulaması
+
+- **Durum:** Uygulamada
+- **Dal:** `codex/G-008-mobil-tasarim`
+- **Yetki:** Kullanıcının 15 Ekim 2026 tarihli açık talebiyle yeni dal açıldı. main ve canlı yayın değiştirilmez.
+- **Kapsam:** Ortak tasarım belirteçleri, Keşfet, rota kartları, alt gezinme, dil seçimi, tanıtım ve ortak sayfa başlıkları.
+- **Uygulayıcı notu:** Yeni talep önceki G-007 tasarım sınırının dışındadır. Mevcut içerik, çeviriler ve işlevler korunur. Yeni paket eklenmez. Mineral beyazı #F5F7F8, sis #E9EFF2, çizgi #D9E3E8, bazalt #162D3D ve bakır #99502E kullanılacak. Fraunces yalnızca ana başlıklarda, Jakarta kart ve kontrollerde kullanılacak. Kale suluboyası özgün imza olarak korunacak. Önce arama, kompakt başlık ve kale, ardından rota kartları, hava ve yardımcı bağlantılar gösterilecek. Kartlar yatay kaydırmada hizalanacak. Mevcut motion altyapısı ve azaltılmış hareket tercihi korunacak.
+
+- **Teslim notu:** Ortak belirteçler, Keşfet sırası/kartları, RouteBrowser kartları ve 44 px filtreleri, alt menü, dil seçimi, tanıtım, PageHeader ve hava kartı güncellendi. Ayrıntılar: `docs/ekip/G-008-MOBIL-TASARIM.md`.
+- Build başarılı, i18n 16/16 ve çeviri taraması başarılı. 390/1280 px TR/EN görüntüleri alındı. Arama, kategori ve alt menü geçişi tarayıcıda doğrulandı. Azaltılmış hareket görüntüleri alındı.
+- Açık sınırlar: Supabase bilgileri yok, oturumlu/rota ayrıntısı akışları doğrulanamadı. JS kapalı rota listesi mevcut loading iskeletinde kaldığı için ekran betiğinin son assertion kontrolü başarısız. Lighthouse ölçülmedi. Bunlar taslak incelemede açık bırakıldı.
+- **Durum:** İncelemede. Birleştirme ve canlıya geçiş yapılmadı.

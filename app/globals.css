@@ -1,27 +1,143 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #FAF5EC;
-  --color-sand: #F1E9DA;
-  --color-line: #EADFCB;
-  --color-navy: #0F2547;
+  --radius-panel: 24px;
+  --radius-control: 18px;
+  --spacing-page: 20px;
+  --color-surface: #FFFFFF;
+  --color-glass: #FFFFFFED;
+  --shadow-soft: 0 4px 18px -8px #162D3D26;
+  --shadow-navigation: 0 8px 32px -12px #162D3D40;
+  --color-cream: #F5F7F8;
+  --color-sand: #E9EFF2;
+  --color-line: #D9E3E8;
+  --color-navy: #162D3D;
   --color-navy-2: #17305F;
   --color-ink-2: #3E4B66;
   --color-mute: #5E6573;
-  --color-terra: #A64B22;
-  --color-terra-hi: #C25A2C;
-  --color-terra-lo: #9A4120;
+  --color-terra: #99502E;
+  --color-terra-hi: #AB603B;
+  --color-terra-lo: #854124;
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-jakarta), system-ui, sans-serif;
-  --shadow-card: 0 1px 2px rgba(15, 37, 71, 0.06), 0 10px 26px -8px rgba(15, 37, 71, 0.2);
-  --shadow-lift: 0 2px 4px rgba(15, 37, 71, 0.08), 0 18px 36px -10px rgba(15, 37, 71, 0.28);
-  --shadow-btn: 0 1px 0 rgba(255, 255, 255, 0.28) inset, 0 10px 22px -6px rgba(166, 75, 34, 0.55);
+  --shadow-card: 0 4px 18px -8px #162D3D26;
+  --shadow-lift: 0 12px 28px -12px #162D3D40;
+  --shadow-btn: 0 4px 14px -6px #99502E50;
+}
+
+/* G-008: shared visual language. Geometry stays in the stylesheet. */
+:root { --ease-ui: cubic-bezier(.22,.8,.3,1); }
+:is(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--color-terra);
+  outline-offset: 4px;
+}
+.page-header {
+  background: linear-gradient(135deg, var(--color-sand), var(--color-cream));
+  padding-block: 32px 28px;
+  border-bottom: 1px solid var(--color-line);
+  margin-bottom: 20px;
+}
+.language-choice {
+  padding: 32px;
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-navigation);
+}
+.language-choice::backdrop { backdrop-filter: blur(12px); }
+.language-choice h2 { line-height: 1.35; }
+.language-choice a { box-shadow: none; border-radius: var(--radius-control); }
+.language-choice a:hover { border-color: var(--color-terra); }
+.route-feature, .route-row {
+  border-color: var(--color-line);
+  box-shadow: var(--shadow-soft);
+  background: var(--color-surface);
+}
+.route-feature { padding: 8px 8px 18px; border-radius: var(--radius-panel); }
+.route-feature > div:last-child { padding-inline: 8px; gap: 10px; }
+.route-feature p.font-display, .route-row span.font-display {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: -.025em;
+}
+.route-row { padding: 12px; align-items: center; border-radius: var(--radius-panel); }
+.route-row > div:last-child { gap: 8px; }
+.route-filter { min-height: 44px; }
+.weather-card {
+  background: var(--color-surface);
+  border-color: var(--color-line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-soft);
+  min-height: 228px;
+}
+.weather-placeholder { border-radius: var(--radius-panel); }
+.mobile-nav {
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  left: 12px;
+  right: 12px;
+  height: 76px;
+  padding: 6px;
+  border: 1px solid var(--color-line);
+  border-radius: 26px;
+  background: var(--color-glass);
+  box-shadow: var(--shadow-navigation);
+}
+.mobile-nav-link { border-radius: var(--radius-control); min-width: 44px; gap: 5px; }
+.mobile-nav-icon { height: 32px; width: 42px; box-shadow: none; }
+.mobile-nav-link[aria-current="page"] { background: var(--color-sand); }
+.mobile-nav-link[aria-current="page"] .mobile-nav-icon {
+  color: var(--color-terra);
+  background: transparent;
+  box-shadow: none;
+}
+.onboarding { overflow-y: auto; }
+.onboarding-shell { min-height: min(680px, 100dvh); }
+.onboarding-art { min-height: 260px; }
+.onboarding-content {
+  position: relative;
+  padding-top: 32px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+}
+.onboarding-art::after {
+  content: "";
+  position: absolute;
+  inset: 60% 0 0;
+  background: linear-gradient(transparent, var(--color-navy));
+  pointer-events: none;
+}
+.onboarding-art button { z-index: 1; }
+@media (max-width: 1023px) {
+  body { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
+  .discover-hero { padding-top: 20px; }
+  .discover-heading { margin-top: 24px; }
+  .discover-heading h1 { font-size: 56px; line-height: 1.08; letter-spacing: -.045em; }
+  .discover-heading > p:last-of-type { max-width: 320px; line-height: 1.65; }
+  .discover-art { margin-top: -8px; margin-bottom: -8px; }
+  .discover-title { margin-top: 12px; font-size: 24px; letter-spacing: -.025em; }
+  .discover-routes {
+    gap: 14px;
+    padding-top: 2px;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--spacing-page);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+  .route-feature { width: min(78vw, 300px); scroll-snap-align: start; }
+  .route-feature > div:first-child { height: 178px; border-radius: var(--radius-control); }
+  .discover-actions > a { border-radius: var(--radius-control); }
+  .discover-actions > a:first-child { background: var(--color-surface); box-shadow: var(--shadow-soft); border-color: var(--color-line); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .route-feature img, .route-row img { transition: transform .45s var(--ease-ui); }
+  .route-feature:hover img, .route-row:hover img { transform: scale(1.035); }
 }
 
 html { scroll-behavior: smooth; }
 body {
   background-color: var(--color-cream);
-  background-image: url("/art/pattern.svg");
+  background-image: none;
   background-size: 200px 200px;
   background-attachment: fixed;
   color: var(--color-navy);
@@ -76,7 +192,7 @@ html[data-motion="on"] [data-motion-page] :is([data-reveal], [data-motion-list] 
   backdrop-filter: blur(14px) saturate(1.5);
   border: 1px solid rgba(255, 255, 255, 0.24);
 }
-@utility terra-grad { background: linear-gradient(180deg, #CC6232, #9A4120); box-shadow: var(--shadow-btn); }
+@utility terra-grad { background: linear-gradient(160deg, var(--color-terra), var(--color-terra-lo)); box-shadow: var(--shadow-btn); }
 @utility photo-ph {
   background-color: #EFE3D0;
   background-image: url("/art/pattern.svg");

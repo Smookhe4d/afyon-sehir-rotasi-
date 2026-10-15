@@ -31,14 +31,14 @@ export default function Onboarding() {
   const done = () => { try { localStorage.setItem(KEY, "1"); sessionStorage.removeItem("afyon-intro-origin"); } catch { /* yok say */ } setI(null); };
   const s = slides[i]; const last = i === slides.length - 1;
   return (
-    <div data-lenis-prevent role="dialog" aria-modal="true" aria-label={t("label")} className="fixed inset-0 z-[100] flex justify-center bg-cream" style={{ animation: "fade-in .3s both" }}>
-      <div className="flex w-full max-w-[520px] flex-col">
-        <div className="relative h-[52%] overflow-hidden bg-navy">
+    <div data-lenis-prevent role="dialog" aria-modal="true" aria-label={t("label")} className="onboarding fixed inset-0 z-[100] flex justify-center bg-cream" style={{ animation: "fade-in .3s both" }}>
+      <div className="onboarding-shell flex w-full max-w-[520px] flex-col">
+        <div className="onboarding-art relative h-[52%] overflow-hidden bg-navy">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img key={s} src={s} alt="" className="page-in absolute inset-0 h-full w-full object-cover object-[70%_50%]" />
-          <button type="button" onClick={done} className="glass-dark absolute right-4 top-5 rounded-full px-4 py-2 text-xs font-bold text-white">{t("skip")}</button>
+          <button type="button" onClick={done} className="glass-dark absolute right-4 top-5 min-h-11 rounded-full px-4 py-2 text-xs font-bold text-white">{t("skip")}</button>
         </div>
-        <div className="-mt-6 flex flex-1 flex-col rounded-t-[32px] bg-cream px-6 pb-8 pt-7">
+        <div className="onboarding-content -mt-6 flex flex-1 flex-col rounded-t-[32px] bg-cream px-6 pb-8 pt-7">
           <div key={i} className="page-in">
             <h2 className="font-display text-[30px] font-semibold leading-tight">{t("slides." + i + ".title")}</h2>
             <p className="mt-3 text-[15.5px] leading-relaxed text-ink-2">{t("slides." + i + ".text")}</p>

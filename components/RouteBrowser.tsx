@@ -36,7 +36,7 @@ export default function RouteBrowser() {
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={tx("searchRoutesOrPlacesE_9bc2d")} aria-label={tx("searchRoutes_51ab6")} className="h-12 w-full rounded-full border border-line bg-white shadow-card px-5 text-[15px] outline-none focus:border-terra" />
         <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1" role="group" aria-label={tx("category_b7964")}>
           {([["", tx("all_8daf7")], ...cats.map((c) => [c, categoryLabels[c]])] as [RouteCategory | "", string][]).map(([v, l]) => (
-            <button key={v || "all"} type="button" aria-pressed={cat === v} onClick={() => setCat(v)} className={`h-10 shrink-0 rounded-full border px-4 text-[13px] font-semibold ${cat === v ? "border-navy bg-navy text-white" : "border-line bg-white"}`}>{l}</button>
+            <button key={v || "all"} type="button" aria-pressed={cat === v} onClick={() => setCat(v)} className={`route-filter h-11 shrink-0 rounded-full border px-4 text-[13px] font-semibold ${cat === v ? "border-navy bg-navy text-white" : "border-line bg-white"}`}>{l}</button>
           ))}
         </div>
       </div>
@@ -47,7 +47,7 @@ export default function RouteBrowser() {
           <ul className="stagger flex flex-col gap-2.5 px-5 lg:grid lg:grid-cols-3 lg:gap-4">
             {items.map((r) => (
               <li key={r.slug}>
-                <Link href={`/rotalar/${r.slug}`} className="flex gap-3 rounded-3xl border border-line bg-white shadow-card p-2.5">
+                <Link href={`/rotalar/${r.slug}`} className="route-row flex gap-3 rounded-3xl border border-line bg-white shadow-card p-2.5">
                   <PhotoSlot id={routeCover[r.slug]} label={false} className="h-[88px] w-[88px] shrink-0 rounded-2xl" />
                   <div className="flex min-w-0 flex-col gap-1"><CategoryChip r={r} /><span className="font-display text-[16px] font-semibold leading-tight">{r.title}</span><span className="mt-auto text-xs font-semibold text-mute">{routeMetaLine(r, locale)}</span></div>
                 </Link>
