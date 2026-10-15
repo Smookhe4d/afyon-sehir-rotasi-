@@ -33,8 +33,8 @@ npm run build    # her teslimden önce hatasız geçmeli
 
 ## Çalışma akışı
 
-1. `docs/ekip/GOREVLER.md` dosyasında durumu **Hazır** olan ilk görevi al, durumunu **Uygulamada** yap.
-2. Güncel `main` dalından görev dalı aç: `codex/G-<numara>-<kisa-ad>` (örnek `codex/G-001-metin-envanteri`).
+1. Yönetici her görev için güncel `main`den görev dalını açar ve görev tanımını bu dalda `docs/ekip/GOREVLER.md` dosyasına yazar. Dal adı: `codex/G-<numara>-<kisa-ad>`.
+2. Uygulayıcı bu dala geçer, görev tanımını okur ve durumunu **Uygulamada** yapar. Görev dalını kendisi açmaz.
 3. Yalnızca görevin kapsamındaki dosyaları değiştir. Kapsam dışı bir sorun görürsen düzeltme, görev notuna yaz.
 4. `npm run build` çalıştır. Arayüz değiştiyse 390 px (telefon) ve 1280 px (masaüstü) genişlikte önce ve sonra ekran görüntüsü al, `docs/ekip/ekran/G-<numara>/` altına koy.
 5. Görevin "Uygulayıcı notu" alanını doldur: ne yapıldı, hangi dosyalar değişti, nasıl test edildi, açık kalan sorular.
