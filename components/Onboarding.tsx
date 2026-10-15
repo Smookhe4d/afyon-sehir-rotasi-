@@ -9,7 +9,12 @@ export default function Onboarding() {
   const t = useTranslations("onboarding");
   const [i, setI] = useState<number | null>(null);
   useEffect(() => {
-    try { if (!localStorage.getItem(KEY)) setI(0); } catch { /* depolama kapalı: tanıtım atlanır */ }
+    const begin = () => {
+      try { if (document.cookie.split(";").some(value => value.trim().startsWith("NEXT_LOCALE=")) && !localStorage.getItem(KEY)) setI(0); } catch { /* storage unavailable */ }
+    };
+    begin();
+    window.addEventListener("afyon-language-chosen", begin);
+    return () => window.removeEventListener("afyon-language-chosen", begin);
   }, []);
   if (i === null) return null;
   const done = () => { try { localStorage.setItem(KEY, "1"); } catch { /* yok say */ } setI(null); };

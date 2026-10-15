@@ -1,6 +1,5 @@
 "use client";
 import {useTranslations} from "next-intl";
-import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 
@@ -25,7 +24,6 @@ export default function TopNav() {
           ))}
         </ul>
         <Link href="/profil" className="terra-grad rounded-full px-5 py-2.5 text-sm font-bold text-white">{t("profile")}</Link>
-        <LanguageSwitcher />
       </nav>
     </header>
   );
