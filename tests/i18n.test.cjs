@@ -14,6 +14,7 @@ function load(name, mocks = {}) {
   mod.require = id => {
     if (id in mocks) return mocks[id];
     if (id === "next-intl/routing") return {defineRouting: config => config};
+    if (id === "next-intl/server") return {getTranslations: async options => require("next-intl").createTranslator({locale: "tr", messages: require("../messages/tr.json"), namespace: typeof options === "string" ? options : options.namespace})};
     if (id.startsWith("@/") || id.startsWith(".")) {
       const file = id.startsWith("@/") ? path.join(root, id.slice(2)) : path.resolve(path.dirname(filename), id);
       if (file.endsWith(".json") && fs.existsSync(file)) return require(file);
@@ -168,4 +169,49 @@ test("token refresh preserves next-intl rewrite, request locale and response coo
     if (oldUrl === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL; else process.env.NEXT_PUBLIC_SUPABASE_URL = oldUrl;
     if (oldKey === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY; else process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = oldKey;
   }
+});
+
+test('Turkish and English message keys and ICU arguments match', () => {
+  const tr = require('../messages/tr.json'), en = require('../messages/en.json');
+  function leaves(value, prefix='') {return Object.entries(value).flatMap(([key, entry]) => typeof entry === 'string' ? [[prefix+key,entry]] : leaves(entry,prefix+key+'.'));}
+  const left = new Map(leaves(tr)), right = new Map(leaves(en));
+  assert.deepEqual([...left.keys()].sort(), [...right.keys()].sort());
+  const args = message => [...new Set([...message.matchAll(/\{([a-zA-Z]+)(?:,|\})/g)].map(m=>m[1]))].sort();
+  for(const [key,value] of left) assert.deepEqual(args(value),args(right.get(key)),key);
+});
+
+test('English content covers every route and stop without changing ids or coordinates', () => {
+  const {getContent} = load('lib/content.ts');
+  const tr=getContent('tr'), en=getContent('en');
+  assert.equal(en.routes.length,14); assert.equal(en.placeListFull.length,86);
+  assert.deepEqual(en.routes.map(r=>r.slug),tr.routes.map(r=>r.slug));
+  assert.deepEqual(en.placeListFull.map(p=>[p.id,p.name,p.coords,p.sources]),tr.placeListFull.map(p=>[p.id,p.name,p.coords,p.sources]));
+  for(const route of tr.routes){const english=en.getRoute(route.slug);assert.equal(english.description.length,route.description.length);assert.equal(english.stops.length,route.stops.length);assert.notEqual(english.summary,route.summary);assert.deepEqual(english.stops.map(s=>s.placeId),route.stops.map(s=>s.placeId));}
+  for(const place of tr.placeListFull){const english=en.getPlace(place.id);for(const field of ['about','facts','visitTips'])if(place[field])assert.equal(english[field].length,place[field].length,place.id+' '+field);if(place.about)for(let i=0;i<place.about.length;i++)assert.notEqual(english.about[i],place.about[i],place.id);if(place.note)assert.notEqual(english.note,place.note,place.id);}
+});
+
+test('server actions return translated public and admin errors in the request locale', async () => {
+  for(const locale of ['tr','en']){
+    const messages=require('../messages/'+locale+'.json');
+    const mocks={'next-intl/server':{getTranslations:async namespace=>require('next-intl').createTranslator({locale,messages,namespace})},'@/lib/session':{getSession:async()=>({user:null})}};
+    const actions=load('app/actions.ts',mocks),admin=load('app/yonetim/actions.ts',mocks);
+    assert.deepEqual(await actions.toggleFavorite('not-a-route'),{ok:false,error:locale==='en'?'Route not found.':'Rota bulunamadı.'});
+    assert.deepEqual(await actions.addRouteComment('frig-yolu-afyonkarahisar',''),{ok:false,error:locale==='en'?'Comments must be between 1 and 500 characters.':'Yorum 1–500 karakter olmalı.'});
+    assert.deepEqual(await admin.deleteFeedback('test'),{ok:false,error:locale==='en'?'Not authorized.':'Yetkisiz.'});
+  }
+});
+
+test('directions and roundabout instructions are translated while street names stay intact', () => {
+  const {stepText,bearingText}=load('lib/map/nav.ts');
+  const step={distance:90,name:'Kadınana Caddesi',maneuver:{type:'turn',modifier:'left'}};
+  assert.equal(stepText(step,'en').text,'Turn left · Kadınana Caddesi');
+  assert.equal(stepText(step,'tr').text,'Sola dönün · Kadınana Caddesi');
+  assert.equal(stepText({distance:1,maneuver:{type:'roundabout',exit:2}},'en').text,'Take exit 2 at the roundabout');
+  assert.equal(bearingText([30,38],[30,39],'en'),'north');
+});
+
+test('every static UI and dynamic translation reference has a message', () => {
+  const messages=require('../messages/tr.json');
+  function walk(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())walk(file);else if(/\.tsx?$/.test(file)){const source=fs.readFileSync(file,'utf8');for(const match of source.matchAll(/\b(tx|dx)\("([a-zA-Z0-9_]+)"/g))assert.ok(match[2] in messages[match[1]==='tx'?'ui':'dynamic'],file+': '+match[2]);}}}
+  walk(path.join(root,'app'));walk(path.join(root,'components'));
 });
