@@ -8,7 +8,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-001: Metin ve sayfa envanteri
 
-- **Durum:** İncelemede
+- **Durum:** Onaylandı (birleştirme proje sahibinin onayını bekliyor)
 - **İş akışı:** D, A
 - **Dal:** `codex/G-001-metin-envanteri`
 - **Amaç:** Dil desteği ve tasarım yenilemesine başlamadan önce sitenin mevcut durumunu belgelemek. Bu görev aynı zamanda ekip çalışma akışının (dal, pull request, denetim) ilk denemesidir.

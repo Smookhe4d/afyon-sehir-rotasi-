@@ -27,6 +27,15 @@ Güçlü yönler:
 
 ---
 
+### G-001: Metin ve sayfa envanteri (PR #1), ikinci inceleme, 15 Ekim 2026
+Sonuç: Onaylandı
+
+- İstenen değişiklik yapıldı. 30 görsel WebP, en büyüğü 205 KB, toplam 2 MB. Bağlantıların tamamı çalışıyor, PNG kalmadı.
+- Değişiklik yalnızca görsellere, `envanter.md` bağlantılarına ve görev durumuna dokunuyor.
+- Birleştirme proje sahibinin onayını bekliyor. Yöntem: "Squash and merge".
+
+---
+
 ### G-001: Metin ve sayfa envanteri (PR #1), 15 Ekim 2026
 Sonuç: Değişiklik istendi (tek madde, küçük)
 
