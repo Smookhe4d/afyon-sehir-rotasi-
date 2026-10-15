@@ -48,7 +48,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-002: Dil desteği altyapısı (Türkçe ve İngilizce)
 
-- **Durum:** Onaylandı (birleştirme proje sahibinin onayını bekliyor)
+- **Durum:** Tamamlandı (PR #2, 15 Ekim 2026)
 - **İş akışı:** D
 - **Dal:** `codex/G-002-dil-altyapisi`
 - **Amaç:** Sitenin Türkçe ve İngilizce sunulabilmesi için altyapıyı kurmak. Bu görevde altyapı, dil seçici ve ortak bileşenler tamamlanır. Kalan arayüz metinlerinin taşınması ve çevirisi G-005'te, rota ve durak içeriğinin çevirisi G-006'da yapılacaktır.
@@ -146,9 +146,74 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-005: Kalan arayüz metinlerinin taşınması ve İngilizce çevirisi
 
-- **Durum:** Taslak
+- **Durum:** Hazır
 - **İş akışı:** D
-- **Not:** G-002 birleştirildikten sonra yazılacak. Girdi: `docs/ekip/envanter.md` sabit metin tablosu ve `lib/map/nav.ts` yönerge metinleri.
+- **Dal:** `codex/G-005-arayuz-cevirisi`
+- **Amaç:** Sitenin arayüzünü İngilizce sayfalarda tamamen İngilizce yapmak. Rota ve durak içeriği (G-006) bu görevin dışındadır.
+
+**Girdiler**
+
+- `docs/ekip/envanter.md` sabit metin tablosu (603 satır) ve "Başka dosyalardan gelen arayüz metinleri" bölümü.
+- G-002'de kurulan `messages/tr.json`, `messages/en.json` yapısı ve `i18n/` yardımcıları.
+
+**Yapılacaklar**
+
+1. Envanterdeki, G-002'de taşınmamış bütün sabit metinleri mesaj dosyalarına taşı. Buna sayfa başlıkları ve açıklamaları, düğmeler, form etiketleri ve yer tutucular, hata ve başarı mesajları, boş durumlar, erişilebilirlik etiketleri (`aria-label`, `alt`) ve sayfa meta verileri dahildir.
+2. Sunucu eylemlerinin hata metinleri (`app/actions.ts`, `app/yonetim/actions.ts`) de çevrilir. Eylem, kullanıcının diline göre mesaj döndürmelidir.
+3. `lib/map/nav.ts` içindeki yazılı ve sesli yönlendirme metinleri (dönüş, kavşak, varış) iki dilde verilir. Sesli yönergeler İngilizce sayfada İngilizce sesle okunmalıdır (`speechSynthesis` için `lang` ayarı).
+4. `lib/tabs.ts`, `lib/routes.ts` sonundaki kategori, kapsam, ulaşım ve zorluk etiketleri ile `lib/badges.ts` içindeki rozet adları ve ipuçları arayüz metni sayılır ve bu görevde çevrilir. Rota ve durak anlatımları çevrilmez.
+5. Tarih, sayı, mesafe ve süre gösterimlerinin tamamı dile göre biçimlendirilir (envanterdeki biçimlendirme tablosu). G-002'de dile duyarlı yapılan `formatDistance` ve `formatDuration` artık bütün çağrı yerlerinde etkin dille çağrılır.
+6. `/gizlilik` ve `/sartlar` sayfalarının İngilizcesi hazırlanır. İngilizce sayfanın başına şu not eklenir: "This is a translation. The Turkish version is the legally binding text." Hukuki anlamı değiştirecek serbest çeviri yapılmaz.
+7. G-002 denetim notu: Dil seçicideki karşı dile giden bağlantılara `hreflang` ve `lang` öznitelikleri geri eklenir.
+8. Hiçbir metin bileşenlerde sabit kalmamalı. Teslimde `app/` ve `components/` içinde Türkçe karakter ya da Türkçe sözcük içeren dizgileri tarayan bir kontrol çalıştır, kalan her sonucu gerekçesiyle not et (örneğin yer adı ya da kod içi açıklama).
+
+**Çeviri kuralları**
+
+- Doğal, kısa ve sade İngilizce yaz. Türkçeyi sözcük sözcük çevirme. Abartılı turizm dili kullanma ("breathtaking", "hidden gem", "unforgettable journey" gibi).
+- Yer adları özgün Türkçe yazımıyla kalır (Afyonkarahisar, Ulu Cami, Ayazini). Gerekirse ilk geçtiği yerde açıklama eklenir ("Ulu Cami (Great Mosque)").
+- İngiliz İngilizcesi değil Amerikan İngilizcesi kullan, ama mesafe birimi kilometre ve metre kalır.
+- Sözlük (tutarlı kullanılacak karşılıklar):
+
+| Türkçe | İngilizce |
+|---|---|
+| Keşfet | Explore |
+| Rota / Rotalar | Route / Routes |
+| Durak | Stop |
+| Rotanı belirle | Plan your route |
+| Sosyal | Community |
+| Bireysel başla | Start on your own |
+| Grupla | Group tour |
+| Rehber (kişi) | Guide |
+| Sesli rehber | Audio guide |
+| Rozet | Badge |
+| Misafir | Guest |
+| Kuş uçuşu | As the crow flies |
+| Yol tarifi | Directions |
+| Durak bilgisi | Stop details |
+
+- Sözlükte olmayan, birden fazla yerde geçen bir terim için karşılık seçersen uygulayıcı notunda listele.
+
+**Kapsam dışı**
+
+- `lib/routes.ts` rota anlatımları, `lib/places.ts` ve `lib/placeExtra.ts` durak içerikleri (G-006).
+- Veri tabanından gelen kullanıcı içerikleri ve duyurular.
+- Görsel tasarım değişikliği.
+
+**Kabul ölçütleri**
+
+- G-001 envanterindeki 15 sayfanın İngilizce sürümünde rota ve durak anlatımları dışında Türkçe arayüz metni kalmıyor. Denetimde rastgele seçilecek beş sayfada Türkçe arayüz metni çıkmamalı.
+- Türkçe sayfalarda metinler önceki hâliyle aynı. Envanterdeki metinlerden hiçbiri kaybolmamış ya da değişmemiş (yazım hataları dahil, düzeltme bu görevin konusu değildir).
+- İngilizce harita sayfasında yönlendirme yönergeleri ve mesafe biçimleri İngilizce.
+- `tr.json` ve `en.json` aynı anahtarlara sahip. Eksik anahtarı yakalayan bir test ekle.
+- HTTP durum kodları G-002'deki gibi (geçerli sayfalar 200, bilinmeyenler 404, yanlış dil yolları 307).
+- `npm run build` ve mevcut testler geçiyor.
+- Ekran görüntüleri: İngilizce `/en`, `/en/routes/frig-yolu-afyonkarahisar`, `/en/stops/ayazini`, `/en/map`, `/en/profile`, `/en/sign-in`, 390 px. WebP, en fazla 400 KB.
+
+**Uygulayıcı notu**
+
+_(Uygulayıcı dolduracak)_
+
+---
 
 ## G-006: Rota ve durak içeriğinin İngilizce çevirisi
 
