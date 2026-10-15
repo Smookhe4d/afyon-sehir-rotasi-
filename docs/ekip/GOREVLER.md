@@ -8,7 +8,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-001: Metin ve sayfa envanteri
 
-- **Durum:** İncelemede
+- **Durum:** Değişiklik istendi
 - **İş akışı:** D, A
 - **Dal:** `codex/G-001-metin-envanteri`
 - **Amaç:** Dil desteği ve tasarım yenilemesine başlamadan önce sitenin mevcut durumunu belgelemek. Bu görev aynı zamanda ekip çalışma akışının (dal, pull request, denetim) ilk denemesidir.
@@ -56,3 +56,9 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 - **Durum:** Taslak
 - **İş akışı:** A
 - **Not:** Bu görevi yönetici yürütür. Örnek destinasyon ve müze uygulamaları ile harita arayüzleri incelenip `docs/ekip/tasarim-ilkeleri.md` hazırlanacak. Proje sahibinin onayından sonra bileşen görevleri yazılacak.
+
+## G-004: Supabase kurulumu ve oturum doğrulaması
+
+- **Durum:** Taslak
+- **İş akışı:** F
+- **Not:** G-001 sırasında görüldü. Canlı veritabanında `is_admin` işlevi çağrısı hata veriyor, bu yüzden yönetim sayfası "Kurulum gerekli" uyarısı gösteriyor. Büyük olasılıkla `supabase/migrations/002_yonetim.sql` canlı veritabanında çalıştırılmamış. Ayrıca `middleware.ts` ve `lib/session.ts` sunucu tarafında `getSession` ile gelen kullanıcıya güveniyor, Supabase bunun yerine `getUser` önermektedir. Yönetici önce veritabanı durumunu kontrol edecek, sonra görev ayrıntılandırılacak.
