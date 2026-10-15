@@ -24,7 +24,9 @@ const base = process.argv[2] || 'http://127.0.0.1:3001';
       }
       await page.getByRole('button',{name:'Çıkış yap',exact:true}).click();
       await page.waitForURL(base + login);
-      assert.equal(await page.getByRole('button',{name:'Misafir olarak devam et',exact:true}).count(),1);
+      const guestButton = page.getByRole('button',{name:'Misafir olarak devam et',exact:true});
+      await guestButton.waitFor();
+      assert.equal(await guestButton.count(),1);
       console.log('PASS guest login, reload, locale session and logout: ' + login);
     }
     await context.close();

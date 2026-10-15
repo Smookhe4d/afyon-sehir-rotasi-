@@ -22,18 +22,25 @@ async function main() {
     assert.match(html, new RegExp('property="og:locale" content="' + (locale === "tr" ? "tr_TR" : "en_US") + '"'), path);
     if (locale === "en") {
       assert.match(html, /href="\/en\/routes"/, path + " navigation");
-      assert.doesNotMatch(html, /href="\/rotalar(?:\/|")/, path + " leaked Turkish link");
+      // The explicit Turkish language choice must now point directly to /rotalar.
+      const contentLinks = html.replace(/<a\b[^>]*aria-label="Türkçe"[^>]*>/g, "");
+      assert.doesNotMatch(contentLinks, /href="\/rotalar(?:\/|")/, path + " leaked Turkish content link");
     }
   }
   const cookies = await fetch(base + "/", {redirect: "manual", headers: {"accept-language": "en-US"}});
   assert.equal(cookies.status, 200);
   assert.ok(!(cookies.headers.get("set-cookie") || "").includes("NEXT_LOCALE"), "first visit must not save a language choice");
-  for (const path of ["/not-a-real-page", "/en/not-a-real-page"]) {
-    const response = await fetch(base + path);
-    // Next.js can stream a not-found boundary with HTTP 200 after loading
-    // has flushed. In that case its noindex directive must still be present.
+  for (const [source, target] of [["/en/rotalar", "/en/routes"], ["/tr/rotalar", "/rotalar"]]) {
+    const response = await fetch(base + source, {method: "HEAD", redirect: "manual"});
+    assert.equal(response.status, 307, source);
+    assert.equal(new URL(response.headers.get("location"), base).pathname, target, source);
+  }
+  for (const path of ["/yok-boyle", "/en/nope", "/rotalar/olmayan", "/en/stops/olmayan", "/duraklar/olmayan", "/en/routes/olmayan"]) {
+    const head = await fetch(base + path, {method: "HEAD", redirect: "manual"});
+    assert.equal(head.status, 404, "HEAD " + path);
+    const response = await fetch(base + path, {redirect: "manual"});
     const html = await response.text();
-    assert.ok(response.status === 404 || response.status === 200);
+    assert.equal(response.status, 404, "GET " + path);
     assert.match(html, path.startsWith("/en") ? /This path leads nowhere/ : /Bu yol bir yere çıkmıyor/);
     assert.match(html, /name="robots" content="noindex"/);
   }
@@ -41,6 +48,6 @@ async function main() {
   assert.match(sitemap, /\/en\/routes\/frig-yolu-afyonkarahisar/);
   assert.match(sitemap, /\/en\/stops\/ayazini/);
   assert.match(sitemap, /hreflang="x-default"/);
-  console.log("PASS: 30 page URLs, lang/hreflang/Open Graph, locale links, no auto-redirect, no first-visit choice cookie, two 404s and sitemap.");
+  console.log("PASS: 30 page URLs, lang/hreflang/Open Graph, locale links, no auto-redirect, no first-visit choice cookie, six HTTP 404s (HEAD and GET) and sitemap.");
 }
 main().catch(error => {console.error(error); process.exitCode = 1;});
