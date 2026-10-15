@@ -38,7 +38,7 @@ export default function StartPanel({ slug, mode, defaultName = "" }: { slug: str
 
   return (
     <>
-      <div className="mt-4 grid grid-cols-5 gap-2.5">
+      <div data-enter="3" className="mt-4 grid grid-cols-5 gap-2.5">
         <button type="button" onClick={solo} className="terra-grad col-span-3 flex h-14 items-center justify-center gap-2 rounded-full font-bold text-white">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5v14l11-7z" /></svg>{tx("startOnYourOwn_52881")}</button>
         <button type="button" onClick={() => { setSheet("kur"); setCode(newCode()); }} className="col-span-2 flex h-14 items-center justify-center gap-1.5 rounded-full border border-line bg-white text-sm font-bold text-navy shadow-card">
@@ -46,7 +46,7 @@ export default function StartPanel({ slug, mode, defaultName = "" }: { slug: str
       </div>
 
       {sheet && (
-        <div className="fixed inset-0 z-[70] flex items-end justify-center bg-navy/50" role="dialog" aria-modal="true" aria-label={tx("groupTour_72adb")} onClick={() => setSheet(null)} style={{ animation: "fade-in .2s both" }}>
+        <div data-lenis-prevent className="fixed inset-0 z-[70] flex items-end justify-center bg-navy/50" role="dialog" aria-modal="true" aria-label={tx("groupTour_72adb")} onClick={() => setSheet(null)} style={{ animation: "fade-in .2s both" }}>
           <div className="page-in w-full max-w-[520px] rounded-t-[32px] bg-cream p-5 pb-8" onClick={(e) => e.stopPropagation()}>
             <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-line" />
             <div role="tablist" className="mb-4 flex rounded-full bg-sand p-1">

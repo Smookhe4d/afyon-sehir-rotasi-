@@ -92,7 +92,7 @@ const roleLabel = { baslangic: tx("start_58730"), bitis: tx("finish_2a2a4"), mol
       {isStarted && <div className="mt-2 h-2 overflow-hidden rounded-full bg-sand" role="progressbar" aria-valuenow={done} aria-valuemin={0} aria-valuemax={total}><div className="terra-grad h-full rounded-full transition-all" style={{ width: `${(done / total) * 100}%` }} /></div>}
       {!signedIn && isStarted && <p className="mt-2 rounded-xl bg-sand px-3 py-2 text-xs font-medium text-ink-2">{tx("asAGuestYourProgress_8dfc2")} <Link href={`/giris?next=/rotalar/${slug}`} className="font-bold text-terra">{tx("signIn_cb57f")}</Link>.</p>}
       {error && <p role="alert" className="mt-2 rounded-xl bg-[#FBE4DC] px-3 py-2 text-xs font-semibold text-[#8E2C12]">{error}</p>}
-      <ol className="mt-3 flex flex-col gap-2.5">
+      <ol data-motion-list className="mt-3 flex flex-col gap-2.5">
         {stops.map((s, i) => {
           const seen = local.has(s.placeId);
           return (

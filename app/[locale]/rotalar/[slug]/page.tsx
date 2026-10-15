@@ -1,3 +1,4 @@
+import MotionProvider from "@/components/motion/MotionProvider";
 import {getContent} from "@/lib/content";
 
 import {getTranslations as getUiTranslations} from "next-intl/server";
@@ -60,11 +61,11 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
   };
 
   return (
-    <main className="wide">
+    <MotionProvider key={(await params).locale + slug}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="relative h-[240px] overflow-hidden bg-navy px-5 pt-8 lg:mx-4 lg:mt-4 lg:h-[320px] lg:rounded-[32px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/art/banner-afyon-1200.webp" srcSet="/art/banner-afyon-1200.webp 1200w, /art/banner-afyon-2000.webp 2000w" sizes="(min-width: 1024px) 1280px, 100vw" alt="" className="absolute inset-0 h-full w-full object-cover object-[54%_50%] lg:object-[50%_30%]" />
+        <img data-parallax="cover" src="/art/banner-afyon-1200.webp" srcSet="/art/banner-afyon-1200.webp 1200w, /art/banner-afyon-2000.webp 2000w" sizes="(min-width: 1024px) 1280px, 100vw" alt="" className="absolute inset-0 h-full w-full object-cover object-[54%_50%] lg:object-[50%_30%]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/45 to-transparent" />
         <div className="relative">
         <div className="flex items-center justify-between">
@@ -74,18 +75,18 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
         </div>
       </section>
       <article className="split relative -mt-8 rounded-t-[34px] bg-cream px-5 pt-5 lg:mt-0 lg:rounded-none lg:bg-transparent lg:px-9 lg:pb-16 lg:pt-8">
-        <CategoryChip r={r} />
-        <h1 className="mt-2 font-display text-[25px] font-semibold leading-tight lg:text-[40px]">{r.title}</h1>
-        <p className="mt-1.5 text-xs font-semibold text-mute">{routeMetaLine(r, (await params).locale)}{r.provinces ? ` · ${r.provinces.join(", ")}` : ""}</p>
+        <CategoryChip r={r} motionOrder="0" />
+        <h1 data-enter="1" className="mt-2 font-display text-[25px] font-semibold leading-tight lg:text-[40px]">{r.title}</h1>
+        <p data-enter="2" className="mt-1.5 text-xs font-semibold text-mute">{routeMetaLine(r, (await params).locale)}{r.provinces ? ` · ${r.provinces.join(", ")}` : ""}</p>
         <StartPanel slug={slug} mode={r.modes?.includes("yuruyus") ? "yuruyus" : r.modes?.[0] ?? "arac"} defaultName={profile && !profile.is_guest ? profile.display_name : ""} />
 
-        <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink-2">{r.description.map((p, i) => <p key={i}>{p}</p>)}</div>
+        <div data-reveal className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink-2">{r.description.map((p, i) => <p key={i}>{p}</p>)}</div>
 
         <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
-          {r.distanceKm && <div className="rounded-2xl border border-line bg-white/70 shadow-card p-3"><dt className="text-[11px] font-semibold text-mute">{tx("distance_7bccb")}</dt><dd className="font-display text-lg font-semibold">{num(r.distanceKm)} km</dd>{r.distanceNote && <dd className="text-[11px] text-mute">{r.distanceNote}</dd>}</div>}
+          {r.distanceKm && <div data-reveal className="rounded-2xl border border-line bg-white/70 shadow-card p-3"><dt className="text-[11px] font-semibold text-mute">{tx("distance_7bccb")}</dt><dd className="font-display text-lg font-semibold">{num(r.distanceKm)} km</dd>{r.distanceNote && <dd className="text-[11px] text-mute">{r.distanceNote}</dd>}</div>}
           {r.modes && <div className="rounded-2xl border border-line bg-white/70 shadow-card p-3"><dt className="text-[11px] font-semibold text-mute">{tx("travelOptions_6baec")}</dt><dd className="font-semibold">{r.modes.map((m) => modeLabels[m]).join(" · ")}</dd></div>}
-          {r.difficulty && <div className="col-span-2 rounded-2xl border border-line bg-white/70 shadow-card p-3"><dt className="text-[11px] font-semibold text-mute">{tx("difficulty_f6076")}</dt><dd className="font-semibold">{difficultyLabels[r.difficulty]}</dd>{r.difficultyNote && <dd className="mt-0.5 text-xs text-ink-2">{r.difficultyNote}</dd>}</div>}
-          {(r.difficulty === "orta" || r.difficulty === "zor") && <div className="col-span-2 rounded-2xl bg-[#FBE9D8] p-3 text-xs font-medium leading-relaxed text-[#7A3A14]">{tx("safetyCheckTheWeatherAnd_1edd4")}</div>}
+          {r.difficulty && <div data-reveal className="col-span-2 rounded-2xl border border-line bg-white/70 shadow-card p-3"><dt className="text-[11px] font-semibold text-mute">{tx("difficulty_f6076")}</dt><dd className="font-semibold">{difficultyLabels[r.difficulty]}</dd>{r.difficultyNote && <dd className="mt-0.5 text-xs text-ink-2">{r.difficultyNote}</dd>}</div>}
+          {(r.difficulty === "orta" || r.difficulty === "zor") && <div data-reveal className="col-span-2 rounded-2xl bg-[#FBE9D8] p-3 text-xs font-medium leading-relaxed text-[#7A3A14]">{tx("safetyCheckTheWeatherAnd_1edd4")}</div>}
         </dl>
 
         {geo.stops.length > 0 && (
@@ -94,20 +95,20 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
               <h2 className="font-display text-xl font-semibold">{tx("onTheMap_47ce7")}</h2>
               <Link href={`/harita?rota=${slug}`} className="text-xs font-bold text-terra">{tx("fullScreenMap_6f66d")}</Link>
             </div>
-            <div className="mt-2 h-[360px] overflow-hidden rounded-3xl border border-line lg:h-[calc(100dvh-260px)] lg:min-h-[420px]">
+            <div data-lenis-prevent className="mt-2 h-[360px] overflow-hidden rounded-3xl border border-line lg:h-[calc(100dvh-260px)] lg:min-h-[420px]">
               <MapView stops={geo.stops} line={geo.line} className="h-full w-full" />
             </div>
-            <div className="mt-4 hidden items-center gap-4 rounded-3xl border border-line bg-white p-4 shadow-card lg:flex"><div className="h-[96px] w-[96px] shrink-0" dangerouslySetInnerHTML={{ __html: qr }} /><div><p className="font-display text-lg font-semibold">{tx("sendToYourPhone_f67db")}</p><p className="mt-1 text-sm text-ink-2">{tx("scanWithYourPhoneS_6485e")}</p></div></div>
+            <div data-reveal className="mt-4 hidden items-center gap-4 rounded-3xl border border-line bg-white p-4 shadow-card lg:flex"><div className="h-[96px] w-[96px] shrink-0" dangerouslySetInnerHTML={{ __html: qr }} /><div><p className="font-display text-lg font-semibold">{tx("sendToYourPhone_f67db")}</p><p className="mt-1 text-sm text-ink-2">{tx("scanWithYourPhoneS_6485e")}</p></div></div>
             {geo.missing.length > 0 && <p className="mt-1.5 text-[11px] text-mute">{tx("stopsNotShownOnThe_1238b")} {geo.missing.join(", ")}.</p>}
           </section>
         )}
 
         <StopChecklist slug={slug} stops={stops.map((s) => ({ ...s, hasMap: Boolean(placesFull[s.placeId]?.coords) }))} started={Boolean(progress.data)} visited={progress.data?.visited_place_ids ?? []} signedIn={Boolean(user)} mode={r.modes?.includes("yuruyus") ? "yuruyus" : r.modes?.[0] ?? "arac"} />
 
-        {r.tips && <><h2 className="mt-7 font-display text-xl font-semibold">{tx("tips_7b90f")}</h2><ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2">{r.tips.map((t) => <li key={t}>{t}</li>)}</ul></>}
+        {r.tips && <><h2 className="mt-7 font-display text-xl font-semibold">{tx("tips_7b90f")}</h2><ul data-reveal className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2">{r.tips.map((t) => <li key={t}>{t}</li>)}</ul></>}
         <Comments slug={slug} rows={rows} userId={user?.id ?? ""} canWrite={Boolean(profile && !profile.is_guest)} />
         {r.source && <p className="mt-6 text-[11px] text-mute">{tx("source_0897f")} {r.source}</p>}
       </article>
-    </main>
+    </MotionProvider>
   );
 }
