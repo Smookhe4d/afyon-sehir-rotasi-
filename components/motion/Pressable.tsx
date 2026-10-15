@@ -23,7 +23,7 @@ export default function Pressable() {
     function down(event: PointerEvent) {
       if (event.button !== 0 || preference.matches) return;
       const target = (event.target as Element).closest<HTMLElement>("button[class*='rounded']:not(:disabled), a[class*='rounded']");
-      if (!target || !page!.contains(target) || target.closest("[data-lenis-prevent], [role=dialog]")) return;
+      if (!target || !page!.contains(target) || target.closest("[data-motion-map]")) return;
       release(); pressed = target;
       current = animate(target, {transform: `scale(${movement.pressScale})`}, {duration: movement.pressDuration});
     }
@@ -31,6 +31,7 @@ export default function Pressable() {
       if (event.repeat || !["Enter", " "].includes(event.key) || preference.matches) return;
       const target = event.target as HTMLElement;
       if (!target.matches("button[class*='rounded']:not(:disabled), a[class*='rounded']")) return;
+      if (target.closest("[data-motion-map]")) return;
       release(); pressed = target;
       current = animate(target, {transform: `scale(${movement.pressScale})`}, {duration: movement.pressDuration});
     }

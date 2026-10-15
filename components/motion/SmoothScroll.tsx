@@ -5,11 +5,10 @@ import {movement} from "@/lib/motion";
 
 // Each history entry needs its own position, including repeated visits to one URL.
 const positions = new Map<string, number>();
-let entry = 0;
 let returning: string | null = null;
 let watching = false;
 function historyKey() {
-  if (!history.state?.afyonScroll) history.replaceState({...history.state, afyonScroll: `motion-${++entry}`}, "");
+  if (!history.state?.afyonScroll) history.replaceState({...history.state, afyonScroll: crypto.randomUUID()}, "");
   return history.state.afyonScroll as string;
 }
 export default function SmoothScroll() {
@@ -27,6 +26,8 @@ export default function SmoothScroll() {
     let generation = 0;
     let frame = 0;
     const fromHistory = returning === key;
+    const previousY = fromHistory ? positions.get(key) : undefined;
+    let restoring = fromHistory;
     returning = null;
     async function setup() {
       const request = ++generation;
@@ -48,15 +49,20 @@ export default function SmoothScroll() {
     function restore() {
       if (remaining-- > 0) {frame = requestAnimationFrame(restore); return;}
       if (fromHistory) {
-        const y = positions.get(key) ?? window.scrollY;
+        const y = previousY ?? window.scrollY;
         if (lenis) lenis.scrollTo(y, {immediate: true}); else window.scrollTo({top: y, behavior: "instant"});
+        if (Math.abs(window.scrollY - y) < 1) {restoring = false; resize.disconnect();}
       } else if (!location.hash) {
         if (lenis) lenis.scrollTo(0, {immediate: true});
         else window.scrollTo({top: 0, behavior: "instant"});
       }
     }
+    // A returning page can regain height after weather/lazy content mounts.
+    const resize = new ResizeObserver(() => {if (restoring) restore();});
+    if (restoring) resize.observe(document.body);
     frame = requestAnimationFrame(restore);
-    function save() {if (!leaving && location.pathname === pathname && history.state?.afyonScroll === key) positions.set(key, window.scrollY);}
+    function save() {if (!leaving && !restoring && location.pathname === pathname && history.state?.afyonScroll === key) positions.set(key, window.scrollY);}
+    function interact() {restoring = false; resize.disconnect();}
     function navigate(event: MouseEvent) {
       const anchor = (event.target as Element).closest<HTMLAnchorElement>("a[href]");
       if (!anchor || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -65,9 +71,10 @@ export default function SmoothScroll() {
     }
     function pop() {leaving = true;}
     window.addEventListener("scroll", save, {passive: true});
+    window.addEventListener("wheel", interact, {passive: true}); window.addEventListener("touchstart", interact, {passive: true}); window.addEventListener("keydown", interact);
     document.addEventListener("click", navigate, true); window.addEventListener("popstate", pop);
     fine.addEventListener("change", setup); reduced.addEventListener("change", setup);
-    return () => {generation++; cancelAnimationFrame(frame); window.removeEventListener("scroll", save); document.removeEventListener("click", navigate, true); window.removeEventListener("popstate", pop); fine.removeEventListener("change", setup); reduced.removeEventListener("change", setup); lenis?.destroy(); delete document.documentElement.dataset.smoothScroll;};
+    return () => {generation++; cancelAnimationFrame(frame); resize.disconnect(); window.removeEventListener("scroll", save); window.removeEventListener("wheel", interact); window.removeEventListener("touchstart", interact); window.removeEventListener("keydown", interact); document.removeEventListener("click", navigate, true); window.removeEventListener("popstate", pop); fine.removeEventListener("change", setup); reduced.removeEventListener("change", setup); lenis?.destroy(); delete document.documentElement.dataset.smoothScroll;};
   }, []);
   return null;
 }

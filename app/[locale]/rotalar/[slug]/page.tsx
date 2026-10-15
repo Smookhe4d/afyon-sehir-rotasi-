@@ -95,7 +95,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
               <h2 className="font-display text-xl font-semibold">{tx("onTheMap_47ce7")}</h2>
               <Link href={`/harita?rota=${slug}`} className="text-xs font-bold text-terra">{tx("fullScreenMap_6f66d")}</Link>
             </div>
-            <div data-lenis-prevent className="mt-2 h-[360px] overflow-hidden rounded-3xl border border-line lg:h-[calc(100dvh-260px)] lg:min-h-[420px]">
+            <div data-lenis-prevent data-motion-map className="mt-2 h-[360px] overflow-hidden rounded-3xl border border-line lg:h-[calc(100dvh-260px)] lg:min-h-[420px]">
               <MapView stops={geo.stops} line={geo.line} className="h-full w-full" />
             </div>
             <div data-reveal className="mt-4 hidden items-center gap-4 rounded-3xl border border-line bg-white p-4 shadow-card lg:flex"><div className="h-[96px] w-[96px] shrink-0" dangerouslySetInnerHTML={{ __html: qr }} /><div><p className="font-display text-lg font-semibold">{tx("sendToYourPhone_f67db")}</p><p className="mt-1 text-sm text-ink-2">{tx("scanWithYourPhoneS_6485e")}</p></div></div>
