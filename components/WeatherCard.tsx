@@ -85,7 +85,7 @@ export default function WeatherCard() {
   }, [load, locate]);
 
   if (err && !w) return null;
-  if (!w) return <div className="skeleton mx-5 mt-5 h-[132px] rounded-[28px]" aria-label={tx("loadingWeather_14d2b")} />;
+  if (!w) return <div className="weather-placeholder skeleton mx-5 mt-5 h-[228px] rounded-[28px]" aria-label={tx("loadingWeather_14d2b")} />;
   const i = info(w.code, tx);
   const nearby = pos ? placeListFull.filter((p) => p.coords).map((p) => ({ p, d: haversineM(pos, p.coords!) })).sort((a, b) => a.d - b.d).slice(0, 3) : [];
   const tip = i.kind === "rain" || i.kind === "storm" || i.kind === "snow" ? { t: tx("rainOrSnowIsExpected_e82b5"), href: "/rotalar/merkez-kultur-rotasi", l: tx("cityCenterCulturalRoute_2d17f") }
@@ -94,7 +94,7 @@ export default function WeatherCard() {
     : { t: tx("aGoodDayToExplore_5bbf5"), href: "/rotalar", l: tx("viewRoutes_8159c") };
 
   return (
-    <section aria-label={tx("weather_0314d")} className="mx-5 mt-5 overflow-hidden rounded-[28px] border border-white/70 bg-gradient-to-br from-[#FFF8EC] to-[#F6E4CC] p-4 shadow-card">
+    <section aria-label={tx("weather_0314d")} className="weather-card mx-5 mt-5 overflow-hidden rounded-[28px] border border-white/70 bg-gradient-to-br from-[#FFF8EC] to-[#F6E4CC] p-4 shadow-card">
       <div className="flex items-center gap-3">
         <Icon kind={i.kind} day={w.day} size={54} />
         <div className="min-w-0 flex-1">
@@ -102,7 +102,7 @@ export default function WeatherCard() {
           <p className="font-display text-[34px] font-semibold leading-none">{num(w.temp)}°<span className="ml-2 text-[14px] font-medium text-ink-2">{i.label}</span></p>
           <p className="mt-1 text-[11px] font-medium text-ink-2">{dx("weatherDetail", {feels: num(w.feels), wind: num(w.wind), rain: num(w.rain), low: num(w.lo), high: num(w.hi)})}</p>
         </div>
-        {!pos && <button type="button" onClick={locate} disabled={geoBusy} className="shrink-0 rounded-full border border-line bg-white px-3 py-2 text-[11px] font-bold text-navy shadow-card disabled:opacity-60">{geoBusy ? tx("locating_0c2ca") : tx("myLocation_f0edd")}</button>}
+        {!pos && <button type="button" onClick={locate} disabled={geoBusy} className="min-h-11 shrink-0 rounded-full border border-line bg-white px-3 py-2 text-[11px] font-bold text-navy shadow-card disabled:opacity-60">{geoBusy ? tx("locating_0c2ca") : tx("myLocation_f0edd")}</button>}
       </div>
       <div className="mt-3 grid grid-cols-3 gap-2">
         {w.days.map((d) => (<div key={d.d} className="flex items-center gap-1.5 rounded-2xl bg-white/70 px-2.5 py-2"><Icon kind={info(d.code, tx).kind} size={26} /><span className="text-[11px] font-semibold leading-tight">{d.d}<span className="block font-bold">{num(d.hi)}° <span className="font-medium text-mute">{num(d.lo)}°</span></span></span></div>))}
