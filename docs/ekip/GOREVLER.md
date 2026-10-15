@@ -8,7 +8,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-001: Metin ve sayfa envanteri
 
-- **Durum:** Hazır
+- **Durum:** Uygulamada
 - **İş akışı:** D, A
 - **Dal:** `codex/G-001-metin-envanteri`
 - **Amaç:** Dil desteği ve tasarım yenilemesine başlamadan önce sitenin mevcut durumunu belgelemek. Bu görev aynı zamanda ekip çalışma akışının (dal, pull request, denetim) ilk denemesidir.
@@ -31,7 +31,16 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 **Uygulayıcı notu**
 
-_(Uygulayıcı dolduracak)_
+- 15 Ekim 2026: ekip/kurulum dalındaki 5501bb2 commit’inden codex/G-001-metin-envanteri dalı açıldı.
+- Yapılanlar: docs/ekip/envanter.md oluşturuldu. 15 sayfa, 47 dosyada 603 sabit metin satırı, içerik kayıtları ve metin alanı sayıları, tarih, saat, sayı ve mesafe biçimlendirmeleri belgelendi.
+- Değişen dosyalar: docs/ekip/envanter.md, docs/ekip/ekran/G-001/ altındaki 30 PNG ve bu görevin Durum ile Uygulayıcı notu alanları. Kod dosyaları, paket listesi ve kilit dosyası değiştirilmedi.
+- Test: mevcut paketler npm ci ile kuruldu. npm run build gerekli ağ ve çıktı dizini izniyle hatasız tamamlandı, tür denetimi geçti ve 120 statik çıktı üretildi. İlk sandbox denemesi Google Fonts erişimi ve çıktı dizini izninde başarısız olmuştu.
+- Ekranlar: başarılı build’in localhost:3000 sunucusunda tarayıcı otomasyonuyla, 390 × 844 ve 1280 × 900 CSS piksel viewport’larda tam sayfa çekildi. Tarayıcı çıktısı ölçeklenmeden PNG olarak kodlandı. Dosya adları viewport genişliğini gösterir, yakalama motorunun raster ölçüsü farklı olabilir. Dinamik örnekler /rotalar/frig-yolu-afyonkarahisar ve /duraklar/ayazini olarak kullanıldı.
+- /profil için /giris sayfasındaki Misafir olarak devam et düğmesiyle giriş yapıldı. /yonetim misafir oturumunda Kurulum gerekli ekranını gösterdi. Kod bu mesajı is_admin çağrısı hata döndüğünde gösteriyor, tabloların eksikliği ayrıca doğrulanmadı.
+- Soru: Yönetimin Yetkiniz yok ekranını da doğrulamak için gerekli Supabase kurulum kontrolü ayrı bir görev olarak açılacak mı? Bu görevde kurulum veya yetki değişikliği yapılmadı.
+- QR ekranında Kamera açılıyor… mesajı kaldı ve kamera görüntüsü alınamadı. Elle kod alanı belgelendi, kamera erişimi etkinleştirilmedi. Tarayıcı otomasyonu kullanılabildi, başka yakalama yöntemine geçilmedi.
+- .env.local git dışında kaldı, içeriği okunmadı ve notlara eklenmedi. Mevcut noktalı virgüllü metinler ve küçük dokunma hedefleri yalnızca kaydedildi.
+- Teslim: yerel belgeler hazır. Dal gönderimi ve pull request açılması bekleniyor. main dalına commit, push veya birleştirme yapılmadı.
 
 ---
 
