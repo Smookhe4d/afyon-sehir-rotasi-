@@ -1,3 +1,4 @@
+import {getTranslations as getUiTranslations} from "next-intl/server";
 import {setRequestLocale} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
@@ -10,12 +11,14 @@ export async function generateMetadata({params}: {params: Promise<{locale: Local
 }
 
 export default async function Belirle({ params }: { params: Promise<{locale: Locale}> }) {
+  const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
+
   setRequestLocale((await params).locale);
   const { supabase, user } = await getSession();
   const { data } = user ? await supabase.from("custom_routes").select("id, title, place_ids, is_public").eq("user_id", user.id).order("created_at", { ascending: false }) : { data: [] };
   return (
     <main>
-      <PageHeader eyebrow="YENİ ROTA" title="Rotanı Belirle" />
+      <PageHeader eyebrow={tx("newRoute_0cfdf")} title={tx("planYourRoute_cdc25")} />
       <Builder saved={data ?? []} />
     </main>
   );

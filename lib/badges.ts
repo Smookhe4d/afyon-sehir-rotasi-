@@ -1,11 +1,12 @@
+import tr from "@/messages/tr.json";
 export type Badge = { id: string; label: string; hint: string; icon: string };
 export const badgeDefs: Badge[] = [
-  { id: "ilk", label: "İlk adım", hint: "Bir rota başlat", icon: "/art/badge-ilk.svg" },
-  { id: "kale", label: "Kale", hint: "Merkez Kültür Rotası'nı tamamla", icon: "/art/badge-kale.svg" },
-  { id: "frig", label: "Frig", hint: "Bir Frig rotasını tamamla", icon: "/art/badge-frig.svg" },
-  { id: "lezzet", label: "Lezzet", hint: "Gastronomi Rotası'nı tamamla", icon: "/art/badge-lezzet.svg" },
-  { id: "termal", label: "Termal", hint: "Termal Turizm Rotası'nı tamamla", icon: "/art/badge-termal.svg" },
-  { id: "foto", label: "Fotoğraf", hint: "Fotoğraflı bir paylaşım yap", icon: "/art/badge-foto.svg" },
+  { id: "ilk", ...tr.badges.ilk, icon: "/art/badge-ilk.svg" },
+  { id: "kale", ...tr.badges.kale, icon: "/art/badge-kale.svg" },
+  { id: "frig", ...tr.badges.frig, icon: "/art/badge-frig.svg" },
+  { id: "lezzet", ...tr.badges.lezzet, icon: "/art/badge-lezzet.svg" },
+  { id: "termal", ...tr.badges.termal, icon: "/art/badge-termal.svg" },
+  { id: "foto", ...tr.badges.foto, icon: "/art/badge-foto.svg" },
 ];
 
 export function earnedBadges(input: { started: string[]; completed: string[]; hasPhotoPost: boolean }): Set<string> {

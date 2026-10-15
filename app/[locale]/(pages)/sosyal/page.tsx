@@ -1,26 +1,36 @@
+import {getContent} from "@/lib/content";
+
+import {getTranslations as getUiTranslations} from "next-intl/server";
 import {setRequestLocale} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
 import PageHeader from "@/components/PageHeader";
 import SignInPrompt from "@/components/SignInPrompt";
 import { Composer, PostCard, type PostRow } from "@/components/social/Feed";
-import { getRoute } from "@/lib/routes";
+
 import { getSession } from "@/lib/session";
 import { supabaseUrl } from "@/lib/supabase/env";
 
 export async function generateMetadata({params}: {params: Promise<{locale: Locale}>}) {
+  const {getRoute} = getContent((await params).locale);
+
   const {locale} = await params;
   return pageMetadata(locale, "/sosyal", pageTitle(locale, "community"));
 }
 export const dynamic = "force-dynamic";
 
 type Prof = { display_name: string } | { display_name: string }[] | null;
-const nameOf = (p: Prof) => (Array.isArray(p) ? p[0]?.display_name : p?.display_name) ?? "Gezgin";
 
 export default async function Sosyal({ params }: { params: Promise<{locale: Locale}> }) {
+  const {getRoute} = getContent((await params).locale);
+
+  const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
+
+  const nameOf = (p: Prof) => (Array.isArray(p) ? p[0]?.display_name : p?.display_name) ?? tx("traveler_c4a46");
+
   setRequestLocale((await params).locale);
   const { supabase, user, profile } = await getSession();
-  if (!user) return (<main><PageHeader eyebrow="TOPLULUK" title="Sosyal" /><SignInPrompt title="Topluluğa katılın" text="Gezginlerin fotoğraflarını ve rota yorumlarını görmek, kendi paylaşımınızı yapmak için giriş yapın." /></main>);
+  if (!user) return (<main><PageHeader eyebrow={tx("community_92216")} title={tx("community_6c29e")} /><SignInPrompt title={tx("joinTheCommunity_fb680")} text={tx("signInToSeeTravelers_85655")} /></main>);
   const { data, error } = await supabase
     .from("posts")
     .select("id, body, photo_path, route_slug, created_at, user_id, profiles(display_name), post_likes(user_id), comments(id, body, user_id, created_at, profiles(display_name))")
@@ -38,11 +48,11 @@ export default async function Sosyal({ params }: { params: Promise<{locale: Loca
 
   return (
     <main>
-      <PageHeader eyebrow="TOPLULUK" title="Sosyal" />
+      <PageHeader eyebrow={tx("community_92216")} title={tx("community_6c29e")} />
       <div className="flex flex-col gap-3">
         <Composer userId={user.id} canPost={registered} />
-        {error && <p role="alert" className="mx-5 rounded-2xl bg-[#FBE4DC] px-4 py-3 text-sm text-[#8E2C12]">Akış yüklenemedi. Lütfen sayfayı yenileyin.</p>}
-        {!error && rows.length === 0 && <p className="mx-5 rounded-2xl border border-dashed border-line px-4 py-8 text-center text-sm text-mute">Henüz paylaşım yok. İlk paylaşımı siz yapın.</p>}
+        {error && <p role="alert" className="mx-5 rounded-2xl bg-[#FBE4DC] px-4 py-3 text-sm text-[#8E2C12]">{tx("theFeedCouldNotBe_3ce00")}</p>}
+        {!error && rows.length === 0 && <p className="mx-5 rounded-2xl border border-dashed border-line px-4 py-8 text-center text-sm text-mute">{tx("noPostsYetBeThe_043d5")}</p>}
         {rows.map((p) => <PostCard key={p.id} p={p} userId={user.id} canComment={registered} />)}
       </div>
     </main>

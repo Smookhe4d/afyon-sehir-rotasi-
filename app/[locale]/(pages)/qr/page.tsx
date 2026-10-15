@@ -1,3 +1,4 @@
+import {getTranslations as getUiTranslations} from "next-intl/server";
 import {setRequestLocale} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
@@ -9,12 +10,14 @@ export async function generateMetadata({params}: {params: Promise<{locale: Local
 }
 
 export default async function QR({ params }: { params: Promise<{locale: Locale}> }) {
+  const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
+
   setRequestLocale((await params).locale);
   return (
     <main className="min-h-dvh bg-[#0A1530] px-5 pb-32 pt-8 text-white">
-      <Link href="/" aria-label="Kapat" className="glass-dark inline-flex h-11 w-11 items-center justify-center rounded-full">×</Link>
-      <h1 className="mt-6 text-center font-display text-2xl font-semibold">Rota QR kodunu okutun</h1>
-      <p className="mt-1.5 text-center text-sm opacity-85">Kodu çerçevenin içine hizalayın</p>
+      <Link href="/" aria-label={tx("close_9e6ec")} className="glass-dark inline-flex h-11 w-11 items-center justify-center rounded-full">×</Link>
+      <h1 className="mt-6 text-center font-display text-2xl font-semibold">{tx("scanARouteQrCode_b1db7")}</h1>
+      <p className="mt-1.5 text-center text-sm opacity-85">{tx("alignTheCodeInsideThe_3c97b")}</p>
       <Scanner />
     </main>
   );

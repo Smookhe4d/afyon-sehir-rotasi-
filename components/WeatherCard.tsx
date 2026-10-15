@@ -1,23 +1,33 @@
 "use client";
+import {useFormatter as useUiFormatter} from "next-intl";
+
+import {useLocale as useUiLocale} from "next-intl";
+import {useContent} from "@/i18n/useContent";
+import {useTranslations as useUiTranslations} from "next-intl";
+
 import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { placeListFull } from "@/lib/placesFull";
+
 import { haversineM, formatDistance, type LngLat } from "@/lib/map/geo";
 
 const AFYON: LngLat = [30.5387, 38.7507];
 type W = { temp: number; feels: number; code: number; wind: number; day: boolean; hi: number; lo: number; rain: number; days: { d: string; hi: number; lo: number; code: number }[] };
 
-function info(code: number): { label: string; kind: "sun" | "part" | "cloud" | "fog" | "rain" | "snow" | "storm" } {
-  if (code === 0) return { label: "Açık", kind: "sun" };
-  if (code <= 2) return { label: "Parçalı bulutlu", kind: "part" };
-  if (code === 3) return { label: "Kapalı", kind: "cloud" };
-  if (code <= 48) return { label: "Sisli", kind: "fog" };
-  if (code <= 57) return { label: "Çisenti", kind: "rain" };
-  if (code <= 67 || (code >= 80 && code <= 82)) return { label: "Yağmurlu", kind: "rain" };
-  if (code <= 77 || code === 85 || code === 86) return { label: "Karlı", kind: "snow" };
-  return { label: "Gök gürültülü fırtına", kind: "storm" };
+function info(code: number, tx: ReturnType<typeof useUiTranslations>): { label: string; kind: "sun" | "part" | "cloud" | "fog" | "rain" | "snow" | "storm" } {
+  if (code === 0) return { label: tx("clear_2b7ce"), kind: "sun" };
+  if (code <= 2) return { label: tx("partlyCloudy_45860"), kind: "part" };
+  if (code === 3) return { label: tx("overcast_67866"), kind: "cloud" };
+  if (code <= 48) return { label: tx("foggy_ba1c4"), kind: "fog" };
+  if (code <= 57) return { label: tx("drizzle_d6efb"), kind: "rain" };
+  if (code <= 67 || (code >= 80 && code <= 82)) return { label: tx("rainy_2fd07"), kind: "rain" };
+  if (code <= 77 || code === 85 || code === 86) return { label: tx("snowy_4b1ec"), kind: "snow" };
+  return { label: tx("thunderstorm_eb638"), kind: "storm" };
 }
 function Icon({ kind, day = true, size = 44 }: { kind: ReturnType<typeof info>["kind"]; day?: boolean; size?: number }) {
+  const {placeListFull} = useContent();
+
+  const language = useUiLocale();
+
   const sun = <><circle cx="24" cy="24" r="8" fill={day ? "#F5B041" : "#C9D3E6"} />{day && <g stroke="#F5B041" strokeWidth="2.5" strokeLinecap="round">{[0, 45, 90, 135, 180, 225, 270, 315].map((a) => <path key={a} d="M24 6v5" transform={`rotate(${a} 24 24)`} />)}</g>}</>;
   const cloud = <path d="M15 36a8 8 0 0 1-1-15.9A10 10 0 0 1 33 18a8.5 8.5 0 0 1 1 17Z" fill="#FFFFFF" stroke="#B9C4D6" strokeWidth="1.5" />;
   return (
@@ -31,9 +41,18 @@ function Icon({ kind, day = true, size = 44 }: { kind: ReturnType<typeof info>["
     </svg>
   );
 }
-const dayName = (iso: string, i: number) => (i === 0 ? "Bugün" : new Date(iso + "T12:00").toLocaleDateString("tr-TR", { weekday: "short" }));
 
 export default function WeatherCard() {
+  const dx = useUiTranslations("dynamic");
+  const num = useUiFormatter().number;
+
+  const {placeListFull} = useContent();
+
+  const language = useUiLocale();
+  const tx = useUiTranslations("ui");
+
+  const dayName = (iso: string, i: number) => (i === 0 ? tx("today_ee77a") : new Date(iso + "T12:00").toLocaleDateString(language === "en" ? "en-US" : "tr-TR", { weekday: "short" }));
+
   const [pos, setPos] = useState<LngLat | null>(null);
   const [w, setW] = useState<W | null>(null);
   const [err, setErr] = useState(false);
@@ -49,7 +68,7 @@ export default function WeatherCard() {
         days: d.time.slice(1, 4).map((t: string, i: number) => ({ d: dayName(t, i + 1), hi: Math.round(d.temperature_2m_max[i + 1]), lo: Math.round(d.temperature_2m_min[i + 1]), code: d.weather_code[i + 1] })) });
       setErr(false);
     } catch { setErr(true); }
-  }, []);
+  }, [language]);
 
   const locate = useCallback(() => {
     if (!("geolocation" in navigator)) return;
@@ -66,33 +85,33 @@ export default function WeatherCard() {
   }, [load, locate]);
 
   if (err && !w) return null;
-  if (!w) return <div className="skeleton mx-5 mt-5 h-[132px] rounded-[28px]" aria-label="Hava durumu yükleniyor" />;
-  const i = info(w.code);
+  if (!w) return <div className="skeleton mx-5 mt-5 h-[132px] rounded-[28px]" aria-label={tx("loadingWeather_14d2b")} />;
+  const i = info(w.code, tx);
   const nearby = pos ? placeListFull.filter((p) => p.coords).map((p) => ({ p, d: haversineM(pos, p.coords!) })).sort((a, b) => a.d - b.d).slice(0, 3) : [];
-  const tip = i.kind === "rain" || i.kind === "storm" || i.kind === "snow" ? { t: "Yağış var: müze ve camilerin olduğu kapalı mekân rotası iyi bir seçim.", href: "/rotalar/merkez-kultur-rotasi", l: "Merkez Kültür Rotası" }
-    : w.temp >= 32 ? { t: "Çok sıcak: yürüyüşleri sabaha alın, öğleden sonra termal ve müzeleri tercih edin.", href: "/rotalar", l: "Rotalara bak" }
-    : w.temp <= 3 ? { t: "Soğuk bir gün: kalın giyinin, kapalı mekânlı rotaları seçin.", href: "/rotalar/merkez-kultur-rotasi", l: "Merkez Kültür Rotası" }
-    : { t: "Dışarıda gezmek için güzel bir gün.", href: "/rotalar", l: "Rotalara bak" };
+  const tip = i.kind === "rain" || i.kind === "storm" || i.kind === "snow" ? { t: tx("rainOrSnowIsExpected_e82b5"), href: "/rotalar/merkez-kultur-rotasi", l: tx("cityCenterCulturalRoute_2d17f") }
+    : w.temp >= 32 ? { t: tx("itIsVeryHotWalk_76435"), href: "/rotalar", l: tx("viewRoutes_8159c") }
+    : w.temp <= 3 ? { t: tx("itIsColdTodayDress_c2c26"), href: "/rotalar/merkez-kultur-rotasi", l: tx("cityCenterCulturalRoute_2d17f") }
+    : { t: tx("aGoodDayToExplore_5bbf5"), href: "/rotalar", l: tx("viewRoutes_8159c") };
 
   return (
-    <section aria-label="Hava durumu" className="mx-5 mt-5 overflow-hidden rounded-[28px] border border-white/70 bg-gradient-to-br from-[#FFF8EC] to-[#F6E4CC] p-4 shadow-card">
+    <section aria-label={tx("weather_0314d")} className="mx-5 mt-5 overflow-hidden rounded-[28px] border border-white/70 bg-gradient-to-br from-[#FFF8EC] to-[#F6E4CC] p-4 shadow-card">
       <div className="flex items-center gap-3">
         <Icon kind={i.kind} day={w.day} size={54} />
         <div className="min-w-0 flex-1">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{pos ? "Bulunduğunuz yer" : "Afyonkarahisar"} · şu an</p>
-          <p className="font-display text-[34px] font-semibold leading-none">{w.temp}°<span className="ml-2 text-[14px] font-medium text-ink-2">{i.label}</span></p>
-          <p className="mt-1 text-[11px] font-medium text-ink-2">Hissedilen {w.feels}° · Rüzgâr {w.wind} km/sa · Yağış %{w.rain} · {w.lo}°/{w.hi}°</p>
+          <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{pos ? tx("yourLocation_2a57c") : "Afyonkarahisar"}  {tx("now_8ae54")}</p>
+          <p className="font-display text-[34px] font-semibold leading-none">{num(w.temp)}°<span className="ml-2 text-[14px] font-medium text-ink-2">{i.label}</span></p>
+          <p className="mt-1 text-[11px] font-medium text-ink-2">{dx("weatherDetail", {feels: num(w.feels), wind: num(w.wind), rain: num(w.rain), low: num(w.lo), high: num(w.hi)})}</p>
         </div>
-        {!pos && <button type="button" onClick={locate} disabled={geoBusy} className="shrink-0 rounded-full border border-line bg-white px-3 py-2 text-[11px] font-bold text-navy shadow-card disabled:opacity-60">{geoBusy ? "Aranıyor…" : "Konumum"}</button>}
+        {!pos && <button type="button" onClick={locate} disabled={geoBusy} className="shrink-0 rounded-full border border-line bg-white px-3 py-2 text-[11px] font-bold text-navy shadow-card disabled:opacity-60">{geoBusy ? tx("locating_0c2ca") : tx("myLocation_f0edd")}</button>}
       </div>
       <div className="mt-3 grid grid-cols-3 gap-2">
-        {w.days.map((d) => (<div key={d.d} className="flex items-center gap-1.5 rounded-2xl bg-white/70 px-2.5 py-2"><Icon kind={info(d.code).kind} size={26} /><span className="text-[11px] font-semibold leading-tight">{d.d}<span className="block font-bold">{d.hi}° <span className="font-medium text-mute">{d.lo}°</span></span></span></div>))}
+        {w.days.map((d) => (<div key={d.d} className="flex items-center gap-1.5 rounded-2xl bg-white/70 px-2.5 py-2"><Icon kind={info(d.code, tx).kind} size={26} /><span className="text-[11px] font-semibold leading-tight">{d.d}<span className="block font-bold">{num(d.hi)}° <span className="font-medium text-mute">{num(d.lo)}°</span></span></span></div>))}
       </div>
       <p className="mt-3 text-[12px] leading-snug text-ink-2">{tip.t} <Link href={tip.href} className="font-bold text-terra">{tip.l} ›</Link></p>
       {nearby.length > 0 && (
         <div className="mt-3 border-t border-black/5 pt-3">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-mute">Yakınınızdaki duraklar</p>
-          <ul className="mt-1.5 flex flex-col gap-1">{nearby.map(({ p, d }) => (<li key={p.id}><Link href={`/duraklar/${p.id}`} className="flex items-center justify-between rounded-xl px-1 py-1 text-[13px] font-semibold"><span>{p.name}</span><span className="text-xs text-terra">{formatDistance(d, "tr")}</span></Link></li>))}</ul>
+          <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{tx("nearbyStops_b9300")}</p>
+          <ul className="mt-1.5 flex flex-col gap-1">{nearby.map(({ p, d }) => (<li key={p.id}><Link href={`/duraklar/${p.id}`} className="flex items-center justify-between rounded-xl px-1 py-1 text-[13px] font-semibold"><span>{p.name}</span><span className="text-xs text-terra">{formatDistance(d, language === "en" ? "en" : "tr")}</span></Link></li>))}</ul>
         </div>
       )}
     </section>
