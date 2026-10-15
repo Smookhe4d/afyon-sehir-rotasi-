@@ -48,7 +48,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-002: Dil desteği altyapısı (Türkçe ve İngilizce)
 
-- **Durum:** İncelemede
+- **Durum:** Onaylandı (birleştirme proje sahibinin onayını bekliyor)
 - **İş akışı:** D
 - **Dal:** `codex/G-002-dil-altyapisi`
 - **Amaç:** Sitenin Türkçe ve İngilizce sunulabilmesi için altyapıyı kurmak. Bu görevde altyapı, dil seçici ve ortak bileşenler tamamlanır. Kalan arayüz metinlerinin taşınması ve çevirisi G-005'te, rota ve durak içeriğinin çevirisi G-006'da yapılacaktır.

@@ -27,6 +27,20 @@ Güçlü yönler:
 
 ---
 
+### G-002: Dil desteği altyapısı (PR #2), ikinci inceleme, 15 Ekim 2026
+Sonuç: Onaylandı
+
+- Bilinmeyen adresler ile olmayan rota ve duraklar iki dilde de HTTP 404 dönüyor (/yok-boyle, /en/nope, /rotalar/olmayan, /duraklar/olmayan, /en/routes/olmayan, /en/stops/olmayan). Geçerli sayfalar 200, yanlış dil yolları 307 dönüyor.
+- Türkçe dil bağlantısı doğrudan öneksiz adrese gidiyor.
+- `npx npm@10 ci` ve `npm run build` temiz ortamda geçiyor.
+- Yeniden test edildi: misafir oturumu iki dilde korunuyor, dil seçici gidiş ve dönüşte aynı rotada kalıyor, QR okuyucu eski ve yeni adresleri açıyor, bant davranışı değişmedi.
+- Küçük not (G-005'te düzeltilecek): Dil bağlantısındaki `hreflang="en"` özniteliği bu düzeltmede kaldırılmış. Karşı dile giden bağlantılarda `hreflang` ve `lang` öznitelikleri bulunmalı (ekran okuyucular bağlantı metnini doğru dilde okur).
+- Birleştirme proje sahibinin onayını bekliyor. Yöntem: "Squash and merge".
+
+Öğrenme notu: Bir düzeltme yaparken aynı bileşendeki çalışan özellikleri koru. Değişiklikten önce ve sonra bileşenin çıktısını karşılaştır.
+
+---
+
 ### G-002: Dil desteği altyapısı (PR #2), 15 Ekim 2026
 Sonuç: Değişiklik istendi
 Güçlü yönler:
