@@ -146,7 +146,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-005: Kalan arayüz metinlerinin taşınması ve İngilizce çevirisi
 
-- **Durum:** İncelemede
+- **Durum:** Tamamlandı (PR #3, 15 Ekim 2026)
 - **İş akışı:** D
 - **Dal:** `codex/G-005-arayuz-cevirisi`
 - **Amaç:** Sitenin arayüzünü İngilizce sayfalarda tamamen İngilizce yapmak. Rota ve durak içeriği (G-006) bu görevin dışındadır.
@@ -228,6 +228,60 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-006: Rota ve durak içeriğinin İngilizce çevirisi
 
-- **Durum:** Taslak
+- **Durum:** Taslak (ilk çeviri G-005'te yapıldı, yönetici denetimi ve proje sahibinin son okuması kaldı)
 - **İş akışı:** D
 - **Not:** Uygulayıcı ilk çeviriyi yapar, yönetici yer adlarını ve olgusal doğruluğu denetler, proje sahibi yayından önce son okumayı yapar. Yer adları özgün Türkçe yazımıyla korunur.
+
+---
+
+## G-007: Ana sayfa ve rota sayfasına hareket ve yumuşak kaydırma
+
+- **Durum:** Hazır
+- **İş akışı:** A (tasarım)
+- **Dal:** `codex/G-007-hareket`
+- **Amaç:** Ana sayfa ile rota ayrıntı sayfasını, yerleşimlerine dokunmadan, daha canlı ve özenli hissettirmek. Bu görevde yalnızca hareket eklenir. Görsel tasarım aynen kalır.
+
+**Proje sahibinin kararları (değiştirilmez)**
+
+- Yerleşim, bölüm sırası, renk, yazı karakteri, yazı boyu, boşluk, köşe ve gölge değerleri değişmez. Hiçbir öğe yer değiştirmez, eklenmez ya da kaldırılmaz.
+- Paketler: `motion` (MIT) ve `lenis` (MIT). Eklenmeleri bu görev için onaylıdır. Güncel kararlı sürümler `package.json` içinde sabitlenir. Başka paket eklenmez. Commons Clause ya da ticari kullanımı kısıtlayan lisanslı kod (React Bits gibi) kullanılmaz.
+- Kapsam yalnızca `/` ve `/rotalar/[slug]` sayfaları ile İngilizce karşılıklarıdır. Diğer sayfalar bu görevde değişmez.
+
+**Yapılacaklar**
+
+1. **Açılışta sıralı beliriş.** Sayfanın ilk ekranındaki öğeler (ana sayfada üst başlık alanı, arama, hava durumu, ilk bölüm başlığı, rota sayfasında kategori etiketi, başlık, özet satırı, düğmeler) yukarıdan aşağı sırayla belirir. Öğe başına 60 ms gecikme, 450 ms süre, en fazla 12 px dikey kayma ve saydamlık. Toplam açılış 800 ms'yi geçmez.
+2. **Görünür alana girişte beliriş.** Rota kartları, rota listesi, durak listesi satırları ve bilgi kutuları ekrana ilk girdiklerinde bir kez belirir. Geri kaydırınca tekrar oynamaz. Yatay rota şeridinde yalnızca ilk görünen kartlar oynar.
+3. **Fotoğrafta hafif paralaks.** Ana sayfadaki kale resmi ve rota sayfasındaki kapak fotoğrafı, sayfa kaydırılırken içeriğe göre daha yavaş hareket eder. Kayma en fazla görsel yüksekliğinin %15'i kadardır, görsel kenarlarında boşluk açılmaz. Yalnızca `transform` kullanılır.
+4. **Basılma hissi.** Birincil ve ikincil düğmeler ile rota kartları basıldığında 0,97 ölçeğine iner ve bırakılınca yay hareketiyle döner. Masaüstünde fare üstüne gelince yalnızca imleç ve mevcut renk değişimi kalır, yeni bir efekt eklenmez.
+5. **Yumuşak kaydırma (Lenis).** Yalnızca ince imleçli cihazlarda (`(pointer: fine)`) ve hareket azaltma tercihi kapalıyken açılır. Dokunmatik cihazlarda tarayıcının doğal kaydırması kullanılır. Harita alanları, yatay kaydırılan şeritler, açılır pencereler ve dil seçimi penceresi Lenis dışında tutulur (`data-lenis-prevent`). Sayfa değişiminde kaydırma en üste döner, bağlantı çapaları çalışmaya devam eder.
+6. **Mevcut CSS animasyonlarıyla uyum.** `app/globals.css` içindeki `.page-in`, `.stagger` ve `rise` animasyonları bu iki sayfada yeni hareketlerle çift oynamamalı. Bu iki sayfada yeni sistem kullanılır, diğer sayfalardaki mevcut animasyonlar olduğu gibi kalır.
+7. **Kod düzeni.** Sayfalar sunucu bileşeni olarak kalır. Hareket, `components/motion/` altında küçük istemci bileşenleriyle (örneğin `Reveal`, `Stagger`, `Parallax`, `Pressable`, `SmoothScroll`) sağlanır. Boyutu küçük tutmak için `LazyMotion` ve `domAnimation` kullanılır. Süre, gecikme ve eğri değerleri tek bir dosyada (`lib/motion.ts`) tanımlanır, bileşenlere sayı yazılmaz.
+
+8. **Dil penceresi düzeltmesi (G-005 denetiminden).** İlk ziyaret dil penceresi (`components/LanguageChoice.tsx`) yalnızca öneksiz Türkçe kök sayfada (`/`) ve dil çerezi yokken açılır. `/en` ile başlayan bir adreste pencere açılmaz, `NEXT_LOCALE=en` sessizce yazılır. Rota (`/rotalar/...`, `/en/routes/...`), durak ve `/qr` adreslerine doğrudan gelen ziyaretçide ne dil penceresi ne de tanıtım (`components/Onboarding.tsx`) açılır, adresin dili çereze yazılır. Bu madde iki sayfa sınırının tek istisnasıdır, başka davranış değişmez.
+
+**Erişilebilirlik ve performans**
+
+- `prefers-reduced-motion: reduce` açıkken bütün hareketler kapanır, içerik doğrudan son hâliyle görünür. Paralaks ve Lenis devre dışı kalır.
+- En büyük içerik öğesi olan görsel (ana sayfada kale resmi, rota sayfasında kapak) saydamlık animasyonuyla gizli başlamaz. Paralaks dışında bu görsele animasyon uygulanmaz.
+- JavaScript yüklenmeden ya da çalışmadan da içerik görünür olmalıdır. Gizli başlayan öğe JavaScript yoksa görünmez kalmamalı.
+- Yerleşim kayması (CLS) oluşmaz. Animasyonlar yalnızca `opacity` ve `transform` kullanır.
+- Ana sayfanın ilk yüklemedeki JavaScript miktarı en fazla 40 kB (sıkıştırılmış) artabilir. `npm run build` çıktısındaki First Load JS değerleri önce ve sonra olarak not edilir.
+
+**Kapsam dışı**
+
+- Sayfalar arası geçiş animasyonu, başlığın harf harf açılması, iskelet ekranlar.
+- Harita, durak, profil ve diğer sayfalar.
+- Görsel tasarımda herhangi bir değişiklik.
+
+**Kabul ölçütleri**
+
+- Animasyonlar bittikten sonra alınan ekran görüntüleri, `main` dalındaki aynı sayfaların görüntüleriyle aynıdır. `/`, `/en`, `/rotalar/frig-yolu-afyonkarahisar`, `/en/routes/frig-yolu-afyonkarahisar` için 390 ve 1280 px genişlikte, piksel karşılaştırması yapılarak doğrulanır. Fark varsa nedeni yazılır.
+- Hareket azaltma tercihi açık bir tarayıcı oturumunda hiçbir öğe hareket etmez ve içerik ilk karede görünür.
+- Dokunmatik telefon öykünmesinde (390 × 844) Lenis etkin değildir, kaydırma doğaldır. Masaüstünde (1280 px) Lenis etkindir. Harita kutusu ve yatay şerit Lenis'ten etkilenmez.
+- Lighthouse mobil ölçümü `/` ve `/rotalar/frig-yolu-afyonkarahisar` için önce ve sonra alınır. Performans puanı 3 puandan fazla düşmez, CLS 0,02'yi geçmez.
+- HTTP durum kodları ve mevcut testler G-005'teki gibi geçer. `npm run build` hatasızdır.
+- Kayıtlar: iki sayfanın 390 px ve 1280 px ekran kaydı (WebM ya da GIF, her biri en fazla 4 MB) ve hareket azaltma açıkken alınmış birer ekran görüntüsü (WebP, en fazla 400 KB). Dosyalar `docs/ekip/ekranlar/G-007/` altına.
+
+**Uygulayıcı notu**
+
+_(Uygulayıcı dolduracak)_
