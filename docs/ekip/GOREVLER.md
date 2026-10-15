@@ -146,7 +146,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-005: Kalan arayüz metinlerinin taşınması ve İngilizce çevirisi
 
-- **Durum:** Hazır
+- **Durum:** İncelemede
 - **İş akışı:** D
 - **Dal:** `codex/G-005-arayuz-cevirisi`
 - **Amaç:** Sitenin arayüzünü İngilizce sayfalarda tamamen İngilizce yapmak. Rota ve durak içeriği (G-006) bu görevin dışındadır.
@@ -211,7 +211,18 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 **Uygulayıcı notu**
 
-_(Uygulayıcı dolduracak)_
+- Başlangıçta git fetch yapıldı, yöneticinin hazırladığı codex/G-005-arayuz-cevirisi dalı ve 2c4e4a2 commit'i doğrulandı. Tüm öğrenme notları ve görev sözlüğü okundu.
+- Proje sahibi planı genişleterek arayüzün yanında rota/durak içerikleri ve İngilizce seslendirmeyi, ilk ziyaret dil seçimini ve profilin en altında Dil ayarını açıkça onayladı. Bu onay önceki G-006 içerik ayrımına ve görsel kapsam sınırına göre öncelikli uygulandı. G-006 görev durumu yöneticiye bırakıldı.
+- Türkçe özgün metinler korundu. 14 rota ve 86 durak için İngilizce karşılıklar messages/content/en.json dosyasına eklendi. 743 benzersiz içerik değeri işlendi. Yer adları, kimlikler, koordinatlar ve kaynak URL'leri korundu. lib/places.ts ve lib/placeExtra.ts değiştirilmedi. lib/routes.ts içinde yalnızca arayüz etiketlerinin mesajlara bağlanması değişti.
+- messages/tr.json ve en.json, lib/content.ts ve i18n/useContent.ts üzerinden sayfa, kart, arama, filtre, harita, profil, form, rozet ve hata metinleri etkin dilde sunuluyor. Fotoğraf alt metinleri de çevrildi. Hukuki çevirilere istenen bağlayıcılık notu eklendi. Amerikan İngilizcesi kullanıldı. Ek ortak terimler docs/ekip/G-005-dogrulama.md dosyasında.
+- app/actions.ts ve app/yonetim/actions.ts mevcut izin ve Result davranışını koruyarak isteğin dilinde hata döndürüyor. Gerçek misafir oturumunda geçersiz ad gönderilerek iki dilde sunucu yanıtı doğrulandı, bu denemede veri yazılmadı.
+- Yazılı ve sesli navigasyon çevrildi. Sesli rehber İngilizce içerikle en-US, Türkçe içerikle tr-TR kullanıyor. Uygun ses seçiliyor, dil değişiminde eski kuyruk iptal ediliyor. Tarih, sayı, mesafe, süre ve çoğullar etkin dille biçimlendiriliyor.
+- TR/EN düğmeleri üst menüden ve profilin üstünden kaldırıldı, öneri bandı kaldırıldı. Profilin altında Dil / Language ayarı var. İlk ziyarette seçim yapılır, ardından tanıtım gösterilir. NEXT_LOCALE hatırlanır. Dil bağlantılarında lang/hreflang bulunur, Türkçe bağlantı öneksizdir. Açık dil URL'lerinin davranışı ve localeDetection: false korundu.
+- npm run build geçti. 236 çıktı ve 192 prerender rota korundu. 16 otomatik test, 30 sayfa HTTP kontrolü, 200/307/404, iki dilde gerçek misafir oturumu ve sunucu eylemi hata testi geçti. Playwright ile ilk seçim, tercih, profil ayarı, İngilizce ekranlar, İngilizce/Türkçe anlatım ve İngilizce harita yönergesinin ses API'sine gönderimi doğrulandı. Ses API'si, GPS ve OSRM testte taklit edildi, fiziksel cihazda işitsel dinleme yapılmadı.
+- node tests/check-translations.cjs taramasında açıklamasız Türkçe arayüz dizgisi yok. Kalan 22 sonuç, dosya/satır ve gerekçeleriyle docs/ekip/G-005-dizgi-taramasi.md dosyasına yazıldı. Veri tabanından gelen kullanıcı adları, içerikleri ve duyurular çevrilmez. Kök PWA manifesti varsayılan Türkçe meta verisini kullanır.
+- Önce/sonra toplam 27 WebP ekran, tam 390 ve 1280 px genişlikte. Telefon öykünmesi 390 × 844 ve dokunmatik. En büyük görsel 161.926 bayt, toplam 1.413.104 bayt. Bağlantılar doğrulama belgesinde.
+- Yeni paket eklenmedi, package.json ve lock değişmedi. .env.local okunmadı ve commit edilmedi. G-004, oturum güvenliği davranışı ve veri tabanı şeması değiştirilmedi.
+- Açık kalan doğrulama: kayıtlı kullanıcı ve yönetici hesabı olmadığından gerçek yorum paylaşımı ve yetkili yönetici veri işlemleri denenmedi. Mesajları ve hata dalları otomatik testle kontrol edildi. Önceki denetimdeki gerçek yorum testi birleştirme sonrası canlı kontrolüne bırakılmış durumda.
 
 ---
 
