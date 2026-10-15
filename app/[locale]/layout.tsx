@@ -24,14 +24,18 @@ export async function generateMetadata({params}: {params: Promise<{locale: Local
 export function generateStaticParams() { return routing.locales.map(locale => ({locale})); }
 export const viewport: Viewport = { themeColor: "#0F2547", width: "device-width", initialScale: 1 };
 
+const MOTION_BOOT = `(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;var d=document.documentElement;d.setAttribute("data-motion","on");setTimeout(function(){if(!window.__afyonMotion)d.removeAttribute("data-motion")},4000)}catch(e){}})()`;
+
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{locale: string}> }) {
   const {locale} = await params;
   if (!isLocale(locale)) notFound();
   setRequestLocale(locale);
   const messages = await getMessages();
   return (
-    <html lang={locale} className={`${fraunces.variable} ${jakarta.variable}`}>
+    <html lang={locale} className={`${fraunces.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
+        {/* G-007: Hides reveal targets only when JavaScript runs, before the first paint. Falls back to visible if hydration fails. */}
+        <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT }} />
         <link rel="preconnect" href="https://tiles.openfreemap.org" crossOrigin="" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
       </head>

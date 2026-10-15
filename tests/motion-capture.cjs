@@ -29,11 +29,14 @@ async function shot(page, name, width, fullPage=true) {
     }
   }
 }
-async function main(){fs.mkdirSync(output,{recursive:true});fs.mkdirSync(raw,{recursive:true});const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu','--enable-unsafe-swiftshader']});try{
+async function main(){fs.mkdirSync(output,{recursive:true});fs.mkdirSync(raw,{recursive:true});const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu','--enable-unsafe-swiftshader']});try{
   for(const width of [390,1280].filter(w=>!process.env.G007_WIDTH||w===Number(process.env.G007_WIDTH))){const context=await browser.newContext(width===390?{...devices['iPhone 13'],viewport:{width:390,height:844},deviceScaleFactor:1}:{viewport:{width,height:900},deviceScaleFactor:1});await fixtures(context);const page=await context.newPage();
     for(const [name,url]of cases.filter(([name])=>!process.env.G007_CASE||name===process.env.G007_CASE)){await page.goto(base+url);await page.waitForLoadState('networkidle');await page.evaluate(async()=>{await document.fonts.ready;await Promise.all(Array.from(document.images).map(image=>{image.loading='eager';return image.decode().catch(()=>{});}));});await page.waitForTimeout(1100);
       if(await page.locator('.maplibregl-map').count())await page.waitForTimeout(2500);
-      // Capture from the top without pre-scrolling: identical lazy-image loading in both phases.
+      // Scroll through once in both phases so scroll reveals have run, then capture from the top (parallax offset is zero there).
+      const total=await page.evaluate(()=>document.documentElement.scrollHeight);
+      for(let y=0;y<total;y+=300){await page.evaluate(top=>window.scrollTo(0,top),y);await page.waitForTimeout(150);}
+      await page.waitForTimeout(1500);await page.evaluate(()=>window.scrollTo(0,0));await page.waitForTimeout(1000);
       await shot(page,name,width);
     }await context.close();
   }

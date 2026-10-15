@@ -1,5 +1,6 @@
 import {spring} from "motion";
 // All movement values live here. Visual design tokens remain in globals.css.
+// The opening order ([data-enter]) runs in CSS (app/globals.css, motion-enter). Keep duration, stagger, maxDelay and distance in sync there.
 export const movement = {
   duration: 0.45,
   stagger: 0.06,

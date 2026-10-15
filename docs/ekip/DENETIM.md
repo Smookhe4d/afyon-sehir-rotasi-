@@ -27,6 +27,25 @@ Güçlü yönler:
 
 ---
 
+### G-007: Ana sayfa ve rota sayfasına hareket (yönetici tamamladı), 15 Ekim 2026
+Sonuç: Yönetici düzeltmeleriyle onaya sunuldu.
+
+Uygulayıcının işinde güçlü yönler:
+- Plan aşamasında piksel eşitliği ile paralaks arasındaki çelişkiyi fark edip kod yazmadan sordu.
+- Dil penceresi düzeltmesi eksiksiz. Doğrudan rota, durak ve QR girişlerinde pencere ve tanıtım açılmıyor, adresin dili çereze yazılıyor.
+- Lenis yalnızca ince imleçli cihazlarda ve dinamik içe aktarmayla yükleniyor. Geri tuşunda kaydırma konumu korunuyor.
+- Lighthouse ve CLS sonuçlarını olduğu gibi raporlayıp karar için durdu. Doğru davranış.
+
+Bulunan hata ve düzeltme:
+- Sunucu çıktısı görünür gönderilip beliriş istemcide başlatıldığı için ilk ekrandaki öğeler önce görünüp yaklaşık 470. milisaniyede kayboluyor, sonra yeniden beliriyordu. Bu yolu yönetici önermişti, sorumluluk yönetimde. Ayrıntılar G-007 uygulayıcı notunun "Yönetici müdahalesi" bölümünde.
+
+Öğrenme notları:
+5. **Hidrasyonla başlayan animasyon:** Sunucunun gönderdiği ve ilk karede görünen bir öğeye JavaScript ile "görünmezden görünüre" animasyonu uygulanmaz, çünkü öğe önce görünür sonra kaybolur. İlk ekrandaki giriş animasyonu CSS ile ilk karede başlatılır. Gizli başlaması gereken öğeler yalnızca JavaScript'in çalıştığı kesinleştiğinde, boyamadan önce çalışan bir işaretle gizlenir.
+6. **Taşınabilir test:** Test betiklerine kişisel bilgisayar yolu yazılmaz. Tarayıcı ve paket yolları ortam değişkeniyle verilir, varsayılan değer yalnızca son çaredir.
+7. **Ölçüm önce:** Bir animasyonun doğruluğu ekran görüntüsüyle değil kare kare ölçümle doğrulanır. Örneğin opaklığın hiçbir karede düşmediğini gösteren bir ölçüm.
+
+---
+
 ### G-005: Arayüz ve içerik çevirisi, İngilizce ses, ilk dil seçimi (PR #3), 15 Ekim 2026
 Sonuç: Onaylandı. Proje sahibi birleştirdi.
 

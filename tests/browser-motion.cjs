@@ -3,7 +3,7 @@ const {chromium,devices}=require(process.env.CODEX_PLAYWRIGHT || 'C:/Users/ftorr
 const {fixtures}=require('./motion-capture.cjs');
 const base=process.argv[2] || 'http://localhost:3000',out=path.resolve('docs/ekip/ekranlar/G-007');
 async function visit(page,url){await page.goto(base+url);await page.waitForLoadState('networkidle');await page.waitForTimeout(900);}
-async function main(){fs.mkdirSync(out,{recursive:true});const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu','--enable-unsafe-swiftshader']});try{
+async function main(){fs.mkdirSync(out,{recursive:true});const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu','--enable-unsafe-swiftshader']});try{
   // Direct-entry language and permanent onboarding suppression, including returning home.
   for(const url of ['/en','/rotalar/frig-yolu-afyonkarahisar','/en/routes/frig-yolu-afyonkarahisar','/duraklar/ayazini','/en/stops/ayazini','/qr','/en/qr']){
     const context=await browser.newContext({...devices['iPhone 13'],viewport:{width:390,height:844},deviceScaleFactor:1});const page=await context.newPage();await visit(page,url);

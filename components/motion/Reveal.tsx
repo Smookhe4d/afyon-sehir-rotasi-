@@ -14,16 +14,17 @@ export default function Reveal() {
     const finished = new WeakSet<Element>();
     const running = new Set<ReturnType<typeof animate>>();
     const elements = new Set<HTMLElement>();
-    function show(element: HTMLElement, delay = 0) {
+    function show(element: HTMLElement) {
       if (finished.has(element)) return;
       finished.add(element);
-      if (preference.matches) return;
+      if (preference.matches) {element.dataset.shown = ""; return;}
       const controls = animate(element, {opacity: [0, 1], transform: [`translateY(${movement.distance}px)`, "none"]}, {
-        duration: movement.duration, delay, ease: movement.ease,
+        duration: movement.duration, ease: movement.ease,
       });
       running.add(controls);
       controls.then(() => {
         running.delete(controls);
+        element.dataset.shown = "";
         element.style.removeProperty("opacity");
         element.style.removeProperty("transform");
       });
@@ -31,12 +32,12 @@ export default function Reveal() {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
       if (entry.isIntersecting) { show(entry.target as HTMLElement); observer.unobserve(entry.target); }
     }));
+    // Opening elements ([data-enter]) animate in CSS. Only scroll reveals are handled here.
     function scan() {
-      page!.querySelectorAll<HTMLElement>("[data-enter], [data-reveal]").forEach(element => {
+      page!.querySelectorAll<HTMLElement>("[data-reveal]").forEach(element => {
         if (elements.has(element)) return;
         elements.add(element);
-        const index = element.dataset.enter;
-        if (index !== undefined) show(element, Math.min(Number(index) * movement.stagger, movement.maxDelay));
+        if (preference.matches) element.dataset.shown = "";
         else observer.observe(element);
       });
     }
@@ -46,7 +47,7 @@ export default function Reveal() {
     function reduce() {
       if (!preference.matches) return;
       running.forEach(control => control.stop()); running.clear();
-      elements.forEach(element => {element.style.removeProperty("opacity"); element.style.removeProperty("transform");});
+      elements.forEach(element => {element.dataset.shown = ""; element.style.removeProperty("opacity"); element.style.removeProperty("transform");});
     }
     preference.addEventListener("change", reduce);
     return () => {observer.disconnect(); mutations.disconnect(); preference.removeEventListener("change", reduce); reduce();};

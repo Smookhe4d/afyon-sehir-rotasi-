@@ -6,7 +6,7 @@ const base=process.argv[2] || 'http://localhost:3000',phase=process.argv[3] || '
 async function main(){
   const packagePath=process.env.CODEX_LIGHTHOUSE || 'C:/Users/ftorr/AppData/Local/npm-cache/_npx/0f94ee7615faf582/node_modules/lighthouse/core/index.js';
   const {default:lighthouse}=await import(pathToFileURL(packagePath));
-  const context=await chromium.launchPersistentContext(path.resolve('tmp-g007/lh-profile'),{headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--remote-debugging-port=9222','--disable-gpu','--enable-unsafe-swiftshader']});
+  const context=await chromium.launchPersistentContext(path.resolve('tmp-g007/lh-profile'),{headless:true,executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--remote-debugging-port=9222','--disable-gpu','--enable-unsafe-swiftshader']});
   try{await fixtures(context);const page=await context.newPage();await page.goto(base);await page.evaluate(()=>localStorage.setItem('afyon-onb-v1','1'));
     for(let run=1;run<=Number(process.argv[4]||1);run++)for(const [name,url]of [['ana','/'],['rota','/rotalar/frig-yolu-afyonkarahisar']]){
       const {lhr}=await lighthouse(base+url,{port:9222,onlyCategories:['performance'],disableStorageReset:true,output:'json',logLevel:'error'});

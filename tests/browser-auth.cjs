@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const {chromium} = require(process.env.CODEX_PLAYWRIGHT || 'C:/Users/ftorr/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const base = process.argv[2] || 'http://127.0.0.1:3001';
 (async () => {
-  const browser = await chromium.launch({headless:true, executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe', args:['--disable-gpu','--disable-dev-shm-usage']});
+  const browser = await chromium.launch({headless:true, executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe', args:['--disable-gpu','--disable-dev-shm-usage']});
   try {
     const context = await browser.newContext({viewport:{width:1280,height:900}, locale:'tr-TR'});
     await context.addInitScript(() => localStorage.setItem('afyon-onb-v1','1'));
