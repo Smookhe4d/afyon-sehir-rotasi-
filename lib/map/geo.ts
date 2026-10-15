@@ -7,9 +7,10 @@ export function haversineM(a: LngLat, b: LngLat) {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
-export function formatDistance(m: number) {
+export function formatDistance(m: number, locale: "tr" | "en") {
   if (m < 950) return `${Math.round(m / 10) * 10} m`;
-  return `${(m / 1000).toFixed(m < 10000 ? 1 : 0).replace(".", ",")} km`;
+  const digits = m < 10000 ? 1 : 0;
+  return new Intl.NumberFormat(locale, {minimumFractionDigits: digits, maximumFractionDigits: digits, useGrouping: false}).format(m / 1000) + " km";
 }
 
 /** Dairesel doğruluk alanı için GeoJSON çokgeni */

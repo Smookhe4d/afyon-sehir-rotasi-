@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
 import PhotoSlot from "@/components/PhotoSlot";
 import { routeCover } from "@/lib/covers";

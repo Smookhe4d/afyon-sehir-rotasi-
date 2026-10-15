@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useId, useMemo, useState } from "react";
 
 export type SearchItem = { href: string; label: string; sub: string };

@@ -41,7 +41,12 @@ export async function fetchNav(from: LngLat, to: LngLat, mode: TravelMode, signa
   } catch { return null; }
 }
 
-export const formatDuration = (s: number) => (s < 90 ? "1 dk" : s < 3600 ? `${Math.round(s / 60)} dk` : `${Math.floor(s / 3600)} sa ${Math.round((s % 3600) / 60)} dk`);
+export function formatDuration(seconds: number, locale: "tr" | "en") {
+  const minutes = Math.max(1, Math.round(seconds / 60));
+  const minuteUnit = locale === "en" ? "min" : "dk";
+  if (minutes < 60) return minutes + " " + minuteUnit;
+  return Math.floor(minutes / 60) + (locale === "en" ? " h " : " sa ") + (minutes % 60) + " " + minuteUnit;
+}
 export function bearingText(a: LngLat, b: LngLat) {
   const y = b[0] - a[0], x = b[1] - a[1];
   const deg = (Math.atan2(y * Math.cos((a[1] * Math.PI) / 180), x) * 180) / Math.PI;

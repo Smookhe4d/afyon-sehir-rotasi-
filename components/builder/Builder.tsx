@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useMemo, useState, useTransition } from "react";
 import { deleteCustomRoute, saveCustomRoute } from "@/app/actions";
 import { placeList } from "@/lib/places";

@@ -1,14 +1,15 @@
 "use client";
-import { usePathname } from "next/navigation";
+import {usePublicPathname} from "@/i18n/navigation";
+import {internalPath} from "@/i18n/paths";
 import { useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { supabaseConfigured } from "@/lib/supabase/env";
 
 /** Çerezsiz, anonim sayfa görüntüleme sayacı: yalnızca yol ve oturuma özel rastgele kimlik gönderilir. */
 export default function Track() {
-  const path = usePathname();
+  const path = usePublicPathname();
   useEffect(() => {
-    if (!supabaseConfigured || path.startsWith("/yonetim") || navigator.doNotTrack === "1") return;
+    if (!supabaseConfigured || internalPath(path).startsWith("/yonetim") || navigator.doNotTrack === "1") return;
     try {
       let sid = sessionStorage.getItem("afyon-sid");
       if (!sid) { sid = Math.random().toString(36).slice(2, 12); sessionStorage.setItem("afyon-sid", sid); }

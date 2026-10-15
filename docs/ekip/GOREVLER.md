@@ -8,7 +8,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-001: Metin ve sayfa envanteri
 
-- **Durum:** Onaylandı (birleştirme proje sahibinin onayını bekliyor)
+- **Durum:** Tamamlandı (PR #1, 15 Ekim 2026)
 - **İş akışı:** D, A
 - **Dal:** `codex/G-001-metin-envanteri`
 - **Amaç:** Dil desteği ve tasarım yenilemesine başlamadan önce sitenin mevcut durumunu belgelemek. Bu görev aynı zamanda ekip çalışma akışının (dal, pull request, denetim) ilk denemesidir.
@@ -48,9 +48,87 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-002: Dil desteği altyapısı (Türkçe ve İngilizce)
 
-- **Durum:** Taslak
+- **Durum:** Onaylandı (birleştirme proje sahibinin onayını bekliyor)
 - **İş akışı:** D
-- **Not:** G-001 envanteri tamamlandıktan sonra yönetici tarafından ayrıntılandırılacak. Kütüphane seçimi ve adres yapısı (`/en` öneki) proje sahibine sunulacak.
+- **Dal:** `codex/G-002-dil-altyapisi`
+- **Amaç:** Sitenin Türkçe ve İngilizce sunulabilmesi için altyapıyı kurmak. Bu görevde altyapı, dil seçici ve ortak bileşenler tamamlanır. Kalan arayüz metinlerinin taşınması ve çevirisi G-005'te, rota ve durak içeriğinin çevirisi G-006'da yapılacaktır.
+
+**Proje sahibinin kararları (değiştirilmez)**
+
+- Kütüphane: `next-intl`. Paket eklenmesi bu görev için onaylıdır. Next.js 15.5 ile uyumlu güncel kararlı sürüm kullanılır, sürüm `package.json` içinde sabitlenir.
+- Türkçe varsayılan dildir ve adreslerde önek kullanmaz. Var olan bütün Türkçe adresler ve QR bağlantıları aynen çalışmaya devam eder.
+- İngilizce `/en` öneki ve İngilizce yol adlarıyla sunulur.
+- Site Türkçe açılır. Tarayıcı dili İngilizce olan ziyaretçiye sayfanın üstünde küçük bir "English version" önerisi gösterilir. Otomatik yönlendirme yapılmaz. Ziyaretçinin seçimi hatırlanır ve öneri bir daha gösterilmez.
+
+**Adres eşlemesi**
+
+| Türkçe | İngilizce |
+|---|---|
+| `/` | `/en` |
+| `/rotalar` | `/en/routes` |
+| `/rotalar/[slug]` | `/en/routes/[slug]` |
+| `/duraklar/[id]` | `/en/stops/[id]` |
+| `/harita` | `/en/map` |
+| `/rotani-belirle` | `/en/plan-your-route` |
+| `/sosyal` | `/en/community` |
+| `/profil` | `/en/profile` |
+| `/giris` | `/en/sign-in` |
+| `/qr` | `/en/qr` |
+| `/geri-bildirim` | `/en/feedback` |
+| `/hakkinda` | `/en/about` |
+| `/gizlilik` | `/en/privacy` |
+| `/sartlar` | `/en/terms` |
+| `/yonetim` | `/en/admin` |
+
+`/auth/callback` ve `/auth/cikis` dil öneki almaz. Rota `slug` değerleri ve durak `id` değerleri iki dilde aynıdır.
+
+**Yapılacaklar**
+
+1. `next-intl` kurulumu: `i18n/routing.ts` (diller `tr` ve `en`, `localePrefix: "as-needed"`, yukarıdaki `pathnames` eşlemesi), `i18n/request.ts`, `i18n/navigation.ts` (dile duyarlı `Link`, `useRouter`, `usePathname`, `redirect`).
+2. Sayfalar `app/[locale]/` altına taşınır. `generateStaticParams` ile iki dil üretilir. `auth`, `manifest.ts`, `robots.ts`, `sitemap.ts`, ikonlar ve `globals.css` yerinde kalır.
+3. `middleware.ts`: `next-intl` dil yönlendirmesi ile mevcut Supabase oturum tazelemesi tek bir ara katmanda birleştirilir. Supabase'in yazdığı çerezler `next-intl`'in döndürdüğü yanıta aktarılmalıdır, aksi hâlde oturum kaybolur. `/giris` yönlendirmesi iki dilde de çalışmalıdır.
+4. `<html lang>` dile göre ayarlanır. Her sayfanın meta verisinde `alternates.languages` ile `tr` ve `en` karşılıkları ve `x-default` (Türkçe) verilir. `sitemap.ts` iki dilin adreslerini içerir. Open Graph `locale` değeri dile göre `tr_TR` ya da `en_US` olur.
+5. Mesaj dosyaları `messages/tr.json` ve `messages/en.json` olarak oluşturulur. Anahtarlar bileşen ya da sayfa adına göre gruplanır (`nav`, `common`, `home`, `routes` gibi).
+6. Bu görevde metni taşınacak bileşenler: `lib/tabs.ts` ve `components/GlassTab.tsx` (alt gezinme), `components/TopNav.tsx`, `app/[locale]/layout.tsx` ve meta veriler, `app/not-found.tsx`, `app/loading.tsx`, `components/PageHeader.tsx`, `components/BackButton.tsx`, `components/Onboarding.tsx`. Bu bileşenlerin İngilizce karşılıkları da yazılır.
+7. Biçimlendirme: `lib/map/geo.ts` içindeki `formatDistance` ve `lib/map/nav.ts` içindeki `formatDuration` dili parametre olarak alacak biçimde güncellenir. Türkçede `1,2 km`, `15 dk`, `1 sa 5 dk`, İngilizcede `1.2 km`, `15 min`, `1 h 5 min` biçimi kullanılır. `formatDuration` içindeki 60 dakika üretme hatası (envanter notu) düzeltilir. Çağıran yerler mevcut davranışı korumak için şimdilik Türkçe parametre geçer.
+8. Dil seçici: `TopNav` içinde ve `/profil` sayfasında "TR / EN" seçimi. Seçici bulunulan sayfanın diğer dildeki karşılığına gider (rota sayfasındaysa aynı rotanın İngilizce sayfasına). Seçim `NEXT_LOCALE` çerezinde saklanır.
+9. Tarayıcı dili önerisi: Tarayıcı dili `en` ile başlayan ve henüz seçim yapmamış ziyaretçiye Türkçe sayfanın üstünde kapatılabilir bir bant gösterilir. Bant metni: "This site is also available in English." ve "Switch to English" bağlantısı. Kapatma ya da seçim hatırlanır. Bant içerik kaydırması (layout shift) yaratmamalıdır.
+10. Henüz çevrilmemiş metinler İngilizce sayfada Türkçe görünmeye devam eder. Bu görevde eksik çeviri hata üretmemelidir. Eksik anahtarlar geliştirme modunda konsola uyarı olarak yazılır.
+
+**Kapsam dışı**
+
+- Bu listede olmayan bileşenlerdeki metinler (G-005).
+- `lib/routes.ts`, `lib/places.ts`, `lib/placeExtra.ts`, `lib/badges.ts` içerikleri (G-006).
+- Görsel tasarım değişikliği. Dil seçici ve bant mevcut belirteçlerle, sade biçimde yapılır.
+
+**Kabul ölçütleri**
+
+- G-001 envanterindeki 15 sayfanın tamamı Türkçe adresiyle eskisi gibi açılıyor. Görünüşte fark yok (dil seçici ve İngilizce kullanıcıya gösterilen bant hariç).
+- 15 sayfanın tamamı İngilizce adresiyle açılıyor. Alt gezinme, üst çubuk, sayfa başlığı alanı, 404 ve yüklenme ekranı İngilizce.
+- `/rotalar/frig-yolu-afyonkarahisar` sayfasında dil seçicisi `/en/routes/frig-yolu-afyonkarahisar` adresine, oradan geri dönüşte aynı Türkçe sayfaya gidiyor.
+- Misafir girişi, oturum açık kalma ve `/auth/callback` dönüşü iki dilde de çalışıyor.
+- Sayfa kaynağında `lang` özniteliği ve `hreflang` bağlantıları doğru.
+- Tarayıcı dili İngilizce yapılmış bir oturumda bant görünüyor, kapatıldıktan sonra sayfa yenilendiğinde görünmüyor.
+- `npm run build` hatasız geçiyor.
+- Ekran görüntüleri: `/` ve `/rotalar/frig-yolu-afyonkarahisar` için Türkçe ve İngilizce, 390 px ve 1280 px, ayrıca bantlı Türkçe ana sayfa 390 px. WebP, en fazla 400 KB.
+
+**Uygulayıcı notu**
+
+- Onaylanan plan uygulandı. next-intl 4.14.9 sabitlendi, localeDetection: false kullanıldı. 15 sayfa app/[locale] altına taşındı. Auth uçları ve dil bağımsız dosyalar kökte kaldı. Dil altında not-found, loading ve [...rest] eklendi.
+- i18n altında yönlendirme, mesaj yükleme, gezinme, meta veri ve önbellek yenileme yardımcıları oluşturuldu. Supabase oturum yenilemesi ile dil middleware yanıtının çerezleri ve başlıkları birleştirildi. getSession davranışı korundu, G-004'e dokunulmadı.
+- Dil seçiciler ve istemcide navigator.language ile NEXT_LOCALE kullanan sabit konumlu öneri bandı eklendi. Kapatma tercihi hatırlanıyor. Bandın kapanması içerik konumunu değiştirmiyor.
+- Yalnızca görevdeki ortak bileşenlerin kendi metinleri messages/tr.json ve en.json dosyalarına taşındı. PageHeader'a sayfalardan verilen başlıklar ve ana sayfanın Keşfet metni onay doğrultusunda G-005'e bırakıldı. Rota, durak ve rozet içerikleri değiştirilmedi.
+- Tüm bileşenlerde adres ve oturum dönüşü uyarlamaları yapıldı. Eski Türkçe QR kodları ve yeni İngilizce rota QR adresleri kabul ediliyor. Tek revalidate yardımcısı iki dilin genel ve yeniden yazılan iç adreslerini yeniliyor.
+- Build başarılı. Önce 120, sonra 236 çıktı üretildi. Prerender manifestinde önce 99, sonra 192 rota var. Önceki statik rotaların tamamının karşılığı korundu. Son build açık test oturumunu bozmamak için aynı next build komutuyla ayrı geçici çıktı dizininde alındı.
+- 11 otomatik test ve iki dilde 30 sayfalık HTTP kontrolü geçti. Playwright ile İngilizce tarayıcı dili, dokunmatik 390 px mobil cihaz, dil bandı, kalıcı tercih, dinamik rota geçişi, sorgu ve grup kodlarının korunması doğrulandı. Gerçek Supabase misafir girişi, yenilemede oturumun korunması, dil değişimi ve iki dilde çıkış dönüşü geçti. Mevcut Playwright ve Chrome kullanıldı, test paketi eklenmedi.
+- rg taramasında app ve components altında doğrudan next/link veya sabit iç adrese giden a etiketi kalmadı. Kanonik Türkçe yol sabitleri i18n/navigation tarafından dile çevriliyor. Doğrudan revalidatePath yalnızca tek yardımcıda bulunuyor. Ayrıntılar docs/ekip/G-002-dogrulama.md dosyasında.
+- Önce ve sonra toplam 13 WebP ekran görüntüsü kaydedildi. Genişlikler tam 390 ve 1280 px. En büyük görsel 120.036 bayt, toplam 752.838 bayt. Bağlantılar doğrulama belgesinde.
+- Açık kalan kontrol: proje sahibi test hesabı olmadığını bildirdi. İngilizce rota sayfasında kayıtlı kullanıcıyla yorumun hemen görünmesi gerçek oturumda test edilemedi. Hesap oluşturulmadı. Yorum eyleminin iki dili yenilemesi otomatik testte doğrulandı. Gerçek OAuth/e-posta callback'i yerine işlev testi yapıldı. Bu sınırlamalar denetime sunuluyor.
+- Denetim düzeltmeleri: proje sahibinin ilettiği G-002 denetim kaydı DENETIM.md dosyasına aynen eklendi. Yükleme sınırı (pages) grubuna taşındı. Bilinmeyen adresler ve rota/durak detayları bu sınırın dışında. /yok-boyle, /en/nope, /rotalar/olmayan ve /en/stops/olmayan için curl -I çıktısı HTTP/1.1 404 Not Found. Altı eksik adresin HEAD ve GET kontrolleri ile iki 307 yönlendirme kontrolü geçti.
+- Dil seçicinin Türkçe href değeri doğrudan öneksiz adres. Playwright ile /tr isteği yapılmadığı, sorguların korunduğu ve NEXT_LOCALE=tr yazıldığı doğrulandı. Oturum testinde giriş formunun akışla yüklenmesi beklendi.
+- Lock dosyası npm 10.9.9 ile düzeltildi, npx npm@10 ci başarılı. package.json değişmedi. npm run build başarılı, 236 çıktı ve 192 prerender rota korundu. 11 otomatik test, 30 sayfa HTTP kontrolü, Playwright dil/bant testi ve iki dilde gerçek misafir oturum testi yeniden geçti. Ayrıntılı curl çıktıları doğrulama belgesinde. Ertelenen mobil dil seçici konusu değiştirilmedi.
+
+---
 
 ## G-003: Tasarım araştırması ve tasarım ilkeleri belgesi
 
@@ -62,4 +140,18 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 - **Durum:** Taslak
 - **İş akışı:** F
-- **Not:** G-001 sırasında görüldü. Canlı veritabanında `is_admin` işlevi çağrısı hata veriyor, bu yüzden yönetim sayfası "Kurulum gerekli" uyarısı gösteriyor. Büyük olasılıkla `supabase/migrations/002_yonetim.sql` canlı veritabanında çalıştırılmamış. Ayrıca `middleware.ts` ve `lib/session.ts` sunucu tarafında `getSession` ile gelen kullanıcıya güveniyor, Supabase bunun yerine `getUser` önermektedir. Yönetici önce veritabanı durumunu kontrol edecek, sonra görev ayrıntılandırılacak.
+- **Not:** G-001 sırasında görüldü. Canlı veritabanında `is_admin` işlevi çağrısı hata veriyor, bu yüzden yönetim sayfası "Kurulum gerekli" uyarısı gösteriyor. Büyük olasılıkla `supabase/migrations/002_yonetim.sql` canlı veritabanında çalıştırılmamış. Oturum tarafında `lib/session.ts` zaten `getUser` kullanıyor. Yalnızca `middleware.ts` içindeki `/giris` yönlendirmesi `getSession` ile gelen kullanıcıya dayanıyor. Yönetici önce veritabanı durumunu kontrol edecek, sonra görev ayrıntılandırılacak.
+
+---
+
+## G-005: Kalan arayüz metinlerinin taşınması ve İngilizce çevirisi
+
+- **Durum:** Taslak
+- **İş akışı:** D
+- **Not:** G-002 birleştirildikten sonra yazılacak. Girdi: `docs/ekip/envanter.md` sabit metin tablosu ve `lib/map/nav.ts` yönerge metinleri.
+
+## G-006: Rota ve durak içeriğinin İngilizce çevirisi
+
+- **Durum:** Taslak
+- **İş akışı:** D
+- **Not:** Uygulayıcı ilk çeviriyi yapar, yönetici yer adlarını ve olgusal doğruluğu denetler, proje sahibi yayından önce son okumayı yapar. Yer adları özgün Türkçe yazımıyla korunur.

@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "title": "Afyon Şehir Rotası",
+    "description": "A guide to Afyonkarahisar with curated routes, QR audio guides and a live map.",
+    "ogDescription": "Explore Afyonkarahisar with curated routes, audio guides and live navigation.",
+    "pages": {"home": "Afyon Şehir Rotası", "routes": "Routes", "map": "Map", "plan": "Plan your route", "community": "Community", "profile": "Profile", "signIn": "Sign in", "qr": "Scan a route QR code", "feedback": "Feedback", "about": "About", "privacy": "Privacy", "terms": "Terms of use", "admin": "Administration"}
+  },
+  "nav": {"menu": "Main menu", "tabs": "Main navigation", "home": "Explore", "routes": "Routes", "map": "Map", "plan": "Plan your route", "planShort": "Plan", "community": "Community", "profile": "Profile", "about": "About", "brand": "Afyon Şehir Rotası"},
+  "common": {"back": "Back", "loading": "Loading", "language": "Language", "turkish": "Türkçe", "english": "English", "close": "Close", "header": "Page heading"},
+  "notFound": {"title": "Page not found", "heading": "This path leads nowhere", "description": "The page may have moved, or the address may be incorrect.", "home": "Back to Explore", "routes": "Routes"},
+  "onboarding": {
+    "label": "Introduction", "skip": "Skip", "start": "Start exploring", "next": "Next",
+    "slides": {
+      "0": {"title": "Explore Afyonkarahisar", "text": "Find guided routes through the city, from the castle and Ulu Cami to the Phrygian valleys and thermal springs."},
+      "1": {"title": "Find your way on the map", "text": "View stops, walking routes and driving routes on a live map. Choose a route and start with a tap."},
+      "2": {"title": "Listen along the way", "text": "Hear the stories behind each stop. You can explore without signing in."}
+    }
+  },
+  "languageSuggestion": {"text": "This site is also available in English.", "switch": "Switch to English", "close": "Dismiss language suggestion"}
+}

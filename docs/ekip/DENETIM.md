@@ -27,6 +27,39 @@ Güçlü yönler:
 
 ---
 
+### G-002: Dil desteği altyapısı (PR #2), ikinci inceleme, 15 Ekim 2026
+Sonuç: Onaylandı
+
+- Bilinmeyen adresler ile olmayan rota ve duraklar iki dilde de HTTP 404 dönüyor (/yok-boyle, /en/nope, /rotalar/olmayan, /duraklar/olmayan, /en/routes/olmayan, /en/stops/olmayan). Geçerli sayfalar 200, yanlış dil yolları 307 dönüyor.
+- Türkçe dil bağlantısı doğrudan öneksiz adrese gidiyor.
+- `npx npm@10 ci` ve `npm run build` temiz ortamda geçiyor.
+- Yeniden test edildi: misafir oturumu iki dilde korunuyor, dil seçici gidiş ve dönüşte aynı rotada kalıyor, QR okuyucu eski ve yeni adresleri açıyor, bant davranışı değişmedi.
+- Küçük not (G-005'te düzeltilecek): Dil bağlantısındaki `hreflang="en"` özniteliği bu düzeltmede kaldırılmış. Karşı dile giden bağlantılarda `hreflang` ve `lang` öznitelikleri bulunmalı (ekran okuyucular bağlantı metnini doğru dilde okur).
+- Birleştirme proje sahibinin onayını bekliyor. Yöntem: "Squash and merge".
+
+Öğrenme notu: Bir düzeltme yaparken aynı bileşendeki çalışan özellikleri koru. Değişiklikten önce ve sonra bileşenin çıktısını karşılaştır.
+
+---
+
+### G-002: Dil desteği altyapısı (PR #2), 15 Ekim 2026
+Sonuç: Değişiklik istendi
+Güçlü yönler:
+- 30 adresin tamamı doğru dille açılıyor, yanlış yollar doğru adrese yönleniyor.
+- Supabase oturumu dil geçişlerinde korunuyor. Middleware birleştirmesi doğru kurulmuş.
+- Dil seçici rota sayfasında karşı dildeki aynı sayfaya gidip dönüyor, NEXT_LOCALE hatırlanıyor.
+- QR okuyucu eski /rotalar ve yeni /en/routes adreslerini kabul ediyor.
+- Bant yalnızca İngilizce tarayıcıda çıkıyor, kapatma hatırlanıyor, CLS artmıyor.
+- Statik üretim korunmuş. hreflang, canonical ve 218 adresli sitemap doğru. Vercel önizlemesi başarılı.
+İstenen değişiklikler:
+- [ ] Bilinmeyen adresler (/yok-boyle, /en/nope) 404 sayfasını gösteriyor ama HTTP 200 dönüyor. Canlı sitede 404 dönüyor, bu bir gerileme. Neden: [locale]/loading.tsx Suspense sınırı yanıtı akışa çeviriyor ve notFound() durum kodunu değiştiremiyor. Bilinmeyen adresler ve olmayan rota/durak (/rotalar/olmayan, /en/stops/olmayan) HTTP 404 dönmeli. Çözümü sen seç (ör. yükleme sınırını bir route group içine almak ve [...rest]'i dışında bırakmak, dinamik sayfalarda dynamicParams=false). curl -I ile dört adresi teslim notunda göster.
+- [ ] Dil seçicideki Türkçe bağlantı /tr/... adresine gidip 307 ile yönleniyor. Doğrudan öneksiz Türkçe adrese bağlanmalı.
+- [ ] npm 10.9 ile "npm ci" lock dosyası uyumsuz hatası veriyor (@swc/helpers@0.5.23 eksik). Lock dosyasını npm 10 ile de "npm ci" geçecek biçimde güncelle, "npx npm@10 ci" ile doğrula.
+Ertelenen: Telefonda dil seçici yalnızca /profil sayfasında. Görev tanımındaki eksiklik, G-003 tasarım çalışmasında ele alınacak.
+Doğrulanamayan: Kayıtlı kullanıcıyla yorumun İngilizce sayfada hemen görünmesi. Kod incelemesinde revalidateLocalizedPath dört yolu da yeniliyor. Birleştirme sonrası canlıda denenecek.
+Öğrenme notu: Sayfa dosya yapısını değiştiren görevlerde yalnızca ekranı değil HTTP durum kodlarını da test et (200, 307, 404). Görünüşü doğru olan bir sayfa yanlış durum kodu dönebilir.
+
+---
+
 ### G-001: Metin ve sayfa envanteri (PR #1), ikinci inceleme, 15 Ekim 2026
 Sonuç: Onaylandı
 
