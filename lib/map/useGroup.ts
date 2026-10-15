@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import type { LngLat } from "./geo";
+import {useTranslations} from "next-intl";
 
 export type Member = { id: string; name: string; color: string; pos: LngLat | null; cur: number; leader: boolean };
 const COLORS = ["#2F7BF6", "#1F9D6B", "#C2410C", "#7C3AED", "#DB2777", "#0891B2", "#CA8A04", "#475569"];
@@ -10,6 +11,7 @@ const colorFor = (id: string) => COLORS[[...id].reduce((a, c) => a + c.charCodeA
 
 /** Grup turu: Supabase Realtime (broadcast + presence). Veritabanı tablosu gerekmez; kod, kanal adıdır. */
 export function useGroup(opts: { code?: string; leader: boolean; name: string; pos: LngLat | null; cur: number; onStop: (cur: number) => void }) {
+  const t = useTranslations("ui");
   const { code, leader, name, pos, cur, onStop } = opts;
   const [members, setMembers] = useState<Member[]>([]);
   const [status, setStatus] = useState<"off" | "connecting" | "ok" | "error">("off");
@@ -36,7 +38,7 @@ export function useGroup(opts: { code?: string; leader: boolean; name: string; p
     ch.current = c; setStatus("connecting");
     c.on("presence", { event: "sync" }, () => {
       const st = c.presenceState() as Record<string, { name: string; pos: LngLat | null; cur: number; leader: boolean }[]>;
-      const list = Object.entries(st).map(([key, v]) => ({ id: key, name: v[0]?.name ?? "Gezgin", color: colorFor(key), pos: v[0]?.pos ?? null, cur: v[0]?.cur ?? 0, leader: Boolean(v[0]?.leader) }));
+      const list = Object.entries(st).map(([key, v]) => ({ id: key, name: v[0]?.name ?? t("traveler_c4a46"), color: colorFor(key), pos: v[0]?.pos ?? null, cur: v[0]?.cur ?? 0, leader: Boolean(v[0]?.leader) }));
       setMembers(list);
       // Sonradan katılan üye, rehberin bulunduğu durağa geçer
       if (!latest.current.leader && !synced.current) { const l = list.find((m) => m.leader); if (l) { synced.current = true; onStopRef.current(l.cur); } }
@@ -47,7 +49,7 @@ export function useGroup(opts: { code?: string; leader: boolean; name: string; p
         else if (s === "CHANNEL_ERROR" || s === "TIMED_OUT") setStatus("error");
       });
     return () => { ch.current = null; synced.current = false; void sb.removeChannel(c); setStatus("off"); };
-  }, [code, name, track]);
+  }, [code, name, track, t]);
 
   // Konum/durak değişince, en fazla 4 sn'de bir paylaş
   const last = useRef(0);

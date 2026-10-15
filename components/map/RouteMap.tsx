@@ -1,4 +1,8 @@
 "use client";
+import {useFormatter as useUiFormatter} from "next-intl";
+
+import {useTranslations as useUiTranslations} from "next-intl";
+
 import {useLocale} from "next-intl";
 import {localizePath} from "@/i18n/navigation";
 import type {Locale} from "@/i18n/routing";
@@ -34,6 +38,11 @@ function pinEl(label: string, approx: boolean) {
 }
 
 export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false, overview = false }: Props) {
+  const num = useUiFormatter().number;
+
+  const dx = useUiTranslations("dynamic");
+  const tx = useUiTranslations("ui");
+
   const locale = useLocale() as Locale;
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MLMap | null>(null);
@@ -54,7 +63,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   const [arrivedId, setArrivedId] = useState<string | null>(null);
   const [finished, setFinished] = useState(false);
   const [voiceOn, setVoiceOn] = useState(false);
-  const lastFetch = useRef<{ t: number; pos: LngLat; cur: number } | null>(null);
+  const lastFetch = useRef<{ t: number; pos: LngLat; cur: number; locale: Locale } | null>(null);
   const lastSpoken = useRef("");
   const target = guide ? stops[cur] ?? null : null;
   const [gname, setGname] = useState("");
@@ -234,13 +243,13 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   useEffect(() => {
     if (!guide || !target || !me || arrivedId === target.id || finished) return;
     const lf = lastFetch.current;
-    if (lf && lf.cur === cur && Date.now() - lf.t < 30000 && haversineM(lf.pos, me.pos) < 40) return;
-    lastFetch.current = { t: Date.now(), pos: me.pos, cur };
+    if (lf && lf.locale === locale && lf.cur === cur && Date.now() - lf.t < 30000 && haversineM(lf.pos, me.pos) < 40) return;
+    lastFetch.current = { t: Date.now(), pos: me.pos, cur, locale };
     const ctl = new AbortController();
     const slow = setTimeout(() => ctl.abort(), 9000);
     // Yol hesaplanırken anında düz çizgi göster
     (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.Feature) => void } | undefined)?.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [me.pos, target.coords] } });
-    fetchNav(me.pos, target.coords, travelMode, ctl.signal).then((r) => {
+    fetchNav(me.pos, target.coords, travelMode, ctl.signal, locale).then((r) => {
       clearTimeout(slow);
       if (ctl.signal.aborted && !r) { setNav(null); setNavFail(true); return; }
       setNav(r); setNavFail(!r);
@@ -248,7 +257,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
         r ? { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: r.coords } } : { type: "FeatureCollection", features: [] });
     });
     return () => { clearTimeout(slow); ctl.abort(); };
-  }, [guide, target, me, cur, arrivedId, finished, travelMode]);
+  }, [guide, target, me, cur, arrivedId, finished, travelMode, locale]);
 
   // Varış algılama (45 m)
   useEffect(() => {
@@ -267,14 +276,15 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     if (grup && lider) group.broadcastStop(n);
   }, [cur, stops, focusStop, grup, lider, group]);
 
+  useEffect(() => { lastSpoken.current = ""; setNav(null); if ("speechSynthesis" in window) window.speechSynthesis.cancel(); return () => { if ("speechSynthesis" in window) window.speechSynthesis.cancel(); }; }, [locale]);
   const step = nav?.steps[0];
   const straightD = target && me ? haversineM(me.pos, target.coords) : null;
   // Sesli yönlendirme
   useEffect(() => {
     if (!guide || !voiceOn || !step || !("speechSynthesis" in window)) return;
-    const msg = step.dist < 400 ? `${Math.round(step.dist / 10) * 10} metre sonra, ${step.text}` : "";
-    if (msg && msg !== lastSpoken.current && step.dist < 200) { lastSpoken.current = msg; const u = new SpeechSynthesisUtterance(msg); u.lang = "tr-TR"; u.rate = 0.95; window.speechSynthesis.speak(u); }
-  }, [guide, voiceOn, step]);
+    const msg = step.dist < 400 ? dx("spokenStep", {distance: Math.round(step.dist / 10) * 10, instruction: step.text}) : "";
+    if (msg && msg !== lastSpoken.current && step.dist < 200) { lastSpoken.current = msg; const u = new SpeechSynthesisUtterance(msg); u.lang = locale === "en" ? "en-US" : "tr-TR"; const voice = window.speechSynthesis.getVoices().find(voice => voice.lang.toLowerCase().replace("_", "-") === u.lang.toLowerCase()) ?? window.speechSynthesis.getVoices().find(voice => voice.lang.toLowerCase().startsWith(locale)); if (voice) u.voice = voice; u.rate = 0.95; window.speechSynthesis.speak(u); }
+  }, [guide, voiceOn, step, locale, dx]);
 
   useEffect(() => { const t = setTimeout(() => map.current?.resize(), 60); return () => clearTimeout(t); }, [full]);
   const go = (d: number) => { const n = stops[(selIdx + d + stops.length) % stops.length]; if (n) focusStop(n.id); };
@@ -282,22 +292,22 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
 
   return (
     <div className={`${full ? "fixed inset-0 z-[60]" : "relative"} overflow-hidden bg-[#F4EDE0] ${className}`}>
-      <div ref={box} style={{ position: "absolute", inset: 0 }} role="application" aria-label="Rota haritası" />
+      <div ref={box} style={{ position: "absolute", inset: 0 }} role="application" aria-label={tx("routeMap_4b910")} />
 
       {/* Üst: başlık + kontroller */}
       <div className="pointer-events-none absolute inset-x-3 top-3 z-10 flex items-start justify-between gap-2">
         <div className="pointer-events-auto flex min-w-0 items-center gap-2">
-          {backHref && <Link href={backHref} aria-label="Geri" className="glass flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-navy">‹</Link>}
+          {backHref && <Link href={backHref} aria-label={tx("back_4928c")} className="glass flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-navy">‹</Link>}
           {title && <div className="glass min-w-0 rounded-full px-4 py-2.5"><p className="truncate text-[13px] font-bold text-navy">{title}</p></div>}
         </div>
         <div className="pointer-events-auto flex flex-col gap-2">
-          <button type="button" aria-label="Tam ekran" onClick={() => setFull((f) => !f)} className="glass flex h-11 w-11 items-center justify-center rounded-full text-navy">
+          <button type="button" aria-label={tx("fullScreen_617ce")} onClick={() => setFull((f) => !f)} className="glass flex h-11 w-11 items-center justify-center rounded-full text-navy">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>{full ? <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" /> : <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />}</svg>
           </button>
-          <button type="button" aria-label="Tüm durakları göster" onClick={fitAll} className="glass flex h-11 w-11 items-center justify-center rounded-full text-navy">
+          <button type="button" aria-label={tx("showAllStops_2823a")} onClick={fitAll} className="glass flex h-11 w-11 items-center justify-center rounded-full text-navy">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z M9 3v15 M15 6v15" /></svg>
           </button>
-          <button type="button" aria-label={live ? "Canlı konumu kapat" : "Konumumu göster"} aria-pressed={live} onClick={() => (live ? stopLive() : startLive())}
+          <button type="button" aria-label={live ? tx("turnOffLiveLocation_96942") : tx("showMyLocation_ad4f4")} aria-pressed={live} onClick={() => (live ? stopLive() : startLive())}
             className={`flex h-11 w-11 items-center justify-center rounded-full ${live ? "bg-[#2F7BF6] text-white shadow-[0_6px_16px_rgba(47,123,246,.45)]" : "glass text-navy"}`}>
             <svg width="19" height="19" viewBox="0 0 24 24" fill={live ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M3 11l19-9-9 19-2-8-8-2z" /></svg>
           </button>
@@ -307,10 +317,10 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
       {grup && !gname && (
         <div className="absolute inset-0 z-30 flex items-center justify-center bg-navy/50 p-6">
           <form className="glass w-full max-w-[340px] rounded-[28px] p-5" onSubmit={(e) => { e.preventDefault(); const n = gdraft.trim().slice(0, 24); if (n.length < 2) return; try { localStorage.setItem("afyon-ad", n); } catch { /* yok say */ } setGname(n); }}>
-            <p className="font-display text-xl font-semibold text-navy">Gruba katılın</p>
-            <p className="mt-1 text-xs text-ink-2">Kod: <b className="tracking-[2px]">{grup}</b>. Grup arkadaşlarınız adınızı ve konumunuzu haritada görecek.</p>
-            <input value={gdraft} onChange={(e) => setGdraft(e.target.value)} placeholder="Adınız" maxLength={24} autoFocus className="mt-3 h-12 w-full rounded-2xl border border-line bg-white px-4 text-[15px] outline-none focus:border-terra" />
-            <button disabled={gdraft.trim().length < 2} className="terra-grad mt-3 h-12 w-full rounded-full text-sm font-bold text-white disabled:opacity-50">Katıl</button>
+            <p className="font-display text-xl font-semibold text-navy">{tx("joinTheGroup_aae67")}</p>
+            <p className="mt-1 text-xs text-ink-2">{tx("code_76352")} <b className="tracking-[2px]">{grup}</b>{tx("yourGroupWillSeeYour_4e312")}</p>
+            <input value={gdraft} onChange={(e) => setGdraft(e.target.value)} placeholder={tx("yourName_41792")} maxLength={24} autoFocus className="mt-3 h-12 w-full rounded-2xl border border-line bg-white px-4 text-[15px] outline-none focus:border-terra" />
+            <button disabled={gdraft.trim().length < 2} className="terra-grad mt-3 h-12 w-full rounded-full text-sm font-bold text-white disabled:opacity-50">{tx("join_33189")}</button>
           </form>
         </div>
       )}
@@ -322,10 +332,10 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" style={{ transform: `rotate(${step?.rot ?? 0}deg)`, transition: "transform .3s" }}><path d="M12 20V5M5 11l7-7 7 7" /></svg>
           </span>
           <div className="min-w-0 flex-1">
-            {step ? (<><p className="font-display text-[20px] font-semibold leading-none">{step.dist < 950 ? `${Math.round(step.dist / 10) * 10} m` : formatDistance(step.dist, "tr")}</p><p className="mt-1 truncate text-[13px] font-medium opacity-90">{step.text}</p></>)
-              : me ? (<p className="text-[13px] font-semibold leading-snug">{straightD != null ? `${target.name} ${bearingText(me.pos, target.coords)} yönünde, ${formatDistance(straightD, "tr")}${navFail ? "" : " · yol hesaplanıyor"}` : "Yol hesaplanıyor…"}</p>) : <p className="text-[13px] font-semibold">Konumunuz bekleniyor…</p>}
+            {step ? (<><p className="font-display text-[20px] font-semibold leading-none">{step.dist < 950 ? `${Math.round(step.dist / 10) * 10} m` : formatDistance(step.dist, locale)}</p><p className="mt-1 truncate text-[13px] font-medium opacity-90">{step.text}</p></>)
+              : me ? (<p className="text-[13px] font-semibold leading-snug">{straightD != null ? dx("bearing", {name: target.name, direction: bearingText(me.pos, target.coords, locale), distance: formatDistance(straightD, locale), pending: navFail ? "" : tx("calculatingRoute_2399d")}) : tx("calculatingRoute_8cf88")}</p>) : <p className="text-[13px] font-semibold">{tx("waitingForYourLocation_3d463")}</p>}
           </div>
-          <button type="button" aria-pressed={voiceOn} aria-label="Sesli yönlendirme" onClick={() => setVoiceOn((v) => !v)} className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${voiceOn ? "bg-white text-navy" : "bg-white/15 text-white"}`}>
+          <button type="button" aria-pressed={voiceOn} aria-label={tx("spokenDirections_30226")} onClick={() => setVoiceOn((v) => !v)} className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${voiceOn ? "bg-white text-navy" : "bg-white/15 text-white"}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" /></svg>
           </button>
         </div>
@@ -338,15 +348,15 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
             {gopen && (
               <div className="glass w-full rounded-[22px] p-3">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-mute">Grup kodu <b className="ml-1 font-display text-[17px] tracking-[3px] text-navy">{grup}</b></p>
-                  <button type="button" onClick={() => { const u = location.origin + localizePath(`/harita?rota=${routeSlug ?? ""}&takip=1&mod=${travelMode}&grup=${grup}`, locale); if (navigator.share) { navigator.share({ title: "Afyon turuna katıl", text: `Afyon Şehir Rotası grup turuna katıl (kod ${grup})`, url: u }).catch(() => {}); } else { navigator.clipboard?.writeText(u); setCopied(true); setTimeout(() => setCopied(false), 1800); } }} className="rounded-full bg-navy px-3 py-1.5 text-[11px] font-bold text-white">{copied ? "Kopyalandı" : "Davet et"}</button>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{tx("groupCode_14257")} <b className="ml-1 font-display text-[17px] tracking-[3px] text-navy">{grup}</b></p>
+                  <button type="button" onClick={() => { const u = location.origin + localizePath(`/harita?rota=${routeSlug ?? ""}&takip=1&mod=${travelMode}&grup=${grup}`, locale); if (navigator.share) { navigator.share({ title: tx("joinAnAfyonTour_55ad1"), text: dx("groupInvite", {code: grup}), url: u }).catch(() => {}); } else { navigator.clipboard?.writeText(u); setCopied(true); setTimeout(() => setCopied(false), 1800); } }} className="rounded-full bg-navy px-3 py-1.5 text-[11px] font-bold text-white">{copied ? tx("copied_a2d6a") : tx("invite_13cb8")}</button>
                 </div>
                 <ul className="mt-2 flex flex-col gap-1.5">
                   {[{ id: group.myId, name: `${gname} (siz)`, color: "#B4532A", pos: me?.pos ?? null, cur, leader: lider }, ...group.members.filter((g) => g.id !== group.myId)].map((g) => (
                     <li key={g.id} className="flex items-center gap-2 text-[13px] font-semibold">
                       <span className="flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold text-white" style={{ background: g.color }}>{g.name.slice(0, 1).toLocaleUpperCase("tr")}</span>
-                      <span className="min-w-0 flex-1 truncate">{g.name}{g.leader ? " · rehber" : ""}</span>
-                      <span className="text-[11px] text-mute">{g.id === group.myId ? "" : g.pos && me ? formatDistance(haversineM(me.pos, g.pos), "tr") : "konum yok"}</span>
+                      <span className="min-w-0 flex-1 truncate">{g.name}{g.leader ? tx("guide_883a7") : ""}</span>
+                      <span className="text-[11px] text-mute">{g.id === group.myId ? "" : g.pos && me ? formatDistance(haversineM(me.pos, g.pos), locale) : tx("noLocation_93d5e")}</span>
                     </li>
                   ))}
                 </ul>
@@ -354,40 +364,40 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
             )}
             <button type="button" onClick={() => setGopen((o) => !o)} aria-expanded={gopen} className="glass rounded-full px-4 py-2 text-xs font-bold text-navy">
               <span className={`mr-1.5 inline-block h-2 w-2 rounded-full ${group.status === "ok" ? "bg-[#1F9D6B]" : group.status === "error" ? "bg-[#C2410C]" : "bg-[#CA8A04]"}`} />
-              Grup {grup} · {Math.max(1, group.members.length)} kişi{group.status === "error" ? " · bağlantı yok" : group.status === "connecting" ? " · bağlanıyor" : ""}
+              {tx("group_281f4")}{grup} · {dx("peopleCount", {count: Math.max(1, group.members.length)})}{group.status === "error" ? tx("disconnected_8890d") : group.status === "connecting" ? tx("connecting_9c5ff") : ""}
             </button>
           </div>
         )}
-        {geoState === "asking" && <p className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">Konumunuz aranıyor…</p>}
-        {geoState === "denied" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">Konum izni verilmedi. Tarayıcı ayarlarından izin verebilirsiniz.</p>}
-        {geoState === "error" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">Konum alınamadı. Daha açık bir alanda tekrar deneyin.</p>}
-        {live && nearest && <button type="button" onClick={() => focusStop(nearest.stop.id)} className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">En yakın durak: <b>{nearest.stop.name}</b> · {formatDistance(nearest.d, "tr")}</button>}
+        {geoState === "asking" && <p className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">{tx("findingYourLocation_1eb69")}</p>}
+        {geoState === "denied" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">{tx("locationPermissionWasDeniedYou_77de8")}</p>}
+        {geoState === "error" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">{tx("couldNotGetYourLocation_fd568")}</p>}
+        {live && nearest && <button type="button" onClick={() => focusStop(nearest.stop.id)} className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">{tx("nearestStop_c02d8")} <b>{nearest.stop.name}</b> · {formatDistance(nearest.d, locale)}</button>}
         {guide && target && !finished && (
           <div className="glass rounded-[26px] p-3.5">
             {arrivedId === target.id ? (
               <>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-[#4F6B2F]">Vardınız · {cur + 1}/{stops.length}</p>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#4F6B2F]">{tx("youHaveArrived_b0008")} {num(cur + 1)}/{num(stops.length)}</p>
                 <p className="mt-0.5 font-display text-[19px] font-semibold leading-tight text-navy">{target.name}</p>
-                <p className="mt-1 text-xs text-ink-2">Durak ziyaret edildi olarak işaretlendi.</p>
+                <p className="mt-1 text-xs text-ink-2">{tx("theStopHasBeenMarked_7a7fa")}</p>
                 <div className="mt-3 flex gap-2">
-                  <Link href={`/duraklar/${target.id}`} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-4 text-sm font-bold text-navy shadow-card">Anlatımı dinle</Link>
-                  {grup && !lider ? <p className="flex h-11 flex-1 items-center rounded-full bg-sand px-4 text-xs font-semibold text-ink-2">Rehber ilerletince grup sonraki durağa geçer</p> : <button type="button" onClick={nextStop} className="terra-grad h-11 flex-1 rounded-full text-sm font-bold text-white">{cur + 1 < stops.length ? `Sonraki: ${stops[cur + 1].name}` : "Rotayı bitir"}</button>}
+                  <Link href={`/duraklar/${target.id}`} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-4 text-sm font-bold text-navy shadow-card">{tx("listenToTheDescription_be0f6")}</Link>
+                  {grup && !lider ? <p className="flex h-11 flex-1 items-center rounded-full bg-sand px-4 text-xs font-semibold text-ink-2">{tx("theGroupMovesToThe_a94d8")}</p> : <button type="button" onClick={nextStop} className="terra-grad h-11 flex-1 rounded-full text-sm font-bold text-white">{cur + 1 < stops.length ? `Sonraki: ${stops[cur + 1].name}` : tx("finishRoute_32558")}</button>}
                 </div>
               </>
             ) : (
               <>
                 <div className="flex items-start gap-3">
-                  <span className={`afy-pin-dot static ${target.approx ? "approx" : ""}`}>{target.index}</span>
+                  <span className={`afy-pin-dot static ${target.approx ? "approx" : ""}`}>{num(target.index)}</span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-mute">Sıradaki durak · {cur + 1}/{stops.length}</p>
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{tx("nextStop_8ff17")} {num(cur + 1)}/{num(stops.length)}</p>
                     <p className="font-display text-[18px] font-semibold leading-tight text-navy">{target.name}</p>
-                    <p className="mt-0.5 text-[12px] font-semibold text-terra">{nav ? `${formatDistance(nav.dist, "tr")} · yaklaşık ${formatDuration(nav.dur, "tr")}` : straightD != null ? `${formatDistance(straightD, "tr")} (kuş uçuşu)` : "Konum bekleniyor"}</p>
-                    {target.approx && <p className="mt-1 text-[11px] font-semibold text-terra">Konum yaklaşıktır; varış algılanmazsa “Atla”yı kullanın.</p>}
+                    <p className="mt-0.5 text-[12px] font-semibold text-terra">{nav ? dx("journey", {distance: formatDistance(nav.dist, locale), duration: formatDuration(nav.dur, locale)}) : straightD != null ? dx("straightDistance", {distance: formatDistance(straightD, locale)}) : tx("waitingForLocation_363f3")}</p>
+                    {target.approx && <p className="mt-1 text-[11px] font-semibold text-terra">{tx("theLocationIsApproximateIf_dee00")}</p>}
                   </div>
                 </div>
                 <div className="mt-3 flex gap-2">
-                  <Link href={`/duraklar/${target.id}`} className="flex h-11 flex-1 items-center justify-center rounded-full border border-line bg-white/80 text-sm font-bold text-navy shadow-card">Durak bilgisi</Link>
-                  {!(grup && !lider) && <button type="button" onClick={nextStop} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-5 text-sm font-bold text-navy shadow-card">Atla</button>}
+                  <Link href={`/duraklar/${target.id}`} className="flex h-11 flex-1 items-center justify-center rounded-full border border-line bg-white/80 text-sm font-bold text-navy shadow-card">{tx("stopDetails_dbd9c")}</Link>
+                  {!(grup && !lider) && <button type="button" onClick={nextStop} className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 px-5 text-sm font-bold text-navy shadow-card">{tx("skip_fd3df")}</button>}
                 </div>
               </>
             )}
@@ -395,31 +405,31 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
         )}
         {guide && finished && (
           <div className="glass rounded-[26px] p-4 text-center">
-            <p className="font-display text-xl font-semibold text-navy">Rotayı tamamladınız!</p>
-            <p className="mt-1 text-xs text-ink-2">Tüm duraklar bitti. Yolculuğunuz için teşekkürler.</p>
-            <Link href={routeSlug ? `/rotalar/${routeSlug}` : "/"} className="terra-grad mt-3 flex h-11 items-center justify-center rounded-full text-sm font-bold text-white">Rotaya dön</Link>
+            <p className="font-display text-xl font-semibold text-navy">{tx("youHaveCompletedTheRoute_435af")}</p>
+            <p className="mt-1 text-xs text-ink-2">{tx("youHaveVisitedEveryStop_d0143")}</p>
+            <Link href={routeSlug ? `/rotalar/${routeSlug}` : "/"} className="terra-grad mt-3 flex h-11 items-center justify-center rounded-full text-sm font-bold text-white">{tx("backToRoute_dc8e0")}</Link>
           </div>
         )}
-        {overview && !sel && !live && <p className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">Bir durağa dokunun · kümelere dokununca yakınlaşır</p>}
+        {overview && !sel && !live && <p className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">{tx("tapAStopTapA_ece46")}</p>}
         {sel && !guide && (
           <div className="glass rounded-[26px] p-3.5">
             <div className="flex items-start gap-3">
               <span className={`afy-pin-dot static ${sel.approx ? "approx" : ""}`}>{overview ? "" : sel.index}</span>
               <div className="min-w-0 flex-1">
                 <p className="font-display text-[17px] font-semibold leading-tight text-navy">{sel.name}</p>
-                <p className="text-[11px] font-semibold text-mute">{sel.area}{live && me ? ` · ${formatDistance(haversineM(me.pos, sel.coords), "tr")} uzaklıkta` : ""}</p>
-                {sel.approx && <p className="mt-1 text-[11px] font-semibold text-terra">Konum yaklaşıktır; bina doğrulanmadı.</p>}
+                <p className="text-[11px] font-semibold text-mute">{sel.area}{live && me ? dx("away", {distance: formatDistance(haversineM(me.pos, sel.coords), locale)}) : ""}</p>
+                {sel.approx && <p className="mt-1 text-[11px] font-semibold text-terra">{tx("theLocationIsApproximateThe_259fc")}</p>}
               </div>
               {stops.length > 1 && (
                 <div className="flex shrink-0 gap-1">
-                  <button type="button" aria-label="Önceki durak" onClick={() => go(-1)} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70 text-navy">‹</button>
-                  <button type="button" aria-label="Sonraki durak" onClick={() => go(1)} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70 text-navy">›</button>
+                  <button type="button" aria-label={tx("previousStop_33e5c")} onClick={() => go(-1)} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70 text-navy">‹</button>
+                  <button type="button" aria-label={tx("nextStop_40fe1")} onClick={() => go(1)} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70 text-navy">›</button>
                 </div>
               )}
             </div>
             <div className="mt-3 flex gap-2">
-              <Link href={`/duraklar/${sel.id}`} className="terra-grad flex h-11 flex-1 items-center justify-center rounded-full text-sm font-bold text-white">Durak bilgisi</Link>
-              <a href={directionsUrl(sel.coords, me?.pos)} target="_blank" rel="noopener noreferrer" className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 shadow-card px-4 text-sm font-bold text-navy">Yol tarifi</a>
+              <Link href={`/duraklar/${sel.id}`} className="terra-grad flex h-11 flex-1 items-center justify-center rounded-full text-sm font-bold text-white">{tx("stopDetails_dbd9c")}</Link>
+              <a href={directionsUrl(sel.coords, me?.pos)} target="_blank" rel="noopener noreferrer" className="flex h-11 items-center justify-center rounded-full border border-line bg-white/80 shadow-card px-4 text-sm font-bold text-navy">{tx("directions_f7214")}</a>
             </div>
           </div>
         )}
