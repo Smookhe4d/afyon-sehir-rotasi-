@@ -1,4 +1,6 @@
 "use client";
+import { Link } from "@/i18n/navigation";
+
 import { useState, useTransition } from "react";
 import { sendFeedback } from "@/app/actions";
 import { placeList } from "@/lib/places";
@@ -52,7 +54,7 @@ export default function FeedbackForm({ placeId = "", kind0 = "oneri" }: { placeI
       <input value={hp} onChange={(e) => setHp(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] h-0 w-0 opacity-0" name="website" />
       {state && !state.ok && <p role="alert" className="rounded-2xl bg-[#FBE4DC] px-3.5 py-2.5 text-[13px] font-semibold text-[#8E2C12]">{state.text}</p>}
       <button disabled={pending || msg.trim().length < 5} className="terra-grad h-14 rounded-full font-bold text-white disabled:opacity-50">{pending ? "Gönderiliyor…" : "Gönder"}</button>
-      <p className="text-center text-[11px] text-mute">Mesajlarınız yalnızca site yöneticisi tarafından görülür. <a href="/gizlilik" className="underline">Gizlilik</a></p>
+      <p className="text-center text-[11px] text-mute">Mesajlarınız yalnızca site yöneticisi tarafından görülür. <Link href="/gizlilik" className="underline">Gizlilik</Link></p>
     </form>
   );
 }

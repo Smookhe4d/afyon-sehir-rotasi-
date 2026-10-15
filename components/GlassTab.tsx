@@ -1,14 +1,16 @@
 "use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {useTranslations} from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { tabs } from "@/lib/tabs";
 
 export default function GlassTab() {
+  const tNav = useTranslations("nav");
   const path = usePathname();
   if (path.startsWith("/giris")) return null;
   const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   return (
-    <nav aria-label="Ana gezinme" className="glass fixed inset-x-3.5 lg:hidden bottom-6 z-50 mx-auto flex h-[70px] max-w-[520px] items-center justify-between rounded-[35px] px-1.5">
+    <nav aria-label={tNav("tabs")} className="glass fixed inset-x-3.5 lg:hidden bottom-6 z-50 mx-auto flex h-[70px] max-w-[520px] items-center justify-between rounded-[35px] px-1.5">
       {tabs.map((t) => {
         const on = isActive(t.href);
         return (
@@ -17,7 +19,7 @@ export default function GlassTab() {
             <span className={`flex h-[30px] w-[46px] items-center justify-center rounded-full ${on ? "terra-grad text-white shadow-[0_4px_12px_rgba(166,75,34,.4)]" : ""}`}>
               <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d={t.d} /></svg>
             </span>
-            <span className={`whitespace-nowrap text-[10px] leading-none ${on ? "font-bold" : "font-semibold"}`}>{t.label}</span>
+            <span className={`whitespace-nowrap text-[10px] leading-none ${on ? "font-bold" : "font-semibold"}`}>{tNav(t.label)}</span>
           </Link>
         );
       })}

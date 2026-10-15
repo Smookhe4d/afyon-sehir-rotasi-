@@ -1,6 +1,10 @@
 "use client";
+import {useLocale} from "next-intl";
+import type {Locale} from "@/i18n/routing";
+import {safeReturnPath, localizePath} from "@/i18n/paths";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { supabaseKey, supabaseUrl } from "@/lib/supabase/env";
 
@@ -18,9 +22,10 @@ const errorText = (m: string) => {
 
 export default function AuthForm() {
   const router = useRouter();
+  const locale = useLocale() as Locale;
   const params = useSearchParams();
   const next = params.get("next") ?? "/";
-  const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/";
+  const safeNext = safeReturnPath(next, locale);
   const [mode, setMode] = useState<Mode>("giris");
   const [busy, setBusy] = useState(false);
   // Google düğmesi yalnızca Supabase'de sağlayıcı etkinse gösterilir
@@ -49,13 +54,13 @@ export default function AuthForm() {
         if (password.length < 8) throw new Error("Password should be at least 8");
         const { data, error } = await supabase.auth.signUp({
           email, password,
-          options: { data: { display_name: name }, emailRedirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}` },
+          options: { data: { display_name: name }, emailRedirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}&locale=${locale}` },
         });
         if (error) throw error;
         if (data.session) { router.replace(safeNext); router.refresh(); }
         else setMsg({ type: "ok", text: "Doğrulama bağlantısı e-posta adresinize gönderildi. Bağlantıya tıkladıktan sonra giriş yapabilirsiniz." });
       } else {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${location.origin}/auth/callback?next=/profil` });
+        const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(localizePath("/profil", locale))}&locale=${locale}` });
         if (error) throw error;
         setMsg({ type: "ok", text: "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi." });
       }
@@ -67,7 +72,7 @@ export default function AuthForm() {
   async function google() {
     setBusy(true); setMsg(null);
     const { error } = await createClient().auth.signInWithOAuth({
-      provider: "google", options: { redirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}` },
+      provider: "google", options: { redirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}&locale=${locale}` },
     });
     if (error) { setBusy(false); setMsg({ type: "err", text: "Google ile giriş şu an kullanılamıyor." }); }
   }

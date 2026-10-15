@@ -1,7 +1,9 @@
 "use client";
-import { useRouter } from "next/navigation";
+import {useTranslations} from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 
 export default function BackButton({ className = "" }: { className?: string }) {
   const router = useRouter();
-  return <button type="button" aria-label="Geri" onClick={() => router.back()} className={className}>‹</button>;
+  const t = useTranslations("common");
+  return <button type="button" aria-label={t("back")} onClick={() => router.back()} className={className}>‹</button>;
 }

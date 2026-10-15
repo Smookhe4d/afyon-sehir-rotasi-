@@ -1,5 +1,8 @@
 "use client";
-import { useRouter } from "next/navigation";
+import {useLocale} from "next-intl";
+import {localizePath} from "@/i18n/navigation";
+import type {Locale} from "@/i18n/routing";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { startRoute } from "@/app/actions";
 
@@ -11,6 +14,7 @@ const warmLocation = () => { try { navigator.geolocation?.getCurrentPosition(() 
 
 export default function StartPanel({ slug, mode, defaultName = "" }: { slug: string; mode: string; defaultName?: string }) {
   const router = useRouter();
+  const locale = useLocale() as Locale;
   const [sheet, setSheet] = useState<null | "kur" | "katil">(null);
   const [name, setName] = useState(defaultName);
   const [code, setCode] = useState("");
@@ -22,7 +26,7 @@ export default function StartPanel({ slug, mode, defaultName = "" }: { slug: str
   const base = `/harita?rota=${slug}&takip=1&mod=${mode}`;
   const solo = () => { warmLocation(); run(async () => { await startRoute(slug); }); router.push(base); };
   const saveName = () => { try { localStorage.setItem("afyon-ad", name.trim().slice(0, 24)); } catch { /* yok say */ } };
-  const link = (c: string) => `${typeof location !== "undefined" ? location.origin : ""}${base}&grup=${c}`;
+  const link = (c: string) => (typeof location !== "undefined" ? location.origin : "") + localizePath(base + "&grup=" + c, locale);
   const go = (c: string, leader: boolean) => { saveName(); warmLocation(); run(async () => { await startRoute(slug); }); router.push(`${base}&grup=${c}${leader ? "&lider=1" : ""}`); };
   const okName = name.trim().length >= 2;
   const field = "h-12 w-full rounded-2xl border border-line bg-white px-4 text-[15px] outline-none focus:border-terra";

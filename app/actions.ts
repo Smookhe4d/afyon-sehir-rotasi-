@@ -1,5 +1,5 @@
 "use server";
-import { revalidatePath } from "next/cache";
+import { revalidateLocalizedPath } from "@/i18n/revalidate";
 import { getRoute } from "@/lib/routes";
 import { places } from "@/lib/places";
 import { getSession } from "@/lib/session";
@@ -24,7 +24,7 @@ export async function toggleFavorite(slug: string): Promise<Result> {
     ? await supabase.from("favorites").delete().eq("user_id", user.id).eq("route_slug", slug)
     : await supabase.from("favorites").insert({ user_id: user.id, route_slug: slug });
   if (error) return fail("İşlem kaydedilemedi.");
-  revalidatePath(`/rotalar/${slug}`); revalidatePath("/profil");
+  revalidateLocalizedPath(`/rotalar/${slug}`); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -35,7 +35,7 @@ export async function startRoute(slug: string): Promise<Result> {
   const { supabase, user } = _s;
   const { error } = await supabase.from("route_progress").upsert({ user_id: user.id, route_slug: slug }, { onConflict: "user_id,route_slug", ignoreDuplicates: true });
   if (error) return fail("Rota başlatılamadı.");
-  revalidatePath(`/rotalar/${slug}`); revalidatePath("/profil");
+  revalidateLocalizedPath(`/rotalar/${slug}`); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -55,7 +55,7 @@ export async function setVisited(slug: string, placeId: string, visited: boolean
     .update({ visited_place_ids: [...set], completed_at: done ? new Date().toISOString() : null })
     .eq("user_id", user.id).eq("route_slug", slug);
   if (error) return fail("Durak güncellenemedi.");
-  revalidatePath(`/rotalar/${slug}`); revalidatePath("/profil");
+  revalidateLocalizedPath(`/rotalar/${slug}`); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -65,7 +65,7 @@ export async function resetRoute(slug: string): Promise<Result> {
   const { supabase, user } = _s;
   const { error } = await supabase.from("route_progress").delete().eq("user_id", user.id).eq("route_slug", slug);
   if (error) return fail("Sıfırlanamadı.");
-  revalidatePath(`/rotalar/${slug}`); revalidatePath("/profil");
+  revalidateLocalizedPath(`/rotalar/${slug}`); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -79,7 +79,7 @@ export async function addRouteComment(slug: string, body: string): Promise<Resul
   if (!registered(profile)) return fail("Yorum yazmak için hesap oluşturmanız gerekir.");
   const { error } = await supabase.from("comments").insert({ user_id: user.id, route_slug: slug, body: text });
   if (error) return fail("Yorum gönderilemedi.");
-  revalidatePath(`/rotalar/${slug}`);
+  revalidateLocalizedPath(`/rotalar/${slug}`);
   return { ok: true };
 }
 
@@ -89,7 +89,7 @@ export async function deleteComment(id: string, path: string): Promise<Result> {
   const { supabase, user } = _s;
   const { error } = await supabase.from("comments").delete().eq("id", id).eq("user_id", user.id);
   if (error) return fail("Yorum silinemedi.");
-  revalidatePath(path);
+  revalidateLocalizedPath(path);
   return { ok: true };
 }
 
@@ -104,7 +104,7 @@ export async function createPost(input: { body: string; routeSlug?: string; phot
   if (input.photoPath && !input.photoPath.startsWith(`${user.id}/`)) return fail("Geçersiz fotoğraf.");
   const { error } = await supabase.from("posts").insert({ user_id: user.id, body, route_slug: input.routeSlug ?? null, photo_path: input.photoPath ?? null });
   if (error) return fail("Paylaşım gönderilemedi.");
-  revalidatePath("/sosyal"); revalidatePath("/profil");
+  revalidateLocalizedPath("/sosyal"); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -116,7 +116,7 @@ export async function deletePost(id: string): Promise<Result> {
   const { error } = await supabase.from("posts").delete().eq("id", id).eq("user_id", user.id);
   if (error) return fail("Paylaşım silinemedi.");
   if (data?.photo_path) await supabase.storage.from("post-photos").remove([data.photo_path]);
-  revalidatePath("/sosyal"); revalidatePath("/profil");
+  revalidateLocalizedPath("/sosyal"); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -129,7 +129,7 @@ export async function toggleLike(postId: string): Promise<Result> {
     ? await supabase.from("post_likes").delete().eq("post_id", postId).eq("user_id", user.id)
     : await supabase.from("post_likes").insert({ post_id: postId, user_id: user.id });
   if (error) return fail("Beğeni kaydedilemedi.");
-  revalidatePath("/sosyal");
+  revalidateLocalizedPath("/sosyal");
   return { ok: true };
 }
 
@@ -142,7 +142,7 @@ export async function addPostComment(postId: string, body: string): Promise<Resu
   if (!registered(profile)) return fail("Yorum yazmak için hesap oluşturmanız gerekir.");
   const { error } = await supabase.from("comments").insert({ user_id: user.id, post_id: postId, body: text });
   if (error) return fail("Yorum gönderilemedi.");
-  revalidatePath("/sosyal");
+  revalidateLocalizedPath("/sosyal");
   return { ok: true };
 }
 
@@ -158,7 +158,7 @@ export async function saveCustomRoute(input: { title: string; placeIds: string[]
   const { supabase, user } = _s;
   const { error } = await supabase.from("custom_routes").insert({ user_id: user.id, title, place_ids: ids, is_public: input.isPublic });
   if (error) return fail("Rota kaydedilemedi.");
-  revalidatePath("/rotani-belirle"); revalidatePath("/profil");
+  revalidateLocalizedPath("/rotani-belirle"); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -168,7 +168,7 @@ export async function deleteCustomRoute(id: string): Promise<Result> {
   const { supabase, user } = _s;
   const { error } = await supabase.from("custom_routes").delete().eq("id", id).eq("user_id", user.id);
   if (error) return fail("Rota silinemedi.");
-  revalidatePath("/rotani-belirle"); revalidatePath("/profil");
+  revalidateLocalizedPath("/rotani-belirle"); revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 
@@ -180,7 +180,7 @@ export async function updateDisplayName(name: string): Promise<Result> {
   const { supabase, user } = _s;
   const { error } = await supabase.from("profiles").update({ display_name: n }).eq("id", user.id);
   if (error) return fail("Ad güncellenemedi.");
-  revalidatePath("/profil"); revalidatePath("/sosyal");
+  revalidateLocalizedPath("/profil"); revalidateLocalizedPath("/sosyal");
   return { ok: true };
 }
 

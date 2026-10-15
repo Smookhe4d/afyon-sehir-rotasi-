@@ -1,6 +1,9 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import {useLocale} from "next-intl";
+import {localizePath} from "@/i18n/navigation";
+import type {Locale} from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState, useTransition } from "react";
 import { resetRoute, setVisited, startRoute, toggleFavorite } from "@/app/actions";
 import PhotoSlot from "@/components/PhotoSlot";
@@ -28,8 +31,9 @@ export function FavoriteButton({ slug, initial, signedIn = true }: { slug: strin
 
 export function ShareButton({ title, slug }: { title: string; slug: string }) {
   const [copied, setCopied] = useState(false);
+  const locale = useLocale() as Locale;
   async function share() {
-    const url = `${location.origin}/rotalar/${slug}`;
+    const url = location.origin + localizePath("/rotalar/" + slug, locale);
     if (navigator.share) { try { await navigator.share({ title, url }); } catch { /* iptal */ } return; }
     await navigator.clipboard.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1800);
   }

@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { placeListFull } from "@/lib/placesFull";
 import { haversineM, formatDistance, type LngLat } from "@/lib/map/geo";
@@ -92,7 +92,7 @@ export default function WeatherCard() {
       {nearby.length > 0 && (
         <div className="mt-3 border-t border-black/5 pt-3">
           <p className="text-[11px] font-bold uppercase tracking-wider text-mute">Yakınınızdaki duraklar</p>
-          <ul className="mt-1.5 flex flex-col gap-1">{nearby.map(({ p, d }) => (<li key={p.id}><Link href={`/duraklar/${p.id}`} className="flex items-center justify-between rounded-xl px-1 py-1 text-[13px] font-semibold"><span>{p.name}</span><span className="text-xs text-terra">{formatDistance(d)}</span></Link></li>))}</ul>
+          <ul className="mt-1.5 flex flex-col gap-1">{nearby.map(({ p, d }) => (<li key={p.id}><Link href={`/duraklar/${p.id}`} className="flex items-center justify-between rounded-xl px-1 py-1 text-[13px] font-semibold"><span>{p.name}</span><span className="text-xs text-terra">{formatDistance(d, "tr")}</span></Link></li>))}</ul>
         </div>
       )}
     </section>

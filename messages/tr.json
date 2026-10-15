@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "title": "Afyon Şehir Rotası",
+    "description": "Afyonkarahisar için resmî rehber rotaları, QR ile başlayan sesli anlatım ve canlı harita.",
+    "ogDescription": "Afyonkarahisar için rehber rotaları, sesli anlatım ve canlı yönlendirmeli harita.",
+    "pages": {"home": "Afyon Şehir Rotası", "routes": "Rotalar", "map": "Harita", "plan": "Rotanı Belirle", "community": "Sosyal", "profile": "Profil", "signIn": "Giriş", "qr": "QR ile Başlat", "feedback": "Geri Bildirim", "about": "Hakkında", "privacy": "Gizlilik", "terms": "Kullanım Şartları", "admin": "Yönetim"}
+  },
+  "nav": {"menu": "Ana menü", "tabs": "Ana gezinme", "home": "Keşfet", "routes": "Rotalar", "map": "Harita", "plan": "Rotanı Belirle", "planShort": "Belirle", "community": "Sosyal", "profile": "Profil", "about": "Hakkında", "brand": "Afyon Şehir Rotası"},
+  "common": {"back": "Geri", "loading": "Yükleniyor", "language": "Dil", "turkish": "Türkçe", "english": "English", "close": "Kapat", "header": "Sayfa başlığı"},
+  "notFound": {"title": "Sayfa bulunamadı", "heading": "Bu yol bir yere çıkmıyor", "description": "Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.", "home": "Keşfet'e dön", "routes": "Rotalar"},
+  "onboarding": {
+    "label": "Tanıtım", "skip": "Atla", "start": "Keşfetmeye başla", "next": "Devam",
+    "slides": {
+      "0": {"title": "Afyonkarahisar'ı keşfedin", "text": "Kale'den Ulu Cami'ye, Frig vadilerinden termal sulara, şehrin rehberli rotaları tek yerde."},
+      "1": {"title": "Haritada gezin", "text": "Duraklar, yürüyüş ve araç rotaları canlı haritada. Kendi rotanızı seçip tek dokunuşla başlatın."},
+      "2": {"title": "Sesli rehber eşlik etsin", "text": "Her durağın hikâyesini dinleyin. Giriş yapmadan da her şeyi gezebilirsiniz."}
+    }
+  },
+  "languageSuggestion": {"text": "This site is also available in English.", "switch": "Switch to English", "close": "Dismiss language suggestion"}
+}
