@@ -2,7 +2,7 @@
 import {Suspense} from "react";
 import {useParams, useSearchParams} from "next/navigation";
 import {useLocale, useTranslations} from "next-intl";
-import {Link, usePathname} from "@/i18n/navigation";
+import {LanguageLink, usePathname} from "@/i18n/navigation";
 import type {Locale} from "@/i18n/routing";
 
 export function rememberLanguage(locale: Locale) {
@@ -21,13 +21,13 @@ function Switcher() {
   const href = useCurrentHref();
   return <nav aria-label={t("language")} className="flex shrink-0 items-center gap-1 text-sm font-bold">
     {(["tr", "en"] as const).map(language =>
-      <Link key={language} href={href} locale={language}
+      <LanguageLink key={language} href={href} locale={language}
         onClick={() => rememberLanguage(language)}
         aria-label={t(language === "tr" ? "turkish" : "english")}
         aria-current={locale === language ? "page" : undefined}
         className={"inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line " + (locale === language ? "bg-navy text-white" : "bg-cream text-navy")}>
         {language.toUpperCase()}
-      </Link>
+      </LanguageLink>
     )}
   </nav>;
 }

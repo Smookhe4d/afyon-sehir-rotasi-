@@ -1,7 +1,8 @@
 import {createNavigation} from "next-intl/navigation";
+import NextLink from "next/link";
 import type {ComponentProps} from "react";
 import type {UrlObject} from "url";
-import {routing} from "./routing";
+import {routing, type Locale} from "./routing";
 import {internalPath, localizePath} from "./paths";
 
 const navigation = createNavigation(routing);
@@ -26,6 +27,11 @@ function routeHref(href: Href): TypedHref {
 
 export function Link({href, ...props}: Omit<ComponentProps<typeof navigation.Link>, "href"> & {href: Href}) {
   return <navigation.Link {...props} href={routeHref(href)} />;
+}
+// Explicit language choices already save NEXT_LOCALE in their click handler.
+// Avoid next-intl's forced locale prefix and its extra redirect to Turkish.
+export function LanguageLink({href, locale, ...props}: Omit<ComponentProps<typeof NextLink>, "href" | "locale"> & {href: string; locale: Locale}) {
+  return <NextLink {...props} href={localizePath(href, locale)} prefetch={false} />;
 }
 export const usePathname = navigation.usePathname;
 // Analytics needs the actual public URL, rather than a dynamic route template.
