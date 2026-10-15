@@ -39,6 +39,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 - /profil için /giris sayfasındaki Misafir olarak devam et düğmesiyle giriş yapıldı. /yonetim misafir oturumunda Kurulum gerekli ekranını gösterdi. Kod bu mesajı is_admin çağrısı hata döndüğünde gösteriyor, tabloların eksikliği ayrıca doğrulanmadı.
 - Soru: Yönetimin Yetkiniz yok ekranını da doğrulamak için gerekli Supabase kurulum kontrolü ayrı bir görev olarak açılacak mı? Bu görevde kurulum veya yetki değişikliği yapılmadı.
 - QR ekranında Kamera açılıyor… mesajı kaldı ve kamera görüntüsü alınamadı. Elle kod alanı belgelendi, kamera erişimi etkinleştirilmedi. Tarayıcı otomasyonu kullanılabildi, başka yakalama yöntemine geçilmedi.
+- Kapsam dışı gözlem: yerel sunucu kayıtlarında Supabase, getSession() ile gelen kullanıcı nesnesine güvenmek yerine getUser() ile doğrulama yapılması uyarısını verdi. Bu görevde oturum kodu değiştirilmedi, ayrı denetim gerektirir.
 - .env.local git dışında kaldı, içeriği okunmadı ve notlara eklenmedi. Mevcut noktalı virgüllü metinler ve küçük dokunma hedefleri yalnızca kaydedildi.
 - Teslim: dal GitHub’a gönderildi. [PR #1](https://github.com/Smookhe4d/afyon-sehir-rotasi-/pull/1) main hedefiyle açıldı. Görev teslimi b6c6fa1 commit’indedir, bu güncelleme denetim durumunu kaydeder. main karşılaştırması, görev dalının açıldığı ekip/kurulum dalındaki iki kurulum commit’ini de içerir. main dalına commit, push veya birleştirme yapılmadı.
 
