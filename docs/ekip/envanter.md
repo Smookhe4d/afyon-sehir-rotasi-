@@ -10,25 +10,25 @@ Metin sütunu kaynak alıntısıdır. Mevcut noktalı virgüller, yazım ve diğ
 
 ## Sayfalar ve ekran görüntüleri
 
-15 page.tsx dosyası ve 30 ekran görüntüsü vardır. Çekimler başarılı üretim build’iyle http://localhost:3000 üzerinde Codex tarayıcı otomasyonuyla yapıldı. Telefon viewport’u 390 × 844, masaüstü viewport’u 1280 × 900 CSS piksel olarak ayarlandı. Dosya adındaki sayı viewport genişliğidir. Tam sayfa yakalamada tarayıcının döndürdüğü raster ölçüsü kaydırma çubuğu ve tarayıcı yakalama davranışı nedeniyle farklı olabilir. Görüntüler ölçeklenmedi. Tarayıcının JPEG çıktısı yalnızca PNG olarak kodlandı. Başka bir ekran yakalama yöntemi kullanılmadı. İlk açılış tanıtımı Atla düğmesiyle kapatıldı.
+15 page.tsx dosyası ve 30 ekran görüntüsü vardır. Çekimler başarılı üretim build’iyle http://localhost:3000 üzerinde Codex tarayıcı otomasyonuyla yapıldı. Telefon viewport’u 390 × 844, masaüstü viewport’u 1280 × 900 CSS piksel olarak ayarlandı. Dosya adındaki sayı viewport genişliğidir. Tam sayfa yakalamada tarayıcının döndürdüğü raster ölçüsü kaydırma çubuğu ve tarayıcı yakalama davranışı nedeniyle farklı olabilir. Görüntüler ölçeklenmedi. İlk teslimdeki PNG dosyaları denetim sonrası kalite 80 WebP biçimine dönüştürüldü. Yeniden çekim, ölçekleme veya kırpma yapılmadı. Her dosya 400 KB altında, en büyük dosya 204.630 bayt ve toplam boyut 2.004.412 bayttır. Başka bir ekran yakalama yöntemi kullanılmadı. İlk açılış tanıtımı Atla düğmesiyle kapatıldı.
 
 | Adres | Dosya yolu | İşlev | Çekim durumu | 390 px | 1280 px |
 |---|---|---|---|---|---|
-| / | app/page.tsx | Tur rotalarını, aramayı, duyuruları ve hava durumunu sunar. | Oturum kapalı | [Görsel](ekran/G-001/ana-sayfa-390.png) | [Görsel](ekran/G-001/ana-sayfa-1280.png) |
-| /rotalar | app/rotalar/page.tsx | Hazır rotaları kategoriye göre listeler ve arar. | Oturum kapalı | [Görsel](ekran/G-001/rotalar-390.png) | [Görsel](ekran/G-001/rotalar-1280.png) |
-| /rotalar/[slug] | app/rotalar/[slug]/page.tsx | Rota açıklamasını, haritayı, durakları ve başlatma kontrollerini sunar. | Örnek: /rotalar/frig-yolu-afyonkarahisar, oturum kapalı | [Görsel](ekran/G-001/rota-frig-yolu-390.png) | [Görsel](ekran/G-001/rota-frig-yolu-1280.png) |
-| /duraklar/[id] | app/duraklar/[id]/page.tsx | Durak bilgisini, kaynaklarını, sesli rehberini ve konumunu sunar. | Örnek: /duraklar/ayazini, oturum kapalı | [Görsel](ekran/G-001/durak-ayazini-390.png) | [Görsel](ekran/G-001/durak-ayazini-1280.png) |
-| /harita | app/harita/page.tsx | Durakları haritada gösterir ve sorgu parametreleriyle yönlendirme veya grup turu açar. | Tüm duraklar, konum izni verilmedi | [Görsel](ekran/G-001/harita-390.png) | [Görsel](ekran/G-001/harita-1280.png) |
-| /rotani-belirle | app/rotani-belirle/page.tsx | Durak seçimi ve sıralamasıyla özel rota oluşturur ve kayıtlı rotaları listeler. | Oturum kapalı, seçim yapılmadı | [Görsel](ekran/G-001/rotani-belirle-390.png) | [Görsel](ekran/G-001/rotani-belirle-1280.png) |
-| /sosyal | app/sosyal/page.tsx | Oturum durumuna göre giriş davetini veya paylaşım ve yorum akışını sunar. | Oturum kapalı, giriş daveti | [Görsel](ekran/G-001/sosyal-390.png) | [Görsel](ekran/G-001/sosyal-1280.png) |
-| /profil | app/profil/page.tsx | Kullanıcının ilerlemesini, rozetlerini, favorilerini ve hesap işlemlerini sunar. | /giris > Misafir olarak devam et ile açılan misafir hesabı, görünen ad Gezgin | [Görsel](ekran/G-001/profil-390.png) | [Görsel](ekran/G-001/profil-1280.png) |
-| /giris | app/giris/page.tsx | Giriş, kayıt, şifre sıfırlama ve misafir oturumu seçeneklerini sunar. | Oturum kapalı, Giriş yap sekmesi | [Görsel](ekran/G-001/giris-390.png) | [Görsel](ekran/G-001/giris-1280.png) |
-| /qr | app/qr/page.tsx | Kamera veya elle girilen rota koduyla rota açar. | Kamera açılıyor… mesajı görüldü, kamera görüntüsü alınamadı, elle kod alanı boş | [Görsel](ekran/G-001/qr-390.png) | [Görsel](ekran/G-001/qr-1280.png) |
-| /geri-bildirim | app/geri-bildirim/page.tsx | Öneri, katkı, şikayet ve hata iletmek için form sunar. | Boş form, Öneri seçili, gönderilmedi | [Görsel](ekran/G-001/geri-bildirim-390.png) | [Görsel](ekran/G-001/geri-bildirim-1280.png) |
-| /hakkinda | app/hakkinda/page.tsx | Uygulamayı, kaynak yaklaşımını ve katkı yollarını açıklar. | Oturum kapalı | [Görsel](ekran/G-001/hakkinda-390.png) | [Görsel](ekran/G-001/hakkinda-1280.png) |
-| /gizlilik | app/gizlilik/page.tsx | Veri işleme, ölçüm, konum ve kullanıcı hakları hakkında bilgi verir. | Oturum kapalı | [Görsel](ekran/G-001/gizlilik-390.png) | [Görsel](ekran/G-001/gizlilik-1280.png) |
-| /sartlar | app/sartlar/page.tsx | Kullanım, güvenlik ve topluluk içeriği koşullarını sunar. | Oturum kapalı | [Görsel](ekran/G-001/sartlar-390.png) | [Görsel](ekran/G-001/sartlar-1280.png) |
-| /yonetim | app/yonetim/page.tsx | Yetki kontrolünden sonra site istatistiklerini, geri bildirimleri ve duyuruları yönetir. | Yönetici yetkisi verilmeyen misafir oturumu. Gerçekte Kurulum gerekli ekranı görüldü, Yetkiniz yok ekranı doğrulanamadı | [Görsel](ekran/G-001/yonetim-390.png) | [Görsel](ekran/G-001/yonetim-1280.png) |
+| / | app/page.tsx | Tur rotalarını, aramayı, duyuruları ve hava durumunu sunar. | Oturum kapalı | [Görsel](ekran/G-001/ana-sayfa-390.webp) | [Görsel](ekran/G-001/ana-sayfa-1280.webp) |
+| /rotalar | app/rotalar/page.tsx | Hazır rotaları kategoriye göre listeler ve arar. | Oturum kapalı | [Görsel](ekran/G-001/rotalar-390.webp) | [Görsel](ekran/G-001/rotalar-1280.webp) |
+| /rotalar/[slug] | app/rotalar/[slug]/page.tsx | Rota açıklamasını, haritayı, durakları ve başlatma kontrollerini sunar. | Örnek: /rotalar/frig-yolu-afyonkarahisar, oturum kapalı | [Görsel](ekran/G-001/rota-frig-yolu-390.webp) | [Görsel](ekran/G-001/rota-frig-yolu-1280.webp) |
+| /duraklar/[id] | app/duraklar/[id]/page.tsx | Durak bilgisini, kaynaklarını, sesli rehberini ve konumunu sunar. | Örnek: /duraklar/ayazini, oturum kapalı | [Görsel](ekran/G-001/durak-ayazini-390.webp) | [Görsel](ekran/G-001/durak-ayazini-1280.webp) |
+| /harita | app/harita/page.tsx | Durakları haritada gösterir ve sorgu parametreleriyle yönlendirme veya grup turu açar. | Tüm duraklar, konum izni verilmedi | [Görsel](ekran/G-001/harita-390.webp) | [Görsel](ekran/G-001/harita-1280.webp) |
+| /rotani-belirle | app/rotani-belirle/page.tsx | Durak seçimi ve sıralamasıyla özel rota oluşturur ve kayıtlı rotaları listeler. | Oturum kapalı, seçim yapılmadı | [Görsel](ekran/G-001/rotani-belirle-390.webp) | [Görsel](ekran/G-001/rotani-belirle-1280.webp) |
+| /sosyal | app/sosyal/page.tsx | Oturum durumuna göre giriş davetini veya paylaşım ve yorum akışını sunar. | Oturum kapalı, giriş daveti | [Görsel](ekran/G-001/sosyal-390.webp) | [Görsel](ekran/G-001/sosyal-1280.webp) |
+| /profil | app/profil/page.tsx | Kullanıcının ilerlemesini, rozetlerini, favorilerini ve hesap işlemlerini sunar. | /giris > Misafir olarak devam et ile açılan misafir hesabı, görünen ad Gezgin | [Görsel](ekran/G-001/profil-390.webp) | [Görsel](ekran/G-001/profil-1280.webp) |
+| /giris | app/giris/page.tsx | Giriş, kayıt, şifre sıfırlama ve misafir oturumu seçeneklerini sunar. | Oturum kapalı, Giriş yap sekmesi | [Görsel](ekran/G-001/giris-390.webp) | [Görsel](ekran/G-001/giris-1280.webp) |
+| /qr | app/qr/page.tsx | Kamera veya elle girilen rota koduyla rota açar. | Kamera açılıyor… mesajı görüldü, kamera görüntüsü alınamadı, elle kod alanı boş | [Görsel](ekran/G-001/qr-390.webp) | [Görsel](ekran/G-001/qr-1280.webp) |
+| /geri-bildirim | app/geri-bildirim/page.tsx | Öneri, katkı, şikayet ve hata iletmek için form sunar. | Boş form, Öneri seçili, gönderilmedi | [Görsel](ekran/G-001/geri-bildirim-390.webp) | [Görsel](ekran/G-001/geri-bildirim-1280.webp) |
+| /hakkinda | app/hakkinda/page.tsx | Uygulamayı, kaynak yaklaşımını ve katkı yollarını açıklar. | Oturum kapalı | [Görsel](ekran/G-001/hakkinda-390.webp) | [Görsel](ekran/G-001/hakkinda-1280.webp) |
+| /gizlilik | app/gizlilik/page.tsx | Veri işleme, ölçüm, konum ve kullanıcı hakları hakkında bilgi verir. | Oturum kapalı | [Görsel](ekran/G-001/gizlilik-390.webp) | [Görsel](ekran/G-001/gizlilik-1280.webp) |
+| /sartlar | app/sartlar/page.tsx | Kullanım, güvenlik ve topluluk içeriği koşullarını sunar. | Oturum kapalı | [Görsel](ekran/G-001/sartlar-390.webp) | [Görsel](ekran/G-001/sartlar-1280.webp) |
+| /yonetim | app/yonetim/page.tsx | Yetki kontrolünden sonra site istatistiklerini, geri bildirimleri ve duyuruları yönetir. | Yönetici yetkisi verilmeyen misafir oturumu. Gerçekte Kurulum gerekli ekranı görüldü, Yetkiniz yok ekranı doğrulanamadı | [Görsel](ekran/G-001/yonetim-390.webp) | [Görsel](ekran/G-001/yonetim-1280.webp) |
 
 ### Diğer App Router dosyaları
 
@@ -947,7 +947,7 @@ Bunlar app/ ve components/ sabit metin tablosu dışındaki bağımlılıklardı
 
 - npm ci mevcut kilit dosyasıyla tamamlandı. Yeni paket veya paket sürümü eklenmedi.
 - npm run build hatasız tamamlandı. Tür denetimi geçti, 120 statik çıktı üretildi. İlk sandbox denemesi ağ ve çıktı dizini erişiminde başarısızdı, gerekli izinle tekrarlanan komut başarılıdır.
-- 15 page.tsx dosyasının tamamı sayfa tablosundadır. Her biri için iki genişlikte PNG bulunur.
+- 15 page.tsx dosyasının tamamı sayfa tablosundadır. Her biri için iki genişlikte WebP bulunur.
 - Sabit metin tablosu 603 satır içerir. Aynı kaynak satırındaki aynı metin ve tür tekilleştirilmiştir. 47 dosyada en az bir sabit metin vardır.
 - .env.local içeriği okunmadı, belgeye veya ekran görüntüsüne alınmadı. Commit kapsamı yalnızca envanter, görev durumu ve ekran görüntüleridir.
 - Yönetimde misafir kullanıcı için Kurulum gerekli görüldü. app/yonetim/page.tsx:22 bu mesajı is_admin RPC hatasında üretir. Bu gözlem tek başına tabloların eksik olduğunu kanıtlamaz. Veritabanı kurulumu yapılmadı.
