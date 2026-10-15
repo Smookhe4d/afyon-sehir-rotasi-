@@ -48,7 +48,7 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 ## G-002: Dil desteği altyapısı (Türkçe ve İngilizce)
 
-- **Durum:** Hazır
+- **Durum:** İncelemede
 - **İş akışı:** D
 - **Dal:** `codex/G-002-dil-altyapisi`
 - **Amaç:** Sitenin Türkçe ve İngilizce sunulabilmesi için altyapıyı kurmak. Bu görevde altyapı, dil seçici ve ortak bileşenler tamamlanır. Kalan arayüz metinlerinin taşınması ve çevirisi G-005'te, rota ve durak içeriğinin çevirisi G-006'da yapılacaktır.
@@ -114,7 +114,16 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 
 **Uygulayıcı notu**
 
-_(Uygulayıcı dolduracak)_
+- Onaylanan plan uygulandı. next-intl 4.14.9 sabitlendi, localeDetection: false kullanıldı. 15 sayfa app/[locale] altına taşındı. Auth uçları ve dil bağımsız dosyalar kökte kaldı. Dil altında not-found, loading ve [...rest] eklendi.
+- i18n altında yönlendirme, mesaj yükleme, gezinme, meta veri ve önbellek yenileme yardımcıları oluşturuldu. Supabase oturum yenilemesi ile dil middleware yanıtının çerezleri ve başlıkları birleştirildi. getSession davranışı korundu, G-004'e dokunulmadı.
+- Dil seçiciler ve istemcide navigator.language ile NEXT_LOCALE kullanan sabit konumlu öneri bandı eklendi. Kapatma tercihi hatırlanıyor. Bandın kapanması içerik konumunu değiştirmiyor.
+- Yalnızca görevdeki ortak bileşenlerin kendi metinleri messages/tr.json ve en.json dosyalarına taşındı. PageHeader'a sayfalardan verilen başlıklar ve ana sayfanın Keşfet metni onay doğrultusunda G-005'e bırakıldı. Rota, durak ve rozet içerikleri değiştirilmedi.
+- Tüm bileşenlerde adres ve oturum dönüşü uyarlamaları yapıldı. Eski Türkçe QR kodları ve yeni İngilizce rota QR adresleri kabul ediliyor. Tek revalidate yardımcısı iki dilin genel ve yeniden yazılan iç adreslerini yeniliyor.
+- Build başarılı. Önce 120, sonra 236 çıktı üretildi. Prerender manifestinde önce 99, sonra 192 rota var. Önceki statik rotaların tamamının karşılığı korundu. Son build açık test oturumunu bozmamak için aynı next build komutuyla ayrı geçici çıktı dizininde alındı.
+- 11 otomatik test ve iki dilde 30 sayfalık HTTP kontrolü geçti. Playwright ile İngilizce tarayıcı dili, dokunmatik 390 px mobil cihaz, dil bandı, kalıcı tercih, dinamik rota geçişi, sorgu ve grup kodlarının korunması doğrulandı. Gerçek Supabase misafir girişi, yenilemede oturumun korunması, dil değişimi ve iki dilde çıkış dönüşü geçti. Mevcut Playwright ve Chrome kullanıldı, test paketi eklenmedi.
+- rg taramasında app ve components altında doğrudan next/link veya sabit iç adrese giden a etiketi kalmadı. Kanonik Türkçe yol sabitleri i18n/navigation tarafından dile çevriliyor. Doğrudan revalidatePath yalnızca tek yardımcıda bulunuyor. Ayrıntılar docs/ekip/G-002-dogrulama.md dosyasında.
+- Önce ve sonra toplam 13 WebP ekran görüntüsü kaydedildi. Genişlikler tam 390 ve 1280 px. En büyük görsel 120.036 bayt, toplam 752.838 bayt. Bağlantılar doğrulama belgesinde.
+- Açık kalan kontrol: proje sahibi test hesabı olmadığını bildirdi. İngilizce rota sayfasında kayıtlı kullanıcıyla yorumun hemen görünmesi gerçek oturumda test edilemedi. Hesap oluşturulmadı. Yorum eyleminin iki dili yenilemesi otomatik testte doğrulandı. Gerçek OAuth/e-posta callback'i yerine işlev testi yapıldı. Bu sınırlamalar denetime sunuluyor.
 
 ---
 
