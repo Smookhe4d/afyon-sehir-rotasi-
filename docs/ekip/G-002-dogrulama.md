@@ -44,3 +44,39 @@ Proje sahibi test hesabı olmadığını bildirdi. İngilizce rota sayfasında k
 | İngilizce rota | Yok | Yok | [Görsel](ekran/G-002/sonra-rota-en-390.webp) | [Görsel](ekran/G-002/sonra-rota-en-1280.webp) |
 
 [Dil önerisi bulunan Türkçe ana sayfa, 390 px](ekran/G-002/sonra-ana-tr-bant-390.webp)
+
+## G-002 denetim düzeltmeleri, 15 Ekim 2026
+
+- Yönetici tarafından iletilen kayıt DENETIM.md dosyasına aynen, ilk kaydın üstüne eklendi.
+- Yükleme sınırı app/[locale]/(pages)/loading.tsx altına taşındı. Normal sayfalar bu route group içinde. [...rest] ile rota ve durak detay sayfaları sınırın dışında kaldı. Böylece notFound yanıtı gönderilmeden önce çözülüyor ve HTTP 404 durum kodu korunuyor. Genel adresler değişmedi.
+- Dil seçici i18n/navigation içindeki LanguageLink yardımcısını kullanıyor. Açık seçim çerezi tıklamada yazılıyor, Türkçe bağlantının href değeri doğrudan öneksiz adres oluyor. Fazladan /tr isteği gerekmiyor.
+- Lock dosyası npm 10.9.9 ile güncellendi. Eksik next-intl peer bağımlılığı @swc/helpers@0.5.23 ve npm 10'un gerektirdiği paket kayıtları eklendi. package.json değişmedi.
+- HTTP testi artık 404 ekranında 200 yanıtını kabul etmiyor. Altı bilinmeyen adres için HEAD ve GET durum kodlarını, iki eski/yanlış adres için 307 yönlendirmesini kontrol ediyor.
+- Playwright testi Türkçe bağlantının href değerini, geçişte /tr isteği yapılmamasını, sorgu parametrelerini ve NEXT_LOCALE=tr değerini kontrol ediyor.
+- Görsel yerleşim değiştirilmedi. Önceki ekranlar korunuyor. Denetim sonrası tarayıcı kontrolü geçici dizine ekran üretir.
+
+### Yeniden doğrulama sonucu
+
+- `npx npm@10 --version`: 10.9.9.
+- `npx npm@10 ci`: başarılı, 143 paket kuruldu, çıkış kodu 0.
+- `npm run build`: başarılı, 236 çıktı ve 192 prerender rota korundu.
+- 11 otomatik test geçti. HTTP testi 30 geçerli sayfa için 200, iki yanlış/eski adres için 307 ve altı eksik adresin HEAD/GET istekleri için 404 doğruladı.
+- Playwright dil/bant ve gerçek misafir oturumu testleri geçti. Türkçe dil seçiminin doğrudan href değeri /rotalar/frig-yolu-afyonkarahisar?mod=arac&grup=K7M2QX. Dil geçişinde /tr isteği yok, tercih çerezi tr olarak kaydedildi. İki dilde giriş, yenileme ve çıkış çalışıyor.
+
+İstenen dört curl kontrolünün üretim sunucusundaki çıktısı:
+
+```text
+curl -I http://localhost:3000/yok-boyle
+HTTP/1.1 404 Not Found
+
+curl -I http://localhost:3000/en/nope
+HTTP/1.1 404 Not Found
+
+curl -I http://localhost:3000/rotalar/olmayan
+HTTP/1.1 404 Not Found
+
+curl -I http://localhost:3000/en/stops/olmayan
+HTTP/1.1 404 Not Found
+```
+
+Mobil dil seçicinin yerleşimi bu düzeltmede değiştirilmedi. Kayıtlı kullanıcıyla gerçek yorum kontrolü denetim kararına göre birleştirme sonrasında yapılacak.

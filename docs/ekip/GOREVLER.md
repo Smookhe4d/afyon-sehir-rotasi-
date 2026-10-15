@@ -124,6 +124,9 @@ Görevleri yalnızca yönetici yazar. Uygulayıcı yalnızca "Durum" ve "Uygulay
 - rg taramasında app ve components altında doğrudan next/link veya sabit iç adrese giden a etiketi kalmadı. Kanonik Türkçe yol sabitleri i18n/navigation tarafından dile çevriliyor. Doğrudan revalidatePath yalnızca tek yardımcıda bulunuyor. Ayrıntılar docs/ekip/G-002-dogrulama.md dosyasında.
 - Önce ve sonra toplam 13 WebP ekran görüntüsü kaydedildi. Genişlikler tam 390 ve 1280 px. En büyük görsel 120.036 bayt, toplam 752.838 bayt. Bağlantılar doğrulama belgesinde.
 - Açık kalan kontrol: proje sahibi test hesabı olmadığını bildirdi. İngilizce rota sayfasında kayıtlı kullanıcıyla yorumun hemen görünmesi gerçek oturumda test edilemedi. Hesap oluşturulmadı. Yorum eyleminin iki dili yenilemesi otomatik testte doğrulandı. Gerçek OAuth/e-posta callback'i yerine işlev testi yapıldı. Bu sınırlamalar denetime sunuluyor.
+- Denetim düzeltmeleri: proje sahibinin ilettiği G-002 denetim kaydı DENETIM.md dosyasına aynen eklendi. Yükleme sınırı (pages) grubuna taşındı. Bilinmeyen adresler ve rota/durak detayları bu sınırın dışında. /yok-boyle, /en/nope, /rotalar/olmayan ve /en/stops/olmayan için curl -I çıktısı HTTP/1.1 404 Not Found. Altı eksik adresin HEAD ve GET kontrolleri ile iki 307 yönlendirme kontrolü geçti.
+- Dil seçicinin Türkçe href değeri doğrudan öneksiz adres. Playwright ile /tr isteği yapılmadığı, sorguların korunduğu ve NEXT_LOCALE=tr yazıldığı doğrulandı. Oturum testinde giriş formunun akışla yüklenmesi beklendi.
+- Lock dosyası npm 10.9.9 ile düzeltildi, npx npm@10 ci başarılı. package.json değişmedi. npm run build başarılı, 236 çıktı ve 192 prerender rota korundu. 11 otomatik test, 30 sayfa HTTP kontrolü, Playwright dil/bant testi ve iki dilde gerçek misafir oturum testi yeniden geçti. Ayrıntılı curl çıktıları doğrulama belgesinde. Ertelenen mobil dil seçici konusu değiştirilmedi.
 
 ---
 
