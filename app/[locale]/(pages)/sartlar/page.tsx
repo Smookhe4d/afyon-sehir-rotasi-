@@ -1,3 +1,4 @@
+import {getTranslations as getUiTranslations} from "next-intl/server";
 import {setRequestLocale} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
@@ -7,13 +8,15 @@ export async function generateMetadata({params}: {params: Promise<{locale: Local
   return pageMetadata(locale, "/sartlar", pageTitle(locale, "terms"));
 }
 export default async function Sartlar({ params }: { params: Promise<{locale: Locale}> }) {
+  const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
+
   setRequestLocale((await params).locale);
   return (
-    <LegalPage eyebrow="YASAL" title="Kullanım Şartları" items={[
-      ["Genel bilgi", "Afyon Şehir Rotası, Afyonkarahisar'ı gezenler için hazırlanmış bir rehberdir. Açılış saatleri, ücretler ve erişim koşulları değişebilir; ziyaretten önce ilgili kurumdan doğrulayınız."],
-      ["Güvenlik", "Doğa ve yürüyüş rotalarında hava durumunu, yol ve patika durumunu kontrol edin; zor rotalarda yalnız çıkmayın. Rota bilgileri yönlendirme amaçlıdır; kendi güvenliğinizden siz sorumlusunuz. Acil durumda 112'yi arayın."],
-      ["Topluluk içeriği", "Paylaştığınız yorum ve fotoğraflardan siz sorumlusunuz. Hakaret, nefret söylemi, başkalarının haklarını ihlal eden veya yasa dışı içerik kaldırılabilir."],
-      ["Fotoğraflar ve kaynaklar", "Duraklardaki fotoğraflar Wikimedia Commons üzerinden, sahiplerinin belirttiği Creative Commons veya kamu malı lisanslarıyla gösterilir; her fotoğrafın altında sahibi ve lisansı belirtilir."],
+    <LegalPage eyebrow={tx("legal_02c08")} title={tx("termsOfUse_8a73f")} items={[
+      [tx("generalInformation_259f9"), tx("afyonCityRoutesIsA_47944")],
+      [tx("safety_854c3"), tx("onNatureAndWalkingRoutes_48945")],
+      [tx("communityContent_602a1"), tx("youAreResponsibleForThe_75912")],
+      [tx("photosAndSources_03089"), tx("photosOfStopsAreDisplayed_303ed")],
     ]} />
   );
 }

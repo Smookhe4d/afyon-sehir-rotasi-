@@ -1,4 +1,7 @@
 "use client";
+import {useLocale as useUiLocale} from "next-intl";
+import {useTranslations as useUiTranslations} from "next-intl";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type State = "idle" | "playing" | "paused";
@@ -16,9 +19,12 @@ function score(v: SpeechSynthesisVoice) {
   if (/espeak/.test(n)) s -= 10;
   return s;
 }
-const turkish = () => window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith("tr")).sort((a, b) => score(b) - score(a));
+const matchingVoices = (language: string) => window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith(language)).sort((a, b) => (score(b) + (b.lang.toLowerCase() === (language === "en" ? "en-us" : "tr-tr") ? 20 : 0)) - (score(a) + (a.lang.toLowerCase() === (language === "en" ? "en-us" : "tr-tr") ? 20 : 0)));
 
 export default function AudioGuide({ title, text }: { title: string; text: string }) {
+  const language = useUiLocale();
+  const tx = useUiTranslations("ui");
+
   const [supported, setSupported] = useState(false);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [voiceName, setVoiceName] = useState("");
@@ -28,11 +34,12 @@ export default function AudioGuide({ title, text }: { title: string; text: strin
   useEffect(() => {
     if (!("speechSynthesis" in window)) return;
     setSupported(true);
-    const load = () => { const v = turkish(); setVoices(v); setVoiceName((cur) => cur || v[0]?.name || ""); };
+    setState("idle");
+    const load = () => { const v = matchingVoices(language); setVoices(v); setVoiceName((cur) => v.some(voice => voice.name === cur) ? cur : v[0]?.name || ""); };
     load();
     window.speechSynthesis.addEventListener("voiceschanged", load);
     return () => { run.current++; window.speechSynthesis.removeEventListener("voiceschanged", load); window.speechSynthesis.cancel(); };
-  }, []);
+  }, [language]);
 
   const start = useCallback(() => {
     const synth = window.speechSynthesis;
@@ -43,14 +50,14 @@ export default function AudioGuide({ title, text }: { title: string; text: strin
     const parts = `${title}. ${text}`.replace(/\s+/g, " ").match(/[^.!?]+[.!?]*/g)?.map((s) => s.trim()).filter(Boolean) ?? [text];
     parts.forEach((part, i) => {
       const u = new SpeechSynthesisUtterance(part);
-      u.lang = "tr-TR"; if (voice) u.voice = voice;
+      u.lang = language === "en" ? "en-US" : "tr-TR"; if (voice) u.voice = voice;
       u.rate = i === 0 ? 0.88 : 0.93; u.pitch = 1;
       if (i === parts.length - 1) u.onend = () => { if (run.current === id) setState("idle"); };
       u.onerror = () => { if (run.current === id) setState("idle"); };
       synth.speak(u);
     });
     setState("playing");
-  }, [title, text, voices, voiceName]);
+  }, [title, text, voices, voiceName, language]);
 
   if (!supported || !text) return null;
   const toggle = () => {
@@ -65,21 +72,20 @@ export default function AudioGuide({ title, text }: { title: string; text: strin
   return (
     <div className="mt-4">
       <div className="flex items-center gap-2.5 rounded-full border border-line bg-white/90 p-1.5 pr-4 shadow-card">
-        <button type="button" onClick={toggle} aria-label={state === "playing" ? "Duraklat" : "Sesli rehberi dinle"}
+        <button type="button" onClick={toggle} aria-label={state === "playing" ? tx("pause_37568") : tx("listenToTheAudioGuide_ab2f5")}
           className="terra-grad flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>{state === "playing" ? <path d="M7 5h4v14H7zM13 5h4v14h-4z" /> : <path d="M8 5v14l11-7z" />}</svg>
         </button>
-        <span className="min-w-0 flex-1 text-sm font-bold text-navy">{state === "idle" ? "Sesli rehber" : state === "playing" ? "Dinleniyor…" : "Duraklatıldı"}<span className="block text-[11px] font-medium text-mute">Anlatımı sesli dinleyin</span></span>
-        {state !== "idle" && <button type="button" onClick={stop} className="text-xs font-bold text-terra">Durdur</button>}
+        <span className="min-w-0 flex-1 text-sm font-bold text-navy">{state === "idle" ? tx("audioGuide_90c2d") : state === "playing" ? tx("playing_60f4d") : tx("paused_0cf0c")}<span className="block text-[11px] font-medium text-mute">{tx("listenToTheDescription_78f98")}</span></span>
+        {state !== "idle" && <button type="button" onClick={stop} className="text-xs font-bold text-terra">{tx("stop_acc8c")}</button>}
       </div>
       {voices.length > 1 && (
-        <label className="mt-2 flex items-center gap-2 px-2 text-[11px] font-semibold text-mute">Ses
-          <select value={voiceName} onChange={(e) => { setVoiceName(e.target.value); if (state !== "idle") stop(); }} className="min-w-0 flex-1 rounded-full border border-line bg-white px-2.5 py-1 text-[11px] text-navy">
+        <label className="mt-2 flex items-center gap-2 px-2 text-[11px] font-semibold text-mute">{tx("voice_e8bff")}<select value={voiceName} onChange={(e) => { setVoiceName(e.target.value); if (state !== "idle") stop(); }} className="min-w-0 flex-1 rounded-full border border-line bg-white px-2.5 py-1 text-[11px] text-navy">
             {voices.map((v) => <option key={v.name} value={v.name}>{v.name.replace(/Microsoft |Google /, "")}</option>)}
           </select>
         </label>
       )}
-      {basic && <p className="mt-1.5 px-2 text-[11px] leading-snug text-mute">Ses, cihazınızın yerleşik Türkçe sesidir. Daha doğal bir ses için cihaz ayarlarından gelişmiş (Enhanced/Natural) Türkçe sesi indirebilirsiniz.</p>}
+      {basic && <p className="mt-1.5 px-2 text-[11px] leading-snug text-mute">{tx("thisIsYourDeviceS_cacb9")}</p>}
     </div>
   );
 }

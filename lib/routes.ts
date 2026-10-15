@@ -1,3 +1,4 @@
+import tr from "@/messages/tr.json";
 import type { Route } from "./types";
 import { getPlace } from "./places";
 
@@ -228,21 +229,18 @@ export const routes: Route[] = [
   },
 ];
 
-export const categoryLabels: Record<Route["category"], string> = {
-  kultur: "Kültür", inanc: "İnanç", gastronomi: "Gastronomi", doga: "Doğa", termal: "Termal",
-  "savas-alanlari": "Savaş alanları", "han-kervansaray": "Han ve kervansaray", frig: "Frig",
-};
-export const scopeLabels: Record<Route["scope"], string> = { "il-ici": "Afyonkarahisar", "cevre-il": "Çevre illerle" };
-export const modeLabels = { arac: "Araçlı", yuruyus: "Yürüyüş", bisiklet: "Bisiklet" } as const;
-export const difficultyLabels = { kolay: "Kolay", orta: "Orta", zor: "Zor" } as const;
+export const categoryLabels: Record<Route["category"], string> = tr.labels.categories;
+export const scopeLabels: Record<Route["scope"], string> = tr.labels.scopes;
+export const modeLabels = tr.labels.modes;
+export const difficultyLabels = tr.labels.difficulty;
 
 export const getRoute = (slug: string) => routes.find((r) => r.slug === slug);
 export const routeStops = (r: Route) => r.stops.map((s) => ({ ...s, place: getPlace(s.placeId) }));
 
 export const tabs = [
-  { id: "kesfet", label: "Keşfet", href: "/", d: "M2 12a10 10 0 1 0 20 0a10 10 0 1 0-20 0M16.24 7.76l-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" },
-  { id: "rotalar", label: "Rotalar", href: "/rotalar", d: "M6 16a3 3 0 1 0 0 6a3 3 0 1 0 0-6zM9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15M18 2a3 3 0 1 0 0 6a3 3 0 1 0 0-6z" },
-  { id: "belirle", label: "Rotanı Belirle", href: "/rotani-belirle", d: "M2 12a10 10 0 1 0 20 0a10 10 0 1 0-20 0M8 12h8M12 8v8" },
-  { id: "sosyal", label: "Sosyal", href: "/sosyal", d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" },
-  { id: "profil", label: "Profil", href: "/profil", d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8z" },
+  { id: "kesfet", label: tr.nav.home, href: "/", d: "M2 12a10 10 0 1 0 20 0a10 10 0 1 0-20 0M16.24 7.76l-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" },
+  { id: "rotalar", label: tr.nav.routes, href: "/rotalar", d: "M6 16a3 3 0 1 0 0 6a3 3 0 1 0 0-6zM9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15M18 2a3 3 0 1 0 0 6a3 3 0 1 0 0-6z" },
+  { id: "belirle", label: tr.nav.plan, href: "/rotani-belirle", d: "M2 12a10 10 0 1 0 20 0a10 10 0 1 0-20 0M8 12h8M12 8v8" },
+  { id: "sosyal", label: tr.nav.community, href: "/sosyal", d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" },
+  { id: "profil", label: tr.nav.profile, href: "/profil", d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8z" },
 ] as const;

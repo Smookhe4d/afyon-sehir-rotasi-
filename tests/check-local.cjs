@@ -23,7 +23,7 @@ async function main() {
     if (locale === "en") {
       assert.match(html, /href="\/en\/routes"/, path + " navigation");
       // The explicit Turkish language choice must now point directly to /rotalar.
-      const contentLinks = html.replace(/<a\b[^>]*aria-label="Türkçe"[^>]*>/g, "");
+      const contentLinks = html.replace(/<a\b[^>]*(?:aria-label="Türkçe"|hrefLang="tr")[^>]*>/gi, "");
       assert.doesNotMatch(contentLinks, /href="\/rotalar(?:\/|")/, path + " leaked Turkish content link");
     }
   }

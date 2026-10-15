@@ -1,0 +1,10 @@
+// Report source strings that may be untranslated. Does not inspect user data.
+const fs=require('node:fs'),path=require('node:path'),ts=require('typescript');
+const patterns=/[çğıöşüÇĞİÖŞÜ]|\b(?:Kapat|Geri|Harita|Rota|Rotalar|Durak|Duraklar|Sosyal|Gezgin|Yorum|Mola|Konaklama|Kategori|Konum|Ses|Tema|Ad|Sil|Kaydet|Vazgeç|Durum|Genel|Yer|Kaynak|Kod|Gizle)\b/;
+const result=[];
+function walk(directory){for(const item of fs.readdirSync(directory,{withFileTypes:true})){const file=path.join(directory,item.name);if(item.isDirectory()){walk(file);continue;}if(!/\.tsx?$/.test(file))continue;const source=fs.readFileSync(file,'utf8'),root=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,file.endsWith('tsx')?ts.ScriptKind.TSX:ts.ScriptKind.TS);
+  function inspect(node){if(ts.isStringLiteral(node)||ts.isNoSubstitutionTemplateLiteral(node)||ts.isJsxText(node)||ts.isRegularExpressionLiteral(node)||ts.isTemplateHead(node)||ts.isTemplateMiddle(node)||ts.isTemplateTail(node)){const text=(node.text||node.getText(root)).trim();if(patterns.test(text)){const line=root.getLineAndCharacterOfPosition(node.getStart(root)).line+1;const reason=ts.isRegularExpressionLiteral(node)?'Kod içi eşleştirme, kullanıcı metni değil':text==='Afyonkarahisar'?'Özgün yer adı':/^\//.test(text)||text.includes('/rotalar')||text.includes('/duraklar')?'Kanonik yol veya import, görüntülenen metin değil':null;result.push({file:file.replaceAll('\\','/'),line,text,reason});}}ts.forEachChild(node,inspect);}inspect(root);
+  const scanner=ts.createScanner(ts.ScriptTarget.Latest,false,ts.LanguageVariant.JSX,source);for(let token=scanner.scan();token!==ts.SyntaxKind.EndOfFileToken;token=scanner.scan()){if(token===ts.SyntaxKind.SingleLineCommentTrivia||token===ts.SyntaxKind.MultiLineCommentTrivia){const text=scanner.getTokenText();if(patterns.test(text))result.push({file:file.replaceAll('\\','/'),line:root.getLineAndCharacterOfPosition(scanner.getTokenPos()).line+1,text,reason:'Kod açıklaması, kullanıcı metni değil'});}}
+}}
+walk('app');walk('components');
+console.log(JSON.stringify(result,null,2));if(result.some(row=>!row.reason))process.exitCode=1;

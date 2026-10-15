@@ -1,22 +1,30 @@
+import {getContent} from "@/lib/content";
+
+import {getTranslations as getUiTranslations} from "next-intl/server";
 import {setRequestLocale} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
-import {pageMetadata, pageTitle} from "@/i18n/metadata";
+import {pageMetadata} from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import AudioGuide from "@/components/AudioGuide";
 import BackButton from "@/components/BackButton";
 import PhotoSlot from "@/components/PhotoSlot";
 import MapView from "@/components/map/LazyMap";
-import { placeListFull, placesFull as places } from "@/lib/placesFull";
-import { routes } from "@/lib/routes";
+import {placeListFull} from "@/lib/placesFull";
 
 export function generateStaticParams() { return placeListFull.map((p) => ({ id: p.id })); }
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale; id: string }> }) {
+  const {placeListFull, placesFull: places, routes} = getContent((await params).locale);
+
   const { id, locale } = await params; const p = places[id];
   return p ? pageMetadata(locale, "/duraklar/" + id, p.name, p.about?.[0] ?? p.note) : {};
 }
 
 export default async function Durak({ params }: { params: Promise<{ locale: Locale; id: string }> }) {
+  const {placeListFull, placesFull: places, routes} = getContent((await params).locale);
+
+  const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
+
   setRequestLocale((await params).locale);
   const { id } = await params;
   const p = places[id];
@@ -47,30 +55,30 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
         )}
 
         {p.visitTips && p.visitTips.length > 0 && (
-          <><h2 className="mt-6 font-display text-xl font-semibold">Ziyaret ipuçları</h2>
+          <><h2 className="mt-6 font-display text-xl font-semibold">{tx("visitingTips_6bae5")}</h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-ink-2">{p.visitTips.map((t) => <li key={t}>{t}</li>)}</ul></>
         )}
 
         <div className="side">
-        <h2 className="mt-6 font-display text-xl font-semibold">Haritada</h2>
+        <h2 className="mt-6 font-display text-xl font-semibold">{tx("onTheMap_47ce7")}</h2>
         {p.coords ? (
           <>
             <div className="mt-2 h-[280px] overflow-hidden rounded-3xl border border-line lg:h-[460px]">
               <MapView stops={[{ id: p.id, name: p.name, area: p.area, coords: p.coords, approx: p.precision !== "exact", index: 1 }]} className="h-full w-full" />
             </div>
           </>
-        ) : <p className="mt-2 rounded-2xl border border-line bg-white/70 shadow-card p-3 text-sm text-ink-2">Bu durağın konumu henüz doğrulanmadı; doğrulandığında haritada görünecek.</p>}
+        ) : <p className="mt-2 rounded-2xl border border-line bg-white/70 shadow-card p-3 text-sm text-ink-2">{tx("thisStopSLocationHas_35a00")}</p>}
         </div>
 
         {inRoutes.length > 0 && (
-          <><h2 className="mt-6 font-display text-xl font-semibold">Bu durağın yer aldığı rotalar</h2>
+          <><h2 className="mt-6 font-display text-xl font-semibold">{tx("routesThatIncludeThisStop_24e8e")}</h2>
           <ul className="mt-2 flex flex-col gap-2">{inRoutes.map((r) => <li key={r.slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white shadow-card px-4 py-3 text-sm font-semibold">{r.title}</Link></li>)}</ul></>
         )}
 
-        <Link href={`/geri-bildirim?durak=${p.id}&tur=katki`} className="mt-6 flex items-center justify-between rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold shadow-card">Bilgi hatalı mı, eklemek istediğiniz var mı? <span className="text-terra" aria-hidden>›</span></Link>
+        <Link href={`/geri-bildirim?durak=${p.id}&tur=katki`} className="mt-6 flex items-center justify-between rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold shadow-card">{tx("isSomethingIncorrectOrMissing_4c334")} <span className="text-terra" aria-hidden>›</span></Link>
 
         {p.sources && p.sources.length > 0 && (
-          <><h2 className="mt-6 font-display text-base font-semibold">Kaynaklar</h2>
+          <><h2 className="mt-6 font-display text-base font-semibold">{tx("sources_c1f19")}</h2>
           <ul className="mt-1.5 space-y-1 text-[12px] text-mute">{p.sources.map((s) => <li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-2">{s.title}</a></li>)}</ul></>
         )}
       </article>

@@ -1,14 +1,24 @@
-import type { Route } from "@/lib/types";
-import { categoryLabels, difficultyLabels } from "@/lib/routes";
+import {useLocale} from "next-intl";
+import {createTranslator} from "next-intl";
+import type {Route} from "@/lib/types";
+import type {Locale} from "@/i18n/routing";
+import {getContent} from "@/lib/content";
+import tr from "@/messages/tr.json";
+import en from "@/messages/en.json";
 
-export function routeMetaLine(r: Route): string {
+export function routeMetaLine(r: Route, locale: Locale = "tr"): string {
+  const messages = locale === "en" ? en : tr;
+  const t = createTranslator({locale, messages: messages.dynamic});
   const parts: string[] = [];
-  if (r.distanceKm) parts.push(`${r.distanceNote?.startsWith("Yaklaşık") || r.distanceNote === "Toplam, yaklaşık" ? "~" : ""}${r.distanceKm} km`);
-  parts.push(`${r.stops.length} durak`);
-  if (r.difficulty) parts.push(difficultyLabels[r.difficulty]);
+  if (r.distanceKm) {
+    const approximate = /^(Yaklaşık|Toplam, yaklaşık|Approximate|Total, approximate)/i.test(r.distanceNote ?? "");
+    parts.push(`${approximate ? "~" : ""}${new Intl.NumberFormat(locale).format(r.distanceKm)} km`);
+  }
+  parts.push(t("stopCount", {count: r.stops.length}));
+  if (r.difficulty) parts.push(messages.labels.difficulty[r.difficulty]);
   return parts.join(" · ");
 }
-
-export function CategoryChip({ r }: { r: Route }) {
+export function CategoryChip({r}: {r: Route}) {
+  const {categoryLabels} = getContent(useLocale() as Locale);
   return <span className="self-start rounded-full bg-sand px-2.5 py-0.5 text-[10.5px] font-bold">{categoryLabels[r.category]}</span>;
 }

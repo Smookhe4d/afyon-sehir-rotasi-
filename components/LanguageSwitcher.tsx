@@ -19,17 +19,20 @@ function Switcher() {
   const locale = useLocale();
   const t = useTranslations("common");
   const href = useCurrentHref();
-  return <nav aria-label={t("language")} className="flex shrink-0 items-center gap-1 text-sm font-bold">
+  return <section aria-label={t("language")} className="mt-8 rounded-3xl border border-line bg-white p-5 shadow-card">
+    <h2 className="font-display text-lg font-semibold">{t("language")}</h2>
+    <nav className="mt-3 grid grid-cols-2 gap-3 text-sm font-bold">
     {(["tr", "en"] as const).map(language =>
       <LanguageLink key={language} href={href} locale={language}
         onClick={() => rememberLanguage(language)}
         aria-label={t(language === "tr" ? "turkish" : "english")}
+        hrefLang={language} lang={language}
         aria-current={locale === language ? "page" : undefined}
         className={"inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line " + (locale === language ? "bg-navy text-white" : "bg-cream text-navy")}>
-        {language.toUpperCase()}
+        {t(language === "tr" ? "turkish" : "english")}
       </LanguageLink>
     )}
-  </nav>;
+  </nav></section>;
 }
 export default function LanguageSwitcher() {
   return <Suspense fallback={null}><Switcher /></Suspense>;

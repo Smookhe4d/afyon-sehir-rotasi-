@@ -1,3 +1,4 @@
+import {getTranslations as getUiTranslations} from "next-intl/server";
 import {setRequestLocale} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
@@ -7,15 +8,17 @@ export async function generateMetadata({params}: {params: Promise<{locale: Local
   return pageMetadata(locale, "/gizlilik", pageTitle(locale, "privacy"));
 }
 export default async function Gizlilik({ params }: { params: Promise<{locale: Locale}> }) {
+  const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
+
   setRequestLocale((await params).locale);
   return (
-    <LegalPage eyebrow="YASAL" title="Gizlilik" items={[
-      ["Hangi verileri topluyoruz?", "Hesap oluşturduğunuzda e-posta adresiniz ve görünen adınız; kullanım sırasında favori rotalarınız, ziyaret ettiğiniz duraklar, yorumlarınız ve paylaştığınız fotoğraflar saklanır. Misafir olarak gezenlerden kişisel veri istenmez."],
-      ["Ziyaret ölçümü", "Sayfa görüntülemeleri çerezsiz ve anonim olarak sayılır (yalnızca sayfa yolu ve oturuma özel rastgele bir kimlik); Vercel Analytics ve Speed Insights de kimlik belirtmeyen toplu ölçüm yapar. Tarayıcınızda “Do Not Track” açıksa ölçüm yapılmaz."],
-      ["Geri bildirim ve grup turu", "Geri bildirim formuna yazdıklarınız ve isteğe bağlı iletişim bilginiz yalnızca site yöneticisi tarafından görülür. Grup turunda adınız ve canlı konumunuz yalnızca aynı koddaki grup üyelerine anlık iletilir; kaydedilmez."],
-      ["Konum bilgisi", "Haritadaki canlı konum yalnızca sizin izninizle ve cihazınızda kullanılır; sunucularımıza kaydedilmez."],
-      ["Verilerin kullanımı", "Veriler yalnızca uygulamanın çalışması için kullanılır; üçüncü kişilere satılmaz veya reklam amacıyla paylaşılmaz. Altyapı sağlayıcıları: Supabase (veri tabanı ve oturum), Vercel (barındırma)."],
-      ["Haklarınız", "Hesabınızın ve verilerinizin silinmesini veya düzeltilmesini talep edebilirsiniz. Talepler için uygulama sahibine e-posta ile ulaşabilirsiniz."],
+    <LegalPage eyebrow={tx("legal_02c08")} title={tx("privacy_9e93e")} items={[
+      [tx("whatDataDoWeCollect_cf9b3"), tx("whenYouCreateAnAccount_07f6a")],
+      [tx("visitMeasurement_d8087"), tx("pageViewsAreCountedAnonymously_d2b4f")],
+      [tx("feedbackAndGroupTours_573ea"), tx("onlyTheSiteAdministratorCan_92660")],
+      [tx("locationData_8aa1d"), tx("yourLiveLocationOnThe_3790d")],
+      [tx("howDataIsUsed_e831f"), tx("dataIsUsedOnlyTo_edef6")],
+      [tx("yourRights_ffa3f"), tx("youMayRequestThatYour_c9b34")],
     ]} />
   );
 }

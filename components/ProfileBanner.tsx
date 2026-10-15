@@ -1,17 +1,7 @@
 "use client";
+import {useTranslations as useUiTranslations} from "next-intl";
+
 import { useState } from "react";
-
-const themes = [
-  { id: "gece", label: "Gece", a: "#16264F", b: "#B0586B", sun: "#F3C9A0" },
-  { id: "gunbatimi", label: "Gün batımı", a: "#C25A2B", b: "#F0B35E", sun: "#FFF1C9" },
-  { id: "hashas", label: "Haşhaş", a: "#5B2A6B", b: "#D9577A", sun: "#FFD4DE" },
-  { id: "zeytin", label: "Zeytin", a: "#3C4A28", b: "#A8A04C", sun: "#F4EBB4" },
-  { id: "termal", label: "Termal", a: "#0F4C5C", b: "#5FB3A8", sun: "#DFF6EE" },
-  { id: "mermer", label: "Mermer", a: "#4A5568", b: "#C3CAD6", sun: "#FFFFFF" },
-  { id: "lokum", label: "Lokum", a: "#B2456E", b: "#F5B8C8", sun: "#FFF4F6" },
-  { id: "kale", label: "Kale", a: "#4B3426", b: "#B98B62", sun: "#F6E3C8" },
-] as const;
-
 
 const W = "#fff";
 const poppy = (x: number, y: number, r: number, k: string) => (
@@ -36,6 +26,7 @@ const rose = (x: number, y: number, r: number, k: string) => (
 );
 
 function Scene({ id }: { id: string }) {
+
   const hills = (o1: number, o2: number) => (<><path fill={W} fillOpacity={o1} d="M0 176V132q60-26 120-8t120-6 160 14V176Z" /><path fill={W} fillOpacity={o2} d="M0 176V150q80-18 160-4t240-6V176Z" /></>);
   switch (id) {
     case "gunbatimi": return (<>
@@ -84,9 +75,22 @@ function Scene({ id }: { id: string }) {
   }
 }
 
-export const themeIds: string[] = themes.map((t) => t.id);
+export const themeIds: string[] = ["gece", "gunbatimi", "hashas", "zeytin", "termal", "mermer", "lokum", "kale"];
 
 export default function ProfileBanner({ initial }: { initial: string }) {
+  const tx = useUiTranslations("ui");
+
+  const themes = [
+  { id: "gece", label: tx("night_1eabb"), a: "#16264F", b: "#B0586B", sun: "#F3C9A0" },
+  { id: "gunbatimi", label: tx("sunset_63a54"), a: "#C25A2B", b: "#F0B35E", sun: "#FFF1C9" },
+  { id: "hashas", label: tx("poppy_30b19"), a: "#5B2A6B", b: "#D9577A", sun: "#FFD4DE" },
+  { id: "zeytin", label: tx("olive_57519"), a: "#3C4A28", b: "#A8A04C", sun: "#F4EBB4" },
+  { id: "termal", label: tx("thermal_bafab"), a: "#0F4C5C", b: "#5FB3A8", sun: "#DFF6EE" },
+  { id: "mermer", label: tx("marble_478bc"), a: "#4A5568", b: "#C3CAD6", sun: "#FFFFFF" },
+  { id: "lokum", label: tx("turkishDelight_ca9fe"), a: "#B2456E", b: "#F5B8C8", sun: "#FFF4F6" },
+  { id: "kale", label: tx("castle_65ead"), a: "#4B3426", b: "#B98B62", sun: "#F6E3C8" },
+] as const;
+
   const [id, setId] = useState(themes.some((t) => t.id === initial) ? initial : "gece");
   const [open, setOpen] = useState(false);
   const t = themes.find((x) => x.id === id) ?? themes[0];
@@ -96,11 +100,10 @@ export default function ProfileBanner({ initial }: { initial: string }) {
       <svg aria-hidden viewBox="0 0 400 176" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full"><Scene id={t.id} /></svg>
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className={`glass absolute right-4 top-4 z-10 flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-bold text-navy ${open ? "pointer-events-none opacity-0" : ""}`}>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.5 17 3 12 3Z" /><circle cx="7.5" cy="11" r="1" /><circle cx="10" cy="7.5" r="1" /><circle cx="14.5" cy="7.5" r="1" /></svg>
-        Tema
-      </button>
+        {tx("theme_6ae1b")}</button>
       {open && (
         <div className="glass absolute inset-x-3 top-3 z-10 flex items-center gap-1 rounded-2xl py-2 pl-3 pr-2">
-          <ul className="flex min-w-0 flex-1 gap-3 overflow-x-auto px-1 pb-0.5" role="radiogroup" aria-label="Profil teması">
+          <ul className="flex min-w-0 flex-1 gap-3 overflow-x-auto px-1 pb-0.5" role="radiogroup" aria-label={tx("profileTheme_0d3bb")}>
             {themes.map((x) => (
               <li key={x.id} className="shrink-0 text-center">
                 <button type="button" role="radio" aria-checked={x.id === id} aria-label={x.label} onClick={() => pick(x.id)} className={`h-9 w-9 rounded-full border-2 shadow-card ${x.id === id ? "border-navy ring-2 ring-white" : "border-white"}`} style={{ background: `linear-gradient(150deg, ${x.a}, ${x.b})` }} />
@@ -108,7 +111,7 @@ export default function ProfileBanner({ initial }: { initial: string }) {
               </li>
             ))}
           </ul>
-          <button type="button" onClick={() => setOpen(false)} aria-label="Kapat" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/70 text-lg font-bold leading-none text-navy">×</button>
+          <button type="button" onClick={() => setOpen(false)} aria-label={tx("close_9e6ec")} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/70 text-lg font-bold leading-none text-navy">×</button>
         </div>
       )}
     </section>
