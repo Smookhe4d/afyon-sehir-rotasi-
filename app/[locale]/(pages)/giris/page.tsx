@@ -24,7 +24,7 @@ export default async function Giris({ params }: { params: Promise<{locale: Local
         <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/75 via-[#08122c]/25 to-transparent" />
         <div className="relative">
         <p className="text-[10.5px] font-bold tracking-[2px] opacity-90">{tx("afyonkarahSar_6ac24")}</p>
-        <h1 className="mt-2 font-display text-[40px] font-semibold leading-[1.02] tracking-tight">{tx("afyonCityRoutes_f38c8")}</h1>
+        <h1 className="mt-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/brand/rotafyon-480.webp" srcSet="/brand/rotafyon-480.webp 1x, /brand/rotafyon-960.webp 2x" width={179} height={60} alt={tx("afyonCityRoutes_f38c8")} className="h-[60px] w-auto rounded-xl" /></h1>
         <p className="mt-3 max-w-[300px] text-[15px] leading-relaxed opacity-90">{tx("guidedRoutesThroughTheCastle_41055")}</p>
         </div>
       </section>

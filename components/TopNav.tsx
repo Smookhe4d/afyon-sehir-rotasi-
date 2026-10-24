@@ -15,8 +15,7 @@ export default function TopNav() {
       <nav aria-label={t("menu")} className="mx-auto flex h-full max-w-[1280px] items-center gap-3 px-6">
         <Link href="/" className="flex items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/apple-icon.png" alt="" className="h-9 w-9 rounded-xl shadow-card" />
-          <span className="font-display text-[19px] font-semibold leading-none">{t("brand")}</span>
+          <img src="/brand/rotafyon-480.webp" srcSet="/brand/rotafyon-480.webp 1x, /brand/rotafyon-960.webp 2x" width={107} height={36} alt={t("brand")} className="h-9 w-auto rounded-lg" />
         </Link>
         <ul className="flex flex-1 items-center gap-1">
           {links.map(([h, l]) => (
