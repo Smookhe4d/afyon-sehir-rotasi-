@@ -1,4 +1,4 @@
-# AGENTS.md: Afyon Şehir Rotası çalışma kuralları
+# AGENTS.md: rotAfyon çalışma kuralları
 
 Bu dosya, depoda çalışan yapay zekâ ajanları (ChatGPT/Codex) için yazılmıştır. Her oturumun başında okunmalıdır.
 
@@ -58,6 +58,15 @@ npm run build    # her teslimden önce hatasız geçmeli
 - Türkçe metinlerde cümle içinde noktalı virgül (;) kullanılmaz. Uzun tire (—) kullanılmaz. Resmî ama sade bir dil kullanılır.
 - Yapay zekâ metni izlenimi veren abartılı ve reklam dili kullanılmaz ("eşsiz", "büyüleyici yolculuk", "keşfetmeye hazır mısınız" gibi).
 - İngilizce metinler Türkçenin birebir çevirisi değil, doğal İngilizce olmalıdır. Yer adları özgün Türkçe yazımıyla korunur.
+
+## Skill'ler
+
+Depoda `.agents/skills` (Codex) ve `.claude/skills` (Claude) altında aşağıdaki skill'ler bulunur. İlgili işe başlamadan önce SKILL.md dosyasını oku. Kaynakları ve sürümleri `skills-lock.json` dosyasındadır, güncelleme `npx skills update` ile yapılır.
+
+- `impeccable`: Arayüz tasarımı, eleştiri, cilalama ve ilk açılış akışı. Bu projede "iyileştirme" kipinde kullanılır: mevcut kimlik, yerleşim ve renkler korunur.
+- `web-design-guidelines`: Arayüz kodunun erişilebilirlik ve arayüz kurallarına göre denetimi.
+- `vercel-react-best-practices`: Next.js ve React performans kuralları.
+- `core-web-vitals`: LCP, INP ve CLS ölçümü ve düzeltmesi.
 
 ## Commit mesajları
 
