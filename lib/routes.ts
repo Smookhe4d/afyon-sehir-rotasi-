@@ -10,7 +10,7 @@ export const routes: Route[] = [
     slug: "merkez-kultur-rotasi", title: "Afyonkarahisar Merkez Kültür Rotası", scope: "il-ici", category: "kultur",
     summary: "UNESCO listesindeki Ulu Cami'den Zafer Müzesi'ne, şehir merkezinin Selçuklu ve Osmanlı mirası ile müzeleri.",
     description: [
-      "Şehir merkezindeki Anadolu Selçuklu ve Osmanlı dönemi eserlerini, merkeze yakın müzelerle birleştiren rota; UNESCO Dünya Mirası Kesin Listesi'ndeki Afyon Ulu Cami ile Zafer Müzesi arasındaki tarihî, kültürel ve sosyal çekicilikleri kapsar.",
+      "Rota, şehir merkezindeki Anadolu Selçuklu ve Osmanlı dönemi eserlerini merkeze yakın müzelerle birleştirir. 2023'te UNESCO Dünya Mirası Listesi'ne alınan Afyon Ulu Cami ile Zafer Müzesi arasındaki tarihî, kültürel ve sosyal çekicilikleri kapsar.",
       "Başlangıç noktası olarak AKÜ Devlet Konservatuvarı'ndaki İbrahim Alimoğlu Müzik Koleksiyonu belirlenmiştir; ancak gruplar geliş güzergâhına göre farklı noktalardan başlayabilir. Öğle yemeği Uzun Çarşı'daki yerel lokantalarda verilir; Aşçı Bacaksız, Salim Usta Lokantası, Musakka ve İkbal Lokantası gibi işletmeler yerel lezzetler sunar.",
     ],
     distanceKm: 20, distanceNote: "Yaklaşık", modes: ["arac", "yuruyus"],

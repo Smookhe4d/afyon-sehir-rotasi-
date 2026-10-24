@@ -9,7 +9,7 @@ const list: Place[] = [
   // ---- Afyonkarahisar şehir merkezi ----
   { id: "alimoglu-muzik", name: "İbrahim Alimoğlu Müzik Koleksiyonu", kind: "muze", area: "Merkez · AKÜ Devlet Konservatuvarı", note: "Dünyanın farklı kültürlerine ait, geçmişten günümüze kullanılan müzik aletleri sergilenir." },
   { id: "afyon-muzesi", name: "Afyonkarahisar Müzesi", kind: "muze", area: "Merkez", note: "2023'te tamamlanan, kapalı teşhir alanı 5 kattan oluşan müze; Frig, Roma, Bizans ve Osmanlı dönemi eserleri." },
-  { id: "ulu-cami", name: "Afyon Ulu Cami", kind: "cami", area: "Merkez", note: "1272'de inşa edilen, 40 ahşap sütunlu Anadolu Selçuklu camisi; UNESCO Dünya Mirası Kesin Listesi'nde." },
+  { id: "ulu-cami", name: "Afyon Ulu Cami", kind: "cami", area: "Merkez", note: "1272'de inşa edilen, 40 ahşap sütunlu Anadolu Selçuklu camisi. 2023'ten beri UNESCO Dünya Mirası Listesi'nde." },
   { id: "millet-hamami", name: "Millet Hamamı", kind: "hamam", area: "Merkez", note: "Ulu Cami'nin yakınında yer alan tarihî hamam." },
   { id: "mevlevihane", name: "Sultan Divani Mevlevihanesi", kind: "turbe", area: "Merkez", note: "13. yüzyıl sonlarında kurulmuş; Mevleviliğin batıya açılan ilk merkezlerinden. Semahane ve türbe bölümü ziyaret edilir." },
   { id: "kadinanalar-turbesi", name: "Kadınanalar Türbesi", kind: "turbe", area: "Merkez" },
