@@ -55,18 +55,33 @@
     "skip": "Skip",
     "start": "Start exploring",
     "next": "Next",
-    "slides": {
-      "0": {
-        "title": "Explore Afyonkarahisar",
-        "text": "Find guided routes through the city, from the castle and Ulu Cami to the Phrygian valleys and thermal springs."
+    "map": {
+      "title": "Find your way on the map",
+      "text": "See the stops on the live map and get directions to the one nearest you.",
+      "directions": "Directions",
+      "distance": "İhsaniye · 4.8 km"
+    },
+    "audio": {
+      "title": "Hear the story of every stop",
+      "text": "Start the narration when you arrive. Everything works without an account.",
+      "stop": "Stop 10 · Audio guide",
+      "credit": "Photo: Serkanakdogan · CC BY-SA 4.0",
+      "play": "Sample player"
+    },
+    "welcome": {
+      "tr": {
+        "title": "Afyonkarahisar'ı rotalarla gezin",
+        "text": "Kaleden Ulu Cami'ye, Frig vadilerinden termal sulara {count} rota. Her durakta sesli anlatım.",
+        "start": "Başla",
+        "skip": "Tanıtımı geç",
+        "language": "Dil"
       },
-      "1": {
-        "title": "Find your way on the map",
-        "text": "View stops, walking routes and driving routes on a live map. Choose a route and start with a tap."
-      },
-      "2": {
-        "title": "Listen along the way",
-        "text": "Hear the stories behind each stop. You can explore without signing in."
+      "en": {
+        "title": "Explore Afyonkarahisar by route",
+        "text": "From the castle to Ulu Cami, from Phrygian valleys to thermal springs: {count} routes with audio narration at every stop.",
+        "start": "Start",
+        "skip": "Skip intro",
+        "language": "Language"
       }
     }
   },
@@ -74,14 +89,6 @@
     "text": "This site is also available in English.",
     "switch": "Switch to English",
     "close": "Dismiss language suggestion"
-  },
-  "languageChoice": {
-    "titleTr": "Dil seçin",
-    "titleEn": "Choose your language",
-    "descriptionTr": "Daha sonra profilinizden değiştirebilirsiniz.",
-    "descriptionEn": "You can change this later in your profile.",
-    "turkish": "Türkçe",
-    "english": "English"
   },
   "ui": {
     "routeNotFound_1658a": "Route not found.",

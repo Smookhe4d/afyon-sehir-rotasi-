@@ -55,33 +55,40 @@
     "skip": "Atla",
     "start": "Keşfetmeye başla",
     "next": "Devam",
-    "slides": {
-      "0": {
-        "title": "Afyonkarahisar'ı keşfedin",
-        "text": "Kale'den Ulu Cami'ye, Frig vadilerinden termal sulara, şehrin rehberli rotaları tek yerde."
+    "welcome": {
+      "tr": {
+        "title": "Afyonkarahisar'ı rotalarla gezin",
+        "text": "Kaleden Ulu Cami'ye, Frig vadilerinden termal sulara {count} rota. Her durakta sesli anlatım.",
+        "start": "Başla",
+        "skip": "Tanıtımı geç",
+        "language": "Dil"
       },
-      "1": {
-        "title": "Haritada gezin",
-        "text": "Duraklar, yürüyüş ve araç rotaları canlı haritada. Kendi rotanızı seçip tek dokunuşla başlatın."
-      },
-      "2": {
-        "title": "Sesli rehber eşlik etsin",
-        "text": "Her durağın hikâyesini dinleyin. Giriş yapmadan da her şeyi gezebilirsiniz."
+      "en": {
+        "title": "Explore Afyonkarahisar by route",
+        "text": "From the castle to Ulu Cami, from Phrygian valleys to thermal springs: {count} routes with audio narration at every stop.",
+        "start": "Start",
+        "skip": "Skip intro",
+        "language": "Language"
       }
+    },
+    "map": {
+      "title": "Yolunuzu haritada bulun",
+      "text": "Durakları canlı haritada görün, size en yakın durağa yol tarifi alın.",
+      "directions": "Yol tarifi",
+      "distance": "İhsaniye · 4,8 km"
+    },
+    "audio": {
+      "title": "Her durağın hikâyesini dinleyin",
+      "text": "Durağa vardığınızda anlatımı başlatın. Üye olmadan da her şeyi kullanabilirsiniz.",
+      "stop": "Durak 10 · Sesli anlatım",
+      "credit": "Foto: Serkanakdogan · CC BY-SA 4.0",
+      "play": "Örnek oynatıcı"
     }
   },
   "languageSuggestion": {
     "text": "This site is also available in English.",
     "switch": "Switch to English",
     "close": "Dismiss language suggestion"
-  },
-  "languageChoice": {
-    "titleTr": "Dil seçin",
-    "titleEn": "Choose your language",
-    "descriptionTr": "Daha sonra profilinizden değiştirebilirsiniz.",
-    "descriptionEn": "You can change this later in your profile.",
-    "turkish": "Türkçe",
-    "english": "English"
   },
   "ui": {
     "routeNotFound_1658a": "Rota bulunamadı.",
@@ -136,15 +143,15 @@
     "termsOfUse_8a73f": "Kullanım Şartları",
     "legal_02c08": "YASAL",
     "whatDataDoWeCollect_cf9b3": "Hangi verileri topluyoruz?",
-    "whenYouCreateAnAccount_07f6a": "Hesap oluşturduğunuzda e-posta adresiniz ve görünen adınız; kullanım sırasında favori rotalarınız, ziyaret ettiğiniz duraklar, yorumlarınız ve paylaştığınız fotoğraflar saklanır. Misafir olarak gezenlerden kişisel veri istenmez.",
+    "whenYouCreateAnAccount_07f6a": "Hesap oluşturduğunuzda e-posta adresiniz ve görünen adınız saklanır. Kullanım sırasında favori rotalarınız, ziyaret ettiğiniz duraklar, yorumlarınız ve paylaştığınız fotoğraflar da saklanır. Misafir olarak gezenlerden kişisel veri istenmez.",
     "visitMeasurement_d8087": "Ziyaret ölçümü",
-    "pageViewsAreCountedAnonymously_d2b4f": "Sayfa görüntülemeleri çerezsiz ve anonim olarak sayılır (yalnızca sayfa yolu ve oturuma özel rastgele bir kimlik); Vercel Analytics ve Speed Insights de kimlik belirtmeyen toplu ölçüm yapar. Tarayıcınızda “Do Not Track” açıksa ölçüm yapılmaz.",
+    "pageViewsAreCountedAnonymously_d2b4f": "Sayfa görüntülemeleri çerezsiz ve anonim olarak sayılır (yalnızca sayfa yolu ve oturuma özel rastgele bir kimlik). Vercel Analytics ve Speed Insights de kimlik belirtmeyen toplu ölçüm yapar. Tarayıcınızda “Do Not Track” açıksa ölçüm yapılmaz.",
     "feedbackAndGroupTours_573ea": "Geri bildirim ve grup turu",
-    "onlyTheSiteAdministratorCan_92660": "Geri bildirim formuna yazdıklarınız ve isteğe bağlı iletişim bilginiz yalnızca site yöneticisi tarafından görülür. Grup turunda adınız ve canlı konumunuz yalnızca aynı koddaki grup üyelerine anlık iletilir; kaydedilmez.",
+    "onlyTheSiteAdministratorCan_92660": "Geri bildirim formuna yazdıklarınız ve isteğe bağlı iletişim bilginiz yalnızca site yöneticisi tarafından görülür. Grup turunda adınız ve canlı konumunuz yalnızca aynı koddaki grup üyelerine anlık iletilir ve kaydedilmez.",
     "locationData_8aa1d": "Konum bilgisi",
-    "yourLiveLocationOnThe_3790d": "Haritadaki canlı konum yalnızca sizin izninizle ve cihazınızda kullanılır; sunucularımıza kaydedilmez.",
+    "yourLiveLocationOnThe_3790d": "Haritadaki canlı konum yalnızca sizin izninizle ve cihazınızda kullanılır, sunucularımıza kaydedilmez.",
     "howDataIsUsed_e831f": "Verilerin kullanımı",
-    "dataIsUsedOnlyTo_edef6": "Veriler yalnızca uygulamanın çalışması için kullanılır; üçüncü kişilere satılmaz veya reklam amacıyla paylaşılmaz. Altyapı sağlayıcıları: Supabase (veri tabanı ve oturum), Vercel (barındırma).",
+    "dataIsUsedOnlyTo_edef6": "Veriler yalnızca uygulamanın çalışması için kullanılır. Üçüncü kişilere satılmaz veya reklam amacıyla paylaşılmaz. Altyapı sağlayıcıları: Supabase (veri tabanı ve oturum), Vercel (barındırma).",
     "yourRights_ffa3f": "Haklarınız",
     "youMayRequestThatYour_c9b34": "Hesabınızın ve verilerinizin silinmesini veya düzeltilmesini talep edebilirsiniz. Talepler için uygulama sahibine e-posta ile ulaşabilirsiniz.",
     "information_af09b": "BİLGİLENDİRME",
@@ -152,11 +159,11 @@
     "whatIsAfyonCityRoutes_3b2c7": "rotAfyon nedir?",
     "aFreeDigitalGuideFor_cb532": "Afyonkarahisar'ı gezenler için hazırlanmış, ücretsiz bir dijital rehberdir: kaynaklı durak anlatımları, hazır rotalar, canlı yönlendirmeli harita, sesli rehber ve grup turu.",
     "whereDoesTheInformationCome_122a3": "Bilgiler nereden geliyor?",
-    "stopDescriptionsAndRoutesAre_a100b": "Durak metinleri ve rotalar resmî kurum yayınları ve akademik kaynaklardan derlenir; her durak sayfasında kaynaklar listelenir. Fotoğraflar Wikimedia Commons'tan, sahiplerinin belirttiği lisansla gösterilir.",
+    "stopDescriptionsAndRoutesAre_a100b": "Durak metinleri ve rotalar resmî kurum yayınları ve akademik kaynaklardan derlenir. Her durak sayfasında kaynaklar listelenir. Fotoğraflar Wikimedia Commons'tan, sahiplerinin belirttiği lisansla gösterilir.",
     "howCanIContribute_2734f": "Nasıl katkı sunabilirim?",
     "useTheFeedbackPageTo_a6ac8": "Yanlış veya eksik bir bilgi, yeni bir durak ya da rota önerisi, fotoğraf katkısı veya şikayetiniz için Geri Bildirim sayfasını kullanın. Her mesaj okunur.",
     "groupTour_72adb": "Grup turu",
-    "createACodeBySelecting_5b418": "Rota sayfasından “Grupla başla”ya basarak bir kod oluşturun, arkadaşlarınıza gönderin. Herkes haritada birbirini canlı görür; rehber durakları ilerlettiğinde grup birlikte ilerler.",
+    "createACodeBySelecting_5b418": "Rota sayfasından “Grupla başla”ya basarak bir kod oluşturun, arkadaşlarınıza gönderin. Herkes haritada birbirini canlı görür. Rehber durakları ilerlettiğinde grup birlikte ilerler.",
     "sendFeedback_a9ddf": "Geri bildirim gönder",
     "allStops_2db0a": "Tüm duraklar",
     "routeSelection_b7729": "Rota seçimi",
@@ -200,11 +207,11 @@
     "generalInformation_259f9": "Genel bilgi",
     "afyonCityRoutesIsA_47944": "rotAfyon, Afyonkarahisar'ı gezenler için hazırlanmış bir rehberdir. Açılış saatleri, ücretler ve erişim koşulları değişebilir. Ziyaretten önce ilgili kurumdan doğrulayınız.",
     "safety_854c3": "Güvenlik",
-    "onNatureAndWalkingRoutes_48945": "Doğa ve yürüyüş rotalarında hava durumunu, yol ve patika durumunu kontrol edin; zor rotalarda yalnız çıkmayın. Rota bilgileri yönlendirme amaçlıdır; kendi güvenliğinizden siz sorumlusunuz. Acil durumda 112'yi arayın.",
+    "onNatureAndWalkingRoutes_48945": "Doğa ve yürüyüş rotalarında hava durumunu, yol ve patika durumunu kontrol edin, zor rotalarda yalnız çıkmayın. Rota bilgileri yönlendirme amaçlıdır. Kendi güvenliğinizden siz sorumlusunuz. Acil durumda 112'yi arayın.",
     "communityContent_602a1": "Topluluk içeriği",
     "youAreResponsibleForThe_75912": "Paylaştığınız yorum ve fotoğraflardan siz sorumlusunuz. Hakaret, nefret söylemi, başkalarının haklarını ihlal eden veya yasa dışı içerik kaldırılabilir.",
     "photosAndSources_03089": "Fotoğraflar ve kaynaklar",
-    "photosOfStopsAreDisplayed_303ed": "Duraklardaki fotoğraflar Wikimedia Commons üzerinden, sahiplerinin belirttiği Creative Commons veya kamu malı lisanslarıyla gösterilir; her fotoğrafın altında sahibi ve lisansı belirtilir.",
+    "photosOfStopsAreDisplayed_303ed": "Duraklardaki fotoğraflar Wikimedia Commons üzerinden, sahiplerinin belirttiği Creative Commons veya kamu malı lisanslarıyla gösterilir. Her fotoğrafın altında sahibi ve lisansı belirtilir.",
     "joinTheCommunity_fb680": "Topluluğa katılın",
     "signInToSeeTravelers_85655": "Gezginlerin fotoğraflarını ve rota yorumlarını görmek, kendi paylaşımınızı yapmak için giriş yapın.",
     "theFeedCouldNotBe_3ce00": "Akış yüklenemedi. Lütfen sayfayı yenileyin.",
@@ -236,7 +243,7 @@
     "backToTheSite_b1493": "Siteye dön",
     "visitingTips_6bae5": "Ziyaret ipuçları",
     "onTheMap_47ce7": "Haritada",
-    "thisStopSLocationHas_35a00": "Bu durağın konumu henüz doğrulanmadı; doğrulandığında haritada görünecek.",
+    "thisStopSLocationHas_35a00": "Bu durağın konumu henüz doğrulanmadı. Doğrulandığında haritada görünecek.",
     "routesThatIncludeThisStop_24e8e": "Bu durağın yer aldığı rotalar",
     "isSomethingIncorrectOrMissing_4c334": "Bilgi hatalı mı, eklemek istediğiniz var mı?",
     "sources_c1f19": "Kaynaklar",
@@ -247,7 +254,7 @@
     "safetyCheckTheWeatherAnd_1edd4": "Güvenlik: Hava ve patika durumunu kontrol edin, yeterli su ve uygun ayakkabı alın, mümkünse yalnız çıkmayın. Acil durumda 112.",
     "fullScreenMap_6f66d": "Tam ekran harita ›",
     "sendToYourPhone_f67db": "Telefona gönder",
-    "scanWithYourPhoneS_6485e": "Telefon kamerasıyla okutun; rota telefonunuzda açılır ve oradan canlı yönlendirmeyle başlarsınız.",
+    "scanWithYourPhoneS_6485e": "Telefon kamerasıyla okutun. Rota telefonunuzda açılır ve oradan canlı yönlendirmeyle başlarsınız.",
     "stopsNotShownOnThe_1238b": "Haritada gösterilemeyen duraklar (konum doğrulanıyor):",
     "tips_7b90f": "İpuçları",
     "source_0897f": "Kaynak:",
@@ -441,14 +448,14 @@
     "finishRoute_32558": "Rotayı bitir",
     "nextStop_8ff17": "Sıradaki durak ·",
     "waitingForLocation_363f3": "Konum bekleniyor",
-    "theLocationIsApproximateIf_dee00": "Konum yaklaşıktır; varış algılanmazsa “Atla”yı kullanın.",
+    "theLocationIsApproximateIf_dee00": "Konum yaklaşıktır. Varış algılanmazsa “Atla”yı kullanın.",
     "stopDetails_dbd9c": "Durak bilgisi",
     "skip_fd3df": "Atla",
     "youHaveCompletedTheRoute_435af": "Rotayı tamamladınız!",
     "youHaveVisitedEveryStop_d0143": "Tüm duraklar bitti. Yolculuğunuz için teşekkürler.",
     "backToRoute_dc8e0": "Rotaya dön",
     "tapAStopTapA_ece46": "Bir durağa dokunun · kümelere dokununca yakınlaşır",
-    "theLocationIsApproximateThe_259fc": "Konum yaklaşıktır; bina doğrulanmadı.",
+    "theLocationIsApproximateThe_259fc": "Konum yaklaşıktır, bina doğrulanmadı.",
     "previousStop_33e5c": "Önceki durak",
     "nextStop_40fe1": "Sonraki durak",
     "directions_f7214": "Yol tarifi",

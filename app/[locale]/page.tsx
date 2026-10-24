@@ -38,7 +38,12 @@ export default async function Kesfet({ params }: { params: Promise<{locale: Loca
   return (
     <MotionProvider key={locale}>
       <section className="relative z-10 px-5 pt-4 lg:mx-4 lg:mt-2 lg:min-h-[500px] lg:px-14 lg:pt-12">
-        <div data-enter="0" className="relative z-20 lg:max-w-[560px]"><SearchBox items={searchItems} /></div>
+        <div data-enter="0" className="relative z-20 lg:max-w-[560px]">
+          {/* Telefonda üst menü olmadığı için marka burada görünür. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/rotafyon-480.webp" srcSet="/brand/rotafyon-480.webp 1x, /brand/rotafyon-960.webp 2x" width={95} height={32} alt="rotAfyon" className="mb-3 h-8 w-auto rounded-lg lg:hidden" />
+          <SearchBox items={searchItems} />
+        </div>
         <div data-enter="1" className="relative z-20 mt-5 lg:mt-14">
           <p className="text-[10.5px] font-bold tracking-[2px] text-terra lg:text-xs lg:tracking-[4px]">{tx("afyonkarahSar_6ac24")}</p>
           <h1 className="mt-1 font-display text-[44px] font-semibold leading-none tracking-tight text-navy lg:mt-3 lg:text-[88px]">{tx("explore_62f64")}</h1>
