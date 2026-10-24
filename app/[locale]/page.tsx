@@ -41,7 +41,7 @@ export default async function Kesfet({ params }: { params: Promise<{locale: Loca
         <div data-enter="0" className="relative z-20 lg:max-w-[560px]">
           {/* Telefonda üst menü olmadığı için marka burada görünür. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/rotafyon-480.webp" srcSet="/brand/rotafyon-480.webp 1x, /brand/rotafyon-960.webp 2x" width={95} height={32} alt="rotAfyon" className="mb-3 h-8 w-auto rounded-lg lg:hidden" />
+          <img src="/brand/rotafyon-acik-480.webp" srcSet="/brand/rotafyon-acik-480.webp 1x, /brand/rotafyon-acik-960.webp 2x" width={107} height={32} alt="rotAfyon" className="mb-3 h-8 w-auto lg:hidden" />
           <SearchBox items={searchItems} />
         </div>
         <div data-enter="1" className="relative z-20 mt-5 lg:mt-14">
