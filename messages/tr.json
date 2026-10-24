@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Afyon Şehir Rotası",
+    "title": "rotAfyon",
     "description": "Afyonkarahisar için resmî rehber rotaları, QR ile başlayan sesli anlatım ve canlı harita.",
     "ogDescription": "Afyonkarahisar için rehber rotaları, sesli anlatım ve canlı yönlendirmeli harita.",
     "pages": {
-      "home": "Afyon Şehir Rotası",
+      "home": "rotAfyon",
       "routes": "Rotalar",
       "map": "Harita",
       "plan": "Rotanı Belirle",
@@ -18,7 +18,7 @@
       "terms": "Kullanım Şartları",
       "admin": "Yönetim"
     },
-    "shortName": "Şehir Rotası",
+    "shortName": "rotAfyon",
     "manifestDescription": "Afyonkarahisar için rehberli rotalar, sesli anlatım ve canlı harita."
   },
   "nav": {
@@ -32,7 +32,7 @@
     "community": "Sosyal",
     "profile": "Profil",
     "about": "Hakkında",
-    "brand": "Afyon Şehir Rotası"
+    "brand": "rotAfyon"
   },
   "common": {
     "back": "Geri",
@@ -125,7 +125,7 @@
     "feedback_1c9ad": "Geri Bildirim",
     "sendSuggestionsReportIncorrectInformation_ba40c": "Önerileriniz, yanlış gördüğünüz bilgiler, fotoğraf ve içerik katkılarınız ve şikayetleriniz için buradan yazabilirsiniz. Giriş yapmanız gerekmez.",
     "afyonkarahSar_6ac24": "AFYONKARAHİSAR",
-    "afyonCityRoutes_f38c8": "Afyon Şehir Rotası",
+    "afyonCityRoutes_f38c8": "rotAfyon",
     "guidedRoutesThroughTheCastle_41055": "Kale, çarşı ve Frig vadilerinde rehberli rotalar; QR ile başlayan anlatım.",
     "setupIncomplete_13c42": "Kurulum tamamlanmadı",
     "theAppIsNotConnected_ed0e4": "Uygulama henüz bir Supabase projesine bağlanmadı.",
@@ -149,7 +149,7 @@
     "youMayRequestThatYour_c9b34": "Hesabınızın ve verilerinizin silinmesini veya düzeltilmesini talep edebilirsiniz. Talepler için uygulama sahibine e-posta ile ulaşabilirsiniz.",
     "information_af09b": "BİLGİLENDİRME",
     "about_12a5d": "Hakkında",
-    "whatIsAfyonCityRoutes_3b2c7": "Afyon Şehir Rotası nedir?",
+    "whatIsAfyonCityRoutes_3b2c7": "rotAfyon nedir?",
     "aFreeDigitalGuideFor_cb532": "Afyonkarahisar'ı gezenler için hazırlanmış, ücretsiz bir dijital rehberdir: kaynaklı durak anlatımları, hazır rotalar, canlı yönlendirmeli harita, sesli rehber ve grup turu.",
     "whereDoesTheInformationCome_122a3": "Bilgiler nereden geliyor?",
     "stopDescriptionsAndRoutesAre_a100b": "Durak metinleri ve rotalar resmî kurum yayınları ve akademik kaynaklardan derlenir; her durak sayfasında kaynaklar listelenir. Fotoğraflar Wikimedia Commons'tan, sahiplerinin belirttiği lisansla gösterilir.",
@@ -198,7 +198,7 @@
     "newRoute_0cfdf": "YENİ ROTA",
     "planYourRoute_cdc25": "Rotanı Belirle",
     "generalInformation_259f9": "Genel bilgi",
-    "afyonCityRoutesIsA_47944": "Afyon Şehir Rotası, Afyonkarahisar'ı gezenler için hazırlanmış bir rehberdir. Açılış saatleri, ücretler ve erişim koşulları değişebilir; ziyaretten önce ilgili kurumdan doğrulayınız.",
+    "afyonCityRoutesIsA_47944": "rotAfyon, Afyonkarahisar'ı gezenler için hazırlanmış bir rehberdir. Açılış saatleri, ücretler ve erişim koşulları değişebilir. Ziyaretten önce ilgili kurumdan doğrulayınız.",
     "safety_854c3": "Güvenlik",
     "onNatureAndWalkingRoutes_48945": "Doğa ve yürüyüş rotalarında hava durumunu, yol ve patika durumunu kontrol edin; zor rotalarda yalnız çıkmayın. Rota bilgileri yönlendirme amaçlıdır; kendi güvenliğinizden siz sorumlusunuz. Acil durumda 112'yi arayın.",
     "communityContent_602a1": "Topluluk içeriği",
@@ -274,7 +274,7 @@
     "edit_525fd": "Düzenle",
     "save_b8094": "Kaydet",
     "cancel_14d24": "Vazgeç",
-    "thisQrCodeIsNot_bb9e1": "Bu QR kodu bir Afyon Şehir Rotası kodu değil.",
+    "thisQrCodeIsNot_bb9e1": "Bu QR kodu bir rotAfyon kodu değil.",
     "cameraView_b8757": "Kamera görüntüsü",
     "openingCamera_8e57c": "Kamera açılıyor…",
     "cameraPermissionWasDeniedAllow_25c52": "Kamera izni verilmedi. Tarayıcı ayarlarından izin verin veya aşağıdan kodu elle girin.",
@@ -596,7 +596,7 @@
     "searchStop": "Durak · {area}",
     "homeIntro": "Frig vadilerinden Ulu Cami'ye, Afyonkarahisar'ın {count} önerilen tur rotası.",
     "bearing": "{name} {direction} yönünde, {distance}{pending}",
-    "groupInvite": "Afyon Şehir Rotası grup turuna katıl (kod {code})",
+    "groupInvite": "rotAfyon grup turuna katıl (kod {code})",
     "whatsapp": "Afyon turuna katıl! Kod: {code}\n{link}",
     "journey": "{distance} · yaklaşık {duration}",
     "straightDistance": "{distance} (kuş uçuşu)",

@@ -1,4 +1,4 @@
-# Afyon Şehir Rotası
+# rotAfyon
 
 Next.js 15 + Tailwind 4 + Supabase. Rota ve durak içeriği `lib/routes.ts` ve `lib/places.ts` içindedir
 (kaynak: "Afyonkarahisar Özelinde Oluşturulan (Önerilen) Tur Rotaları" belgesi).
