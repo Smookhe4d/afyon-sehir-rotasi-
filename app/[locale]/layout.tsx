@@ -2,7 +2,6 @@ import {getMessages, setRequestLocale} from "next-intl/server";
 import {notFound} from "next/navigation";
 import {isLocale, routing, type Locale} from "@/i18n/routing";
 import IntlProvider from "@/components/IntlProvider";
-import LanguageChoice from "@/components/LanguageChoice";
 import {pageMetadata} from "@/i18n/metadata";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
@@ -11,6 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Track from "@/components/Track";
 import SwRegister from "@/components/SwRegister";
 import Onboarding from "@/components/Onboarding";
+import { routes } from "@/lib/routes";
 import TopNav from "@/components/TopNav";
 import GlassTab from "@/components/GlassTab";
 import "../globals.css";
@@ -41,11 +41,10 @@ export default async function RootLayout({ children, params }: { children: React
       </head>
       <body className="mx-auto min-h-dvh max-w-[520px] pb-32 lg:max-w-none lg:pb-0">
         <IntlProvider locale={locale} messages={messages}>
-        <LanguageChoice />
         <TopNav />
         <div className="lg:mx-auto lg:max-w-[1280px]">{children}</div>
         <GlassTab />
-        <Onboarding />
+        <Onboarding routeCount={routes.length} />
         <SwRegister />
         <Track />
         <Analytics />

@@ -9,11 +9,11 @@ function fakeSpeech(){window.__spoken=[];window.SpeechSynthesisUtterance=class {
 async function main(){const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu','--enable-unsafe-swiftshader','--disable-dev-shm-usage']});try{
   const fresh=await browser.newContext({...devices['iPhone 13'],deviceScaleFactor:1,locale:'tr-TR'});
   const first=await fresh.newPage();await visit(first,'/');
-  const dialog=first.getByRole('dialog',{name:'Dil seçin Choose your language'});await dialog.waitFor();
+  const dialog=first.getByRole('dialog',{name:'Tanıtım'});await dialog.waitFor();
   assert.equal(await first.evaluate(()=>navigator.maxTouchPoints>0),true);
   await capture(first,'sonra-ilk-dil-secimi',390);
-  const englishChoice=dialog.getByRole('link',{name:'English',exact:true});assert.equal(await englishChoice.getAttribute('lang'),'en');assert.equal(await englishChoice.getAttribute('hreflang'),'en');
-  await englishChoice.click();await first.waitForURL(base+'/en');
+  const englishChoice=dialog.getByRole('radio',{name:'English',exact:true});assert.equal(await englishChoice.getAttribute('lang'),'en');
+  await englishChoice.click();await dialog.getByRole('button',{name:'Start',exact:true}).click();await first.waitForURL(base+'/en');
   await first.getByRole('dialog',{name:'Introduction'}).waitFor();await first.getByRole('button',{name:'Skip',exact:true}).click();
   await first.reload();await first.waitForLoadState('networkidle');assert.equal(await first.getByRole('dialog').count(),0);
   assert.equal(await first.locator('dialog[open]').count(),0);

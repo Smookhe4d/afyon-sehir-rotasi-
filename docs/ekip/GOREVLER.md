@@ -311,3 +311,17 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - Lighthouse mobil, aynı ortamda beşer ölçüm, ortanca: ana sayfa main 59, G-007 65. Rota main 40, G-007 40. Ana sayfadaki CLS her iki sürümde de hava durumu kartının iskeletten içeriğe geçmesinden kaynaklanıyor (main 0,021 ile 0,077 arası, G-007 0 ile 0,082 arası). Bu kayma görev kapsamı dışında, ayrı görev olarak açılacak.
 - `tests/browser-motion.cjs` geçti. `npm run build`, `tests/i18n.test.cjs` ve `tests/check-translations.cjs` geçti. HTTP durum kodları değişmedi.
 - Ekran kayıtları ve görüntüler düzeltilmiş sürümle yeniden alındı. `tmp-g007/` git dışında bırakıldı.
+
+---
+
+## G-008: rotAfyon adı ve logosu, hava durumu kartı, içerik düzeltmesi, tanıtım ekranları
+
+- **Durum:** Tamamlandı (yönetici uyguladı, proje sahibinin isteğiyle)
+- **Dal:** `claude/G-008-rotafyon-ve-duzeltmeler`
+- **Yapılanlar:**
+  - Uygulamanın adı Türkçe ve İngilizce arayüzde, sayfa başlıklarında ve PWA manifestinde rotAfyon oldu. Logo üst menüye (masaüstü), ana sayfanın tepesine (telefon), giriş sayfasına ve tanıtıma eklendi. Uygulama simgeleri ve paylaşım görseli logodan üretildi.
+  - Hava durumu kartı yüklenirken ve hata verdiğinde aynı ölçülerle çiziliyor. Ölçülen kayma (CLS) normal, hata ve konumlu senaryolarda 0.
+  - Ulu Cami için "UNESCO Kesin Listesi" ifadesi düzeltildi. Arayüz metinlerindeki noktalı virgüller kaldırıldı.
+  - Ayrı dil penceresi ve üç tanıtım ekranı yerine üç adımlı yeni tanıtım: karşılama ve dil seçimi, harita, sesli rehber. Ekranlar parmakla kaydırılabiliyor. Rota, durak, QR ve doğrudan /en girişlerinde tanıtım açılmıyor.
+  - `impeccable`, `web-design-guidelines`, `vercel-react-best-practices` ve `core-web-vitals` skill'leri eklendi.
+- **Açık kalan:** Zafer Yolu'nda Koru Tepe, Sümbül Tepe ve Kuzukulaklı Yaylası için doğrulanmış koordinat yok. Aslankaya durağındaki fotoğrafın tapınak cephesini göstermediği görüldü, uygun lisanslı fotoğraf aranacak. İçerik dosyalarındaki (lib/routes.ts, lib/places.ts, lib/placeExtra.ts) noktalı virgüller ayrıca temizlenecek.

@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Afyon City Routes",
+    "title": "rotAfyon",
     "description": "A guide to Afyonkarahisar with curated routes, QR audio guides and a live map.",
     "ogDescription": "Explore Afyonkarahisar with curated routes, audio guides and live navigation.",
     "pages": {
-      "home": "Afyon City Routes",
+      "home": "rotAfyon",
       "routes": "Routes",
       "map": "Map",
       "plan": "Plan your route",
@@ -18,7 +18,7 @@
       "terms": "Terms of use",
       "admin": "Administration"
     },
-    "shortName": "City Routes",
+    "shortName": "rotAfyon",
     "manifestDescription": "Guided routes, audio narration, and a live map for Afyonkarahisar."
   },
   "nav": {
@@ -32,7 +32,7 @@
     "community": "Community",
     "profile": "Profile",
     "about": "About",
-    "brand": "Afyon City Routes"
+    "brand": "rotAfyon"
   },
   "common": {
     "back": "Back",
@@ -55,33 +55,46 @@
     "skip": "Skip",
     "start": "Start exploring",
     "next": "Next",
-    "slides": {
-      "0": {
-        "title": "Explore Afyonkarahisar",
-        "text": "Find guided routes through the city, from the castle and Ulu Cami to the Phrygian valleys and thermal springs."
+    "map": {
+      "title": "Find your way on the map",
+      "text": "See the stops on the live map and get directions to the one nearest you.",
+      "directions": "Directions",
+      "distance": "İhsaniye · 4.8 km",
+      "stopName": "Ayazini (Metropolis) Ören Yeri"
+    },
+    "audio": {
+      "title": "Hear the story of every stop",
+      "text": "Start the narration when you arrive. Everything works without an account.",
+      "stop": "Stop 10 · Audio guide",
+      "credit": "Photo: Serkanakdogan · CC BY-SA 4.0",
+      "play": "Sample player",
+      "stopName": "Aslankaya Açık Hava Tapınağı"
+    },
+    "welcome": {
+      "tr": {
+        "title": "Afyonkarahisar'ı rotalarla gezin",
+        "text": "Kaleden Ulu Cami'ye, Frig vadilerinden termal sulara {count} rota. Her durakta sesli anlatım.",
+        "start": "Başla",
+        "skip": "Tanıtımı geç",
+        "language": "Dil"
       },
-      "1": {
-        "title": "Find your way on the map",
-        "text": "View stops, walking routes and driving routes on a live map. Choose a route and start with a tap."
-      },
-      "2": {
-        "title": "Listen along the way",
-        "text": "Hear the stories behind each stop. You can explore without signing in."
+      "en": {
+        "title": "Explore Afyonkarahisar by route",
+        "text": "From the castle to Ulu Cami, from Phrygian valleys to thermal springs: {count} routes with audio narration at every stop.",
+        "start": "Start",
+        "skip": "Skip intro",
+        "language": "Language"
       }
+    },
+    "languages": {
+      "tr": "Türkçe",
+      "en": "English"
     }
   },
   "languageSuggestion": {
     "text": "This site is also available in English.",
     "switch": "Switch to English",
     "close": "Dismiss language suggestion"
-  },
-  "languageChoice": {
-    "titleTr": "Dil seçin",
-    "titleEn": "Choose your language",
-    "descriptionTr": "Daha sonra profilinizden değiştirebilirsiniz.",
-    "descriptionEn": "You can change this later in your profile.",
-    "turkish": "Türkçe",
-    "english": "English"
   },
   "ui": {
     "routeNotFound_1658a": "Route not found.",
@@ -125,7 +138,7 @@
     "feedback_1c9ad": "Feedback",
     "sendSuggestionsReportIncorrectInformation_ba40c": "Send suggestions, report incorrect information, contribute photos or content, or make a complaint here. You do not need to sign in.",
     "afyonkarahSar_6ac24": "AFYONKARAHİSAR",
-    "afyonCityRoutes_f38c8": "Afyon City Routes",
+    "afyonCityRoutes_f38c8": "rotAfyon",
     "guidedRoutesThroughTheCastle_41055": "Guided routes through the castle, bazaar, and Phrygian valleys, with narration started by QR code.",
     "setupIncomplete_13c42": "Setup incomplete",
     "theAppIsNotConnected_ed0e4": "The app is not connected to a Supabase project yet.",
@@ -149,7 +162,7 @@
     "youMayRequestThatYour_c9b34": "You may request that your account and data be deleted or corrected. You can contact the app owner by email to make a request.",
     "information_af09b": "INFORMATION",
     "about_12a5d": "About",
-    "whatIsAfyonCityRoutes_3b2c7": "What is Afyon City Routes?",
+    "whatIsAfyonCityRoutes_3b2c7": "What is rotAfyon?",
     "aFreeDigitalGuideFor_cb532": "A free digital guide for visitors to Afyonkarahisar, with sourced stop descriptions, planned routes, a map with live directions, an audio guide, and group tours.",
     "whereDoesTheInformationCome_122a3": "Where does the information come from?",
     "stopDescriptionsAndRoutesAre_a100b": "Stop descriptions and routes are compiled from official publications and academic sources. Sources are listed on each stop page. Photos are provided through Wikimedia Commons under the licenses specified by their owners.",
@@ -198,7 +211,7 @@
     "newRoute_0cfdf": "NEW ROUTE",
     "planYourRoute_cdc25": "Plan your route",
     "generalInformation_259f9": "General information",
-    "afyonCityRoutesIsA_47944": "Afyon City Routes is a guide for visitors to Afyonkarahisar. Opening hours, fees, and access conditions may change. Confirm them with the relevant organization before your visit.",
+    "afyonCityRoutesIsA_47944": "rotAfyon is a guide for visitors to Afyonkarahisar. Opening hours, fees, and access conditions may change. Confirm them with the relevant organization before your visit.",
     "safety_854c3": "Safety",
     "onNatureAndWalkingRoutes_48945": "On nature and walking routes, check the weather and road and trail conditions. Do not travel alone on difficult routes. Route information is provided for guidance. You are responsible for your own safety. In an emergency, call 112.",
     "communityContent_602a1": "Community content",
@@ -274,7 +287,7 @@
     "edit_525fd": "Edit",
     "save_b8094": "Save",
     "cancel_14d24": "Cancel",
-    "thisQrCodeIsNot_bb9e1": "This QR code is not an Afyon City Routes code.",
+    "thisQrCodeIsNot_bb9e1": "This QR code is not an rotAfyon code.",
     "cameraView_b8757": "Camera view",
     "openingCamera_8e57c": "Opening camera…",
     "cameraPermissionWasDeniedAllow_25c52": "Camera permission was denied. Allow access in your browser settings or enter the code below.",
@@ -481,6 +494,7 @@
     "itIsColdTodayDress_c2c26": "It is cold today. Dress warmly and choose indoor routes.",
     "aGoodDayToExplore_5bbf5": "A good day to explore outdoors.",
     "weather_0314d": "Weather",
+    "weatherUnavailable_7d1e2": "Weather is not available right now.",
     "yourLocation_2a57c": "Your location",
     "now_8ae54": "· now",
     "feelsLike_46a81": "Feels like",
@@ -596,7 +610,7 @@
     "searchStop": "Stop · {area}",
     "homeIntro": "Explore {count} suggested routes in Afyonkarahisar, from the Phrygian valleys to Ulu Cami.",
     "bearing": "{name} is {distance} to the {direction}{pending}",
-    "groupInvite": "Join an Afyon City Routes group tour (code {code})",
+    "groupInvite": "Join an rotAfyon group tour (code {code})",
     "whatsapp": "Join an Afyon tour! Code: {code}\n{link}",
     "journey": "{distance} · about {duration}",
     "straightDistance": "{distance} (as the crow flies)",
