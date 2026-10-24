@@ -59,14 +59,16 @@
       "title": "Find your way on the map",
       "text": "See the stops on the live map and get directions to the one nearest you.",
       "directions": "Directions",
-      "distance": "İhsaniye · 4.8 km"
+      "distance": "İhsaniye · 4.8 km",
+      "stopName": "Ayazini (Metropolis) Ören Yeri"
     },
     "audio": {
       "title": "Hear the story of every stop",
       "text": "Start the narration when you arrive. Everything works without an account.",
       "stop": "Stop 10 · Audio guide",
       "credit": "Photo: Serkanakdogan · CC BY-SA 4.0",
-      "play": "Sample player"
+      "play": "Sample player",
+      "stopName": "Aslankaya Açık Hava Tapınağı"
     },
     "welcome": {
       "tr": {
@@ -83,6 +85,10 @@
         "skip": "Skip intro",
         "language": "Language"
       }
+    },
+    "languages": {
+      "tr": "Türkçe",
+      "en": "English"
     }
   },
   "languageSuggestion": {

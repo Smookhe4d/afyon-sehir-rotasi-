@@ -75,14 +75,20 @@
       "title": "Yolunuzu haritada bulun",
       "text": "Durakları canlı haritada görün, size en yakın durağa yol tarifi alın.",
       "directions": "Yol tarifi",
-      "distance": "İhsaniye · 4,8 km"
+      "distance": "İhsaniye · 4,8 km",
+      "stopName": "Ayazini (Metropolis) Ören Yeri"
     },
     "audio": {
       "title": "Her durağın hikâyesini dinleyin",
       "text": "Durağa vardığınızda anlatımı başlatın. Üye olmadan da her şeyi kullanabilirsiniz.",
       "stop": "Durak 10 · Sesli anlatım",
       "credit": "Foto: Serkanakdogan · CC BY-SA 4.0",
-      "play": "Örnek oynatıcı"
+      "play": "Örnek oynatıcı",
+      "stopName": "Aslankaya Açık Hava Tapınağı"
+    },
+    "languages": {
+      "tr": "Türkçe",
+      "en": "English"
     }
   },
   "languageSuggestion": {
