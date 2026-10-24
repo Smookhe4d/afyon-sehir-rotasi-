@@ -57,6 +57,8 @@ export default function WeatherCard() {
   const [w, setW] = useState<W | null>(null);
   const [err, setErr] = useState(false);
   const [geoBusy, setGeoBusy] = useState(false);
+  // Konum izni önceden verilmişse yakın duraklar listesi gelecek demektir. Yer baştan ayrılır, kart sonradan uzamaz.
+  const [autoLocating, setAutoLocating] = useState(false);
 
   const load = useCallback(async (p: LngLat) => {
     try {
@@ -74,46 +76,54 @@ export default function WeatherCard() {
     if (!("geolocation" in navigator)) return;
     setGeoBusy(true);
     navigator.geolocation.getCurrentPosition(
-      (p) => { const q: LngLat = [p.coords.longitude, p.coords.latitude]; setPos(q); setGeoBusy(false); load(q); },
-      () => setGeoBusy(false), { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 });
+      (p) => { const q: LngLat = [p.coords.longitude, p.coords.latitude]; setPos(q); setGeoBusy(false); setAutoLocating(false); load(q); },
+      () => { setGeoBusy(false); setAutoLocating(false); }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 });
   }, [load]);
 
   useEffect(() => {
     load(AFYON);
     // İzin daha önce verilmişse sormadan konumu kullan
-    (navigator as unknown as { permissions?: { query: (o: { name: string }) => Promise<{ state: string }> } }).permissions?.query({ name: "geolocation" }).then((s) => { if (s.state === "granted") locate(); }).catch(() => {});
+    (navigator as unknown as { permissions?: { query: (o: { name: string }) => Promise<{ state: string }> } }).permissions?.query({ name: "geolocation" }).then((s) => { if (s.state === "granted") { setAutoLocating(true); locate(); } }).catch(() => {});
   }, [load, locate]);
 
-  if (err && !w) return null;
-  if (!w) return <div className="skeleton mx-5 mt-5 h-[132px] rounded-[28px]" aria-label={tx("loadingWeather_14d2b")} />;
-  const i = info(w.code, tx);
+  // Veri gelene kadar kartın kendisi, aynı ölçülerle görünmez içerik ve üstünde parıltı katmanıyla çizilir.
+  // Böylece yüklenme ve hata durumunda kartın yüksekliği değişmez, alttaki rota şeridi kaymaz (CLS).
+  const placeholder = !w;
+  const data: W = w ?? { temp: 0, feels: 0, code: 0, wind: 0, day: true, hi: 0, lo: 0, rain: 0, days: [0, 1, 2].map((n) => ({ d: "\u00a0".repeat(n + 1), hi: 0, lo: 0, code: 0 })) };
+  const i = info(data.code, tx);
   const nearby = pos ? placeListFull.filter((p) => p.coords).map((p) => ({ p, d: haversineM(pos, p.coords!) })).sort((a, b) => a.d - b.d).slice(0, 3) : [];
-  const tip = i.kind === "rain" || i.kind === "storm" || i.kind === "snow" ? { t: tx("rainOrSnowIsExpected_e82b5"), href: "/rotalar/merkez-kultur-rotasi", l: tx("cityCenterCulturalRoute_2d17f") }
-    : w.temp >= 32 ? { t: tx("itIsVeryHotWalk_76435"), href: "/rotalar", l: tx("viewRoutes_8159c") }
-    : w.temp <= 3 ? { t: tx("itIsColdTodayDress_c2c26"), href: "/rotalar/merkez-kultur-rotasi", l: tx("cityCenterCulturalRoute_2d17f") }
+  const tip = placeholder ? { t: tx("aGoodDayToExplore_5bbf5"), href: "/rotalar", l: tx("viewRoutes_8159c") }
+    : i.kind === "rain" || i.kind === "storm" || i.kind === "snow" ? { t: tx("rainOrSnowIsExpected_e82b5"), href: "/rotalar/merkez-kultur-rotasi", l: tx("cityCenterCulturalRoute_2d17f") }
+    : data.temp >= 32 ? { t: tx("itIsVeryHotWalk_76435"), href: "/rotalar", l: tx("viewRoutes_8159c") }
+    : data.temp <= 3 ? { t: tx("itIsColdTodayDress_c2c26"), href: "/rotalar/merkez-kultur-rotasi", l: tx("cityCenterCulturalRoute_2d17f") }
     : { t: tx("aGoodDayToExplore_5bbf5"), href: "/rotalar", l: tx("viewRoutes_8159c") };
 
   return (
-    <section aria-label={tx("weather_0314d")} className="mx-5 mt-5 overflow-hidden rounded-[28px] border border-white/70 bg-gradient-to-br from-[#FFF8EC] to-[#F6E4CC] p-4 shadow-card">
+    <section aria-label={placeholder ? tx("loadingWeather_14d2b") : tx("weather_0314d")} aria-busy={placeholder && !err} className="relative mx-5 mt-5 overflow-hidden rounded-[28px] border border-white/70 bg-gradient-to-br from-[#FFF8EC] to-[#F6E4CC] p-4 shadow-card">
+      {placeholder && (err
+        ? <p className="absolute inset-0 z-10 flex items-center justify-center px-6 text-center text-[13px] font-medium text-ink-2">{tx("weatherUnavailable_7d1e2")}</p>
+        : <div className="skeleton absolute inset-0 z-10" aria-hidden />)}
+      <div className={placeholder ? "invisible" : undefined} aria-hidden={placeholder || undefined}>
       <div className="flex items-center gap-3">
-        <Icon kind={i.kind} day={w.day} size={54} />
+        <Icon kind={i.kind} day={data.day} size={54} />
         <div className="min-w-0 flex-1">
           <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{pos ? tx("yourLocation_2a57c") : "Afyonkarahisar"}  {tx("now_8ae54")}</p>
-          <p className="font-display text-[34px] font-semibold leading-none">{num(w.temp)}°<span className="ml-2 text-[14px] font-medium text-ink-2">{i.label}</span></p>
-          <p className="mt-1 text-[11px] font-medium text-ink-2">{dx("weatherDetail", {feels: num(w.feels), wind: num(w.wind), rain: num(w.rain), low: num(w.lo), high: num(w.hi)})}</p>
+          <p className="font-display text-[34px] font-semibold leading-none">{num(data.temp)}°<span className="ml-2 text-[14px] font-medium text-ink-2">{i.label}</span></p>
+          <p className="mt-1 text-[11px] font-medium text-ink-2">{dx("weatherDetail", {feels: num(data.feels), wind: num(data.wind), rain: num(data.rain), low: num(data.lo), high: num(data.hi)})}</p>
         </div>
         {!pos && <button type="button" onClick={locate} disabled={geoBusy} className="shrink-0 rounded-full border border-line bg-white px-3 py-2 text-[11px] font-bold text-navy shadow-card disabled:opacity-60">{geoBusy ? tx("locating_0c2ca") : tx("myLocation_f0edd")}</button>}
       </div>
       <div className="mt-3 grid grid-cols-3 gap-2">
-        {w.days.map((d) => (<div key={d.d} className="flex items-center gap-1.5 rounded-2xl bg-white/70 px-2.5 py-2"><Icon kind={info(d.code, tx).kind} size={26} /><span className="text-[11px] font-semibold leading-tight">{d.d}<span className="block font-bold">{num(d.hi)}° <span className="font-medium text-mute">{num(d.lo)}°</span></span></span></div>))}
+        {data.days.map((d) => (<div key={d.d} className="flex items-center gap-1.5 rounded-2xl bg-white/70 px-2.5 py-2"><Icon kind={info(d.code, tx).kind} size={26} /><span className="text-[11px] font-semibold leading-tight">{d.d}<span className="block font-bold">{num(d.hi)}° <span className="font-medium text-mute">{num(d.lo)}°</span></span></span></div>))}
       </div>
       <p className="mt-3 text-[12px] leading-snug text-ink-2">{tip.t} <Link href={tip.href} className="font-bold text-terra">{tip.l} ›</Link></p>
-      {nearby.length > 0 && (
+      {(nearby.length > 0 || autoLocating) && (
         <div className="mt-3 border-t border-black/5 pt-3">
           <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{tx("nearbyStops_b9300")}</p>
-          <ul className="mt-1.5 flex flex-col gap-1">{nearby.map(({ p, d }) => (<li key={p.id}><Link href={`/duraklar/${p.id}`} className="flex items-center justify-between rounded-xl px-1 py-1 text-[13px] font-semibold"><span>{p.name}</span><span className="text-xs text-terra">{formatDistance(d, language === "en" ? "en" : "tr")}</span></Link></li>))}</ul>
+          <ul className="mt-1.5 flex flex-col gap-1">{nearby.length === 0 && [0, 1, 2].map((n) => <li key={n} aria-hidden><span className="skeleton block h-[27.5px] rounded-xl" /></li>)}{nearby.map(({ p, d }) => (<li key={p.id}><Link href={`/duraklar/${p.id}`} className="flex items-center justify-between rounded-xl px-1 py-1 text-[13px] font-semibold"><span>{p.name}</span><span className="text-xs text-terra">{formatDistance(d, language === "en" ? "en" : "tr")}</span></Link></li>))}</ul>
         </div>
       )}
+      </div>
     </section>
   );
 }
