@@ -45,7 +45,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
   if (!r) notFound();
   const stops = routeStops(r);
   const geo = mapStopsForRoute(slug, (await params).locale);
-  const qr = await QRCode.toString(`https://afyon-sehir-rotasi.vercel.app/rotalar/${slug}`, { type: "svg", margin: 0, color: { dark: "#0F2547", light: "#FFFFFF" } });
+  const qr = await QRCode.toString(`https://rotafyon.vercel.app/rotalar/${slug}`, { type: "svg", margin: 0, color: { dark: "#0F2547", light: "#FFFFFF" } });
   const { supabase, user, profile } = await getSession();
   const noRow = Promise.resolve({ data: null as { visited_place_ids?: string[]; route_slug?: string } | null });
   const [fav, progress, comments] = await Promise.all([
