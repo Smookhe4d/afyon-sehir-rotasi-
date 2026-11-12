@@ -12,7 +12,7 @@ Uygulayıcı, kendisine verilmemiş bir işe başlamaz. Bir görevde belirsizlik
 
 ## Proje
 
-Afyonkarahisar Turizm Master ve Eylem Planı'ndaki 14 tur rotasını ziyaretçiye sunan web uygulaması. Canlı adres: https://afyon-sehir-rotasi.vercel.app
+Afyonkarahisar Turizm Master ve Eylem Planı'ndaki 14 tur rotasını ziyaretçiye sunan web uygulaması. Canlı adres: https://rotafyon.vercel.app
 
 - Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 4
 - Supabase (oturum, sosyal alan, geri bildirim). Şema: `supabase/schema.sql`

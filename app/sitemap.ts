@@ -4,7 +4,7 @@ import { routes } from "@/lib/routes";
 import {routing} from "@/i18n/routing";
 import {localizePath} from "@/i18n/paths";
 
-const base = "https://afyon-sehir-rotasi.vercel.app";
+const base = "https://rotafyon.vercel.app";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/", "/rotalar", "/harita", "/rotani-belirle", "/sosyal", "/gizlilik", "/sartlar", "/hakkinda", "/geri-bildirim",

@@ -20,7 +20,7 @@ import "../globals.css";
 const onest = Onest({ subsets: ["latin", "latin-ext"], variable: "--font-onest", weight: ["400", "500", "600", "700", "800"], display: "swap" });
 
 export async function generateMetadata({params}: {params: Promise<{locale: Locale}>}): Promise<Metadata> {
-  return {...pageMetadata((await params).locale, "/"), manifest: "/manifest.webmanifest", metadataBase: new URL("https://afyon-sehir-rotasi.vercel.app"), twitter: {card: "summary_large_image", images: ["/og.jpg"]}};
+  return {...pageMetadata((await params).locale, "/"), manifest: "/manifest.webmanifest", metadataBase: new URL("https://rotafyon.vercel.app"), twitter: {card: "summary_large_image", images: ["/og.jpg"]}};
 }
 export function generateStaticParams() { return routing.locales.map(locale => ({locale})); }
 export const viewport: Viewport = { themeColor: "#4B0266", width: "device-width", initialScale: 1 };

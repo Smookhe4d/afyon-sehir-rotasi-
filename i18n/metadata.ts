@@ -4,7 +4,7 @@ import type {Locale} from "./routing";
 import tr from "@/messages/tr.json";
 import en from "@/messages/en.json";
 
-const base = "https://afyon-sehir-rotasi.vercel.app";
+const base = "https://rotafyon.vercel.app";
 export function pageTitle(locale: Locale, key: keyof typeof tr.metadata.pages) {
   return (locale === "en" ? en : tr).metadata.pages[key];
 }
