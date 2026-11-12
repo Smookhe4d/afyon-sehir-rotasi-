@@ -695,6 +695,7 @@
     "mapLabel": "Map of Afyonkarahisar",
     "catRoutes": "{label} routes",
     "noRouteInCat": "No routes in this theme.",
-    "offroadNav": "The road does not reach this stop. Walk the last {dist} along the path, the orange dashed line shows the way."
+    "offroadNav": "The road does not reach this stop. Walk the last {dist} along the path, the orange dashed line shows the way.",
+    "themeHint": "Buttons take this colour"
   }
 }

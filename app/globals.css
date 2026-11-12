@@ -115,3 +115,6 @@ html[data-motion="on"] [data-motion-page] :is([data-reveal], [data-motion-list] 
 @keyframes onb-wave { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
 .page-in:has([data-kesfet]) { animation: none; }
 @keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes qr-in { from { clip-path: circle(32px at calc(100% - 42px) calc(100% - 42px)); } to { clip-path: circle(150% at calc(100% - 42px) calc(100% - 42px)); } }
+@keyframes qr-frame { from { opacity: 0; transform: scale(1.25); } to { opacity: 1; transform: none; } }
+@keyframes qr-scan { 0%, 100% { top: 10%; } 50% { top: 88%; } }

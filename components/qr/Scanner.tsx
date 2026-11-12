@@ -62,10 +62,11 @@ export default function Scanner() {
 
   return (
     <div>
-      <div className="relative mx-auto mt-6 aspect-square w-full max-w-[340px] overflow-hidden rounded-[32px] border-4 border-white/90 bg-black">
+      <div className="relative mx-auto mt-6 aspect-square w-full max-w-[320px] overflow-hidden rounded-[40px] bg-black [animation:qr-frame_.7s_.3s_var(--ease-spring)_both]">
         <video ref={video} playsInline muted className="h-full w-full object-cover" aria-label={tx("cameraView_b8757")} />
         <canvas ref={canvas} hidden />
-        {state === "scanning" && <div className="pointer-events-none absolute inset-x-6 top-1/2 h-0.5 -translate-y-1/2 rounded bg-[#E3814F] shadow-[0_0_14px_#E3814F]" />}
+        <svg aria-hidden viewBox="0 0 260 260" className="pointer-events-none absolute inset-0 h-full w-full"><path d="M4 56V34A30 30 0 0 1 34 4h22M204 4h22a30 30 0 0 1 30 30v22M256 204v22a30 30 0 0 1-30 30h-22M56 256H34A30 30 0 0 1 4 226v-22" fill="none" stroke="#fff" strokeWidth="6" strokeLinecap="round" /></svg>
+        {state === "scanning" && <div className="pointer-events-none absolute inset-x-6 h-[3px] rounded bg-ac2 shadow-[0_0_18px_4px_var(--ac2)] [animation:qr-scan_2.6s_ease-in-out_infinite]" />}
         {state !== "scanning" && (
           <div className="absolute inset-0 flex items-center justify-center p-6 text-center text-sm">
             {state === "starting" && tx("openingCamera_8e57c")}
@@ -76,7 +77,7 @@ export default function Scanner() {
       </div>
       {error && <p role="alert" className="mt-4 rounded-2xl bg-[#FBE4DC] px-4 py-2.5 text-center text-[13px] font-semibold text-[#8E2C12]">{error}</p>}
       <form className="mx-auto mt-6 flex max-w-[340px] gap-2" onSubmit={(e) => { e.preventDefault(); setError(""); handle(manual); }}>
-        <input value={manual} onChange={(e) => setManual(e.target.value)} placeholder={tx("routeCodeOrLink_bb904")} aria-label={tx("routeCode_ee00c")} className="h-12 min-w-0 flex-1 rounded-full border border-white/25 bg-white/10 px-4 text-sm text-white outline-none placeholder:text-white/60 focus:border-white/60" />
+        <input value={manual} onChange={(e) => setManual(e.target.value)} placeholder={tx("routeCodeOrLink_bb904")} aria-label={tx("routeCode_ee00c")} className="h-12 min-w-0 flex-1 rounded-full border border-white/25 bg-white/10 px-4 text-[15px] text-white outline-none placeholder:text-white/60 focus:border-white/60" />
         <button className="terra-grad h-12 rounded-full px-5 text-sm font-bold text-white">{tx("open_7205e")}</button>
       </form>
     </div>
