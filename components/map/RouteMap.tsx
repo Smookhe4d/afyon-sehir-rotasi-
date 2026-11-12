@@ -26,7 +26,7 @@ function workerBlobUrl() {
   const src = `import "https://cdn.jsdelivr.net/npm/maplibre-gl@${MAPLIBRE_VERSION}/dist/maplibre-gl-worker.mjs";`;
   return URL.createObjectURL(new Blob([src], { type: "text/javascript" }));
 }
-const TERRA = "#B4532A";
+const TERRA = typeof document !== "undefined" ? (getComputedStyle(document.documentElement).getPropertyValue("--ac").trim() || "#60117B") : "#60117B";
 const AFYON: LngLat = [30.5387, 38.7507];
 
 function pinEl(label: string, approx: boolean) {
@@ -42,6 +42,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
 
   const dx = useUiTranslations("dynamic");
   const tx = useUiTranslations("ui");
+  const g11 = useUiTranslations("g011");
 
   const locale = useLocale() as Locale;
   const box = useRef<HTMLDivElement>(null);
@@ -118,8 +119,9 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
         m.addLayer({ id: "acc-fill", type: "fill", source: "acc", paint: { "fill-color": "#2F7BF6", "fill-opacity": 0.14 } }, "route-casing");
         m.addLayer({ id: "acc-line", type: "line", source: "acc", paint: { "line-color": "#2F7BF6", "line-opacity": 0.35, "line-width": 1 } }, "route-casing");
         m.addSource("nav", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-        m.addLayer({ id: "nav-casing", type: "line", source: "nav", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#FFFFFF", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 6, 17, 13] } });
-        m.addLayer({ id: "nav-line", type: "line", source: "nav", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#2F7BF6", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 3.5, 17, 7.5] } });
+        m.addLayer({ id: "nav-off", type: "line", source: "nav", filter: ["==", ["get", "k"], "off"], layout: { "line-cap": "round" }, paint: { "line-color": "#E07A00", "line-width": 5, "line-dasharray": [0.1, 2] } });
+        m.addLayer({ id: "nav-casing", type: "line", source: "nav", filter: ["!=", ["get", "k"], "off"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#FFFFFF", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 6, 17, 13] } });
+        m.addLayer({ id: "nav-line", type: "line", source: "nav", filter: ["!=", ["get", "k"], "off"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#2F7BF6", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 3.5, 17, 7.5] } });
         setReady(true);
       });
       m.on("dragstart", () => { follow.current = false; });
@@ -254,7 +256,9 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
       if (ctl.signal.aborted && !r) { setNav(null); setNavFail(true); return; }
       setNav(r); setNavFail(!r);
       (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.Feature | GeoJSON.FeatureCollection) => void } | undefined)?.setData(
-        r ? { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: r.coords } } : { type: "FeatureCollection", features: [] });
+        r ? { type: "FeatureCollection", features: [{ type: "Feature", properties: { k: "road" }, geometry: { type: "LineString", coordinates: r.coords } },
+          // G-011: yol hedefe ulaşmıyorsa son kısım kesikli çizgiyle gösterilir.
+          ...(r.snapDist > 60 && r.snapTo ? [{ type: "Feature" as const, properties: { k: "off" }, geometry: { type: "LineString" as const, coordinates: [r.snapTo, target.coords] } }] : [])] } : { type: "FeatureCollection", features: [] });
     });
     return () => { clearTimeout(slow); ctl.abort(); };
   }, [guide, target, me, cur, arrivedId, finished, travelMode, locale]);
@@ -393,6 +397,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
                     <p className="font-display text-[18px] font-semibold leading-tight text-navy">{target.name}</p>
                     <p className="mt-0.5 text-[12px] font-semibold text-terra">{nav ? dx("journey", {distance: formatDistance(nav.dist, locale), duration: formatDuration(nav.dur, locale)}) : straightD != null ? dx("straightDistance", {distance: formatDistance(straightD, locale)}) : tx("waitingForLocation_363f3")}</p>
                     {target.approx && <p className="mt-1 text-[11px] font-semibold text-terra">{tx("theLocationIsApproximateIf_dee00")}</p>}
+                    {nav && nav.snapDist > 60 && <p className="mt-1.5 rounded-xl bg-[rgba(250,144,36,.14)] px-2.5 py-1.5 text-[12px] font-semibold leading-snug text-[#7A4200]">{g11("offroadNav", {dist: formatDistance(nav.snapDist, locale)})}</p>}
                   </div>
                 </div>
                 <div className="mt-3 flex gap-2">

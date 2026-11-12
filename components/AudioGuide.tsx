@@ -71,13 +71,18 @@ export default function AudioGuide({ title, text }: { title: string; text: strin
 
   return (
     <div className="mt-4">
-      <div className="flex items-center gap-2.5 rounded-full border border-line bg-white/90 p-1.5 pr-4 shadow-card">
-        <button type="button" onClick={toggle} aria-label={state === "playing" ? tx("pause_37568") : tx("listenToTheAudioGuide_ab2f5")}
-          className="terra-grad flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>{state === "playing" ? <path d="M7 5h4v14H7zM13 5h4v14h-4z" /> : <path d="M8 5v14l11-7z" />}</svg>
-        </button>
-        <span className="min-w-0 flex-1 text-sm font-bold text-navy">{state === "idle" ? tx("audioGuide_90c2d") : state === "playing" ? tx("playing_60f4d") : tx("paused_0cf0c")}<span className="block text-[11px] font-medium text-mute">{tx("listenToTheDescription_78f98")}</span></span>
-        {state !== "idle" && <button type="button" onClick={stop} className="text-xs font-bold text-terra">{tx("stop_acc8c")}</button>}
+      <div className="rounded-[26px] bg-white p-3.5 shadow-[0_18px_36px_-20px_rgba(44,18,66,.6)]">
+        <div className="flex items-center gap-3">
+          <button type="button" onClick={toggle} aria-label={state === "playing" ? tx("pause_37568") : tx("listenToTheAudioGuide_ab2f5")}
+            className="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full bg-ac2 text-navy shadow-[0_10px_20px_-10px_var(--ac2)]">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>{state === "playing" ? <path d="M7 5h4v14H7zM13 5h4v14h-4z" /> : <path d="M8 5v14l11-7z" />}</svg>
+          </button>
+          <span className="min-w-0 flex-1"><span className="block text-[12.5px] font-semibold text-mute">{tx("listenToTheDescription_78f98")}</span><b className="block text-[16.5px] text-navy">{state === "idle" ? tx("audioGuide_90c2d") : state === "playing" ? tx("playing_60f4d") : tx("paused_0cf0c")}</b></span>
+          {state !== "idle" && <button type="button" onClick={stop} className="h-10 rounded-full bg-ac-soft px-3.5 text-[13px] font-bold text-ac">{tx("stop_acc8c")}</button>}
+        </div>
+        <div aria-hidden className="mt-2.5 flex h-[30px] items-center gap-[3px]">
+          {Array.from({ length: 34 }, (_, k) => <i key={k} className={`flex-1 rounded-[2px] bg-ac transition-opacity ${state === "playing" ? "opacity-100 [animation:onb-wave_1.1s_ease-in-out_infinite]" : "opacity-25"}`} style={{ height: 8 + Math.round(Math.abs(Math.sin(k * 1.7) * 20 + Math.cos(k * 0.6) * 6)), animationDelay: `${k * 45}ms` }} />)}
+        </div>
       </div>
       {voices.length > 1 && (
         <label className="mt-2 flex items-center gap-2 px-2 text-[11px] font-semibold text-mute">{tx("voice_e8bff")}<select value={voiceName} onChange={(e) => { setVoiceName(e.target.value); if (state !== "idle") stop(); }} className="min-w-0 flex-1 rounded-full border border-line bg-white px-2.5 py-1 text-[11px] text-navy">

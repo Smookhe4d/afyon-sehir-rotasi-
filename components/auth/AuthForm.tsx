@@ -92,10 +92,10 @@ export default function AuthForm() {
   return (
     <div className="glass rounded-[32px] p-5">
       {mode !== "sifre" && (
-        <div role="tablist" aria-label={tx("signInType_2b724")} className="mb-4 flex rounded-full bg-sand p-1">
+        <div role="tablist" aria-label={tx("signInType_2b724")} className="mb-4 flex rounded-full bg-ac/10 p-1">
           {(["giris", "kayit"] as const).map((m) => (
             <button key={m} role="tab" aria-selected={mode === m} onClick={() => { setMode(m); setMsg(null); }} type="button"
-              className={`h-10 flex-1 rounded-full text-sm font-bold ${mode === m ? "bg-navy text-white" : "text-ink-2"}`}>{m === "giris" ? tx("signIn_a7fbd") : tx("createAnAccount_45824")}</button>
+              className={`h-11 flex-1 rounded-full text-[15px] font-bold transition-colors ${mode === m ? "bg-white text-navy shadow-card" : "text-mute"}`}>{m === "giris" ? tx("signIn_a7fbd") : tx("createAnAccount_45824")}</button>
           ))}
         </div>
       )}
@@ -104,7 +104,7 @@ export default function AuthForm() {
         <input name="email" type="email" required autoComplete="email" placeholder={tx("email_0ff61")} aria-label={tx("email_0ff61")} className={field} />
         {mode !== "sifre" && <input name="password" type="password" required minLength={8} autoComplete={mode === "giris" ? "current-password" : "new-password"} placeholder={tx("passwordAtLeast8Characters_f7b7f")} aria-label={tx("password_6f26a")} className={field} />}
         {msg && <p role="alert" className={`rounded-2xl px-3.5 py-2.5 text-[13px] font-semibold ${msg.type === "err" ? "bg-[#FBE4DC] text-[#8E2C12]" : "bg-[#E6EDD7] text-[#3F5A24]"}`}>{msg.text}</p>}
-        <button disabled={busy} className="terra-grad h-[54px] rounded-full text-[15px] font-bold text-white shadow-[0_8px_20px_rgba(166,75,34,.4)] disabled:opacity-60">
+        <button disabled={busy} className="terra-grad h-[54px] rounded-full text-[15px] font-bold text-white disabled:opacity-60">
           {busy ? tx("pleaseWait_85c41") : mode === "giris" ? tx("signIn_a7fbd") : mode === "kayit" ? tx("createAccount_97ff8") : tx("sendResetLink_92e99")}
         </button>
       </form>

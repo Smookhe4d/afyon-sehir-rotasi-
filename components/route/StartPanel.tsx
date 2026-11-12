@@ -28,7 +28,9 @@ export default function StartPanel({ slug, mode, defaultName = "" }: { slug: str
   const [, run] = useTransition();
   useEffect(() => { try { const n = localStorage.getItem("afyon-ad"); if (n) setName(n); } catch { /* yok say */ } }, []);
 
-  const base = `/harita?rota=${slug}&takip=1&mod=${mode}`;
+  const [curMode, setCurMode] = useState(mode);
+  useEffect(() => { const f = (e: Event) => setCurMode((e as CustomEvent<typeof mode>).detail); addEventListener("route-mode", f); return () => removeEventListener("route-mode", f); }, []);
+  const base = `/harita?rota=${slug}&takip=1&mod=${curMode}`;
   const solo = () => { warmLocation(); run(async () => { await startRoute(slug); }); router.push(base); };
   const saveName = () => { try { localStorage.setItem("afyon-ad", name.trim().slice(0, 24)); } catch { /* yok say */ } };
   const link = (c: string) => (typeof location !== "undefined" ? location.origin : "") + localizePath(base + "&grup=" + c, locale);
@@ -38,16 +40,16 @@ export default function StartPanel({ slug, mode, defaultName = "" }: { slug: str
 
   return (
     <>
-      <div data-enter="3" className="mt-4 grid grid-cols-5 gap-2.5">
-        <button type="button" onClick={solo} className="terra-grad col-span-3 flex h-14 items-center justify-center gap-2 rounded-full font-bold text-white">
+      <div data-enter="3" className="mt-4 grid grid-cols-2 gap-2">
+        <button type="button" onClick={solo} className="terra-grad flex h-[58px] items-center justify-center gap-2 rounded-[20px] text-[15.5px] font-bold text-white">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5v14l11-7z" /></svg>{tx("startOnYourOwn_52881")}</button>
-        <button type="button" onClick={() => { setSheet("kur"); setCode(newCode()); }} className="col-span-2 flex h-14 items-center justify-center gap-1.5 rounded-full border border-line bg-white text-sm font-bold text-navy shadow-card">
+        <button type="button" onClick={() => { setSheet("kur"); setCode(newCode()); }} className="flex h-[58px] items-center justify-center gap-2 rounded-[20px] bg-ac-soft text-[15.5px] font-bold text-ac">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>{tx("groupTour_5137a")}</button>
       </div>
 
       {sheet && (
         <div data-lenis-prevent className="fixed inset-0 z-[70] flex items-end justify-center bg-navy/50" role="dialog" aria-modal="true" aria-label={tx("groupTour_72adb")} onClick={() => setSheet(null)} style={{ animation: "fade-in .2s both" }}>
-          <div className="page-in w-full max-w-[520px] rounded-t-[32px] bg-cream p-5 pb-8" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-[520px] rounded-t-[32px] bg-cream p-5 pb-8 [animation:sheet-up_.6s_cubic-bezier(.2,.9,.25,1.05)_both]" onClick={(e) => e.stopPropagation()}>
             <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-line" />
             <div role="tablist" className="mb-4 flex rounded-full bg-sand p-1">
               {(["kur", "katil"] as const).map((m) => (

@@ -8,7 +8,8 @@ const translate = (locale: Locale) => createTranslator({locale, messages: (local
 
 export type TravelMode = "yuruyus" | "bisiklet" | "arac";
 export type NavStep = { dist: number; text: string; rot: number };
-export type NavResult = { dist: number; dur: number; coords: LngLat[]; steps: NavStep[] };
+/** snapDist: hedefin en yakın yola uzaklığı (m). snapTo: yolun hedefe en yakın noktası. G-011 */
+export type NavResult = { dist: number; dur: number; coords: LngLat[]; steps: NavStep[]; snapDist: number; snapTo: LngLat | null };
 
 // OpenStreetMap (FOSSGIS) yönlendirme sunucuları; yürüyüş, bisiklet ve araç için ayrı profiller.
 const BASE: Record<TravelMode, string> = {
@@ -43,7 +44,8 @@ export async function fetchNav(from: LngLat, to: LngLat, mode: TravelMode, signa
     const steps: OsrmStep[] = route.legs?.[0]?.steps ?? [];
     // Her adımın "sıradaki manevra" metni, bir sonraki adımın manevrasıdır; mesafe bu adımın uzunluğudur.
     const out: NavStep[] = steps.map((s, i) => ({ ...stepText(steps[i + 1] ?? s, locale), dist: s.distance }));
-    return { dist: route.distance, dur: route.duration, coords: route.geometry.coordinates as LngLat[], steps: out };
+    const wp = j.waypoints?.[1];
+    return { dist: route.distance, dur: route.duration, coords: route.geometry.coordinates as LngLat[], steps: out, snapDist: wp?.distance ?? 0, snapTo: (wp?.location as LngLat | undefined) ?? null };
   } catch { return null; }
 }
 

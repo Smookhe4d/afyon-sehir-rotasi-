@@ -1,6 +1,8 @@
 import {useLocale} from "next-intl";
 import {createTranslator} from "next-intl";
 import type {Route} from "@/lib/types";
+import CatBadge from "@/components/CatBadge";
+import { CAT_STYLE } from "@/lib/categories";
 import type {Locale} from "@/i18n/routing";
 import {getContent} from "@/lib/content";
 import tr from "@/messages/tr.json";
@@ -20,5 +22,5 @@ export function routeMetaLine(r: Route, locale: Locale = "tr"): string {
 }
 export function CategoryChip({r, motionOrder}: {r: Route; motionOrder?: string}) {
   const {categoryLabels} = getContent(useLocale() as Locale);
-  return <span data-enter={motionOrder} className="self-start rounded-full bg-sand px-2.5 py-0.5 text-[10.5px] font-bold">{categoryLabels[r.category]}</span>;
+  return <span data-enter={motionOrder} className="inline-flex items-center gap-1.5 self-start text-[13px] font-bold" style={{ color: CAT_STYLE[r.category].color }}><CatBadge cat={r.category} size={22} radius={7} />{categoryLabels[r.category]}</span>;
 }

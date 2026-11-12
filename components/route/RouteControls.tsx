@@ -8,7 +8,12 @@ import {localizePath} from "@/i18n/navigation";
 import type {Locale} from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
+import Icon from "@/components/Icon";
+import { routeTimes, VISIT_MIN } from "@/lib/durations";
+import { fmtDist, fmtMin } from "@/lib/timefmt";
+
+const MODE_ICON: Record<string, string> = { arac: "car", yuruyus: "person-simple-walk", bisiklet: "bicycle" };
 import { resetRoute, setVisited, startRoute, toggleFavorite } from "@/app/actions";
 import PhotoSlot from "@/components/PhotoSlot";
 import type { Place, RouteStop } from "@/lib/types";
@@ -55,6 +60,10 @@ export function StopChecklist({ slug, stops, started, visited, signedIn = true, 
   const num = useUiFormatter().number;
 
   const tx = useUiTranslations("ui");
+  const g = useUiTranslations("g011");
+  const locale = useLocale();
+  const [curMode, setMode] = useState(mode);
+  useEffect(() => { const f = (e: Event) => setMode((e as CustomEvent<string>).detail); addEventListener("route-mode", f); return () => removeEventListener("route-mode", f); }, []);
 const roleLabel = { baslangic: tx("start_58730"), bitis: tx("finish_2a2a4"), mola: tx("break_04d58"), konaklama: tx("overnightStay_820e9") } as const;
 
   const router = useRouter();
@@ -71,7 +80,7 @@ const roleLabel = { baslangic: tx("start_58730"), bitis: tx("finish_2a2a4"), mol
   function begin() {
     setStarted(true);
     act(() => startRoute(slug), () => setStarted(false));
-    router.push(`/harita?rota=${slug}&takip=1&mod=${mode}`);
+    router.push(`/harita?rota=${slug}&takip=1&mod=${curMode}`);
   }
   function toggle(id: string) {
     const next = new Set(local); const on = !next.has(id); if (on) next.add(id); else next.delete(id);
@@ -92,34 +101,47 @@ const roleLabel = { baslangic: tx("start_58730"), bitis: tx("finish_2a2a4"), mol
       {isStarted && <div className="mt-2 h-2 overflow-hidden rounded-full bg-sand" role="progressbar" aria-valuenow={done} aria-valuemin={0} aria-valuemax={total}><div className="terra-grad h-full rounded-full transition-all" style={{ width: `${(done / total) * 100}%` }} /></div>}
       {!signedIn && isStarted && <p className="mt-2 rounded-xl bg-sand px-3 py-2 text-xs font-medium text-ink-2">{tx("asAGuestYourProgress_8dfc2")} <Link href={`/giris?next=/rotalar/${slug}`} className="font-bold text-terra">{tx("signIn_cb57f")}</Link>.</p>}
       {error && <p role="alert" className="mt-2 rounded-xl bg-[#FBE4DC] px-3 py-2 text-xs font-semibold text-[#8E2C12]">{error}</p>}
-      <ol data-motion-list className="mt-3 flex flex-col gap-2.5">
+      <ol data-motion-list className="mt-3 flex flex-col">
         {stops.map((s, i) => {
           const seen = local.has(s.placeId);
+          const t = routeTimes[slug]?.[curMode as "arac"];
+          const lg = i > 0 ? t?.legs[s.placeId] : undefined;
+          const off = t?.snap[s.placeId];
           return (
-            <li key={`${s.placeId}-${i}`} className={`flex gap-3 rounded-3xl border p-2.5 ${seen ? "border-[#C9D8A8] bg-[#F3F7E8]" : "border-line bg-white"}`}>
-              <PhotoSlot id={s.placeId} className="h-[64px] w-[72px] shrink-0 rounded-xl" label={false} />
-              <div className="min-w-0 flex-1">
-                <p className="font-display font-semibold leading-tight"><Link href={`/duraklar/${s.placeId}`}><span className="text-terra">{num(i + 1)}</span> · {s.place.name}</Link></p>
-                <p className="text-[11px] font-semibold text-mute">{s.place.area}{s.role ? ` · ${roleLabel[s.role]}` : ""}</p>
-                {(s.note || s.place.note) && <p className="mt-1 text-xs leading-snug text-ink-2">{s.note ? `${s.note}. ` : ""}{s.place.note}</p>}
-                <div className="mt-1.5 flex gap-3 text-[11px] font-bold text-terra"><Link href={`/duraklar/${s.placeId}`}>{tx("details_6bf65")}</Link>{s.hasMap && <Link href={`/harita?rota=${slug}&durak=${s.placeId}`}>{tx("map_d3387")}</Link>}</div>
+            <li key={`${s.placeId}-${i}`}>
+              {i > 0 && (lg ? <p className="my-1 ml-[42px] flex h-[30px] w-max max-w-[calc(100%-42px)] items-center gap-1.5 rounded-full bg-ac/[.05] px-2.5 text-[12.5px] font-semibold text-mute"><Icon name={MODE_ICON[curMode] ?? "car"} size={15} />{g("leg", {dist: fmtDist(locale, lg[0]), verb: g(`legVerb.${curMode}`), dur: fmtMin(g, lg[1] / 60)})}</p>
+                : !s.hasMap && <p className="my-1 ml-[42px] flex h-[30px] w-max items-center gap-1.5 rounded-full bg-ac/[.05] px-2.5 text-[12.5px] font-semibold text-mute"><Icon name="map-pin" size={15} />{g("noCoords")}</p>)}
+              <div className="relative flex gap-3">
+                <span className="relative flex w-[30px] shrink-0 flex-col items-center">
+                  <span className={`relative z-[1] mt-[14px] flex h-[30px] w-[30px] items-center justify-center rounded-full text-[13px] font-extrabold text-white transition-colors ${seen ? "bg-[#2F8A55]" : "bg-ac"}`}>{seen ? <Icon name="check" size={16} /> : num(i + 1)}</span>
+                  {i < stops.length - 1 && <span className="absolute bottom-[-14px] top-[44px] w-0.5 bg-ac-soft" />}
+                </span>
+                <div className="flex min-w-0 flex-1 items-center gap-3 py-2">
+                  <Link href={`/duraklar/${s.placeId}`} className="shrink-0"><PhotoSlot id={s.placeId} className="h-14 w-14 rounded-2xl" label={false} /></Link>
+                  <div className="min-w-0 flex-1">
+                    <Link href={`/duraklar/${s.placeId}`} className="block text-[15.5px] font-bold leading-tight text-navy">{s.place.name}</Link>
+                    <p className="text-[12.5px] text-mute">{s.place.area}{s.role ? `, ${roleLabel[s.role]}` : ""}{VISIT_MIN[s.place.kind] ? `, ${g("visitEst", {dur: fmtMin(g, VISIT_MIN[s.place.kind])})}` : ""}</p>
+                    {s.note && <p className="mt-0.5 text-[12.5px] leading-snug text-ink-2">{s.note}</p>}
+                  </div>
+                  {isStarted && (
+                    <button type="button" onClick={() => toggle(s.placeId)} disabled={pending} aria-pressed={seen} aria-label={`${s.place.name} ziyaret edildi`}
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 ${seen ? "border-[#2F8A55] bg-[#2F8A55] text-white" : "border-line text-transparent"}`}>
+                      <Icon name="check" size={16} />
+                    </button>
+                  )}
+                </div>
               </div>
-              {isStarted && (
-                <button type="button" onClick={() => toggle(s.placeId)} disabled={pending} aria-pressed={seen} aria-label={`${s.place.name} ziyaret edildi`}
-                  className={`mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 ${seen ? "border-[#4F6B2F] bg-[#4F6B2F] text-white" : "border-line text-transparent"}`}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M20 6 9 17l-5-5" /></svg>
-                </button>
-              )}
+              {off && <p className="my-1 ml-[42px] flex min-h-[30px] w-max max-w-[calc(100%-42px)] items-center gap-1.5 rounded-full bg-[rgba(250,144,36,.14)] px-2.5 py-1 text-[12.5px] font-semibold text-[#9A5200]"><Icon name="footprints" size={15} />{g("offroad", {dist: fmtDist(locale, off)})}</p>}
             </li>
           );
         })}
       </ol>
       {!isStarted ? (
-        <button type="button" onClick={begin} disabled={pending} className="terra-grad mt-5 flex h-14 w-full items-center justify-center rounded-full font-bold text-white shadow-[0_8px_20px_rgba(166,75,34,.4)] disabled:opacity-60">{tx("startTheRoute_835f2")} <span className="ml-2 text-xs font-medium opacity-90">{tx("liveDirections_5878a")}</span></button>
+        <button type="button" onClick={begin} disabled={pending} className="terra-grad mt-5 flex h-14 w-full items-center justify-center rounded-full font-bold text-white disabled:opacity-60">{tx("startTheRoute_835f2")} <span className="ml-2 text-xs font-medium opacity-90">{tx("liveDirections_5878a")}</span></button>
       ) : (
         <div className="mt-5 flex items-center justify-between gap-3">
           <p className="text-sm font-semibold text-ink-2">{done === total ? tx("youHaveCompletedTheRoute_0ea14") : tx("routeInProgress_e77f3")}</p>
-          <Link href={`/harita?rota=${slug}&takip=1&mod=${mode}`} className="terra-grad ml-auto flex h-10 items-center rounded-full px-4 text-xs font-bold text-white">{tx("continueDirections_845f2")}</Link>
+          <Link href={`/harita?rota=${slug}&takip=1&mod=${curMode}`} className="terra-grad ml-auto flex h-10 items-center rounded-full px-4 text-xs font-bold text-white">{tx("continueDirections_845f2")}</Link>
           <button type="button" onClick={reset} disabled={pending} className="h-10 rounded-full border border-line bg-white shadow-card px-4 text-xs font-bold">{tx("reset_8fb7f")}</button>
         </div>
       )}

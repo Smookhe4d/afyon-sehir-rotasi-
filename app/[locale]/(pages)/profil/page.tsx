@@ -31,7 +31,7 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
 
   setRequestLocale((await params).locale);
   const { supabase, user, profile } = await getSession();
-  if (!user) return (<main><PageHeader eyebrow={tx("myAccount_858f8")} title={tx("profile_669fe")} /><SignInPrompt title={tx("saveYourProgress_bbb83")} text={tx("signInToSaveYour_cee23")} /><div className="px-5"><LanguageSwitcher /></div></main>);
+  if (!user) return (<main><PageHeader eyebrow={tx("myAccount_858f8")} title={tx("profile_669fe")} /><ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} /><div className="h-3" /><SignInPrompt title={tx("saveYourProgress_bbb83")} text={tx("signInToSaveYour_cee23")} /><div className="px-5"><LanguageSwitcher /></div></main>);
   const [prog, favs, photo] = await Promise.all([
     supabase.from("route_progress").select("route_slug, visited_place_ids, completed_at").eq("user_id", user.id),
     supabase.from("favorites").select("route_slug").eq("user_id", user.id).order("created_at", { ascending: false }),
@@ -49,7 +49,7 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
 
   return (
     <main>
-      <ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "gece"} />
+      <ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} />
       <div className="relative z-10 -mt-10 px-5">
         <span className="terra-grad flex h-[84px] w-[84px] items-center justify-center rounded-full border-4 border-cream font-display text-[34px] font-semibold text-white" aria-hidden>{name.charAt(0).toLocaleUpperCase("tr")}</span>
         <div className="mt-2"><ProfileName name={name} /></div>

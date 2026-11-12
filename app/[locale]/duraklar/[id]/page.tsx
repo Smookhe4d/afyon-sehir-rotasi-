@@ -33,12 +33,13 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
   return (
     <main className="wide pb-36 lg:pb-16">
       <section className="relative lg:mx-4 lg:mt-4">
-        <PhotoSlot id={id} className="h-[230px] w-full lg:h-[400px] lg:rounded-[32px]" credit />
-        <BackButton className="glass-dark absolute left-4 top-6 inline-flex h-11 w-11 items-center justify-center rounded-full text-white" />
+        <PhotoSlot id={id} className="h-[380px] w-full lg:h-[400px] lg:rounded-[32px] [&_img]:[animation:onb-kb_18s_ease-out_both]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#14081c]/40 via-transparent via-30% to-[#14081c]/55 lg:rounded-[32px]" />
+        <BackButton className="glass-dark absolute left-4 top-[max(1rem,env(safe-area-inset-top))] inline-flex h-11 w-11 items-center justify-center rounded-full text-white" />
       </section>
-      <article className="split relative -mt-7 rounded-t-[34px] bg-cream px-5 pt-5 lg:mt-0 lg:rounded-none lg:bg-transparent lg:px-9 lg:pt-8">
-        <p className="text-xs font-bold text-terra">{p.area}</p>
-        <h1 className="mt-1 font-display text-[26px] font-semibold leading-tight lg:text-[40px]">{p.name}</h1>
+      <article className="split relative -mt-9 rounded-t-[34px] bg-cream px-4 pt-6 lg:mt-0 lg:rounded-none lg:bg-transparent lg:px-9 lg:pt-8">
+        <p className="text-[13px] font-bold text-ac">{p.area}</p>
+        <h1 className="mt-1 font-display text-[28px] leading-[1.08] lg:text-[40px]">{p.name}</h1>
 
         <AudioGuide title={p.name} text={(p.about?.length ? p.about : p.note ? [p.note] : []).join(" ")} />
 
