@@ -1,7 +1,8 @@
 "use client";
 import {useTranslations as useUiTranslations} from "next-intl";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { applyThemeLive, themeById, DEFAULT_THEME } from "@/lib/themes";
 
 const W = "#fff";
 const poppy = (x: number, y: number, r: number, k: string) => (
@@ -75,12 +76,13 @@ function Scene({ id }: { id: string }) {
   }
 }
 
-export const themeIds: string[] = ["gece", "gunbatimi", "hashas", "zeytin", "termal", "mermer", "lokum", "kale"];
+export const themeIds: string[] = ["rotafyon", "gece", "gunbatimi", "hashas", "zeytin", "termal", "mermer", "lokum", "kale"];
 
 export default function ProfileBanner({ initial }: { initial: string }) {
   const tx = useUiTranslations("ui");
 
   const themes = [
+  { id: "rotafyon", label: "rotAfyon", a: "#60117B", b: "#FA9024", sun: "#FFF1C9" },
   { id: "gece", label: tx("night_1eabb"), a: "#16264F", b: "#B0586B", sun: "#F3C9A0" },
   { id: "gunbatimi", label: tx("sunset_63a54"), a: "#C25A2B", b: "#F0B35E", sun: "#FFF1C9" },
   { id: "hashas", label: tx("poppy_30b19"), a: "#5B2A6B", b: "#D9577A", sun: "#FFD4DE" },
@@ -91,29 +93,24 @@ export default function ProfileBanner({ initial }: { initial: string }) {
   { id: "kale", label: tx("castle_65ead"), a: "#4B3426", b: "#B98B62", sun: "#F6E3C8" },
 ] as const;
 
-  const [id, setId] = useState(themes.some((t) => t.id === initial) ? initial : "gece");
-  const [open, setOpen] = useState(false);
+  const [id, setId] = useState(themes.some((t) => t.id === initial) ? initial : DEFAULT_THEME);
+  useEffect(() => { const f = (e: Event) => setId((e as CustomEvent).detail.id); addEventListener("afyon-theme", f); return () => removeEventListener("afyon-theme", f); }, []);
   const t = themes.find((x) => x.id === id) ?? themes[0];
-  const pick = (v: string) => { setId(v); try { document.cookie = `afyon-tema=${v}; path=/; max-age=31536000; samesite=lax`; } catch {} };
+  const pick = (v: string) => { setId(v); applyThemeLive(themeById(v)); };
   return (
-    <section className="relative h-44 overflow-hidden transition-colors" style={{ background: `linear-gradient(170deg, ${t.a} 0%, ${t.b} 100%)` }}>
-      <svg aria-hidden viewBox="0 0 400 176" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full"><Scene id={t.id} /></svg>
-      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className={`glass absolute right-4 top-4 z-10 flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-bold text-navy ${open ? "pointer-events-none opacity-0" : ""}`}>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.5 17 3 12 3Z" /><circle cx="7.5" cy="11" r="1" /><circle cx="10" cy="7.5" r="1" /><circle cx="14.5" cy="7.5" r="1" /></svg>
-        {tx("theme_6ae1b")}</button>
-      {open && (
-        <div className="glass absolute inset-x-3 top-3 z-10 flex items-center gap-1 rounded-2xl py-2 pl-3 pr-2">
-          <ul className="flex min-w-0 flex-1 gap-3 overflow-x-auto px-1 pb-0.5" role="radiogroup" aria-label={tx("profileTheme_0d3bb")}>
-            {themes.map((x) => (
-              <li key={x.id} className="shrink-0 text-center">
-                <button type="button" role="radio" aria-checked={x.id === id} aria-label={x.label} onClick={() => pick(x.id)} className={`h-9 w-9 rounded-full border-2 shadow-card ${x.id === id ? "border-navy ring-2 ring-white" : "border-white"}`} style={{ background: `linear-gradient(150deg, ${x.a}, ${x.b})` }} />
-                <span className="mt-0.5 block text-[9.5px] font-bold text-navy">{x.label}</span>
-              </li>
-            ))}
-          </ul>
-          <button type="button" onClick={() => setOpen(false)} aria-label={tx("close_9e6ec")} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/70 text-lg font-bold leading-none text-navy">×</button>
-        </div>
-      )}
+    <>
+    <section className="relative mx-4 h-48 overflow-hidden rounded-[30px] transition-[background] duration-700" style={{ background: `linear-gradient(135deg, ${t.a} 0%, ${t.b} 100%)` }}>
+      <svg key={t.id} aria-hidden viewBox="0 0 400 176" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full [animation:fade-in_.7s_both]"><Scene id={t.id === "rotafyon" ? "kale" : t.id} /></svg>
     </section>
+    <div className="mt-4 flex items-baseline justify-between px-5"><h2 className="font-display text-lg">{tx("theme_6ae1b")}</h2></div>
+    <ul className="mt-2 flex gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none]" role="radiogroup" aria-label={tx("profileTheme_0d3bb")}>
+      {themes.map((x) => (
+        <li key={x.id} className="shrink-0 text-center">
+          <button type="button" role="radio" aria-checked={x.id === id} aria-label={x.label} onClick={() => pick(x.id)} className={`h-[52px] w-[52px] rounded-[18px] transition-transform duration-300 ${x.id === id ? "scale-105 shadow-[0_0_0_3px_var(--color-cream),0_0_0_5.5px_var(--ac)]" : "shadow-card"}`} style={{ background: `linear-gradient(135deg, ${x.a}, ${x.b})` }} />
+          <span className={`mt-1.5 block text-[11.5px] font-semibold ${x.id === id ? "text-navy" : "text-mute"}`}>{x.label}</span>
+        </li>
+      ))}
+    </ul>
+    </>
   );
 }

@@ -325,3 +325,21 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Ayrı dil penceresi ve üç tanıtım ekranı yerine üç adımlı yeni tanıtım: karşılama ve dil seçimi, harita, sesli rehber. Ekranlar parmakla kaydırılabiliyor. Rota, durak, QR ve doğrudan /en girişlerinde tanıtım açılmıyor.
   - `impeccable`, `web-design-guidelines`, `vercel-react-best-practices` ve `core-web-vitals` skill'leri eklendi.
 - **Açık kalan:** Zafer Yolu'nda Koru Tepe, Sümbül Tepe ve Kuzukulaklı Yaylası için doğrulanmış koordinat yok. Aslankaya durağındaki fotoğrafın tapınak cephesini göstermediği görüldü, uygun lisanslı fotoğraf aranacak. İçerik dosyalarındaki (lib/routes.ts, lib/places.ts, lib/placeExtra.ts) noktalı virgüller ayrıca temizlenecek.
+
+---
+
+## G-011: iOS cam ve derinlik tasarımına geçiş (1. aşama)
+
+- **Durum:** İncelemede (yönetici uyguladı, proje sahibinin isteğiyle)
+- **Dal:** `claude/G-011-ios-cam-tasarim`
+- **Kaynak:** Proje sahibinin onayladığı tıklanabilir prototip. İçerik, oturum, grup turu, QR, rozet, sosyal alan ve dil desteği aynen korunur.
+- **Yapılanlar:**
+  - Tasarım belirteçleri yeni paletle eşlendi (eski adlar korundu). Yazı tipi Onest. Vurgu rengi seçilen temadan gelir, tema artık bütün uygulamada butonları ve vurguları boyar. Varsayılan tema rotAfyon, profil temaları misafirde de seçilebilir.
+  - Logo açılışı (oturum başına bir kez), cam kartlı yeni tanıtım ve yeni giriş ekranı. Tanıtım bitince giriş ekranına geçilir.
+  - Keşfet tam ekran harita oldu: üstte cam logo ve tema çipleri, altta sürüklenen panel. Paneldeki rehber kartı öne gelince rotası haritada çizilir. Arama, duyurular ve hava durumu panelde.
+  - Alt menü: Keşfet, Rotalar, Sosyal, Profil ve ayrı QR düğmesi. Harita Keşfet'te ve "Tam ekran harita" bağlantısında, Rotanı belirle Rotalar sayfasında.
+  - Rota süreleri `lib/durations.ts`: OSRM ile duraklar arası mesafe ve süre, durak türüne göre tahmini ziyaret süresi, 8 saati aşan rotalarda gün. Rota sayfasında ulaşım seçimi (araç, yürüyüş, bisiklet), duraklar arası bacaklar ve yolu olmayan duraklar için uyarı.
+  - Canlı yönlendirmede yol durağa ulaşmıyorsa son kısım turuncu kesikli çizgiyle gösterilir ve kartta uyarı çıkar.
+  - "Bireysel başla" ve "Grupla başla" düğmeleri. 11 yeni Wikimedia Commons fotoğrafı. Ekranlardaki fotoğrafçı etiketi kaldırıldı, kaynaklar Hakkında sayfasında "Görsel kaynakları" bölümünde.
+  - Simgeler Phosphor (MIT) yollarından, paket eklenmeden `lib/icons.ts` içinde.
+- **Açık kalan (2. aşama):** sosyal ve rotanı belirle sayfalarının görsel uyumu, tam ekran haritanın yeni kart tasarımı, İngilizce metinlerin gözden geçirilmesi.

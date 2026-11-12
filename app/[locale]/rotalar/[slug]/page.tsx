@@ -7,9 +7,13 @@ import type {Locale} from "@/i18n/routing";
 import {pageMetadata} from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
 import QRCode from "qrcode";
+import Icon from "@/components/Icon";
 import { notFound } from "next/navigation";
 import { CategoryChip, routeMetaLine } from "@/components/RouteMeta";
 import StartPanel from "@/components/route/StartPanel";
+import TimeCard from "@/components/route/TimeCard";
+import { routeCover } from "@/lib/covers";
+import { photos } from "@/lib/photos";
 import { FavoriteButton, ShareButton, StopChecklist } from "@/components/route/RouteControls";
 import Comments, { type CommentRow } from "@/components/route/Comments";
 import { routes, getRoute, routeStops, modeLabels, difficultyLabels } from "@/lib/routes";
@@ -63,22 +67,24 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
   return (
     <MotionProvider key={(await params).locale + slug}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="relative h-[240px] overflow-hidden bg-navy px-5 pt-8 lg:mx-4 lg:mt-4 lg:h-[320px] lg:rounded-[32px]">
+      <section className="relative h-[340px] overflow-hidden bg-navy px-4 pt-[max(1rem,env(safe-area-inset-top))] lg:mx-4 lg:mt-4 lg:h-[360px] lg:rounded-[32px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img data-parallax="cover" src="/art/banner-afyon-1200.webp" srcSet="/art/banner-afyon-1200.webp 1200w, /art/banner-afyon-2000.webp 2000w" sizes="(min-width: 1024px) 1280px, 100vw" alt="" className="absolute inset-0 h-full w-full object-cover object-[54%_50%] lg:object-[50%_30%]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#08122c]/45 to-transparent" />
+        <img data-parallax="cover" src={routeCover[slug] ? photos[routeCover[slug]!].src : "/art/banner-afyon-1200.webp"} alt="" className="absolute inset-0 h-full w-full object-cover [animation:onb-kb_16s_ease-out_both]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#14081c]/45 via-transparent via-40% to-transparent" />
         <div className="relative">
         <div className="flex items-center justify-between">
-          <Link href="/rotalar" aria-label={tx("back_4928c")} className="glass-dark inline-flex h-11 w-11 items-center justify-center rounded-full text-white">‹</Link>
+          <Link href="/rotalar" aria-label={tx("back_4928c")} className="glass-dark inline-flex h-11 w-11 items-center justify-center rounded-full text-white"><Icon name="caret-left" size={22} /></Link>
           <div className="flex gap-2"><ShareButton title={r.title} slug={slug} /><FavoriteButton slug={slug} initial={Boolean(fav.data)} signedIn={Boolean(user)} /></div>
         </div>
         </div>
       </section>
-      <article className="split relative -mt-8 rounded-t-[34px] bg-cream px-5 pt-5 lg:mt-0 lg:rounded-none lg:bg-transparent lg:px-9 lg:pb-16 lg:pt-8">
+      <article className="split relative -mt-10 rounded-t-[34px] bg-cream px-4 pt-6 lg:mt-0 lg:rounded-none lg:bg-transparent lg:px-9 lg:pb-16 lg:pt-8">
         <CategoryChip r={r} motionOrder="0" />
-        <h1 data-enter="1" className="mt-2 font-display text-[25px] font-semibold leading-tight lg:text-[40px]">{r.title}</h1>
+        <h1 data-enter="1" className="mt-2 font-display text-[28px] leading-[1.08] lg:text-[40px]">{r.title}</h1>
+        <p data-enter="2" className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{r.summary}</p>
         <p data-enter="2" className="mt-1.5 text-xs font-semibold text-mute">{routeMetaLine(r, (await params).locale)}{r.provinces ? ` · ${r.provinces.join(", ")}` : ""}</p>
         <StartPanel slug={slug} mode={r.modes?.includes("yuruyus") ? "yuruyus" : r.modes?.[0] ?? "arac"} defaultName={profile && !profile.is_guest ? profile.display_name : ""} />
+        <TimeCard slug={slug} modes={r.modes ?? ["arac"]} initial={r.modes?.includes("yuruyus") ? "yuruyus" : r.modes?.[0] ?? "arac"} />
 
         <div data-reveal className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink-2">{r.description.map((p, i) => <p key={i}>{p}</p>)}</div>
 
