@@ -695,6 +695,7 @@
     "mapLabel": "Afyonkarahisar haritası",
     "catRoutes": "{label} rotaları",
     "noRouteInCat": "Bu temada rota yok.",
-    "offroadNav": "Yol durağa kadar gitmiyor. Son {dist} patikadan yürünür, turuncu kesikli çizgi yönü gösterir."
+    "offroadNav": "Yol durağa kadar gitmiyor. Son {dist} patikadan yürünür, turuncu kesikli çizgi yönü gösterir.",
+    "themeHint": "Butonlar bu renge döner"
   }
 }

@@ -49,11 +49,13 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
 
   return (
     <main>
-      <ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} />
-      <div className="relative z-10 -mt-10 px-5">
-        <span className="terra-grad flex h-[84px] w-[84px] items-center justify-center rounded-full border-4 border-cream font-display text-[34px] font-semibold text-white" aria-hidden>{name.charAt(0).toLocaleUpperCase("tr")}</span>
-        <div className="mt-2"><ProfileName name={name} /></div>
-        <p className="text-[12.5px] text-mute">{guest ? tx("guestAccount_8b6de") : user.email}</p>
+      <PageHeader eyebrow={tx("myAccount_858f8")} title={tx("profile_669fe")} />
+      <ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} who={<>
+        <span className="flex h-[58px] w-[58px] shrink-0 items-center justify-center rounded-full border-[3px] border-white/80 bg-white/20 font-display text-[26px] text-white backdrop-blur" aria-hidden>{name.charAt(0).toLocaleUpperCase("tr")}</span>
+        <span className="min-w-0"><b className="block truncate text-[21px] font-extrabold leading-tight drop-shadow">{name}</b><span className="block truncate text-[13px] opacity-90">{guest ? tx("guestAccount_8b6de") : user.email}</span></span>
+      </>} />
+      <div className="relative px-5">
+        <div className="mt-4"><ProfileName name={name} /></div>
         {guest && <p className="mt-3 rounded-2xl bg-sand px-4 py-3 text-sm text-ink-2">{tx("asAGuestYouCan_a77cd")}<Link href="/giris" className="ml-1 font-bold text-terra" prefetch={false}>{tx("createAnAccount_45824")}</Link></p>}
 
         <dl className="mt-5 grid grid-cols-3 rounded-[22px] border border-line bg-white shadow-card py-3 text-center">
