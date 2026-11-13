@@ -359,7 +359,7 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - **Açık kalan:** Afyon merkezindeki bazı duraklar (Taşhan, Uzun Çarşı, Anıtpark, küçük camiler), Seydiler çevresi köyleri ve Başkomutanlık Tarihi Milli Parkı tepeleri için doğru yeri gösteren serbest lisanslı fotoğraf bulunamadı. Ekibin kendi çekimleri beklenecek.
 
 ## G-015: Çevredeki yerler, durak rehberi, albüm ve profil görseli
-- **Durum:** PR açıldı, canlıya geçiş proje sahibinin onayını bekliyor.
+- **Durum:** Proje sahibinin onayıyla canlıya alındı (PR #12).
 - **Yapılanlar:**
   - Alt sekme çubuğu artık opak beyaz, şeffaflık kaldırıldı.
   - Profildeki büyük tema alanı ve illüstrasyonlar kaldırıldı. Tema, ayarlar satırında 9 renk noktası olarak seçiliyor.
@@ -368,3 +368,14 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - OpenStreetMap'ten yemek, cami ve umumi tuvalet kayıtları (`lib/pois.ts`, `public/pois.geojson`). Durak sayfasında liste ve harita, Keşfet haritasında yakın zoomda nokta olarak.
   - Fotoğrafı olmayan 37 durağa Commons görseli eklendi. Durağın kendisini göstermeyenler "Temsilî" etiketiyle gösteriliyor. Albüm görselleri `public/photos/c` altında, künyeleri Hakkında sayfasında.
 - **Açık kalan:** OpenStreetMap'te puan bilgisi yok, bu yüzden "4 puan üzeri" süzgeci uygulanamadı. Afyon'da OSM'de kayıtlı restoran ve tuvalet sayısı az. Temsilî görseller ekibin kendi çekimleriyle değiştirilmeli.
+
+## G-016: Hız, dokunma ve geçiş animasyonları
+- **Durum:** PR açıldı, canlıya geçiş proje sahibinin onayını bekliyor.
+- **Yapılanlar:**
+  - Keşfet başlığı "Afyonkarahisar rotaları" oldu. 3B düğmesinin erişilebilirlik etiketi düzeltildi.
+  - Kart ve listelerde 480 piksellik küçük görseller (`public/photos/t`). Ana sayfa görsel yükü yaklaşık 3,6 MB'tan belirgin biçimde düştü.
+  - Kart görselinin sayfaya "büyüyerek" geçişi kaldırıldı (köşeler ve yazılar kayboluyordu). Tüm ileri geçişler tek, kısa bir itme.
+  - Dokunmada tek ve sade küçülme. Kararma ve yaylanma kaldırıldı. Geçiş süreleri kısaldı, sayfa içi giriş animasyonu geçişle üst üste binmiyor.
+  - Bağlantıya dokunur dokunmaz sayfa önceden isteniyor. Rota sayfasına anında görünen iskelet eklendi.
+  - Açılış ekranı yaklaşık 5 saniyeden 2,5 saniyeye indi.
+  - Temsilî görsel rota kapağı olmuyor. Rota ve durak metinlerindeki cümle içi noktalı virgüller kaldırıldı.

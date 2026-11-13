@@ -39,7 +39,7 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
   return (
     <main className="wide pb-36 lg:pb-16">
       <section className="relative lg:mx-4 lg:mt-4">
-        <PhotoSlot id={id} vt={`ph-${id}`} eager className="h-[380px] w-full lg:h-[400px] lg:rounded-[32px] [&_img]:[animation:onb-kb_18s_ease-out_both]" />
+        <PhotoSlot id={id} eager className="h-[380px] w-full lg:h-[400px] lg:rounded-[32px] [&_img]:[animation:onb-kb_18s_ease-out_both]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#14081c]/40 via-transparent via-30% to-[#14081c]/55 lg:rounded-[32px]" />
         <BackButton className="glass-dark absolute left-4 top-[max(1rem,env(safe-area-inset-top))] inline-flex h-11 w-11 items-center justify-center rounded-full text-white" />
       </section>

@@ -9,7 +9,7 @@ export const movement = {
   ease: [0.22, 0.8, 0.3, 1] as [number, number, number, number],
   pressScale: 0.97,
   pressDuration: 0.1,
-  spring: {type: spring, stiffness: 400, damping: 24, mass: 0.6},
+  spring: {type: spring, stiffness: 420, damping: 34, mass: 0.6},
   parallaxRatio: 0.15,
   parallaxSpeed: 0.12,
   scrollLerp: 0.1,
