@@ -1,9 +1,9 @@
 import {useTranslations as useUiTranslations} from "next-intl";
 import { photos } from "@/lib/photos";
 
-type Props = { className?: string; label?: boolean; /** Tek durak */ id?: string; /** Küçük telif etiketi */ credit?: boolean };
+type Props = { className?: string; label?: boolean; /** Tek durak */ id?: string; /** Küçük telif etiketi */ credit?: boolean; /** Sayfa geçişinde ortak görsel adı (G-014) */ vt?: string; eager?: boolean };
 
-export default function PhotoSlot({ className = "", label = true, id, credit = false }: Props) {
+export default function PhotoSlot({ className = "", label = true, id, credit = false, vt, eager }: Props) {
   const photoText = useUiTranslations("photos");
   const tx = useUiTranslations("ui");
 
@@ -18,7 +18,7 @@ export default function PhotoSlot({ className = "", label = true, id, credit = f
   return (
     <div className={`relative overflow-hidden bg-sand ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={ph.src} alt={id ? photoText(id) : ph.alt} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: ph.pos ?? "center" }} />
+      <img src={ph.src} alt={id ? photoText(id) : ph.alt} loading={eager ? "eager" : "lazy"} decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: ph.pos ?? "center", viewTransitionName: vt }} />
       {credit && <a href={ph.page} target="_blank" rel="noopener noreferrer" className="absolute bottom-9 right-3 max-w-[70%] truncate rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-medium text-white">{tx("photo_98f27")} {ph.author} · {ph.license}</a>}
     </div>
   );

@@ -36,14 +36,14 @@ export default function GuideRail({ cards, onMap, empty, heading, headingCat, al
   return (
     <>
       <div className="flex items-baseline justify-between px-4 pb-2.5 pt-2"><h2 className="font-display text-[21px] text-navy">{cat ? headingCat[cat] : heading}</h2><Link href="/rotalar" className="text-[15px] font-semibold text-ac">{allLabel}</Link></div>
-      <div ref={rail} data-hscroll className="flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+      <div ref={rail} data-hscroll className="flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-4 pt-1.5 [scrollbar-width:none]">
         {list.length === 0 && <p className="py-3 text-sm text-mute">{empty}</p>}
         {list.map((c) => {
           const on = c.slug === active;
           return (
             <Link key={c.slug} data-slug={c.slug} href={`/rotalar/${c.slug}`} aria-label={c.title}
               className={`relative h-[200px] w-[240px] shrink-0 snap-start overflow-hidden rounded-[26px] text-white transition-shadow duration-500 ${on ? "shadow-[0_0_0_3px_var(--ac),0_16px_30px_-18px_rgba(44,18,66,.7)]" : "shadow-[0_16px_30px_-18px_rgba(44,18,66,.7)]"}`}>
-              {c.img ? (/* eslint-disable-next-line @next/next/no-img-element */<img src={c.img} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />)
+              {c.img ? (/* eslint-disable-next-line @next/next/no-img-element */<img src={c.img} alt="" loading="lazy" style={{ viewTransitionName: `cv-${c.slug}` }} className="absolute inset-0 h-full w-full object-cover" />)
                 : <span className="absolute inset-0 flex items-center justify-center bg-[linear-gradient(135deg,var(--ac),#2A1236)] text-white/80"><CatBadge cat={c.cat} size={56} radius={18} /></span>}
               <span className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent via-30% to-[#14081c]/85" />
               <span className="absolute left-2.5 top-2.5"><CatBadge cat={c.cat} /></span>

@@ -7,6 +7,7 @@ import type { Metadata, Viewport } from "next";
 import { Onest } from "next/font/google";
 import { THEMES, THEME_COOKIE } from "@/lib/themes";
 import Splash from "@/components/Splash";
+import PageTransitions from "@/components/motion/PageTransitions";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Track from "@/components/Track";
@@ -49,6 +50,7 @@ export default async function RootLayout({ children, params }: { children: React
         <GlassTab />
         <Onboarding routeCount={routes.length} />
         <Splash />
+        <PageTransitions />
         <SwRegister />
         <Track />
         <Analytics />
