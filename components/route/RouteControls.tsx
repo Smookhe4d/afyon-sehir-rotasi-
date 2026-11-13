@@ -117,7 +117,7 @@ const roleLabel = { baslangic: tx("start_58730"), bitis: tx("finish_2a2a4"), mol
                   {i < stops.length - 1 && <span className="absolute bottom-[-14px] top-[44px] w-0.5 bg-ac-soft" />}
                 </span>
                 <div className="flex min-w-0 flex-1 items-center gap-3 py-2">
-                  <Link href={`/duraklar/${s.placeId}`} className="shrink-0"><PhotoSlot id={s.placeId} vt={stops.findIndex((x) => x.placeId === s.placeId) === i ? `ph-${s.placeId}` : undefined} className="h-14 w-14 rounded-2xl" label={false} /></Link>
+                  <Link href={`/duraklar/${s.placeId}`} className="shrink-0"><PhotoSlot id={s.placeId} small className="h-14 w-14 rounded-2xl" label={false} /></Link>
                   <div className="min-w-0 flex-1">
                     <Link href={`/duraklar/${s.placeId}`} className="block text-[15.5px] font-bold leading-tight text-navy">{s.place.name}</Link>
                     <p className="text-[12.5px] text-mute">{s.place.area}{s.role ? `, ${roleLabel[s.role]}` : ""}{VISIT_MIN[s.place.kind] ? `, ${g("visitEst", {dur: fmtMin(g, VISIT_MIN[s.place.kind])})}` : ""}</p>

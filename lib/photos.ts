@@ -92,3 +92,6 @@ export const photos: Record<string, Photo> = {
   "yenice-ciftligi": {"src": "/photos/yazilikaya.jpg", "alt": tr.photos["yenice-ciftligi"], "author": "Thecatcherintherye", "license": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Yaz%C4%B1l%C4%B1kaya_Midas_An%C4%B1t%C4%B1.jpg", "rep": true},
   "aslantas-yilantas": {"src": "/photos/goynus-vadisi.jpg", "alt": tr.photos["aslantas-yilantas"], "author": "Flyttblock", "license": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:G%C3%B6yn%C3%BC%C5%9F_Kalesi_1793889458.JPG", "rep": true},
 };
+
+/** G-016: kartlar ve listeler için 480 piksel genişliğinde küçük görsel. */
+export const thumbOf = (id: string) => (photos[id] ? `/photos/t/${id}.webp` : undefined);

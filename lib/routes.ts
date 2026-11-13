@@ -11,7 +11,7 @@ export const routes: Route[] = [
     summary: "UNESCO listesindeki Ulu Cami'den Zafer Müzesi'ne, şehir merkezinin Selçuklu ve Osmanlı mirası ile müzeleri.",
     description: [
       "Rota, şehir merkezindeki Anadolu Selçuklu ve Osmanlı dönemi eserlerini merkeze yakın müzelerle birleştirir. 2023'te UNESCO Dünya Mirası Listesi'ne alınan Afyon Ulu Cami ile Zafer Müzesi arasındaki tarihî, kültürel ve sosyal çekicilikleri kapsar.",
-      "Başlangıç noktası olarak AKÜ Devlet Konservatuvarı'ndaki İbrahim Alimoğlu Müzik Koleksiyonu belirlenmiştir; ancak gruplar geliş güzergâhına göre farklı noktalardan başlayabilir. Öğle yemeği Uzun Çarşı'daki yerel lokantalarda verilir; Aşçı Bacaksız, Salim Usta Lokantası, Musakka ve İkbal Lokantası gibi işletmeler yerel lezzetler sunar.",
+      "Başlangıç noktası olarak AKÜ Devlet Konservatuvarı'ndaki İbrahim Alimoğlu Müzik Koleksiyonu belirlenmiştir. Ancak gruplar geliş güzergâhına göre farklı noktalardan başlayabilir. Öğle yemeği Uzun Çarşı'daki yerel lokantalarda verilir. Aşçı Bacaksız, Salim Usta Lokantası, Musakka ve İkbal Lokantası gibi işletmeler yerel lezzetler sunar.",
     ],
     distanceKm: 20, distanceNote: "Yaklaşık", modes: ["arac", "yuruyus"],
     stops: [
@@ -25,9 +25,9 @@ export const routes: Route[] = [
   },
   {
     slug: "frig-yolu-afyonkarahisar", title: "Frig Yolu Afyonkarahisar Kültür Rotası", scope: "il-ici", category: "frig",
-    summary: "Seydiler'den Üçlerkayası'na; peribacaları, kaya mezarları, kaya kiliseleri ve Frig tapınakları.",
+    summary: "Seydiler'den Üçlerkayası'na. Peribacaları, kaya mezarları, kaya kiliseleri ve Frig tapınakları.",
     description: [
-      "Dağlık Frigya Bölgesi'nin Afyonkarahisar sınırları içinde kalan kısmını kapsayan rota; Frigler, Roma ve Doğu Roma dönemlerine ait kalıntıları, kaya mezarlarını, mağara ve kiliseleri bir araya getirir.",
+      "Dağlık Frigya Bölgesi'nin Afyonkarahisar sınırları içinde kalan kısmını kapsayan rota. Frigler, Roma ve Doğu Roma dönemlerine ait kalıntıları, kaya mezarlarını, mağara ve kiliseleri bir araya getirir.",
       "Rota Ankara–Afyonkarahisar karayolu üzerindeki Seydiler beldesinden başlar ve Üçlerkayası yerleşiminde sona erer. Bireysel veya grup hâlinde yürüyüş ve bisiklet rotası olarak da gerçekleştirilebilir.",
     ],
     distanceKm: 120, distanceNote: "Yaklaşık", modes: ["arac", "yuruyus", "bisiklet"],
@@ -41,7 +41,7 @@ export const routes: Route[] = [
   },
   {
     slug: "zafer-yolu", title: "Zafer Yolu Afyonkarahisar Rotası", scope: "il-ici", category: "savas-alanlari",
-    summary: "Şuhut'tan Çiğiltepe'ye; Büyük Taarruz'un geçtiği Başkomutanlık Tarihi Milli Parkı savaş alanları.",
+    summary: "Şuhut'tan Çiğiltepe'ye. Büyük Taarruz'un geçtiği Başkomutanlık Tarihi Milli Parkı savaş alanları.",
     description: [
       "Afyonkarahisar Kocatepe'den başlayıp Kütahya Dumlupınar çevresinde sona eren Büyük Taarruz'un alanları Başkomutanlık Tarihi Milli Parkı olarak düzenlenmiştir. Rota, parkın Afyonkarahisar bölümünü savaş alanları turizmi kapsamında sunar.",
       "Başlangıç Şuhut ilçesidir. Atatürk Evi'nden başlayan yaklaşık 20 km'lik güzergâh Zafer Yolu olarak anılır. Her yıl 26 Ağustos'ta Şuhut Atatürk Evi ile Kocatepe arasında Bağımsızlık Yürüyüşü yapılır.",
@@ -52,12 +52,12 @@ export const routes: Route[] = [
       { placeId: "kurtkayasi" }, { placeId: "koru-tepe", role: "mola" }, { placeId: "karatepe", role: "mola" }, { placeId: "tinaztepe" },
       { placeId: "sumbul-tepe", role: "mola" }, { placeId: "kuzukulakli" }, { placeId: "ciltepe", role: "bitis" },
     ],
-    tips: ["Rota geliş güzergâhına göre farklı noktalardan başlatılabilir; Kütahya ve Uşak bölümleriyle genişletilebilir."],
+    tips: ["Rota geliş güzergâhına göre farklı noktalardan başlatılabilir. Kütahya ve Uşak bölümleriyle genişletilebilir."],
     source: SRC,
   },
   {
     slug: "anadolu-selcuklu-rotasi", title: "Afyon Anadolu Selçuklu Rotası", scope: "il-ici", category: "han-kervansaray",
-    summary: "Sultandağı'ndan Boyalı Köyü'ne; kervansaraylar, Ulu Cami ve Selçuklu külliyesi.",
+    summary: "Sultandağı'ndan Boyalı Köyü'ne. Kervansaraylar, Ulu Cami ve Selçuklu külliyesi.",
     description: [
       "Afyonkarahisar, Konya'dan Ege'ye geçişte bir kavşak olduğu için Anadolu Selçuklu dönemine ait önemli eserlere sahiptir. Rota çoğunlukla kervansaraylardan oluşur ve Konya yönünden başlar.",
       "Rotanın büyük bölümü ana yollar ve merkezî yerleşimler üzerinde olduğundan ulaşım ve temel ihtiyaçlar açısından sorun yoktur.",
@@ -70,10 +70,10 @@ export const routes: Route[] = [
   },
   {
     slug: "gastronomi-rotasi", title: "Afyonkarahisar Gastronomi Rotası", scope: "il-ici", category: "gastronomi",
-    summary: "Gastronomi Konağı'ndan Şuhut Keşkek Evi'ne; sucuk, lokum, kaymak ve yerel yemekler.",
+    summary: "Gastronomi Konağı'ndan Şuhut Keşkek Evi'ne. Sucuk, lokum, kaymak ve yerel yemekler.",
     description: [
       "İlin gastronomik değerlerini tanıtmak ve bilinirliğini artırmak için önerilen rota. Başlangıç noktası yerel yemeklerin sunulduğu Gastronomi Konağı'dır.",
-      "Ardından yemek örnekleri ve mutfak araç gereçlerinin sergilendiği Belediye Kültür ve Sanat Evi, sucuk, lokum ve kaymak satan Uzun Çarşı gezilir; rota Şuhut'taki Keşkek Evi ile sona erer.",
+      "Ardından yemek örnekleri ve mutfak araç gereçlerinin sergilendiği Belediye Kültür ve Sanat Evi, sucuk, lokum ve kaymak satan Uzun Çarşı gezilir. Rota Şuhut'taki Keşkek Evi ile sona erer.",
     ],
     modes: ["arac", "yuruyus"],
     stops: [
@@ -84,25 +84,25 @@ export const routes: Route[] = [
   },
   {
     slug: "akdag-milli-park-rotasi", title: "Akdağ Milli Park Rotası", scope: "il-ici", category: "doga",
-    summary: "Sandıklı'da Kocayayla, Kurtini Mağarası ve Tokalı Kanyon; yılkı atları, foto safari ve yürüyüş.",
+    summary: "Sandıklı'da Kocayayla, Kurtini Mağarası ve Tokalı Kanyon. Yılkı atları, foto safari ve yürüyüş.",
     description: [
-      "Sandıklı ilçesindeki Akdağ, Türkiye'nin 49. Milli Parkı'dır. Başlangıç noktası Kocayayla'dır; gölet çevresinde fotoğraf molası verilir, yılkı atları ve kızıl geyik gibi yaban hayatı gözlemlenebilir.",
+      "Sandıklı ilçesindeki Akdağ, Türkiye'nin 49. Milli Parkı'dır. Başlangıç noktası Kocayayla'dır. Gölet çevresinde fotoğraf molası verilir, yılkı atları ve kızıl geyik gibi yaban hayatı gözlemlenebilir.",
       "Kocayayla'dan yaklaşık 6 km yürüyerek Kurtini Mağarası'na, ardından dere yatağını izleyerek Kanyon Vadi ve Tokalı Kanyon girişine ulaşılır.",
     ],
-    difficulty: "zor", difficultyNote: "Kanyon geçişi teçhizat gerektirir; yalnızca özel ilgi grupları için önerilir. Otobüsle ulaşılabilen Kocayayla ve Kurtini Mağarası kolay bölümlerdir.",
+    difficulty: "zor", difficultyNote: "Kanyon geçişi teçhizat gerektirir. Yalnızca özel ilgi grupları için önerilir. Otobüsle ulaşılabilen Kocayayla ve Kurtini Mağarası kolay bölümlerdir.",
     modes: ["arac", "yuruyus"],
     stops: [
       { placeId: "kocayayla", role: "baslangic" }, { placeId: "kurtini" }, { placeId: "tokali-kanyon", role: "bitis", note: "Kocayayla'ya geri dönülebilir veya Denizli Çivril çıkışına kanyon geçilebilir" },
     ],
-    tips: ["Parkta bungalov evlerde konaklama imkânı vardır.", "Yaz aylarında ateş yakmayın ve cam atık bırakmayın; orman yangını riski vardır."],
+    tips: ["Parkta bungalov evlerde konaklama imkânı vardır.", "Yaz aylarında ateş yakmayın ve cam atık bırakmayın. Orman yangını riski vardır."],
     source: SRC,
   },
   {
     slug: "termal-turizm-rotasi", title: "Frigya Termal Turizm Rotası", scope: "il-ici", category: "termal",
-    summary: "Uşak'tan Ankara'ya beş ili birleştiren termal rota; Afyonkarahisar'da Ömer–Gecek'te iki gün konaklama.",
+    summary: "Uşak'tan Ankara'ya beş ili birleştiren termal rota. Afyonkarahisar'da Ömer–Gecek'te iki gün konaklama.",
     description: [
       "Termal Turizm Master Planı 2007–2023'teki Frigya Termal Turizm Bölgesi için oluşturulan rota Uşak, Afyonkarahisar, Kütahya, Eskişehir ve Ankara'yı kapsar. Bölgede toplam 11 termal turizm merkezi bulunur.",
-      "Afyonkarahisar'da ziyaretçilerin Ömer–Gecek termal merkezlerinde 2 gün konaklaması planlanır; geleneksel Türk hamamı, çamur banyosu ve aromaterapi yanında Ulu Cami, Zafer Müzesi ve Mevlevihane gibi kültürel duraklar keşfedilir.",
+      "Afyonkarahisar'da ziyaretçilerin Ömer–Gecek termal merkezlerinde 2 gün konaklaması planlanır. Geleneksel Türk hamamı, çamur banyosu ve aromaterapi yanında Ulu Cami, Zafer Müzesi ve Mevlevihane gibi kültürel duraklar keşfedilir.",
     ],
     provinces: ["Uşak", "Afyonkarahisar", "Kütahya", "Eskişehir", "Ankara"],
     stops: [
@@ -114,7 +114,7 @@ export const routes: Route[] = [
   },
   {
     slug: "inanc-turizmi-rotasi", title: "Afyonkarahisar İnanç Turizmi Rotası", scope: "il-ici", category: "inanc",
-    summary: "Ulu Cami'den İmaret Camii ve Hamamı'na; Selçuklu ve Osmanlı cami, türbe ve Mevlevihane durakları.",
+    summary: "Ulu Cami'den İmaret Camii ve Hamamı'na. Selçuklu ve Osmanlı cami, türbe ve Mevlevihane durakları.",
     description: [
       "Selçuklu ve Osmanlı dönemlerinden günümüze ulaşan cami ve türbeleriyle şehir merkezindeki dinî yapıları mimari çeşitliliği ve manevi dokusuyla tanıtan rota. UNESCO listesindeki Afyon Ulu Cami'den başlar, Gedik Ahmet Paşa (İmaret) Camii ve Hamamı'nda sona erer.",
       "Rota boyunca Ulu Cami çevresindeki geleneksel kahvehanelerde, Tacahmet Camii çevresindeki esnaf dükkânlarında, Millet Hamamı avlusunda ve Ot Pazarı çevresinde kısa dinlenme molaları verilebilir.",
@@ -132,10 +132,10 @@ export const routes: Route[] = [
   // ============ Çevre illerle bağlantılı ============
   {
     slug: "frig-yolu-ankara-eskisehir-afyon", title: "Frig Yolu (Ankara–Eskişehir–Afyonkarahisar) Kültür Rotası", scope: "cevre-il", category: "frig",
-    summary: "Gordion'dan Seydiler'e; Frig Krallığı'nın başkentinden Afyonkarahisar Frigya'sına 506 km.",
+    summary: "Gordion'dan Seydiler'e. Frig Krallığı'nın başkentinden Afyonkarahisar Frigya'sına 506 km.",
     description: [
       "Yaklaşık 506 km'lik, dört ili kapsayan Frig Yolu Kültür Rotası, Frig Krallığı'nın başkenti Gordion Antik Kenti'nden başlar. M.Ö. 9. yüzyıldan itibaren Frig uygarlığının merkezi olan kent Polatlı yakınlarındadır.",
-      "Rota Yazılıkaya (Midas Anıtı) ile devam eder; Han, Seyitgazi ve İhsaniye üzerinden Afyonkarahisar'a girer. Ayazini'nde Frig'den Doğu Roma'ya uzanan çok katmanlı bir doku görülür.",
+      "Rota Yazılıkaya (Midas Anıtı) ile devam eder. Han, Seyitgazi ve İhsaniye üzerinden Afyonkarahisar'a girer. Ayazini'nde Frig'den Doğu Roma'ya uzanan çok katmanlı bir doku görülür.",
     ],
     distanceKm: 506, provinces: ["Ankara", "Eskişehir", "Afyonkarahisar"], modes: ["arac"],
     stops: [
@@ -150,9 +150,9 @@ export const routes: Route[] = [
     summary: "Türkiye'nin 3. en uzun yürüyüş yolu: 506 km, 67 parkur, uluslararası kırmızı-beyaz işaretli.",
     description: [
       "Friglerin kullandığı yollar esas alınarak oluşturulan, uluslararası standartlarla işaretlenmiş 506 km'lik yürüyüş güzergâhıdır. Yolun büyük kısmı bisikletle geçilebilir. 2013'te gönüllü bir ekip tarafından yaklaşık 5 yıllık çalışmayla hayata geçirilmiştir.",
-      "Afyonkarahisar'da 140 km, Kütahya'da 147 km, Eskişehir'de 200 km ve Ankara'da yaklaşık 20 km rota bulunur. Yol 4 ilden, 8 ilçe, 6 mahalle, 44 köy ve 5 beldeden geçer; güzergâh kırmızı-beyaz işaretlerle boyalıdır.",
+      "Afyonkarahisar'da 140 km, Kütahya'da 147 km, Eskişehir'de 200 km ve Ankara'da yaklaşık 20 km rota bulunur. Yol 4 ilden, 8 ilçe, 6 mahalle, 44 köy ve 5 beldeden geçer. Güzergâh kırmızı-beyaz işaretlerle boyalıdır.",
     ],
-    distanceKm: 506, distanceNote: "Toplam; Afyonkarahisar kesimi 140 km",
+    distanceKm: 506, distanceNote: "Toplam. Afyonkarahisar kesimi 140 km",
     provinces: ["Ankara", "Afyonkarahisar", "Kütahya", "Eskişehir"], modes: ["yuruyus", "bisiklet"],
     stops: [
       { placeId: "gordion", role: "baslangic", note: "Üç başlangıç noktasından biri" }, { placeId: "seydiler", role: "baslangic", note: "Üç başlangıç noktasından biri" },
@@ -164,7 +164,7 @@ export const routes: Route[] = [
     slug: "eskisehir-afyon-kultur-rotasi", title: "Eskişehir–Afyonkarahisar Kültür Rotası", scope: "cevre-il", category: "kultur",
     summary: "Günübirlik: Odunpazarı ve Sazova'dan Afyon Ulu Cami ve Zafer Müzesi'ne.",
     description: [
-      "İki şehir arasındaki yaklaşık 170 km'lik mesafe günübirlik kültür turlarına uygundur. Rota sabah Eskişehir'de Odunpazarı Tarihi Evleri ile başlar; Balmumu Heykeller Müzesi ve Sazova Parkı'nın ardından öğleye doğru Afyonkarahisar'a hareket edilir.",
+      "İki şehir arasındaki yaklaşık 170 km'lik mesafe günübirlik kültür turlarına uygundur. Rota sabah Eskişehir'de Odunpazarı Tarihi Evleri ile başlar. Balmumu Heykeller Müzesi ve Sazova Parkı'nın ardından öğleye doğru Afyonkarahisar'a hareket edilir.",
       "Yaklaşık iki saatlik yolculukta rehber anlatımıyla Frig Vadisi ve kültürel peyzaj tanıtılabilir. Afyonkarahisar'da Uzun Çarşı'da öğle yemeği verilir, ardından şehir merkezi kültür rotası izlenir.",
     ],
     distanceKm: 300, distanceNote: "Toplam, yaklaşık", provinces: ["Eskişehir", "Afyonkarahisar"], modes: ["arac"],
@@ -179,7 +179,7 @@ export const routes: Route[] = [
   },
   {
     slug: "hanlar-rotasi", title: "Denizli–Afyonkarahisar–Konya Hanlar Rotası", scope: "cevre-il", category: "han-kervansaray",
-    summary: "Akhan'dan Kızılören Hanı'na; Selçuklu ve Osmanlı kervansaraylarıyla Batı Anadolu'dan İç Anadolu'ya.",
+    summary: "Akhan'dan Kızılören Hanı'na. Selçuklu ve Osmanlı kervansaraylarıyla Batı Anadolu'dan İç Anadolu'ya.",
     description: [
       "Batı Anadolu'dan İç Anadolu'ya uzanan, Selçuklu ve Osmanlı mimarisinin en güzel han örneklerini bir araya getiren kültür yolculuğu. Rota Denizli'den başlar, Afyonkarahisar'da Çay Kervansarayı ve şehir merkezindeki Taş Han'dan geçerek Konya'da Zazadin ve Kızılören hanlarında sona erer.",
     ],
@@ -194,9 +194,9 @@ export const routes: Route[] = [
     slug: "istanbul-pamukkale-kultur-rotasi", title: "İstanbul–Eskişehir–Afyonkarahisar–Pamukkale Kültür Rotası", scope: "cevre-il", category: "kultur",
     summary: "Üç günlük kültür yolculuğu: Eskişehir müzeleri, Afyon merkez, Gazlıgöl termali ve Pamukkale.",
     description: [
-      "Marmara'dan Ege'nin içlerine uzanan çok katmanlı rota sabah erken İstanbul'dan başlar; yaklaşık beş saatlik yolculukla Eskişehir'e varılır. Öğle yemeğinde çibörek ve balaban kebap gibi yöresel lezzetler tadılır.",
-      "Afyonkarahisar'da Alimoğlu Müzik Koleksiyonu, Afyonkarahisar Müzesi, Ulu Cami, Millet Hamamı ve Mevlevihane gezilir; Uzun Çarşı'da sucuk, kaymak, haşhaşlı katmer ve ekmek kadayıfı sunan restoranlarda öğle yemeği verilir. Gün sonunda Gazlıgöl Termal Bölgesi'nde konaklanır.",
-      "Son gün yaklaşık üç saatlik yolculukla Pamukkale'ye ulaşılır; Hierapolis Antik Kenti ve Pamukkale Travertenleri gezilir.",
+      "Marmara'dan Ege'nin içlerine uzanan çok katmanlı rota sabah erken İstanbul'dan başlar. Yaklaşık beş saatlik yolculukla Eskişehir'e varılır. Öğle yemeğinde çibörek ve balaban kebap gibi yöresel lezzetler tadılır.",
+      "Afyonkarahisar'da Alimoğlu Müzik Koleksiyonu, Afyonkarahisar Müzesi, Ulu Cami, Millet Hamamı ve Mevlevihane gezilir. Uzun Çarşı'da sucuk, kaymak, haşhaşlı katmer ve ekmek kadayıfı sunan restoranlarda öğle yemeği verilir. Gün sonunda Gazlıgöl Termal Bölgesi'nde konaklanır.",
+      "Son gün yaklaşık üç saatlik yolculukla Pamukkale'ye ulaşılır. Hierapolis Antik Kenti ve Pamukkale Travertenleri gezilir.",
     ],
     provinces: ["İstanbul", "Eskişehir", "Afyonkarahisar", "Denizli"], modes: ["arac"],
     stops: [
@@ -210,9 +210,9 @@ export const routes: Route[] = [
     slug: "ankara-izmir-yht-kultur-rotasi", title: "Ankara–İzmir YHT Kültür Rotası", scope: "cevre-il", category: "kultur",
     summary: "Yüksek hızlı tren hattına entegre, Ankara'dan İzmir'e beş günlük kültür yolculuğu: Anıtkabir, Afyon Ulu Cami, Karun Hazineleri ve Agora.",
     description: [
-      "Ankara–İzmir yüksek hızlı tren hattına entegre olarak planlanan bu kültür turu, misafirlerin Anadolu'nun tarihsel ve kültürel zenginliğini kesintisiz bir akış içinde deneyimlemesini amaçlar. Tur Ankara'da Anıtkabir ziyaretiyle başlar; I. ve II. Meclis binalarında Türkiye'nin kuruluş süreci kronolojik olarak aktarılır, Anadolu Medeniyetleri Müzesi'nde Hitit, Frig, Urartu ve Lidya birikimi incelenir, Hacı Bayram Veli Camii ile Augustus Tapınağı'nda Roma'dan Osmanlı'ya kültürel süreklilik anlatılır.",
+      "Ankara–İzmir yüksek hızlı tren hattına entegre olarak planlanan bu kültür turu, misafirlerin Anadolu'nun tarihsel ve kültürel zenginliğini kesintisiz bir akış içinde deneyimlemesini amaçlar. Tur Ankara'da Anıtkabir ziyaretiyle başlar. I. ve II. Meclis binalarında Türkiye'nin kuruluş süreci kronolojik olarak aktarılır, Anadolu Medeniyetleri Müzesi'nde Hitit, Frig, Urartu ve Lidya birikimi incelenir, Hacı Bayram Veli Camii ile Augustus Tapınağı'nda Roma'dan Osmanlı'ya kültürel süreklilik anlatılır.",
       "Misafirler yüksek hızlı trenle Afyonkarahisar'a geçerek burada konaklar. Ertesi gün Ulu Cami, Afyonkarahisar Kalesi ve Mevlevihane gezilir. İsteğe bağlı bir günlük Frigya gezisiyle Ayazini, Avdalaz Kalesi, Aslantaş, Yılantaş ve Maltaş, Kral Yolu, Aslankaya Tapınağı ve Memeç Kayalıkları ziyaret edilebilir.",
-      "Dördüncü gün trenle Uşak'a geçilir; Uşak Arkeoloji Müzesi'nde Karun Hazineleri, Blaundos Antik Kenti, Clandıras Köprüsü ve Ulubey Kanyonu gezilir. Akşam İzmir'e varılır; son gün Kordon, Konak Meydanı ve Saat Kulesi, Kemeraltı Çarşısı ve Agora Ören Yeri gezilir. Ertesi sabah yüksek hızlı trenle Ankara'ya dönülür.",
+      "Dördüncü gün trenle Uşak'a geçilir. Uşak Arkeoloji Müzesi'nde Karun Hazineleri, Blaundos Antik Kenti, Clandıras Köprüsü ve Ulubey Kanyonu gezilir. Akşam İzmir'e varılır. Son gün Kordon, Konak Meydanı ve Saat Kulesi, Kemeraltı Çarşısı ve Agora Ören Yeri gezilir. Ertesi sabah yüksek hızlı trenle Ankara'ya dönülür.",
     ],
     provinces: ["Ankara", "Afyonkarahisar", "Uşak", "İzmir"],
     stops: [
@@ -222,9 +222,9 @@ export const routes: Route[] = [
       { placeId: "ayazini", note: "3. gün · İsteğe bağlı Frigya gezisi" }, { placeId: "avdalaz-kalesi", note: "İsteğe bağlı" }, { placeId: "aslantas-yilantas", note: "İsteğe bağlı" },
       { placeId: "bayramaliler", note: "İsteğe bağlı · Kral Yolu" }, { placeId: "aslankaya", note: "İsteğe bağlı" }, { placeId: "memec", note: "İsteğe bağlı" },
       { placeId: "usak-arkeoloji", note: "4. gün · YHT ile Uşak" }, { placeId: "blaundos" }, { placeId: "clandiras-koprusu" }, { placeId: "ulubey-kanyonu", note: "Akşam YHT ile İzmir'e geçiş" },
-      { placeId: "izmir-kordon", note: "5. gün · İzmir" }, { placeId: "konak-saat-kulesi" }, { placeId: "kemeralti" }, { placeId: "izmir-agora", role: "bitis", note: "İzmir'de konaklama; ertesi sabah YHT ile Ankara'ya dönüş" },
+      { placeId: "izmir-kordon", note: "5. gün · İzmir" }, { placeId: "konak-saat-kulesi" }, { placeId: "kemeralti" }, { placeId: "izmir-agora", role: "bitis", note: "İzmir'de konaklama. Ertesi sabah YHT ile Ankara'ya dönüş" },
     ],
-    tips: ["Rota, Ankara–İzmir yüksek hızlı tren hattına göre planlanmıştır; hattın hizmete giriş durumunu ve sefer saatlerini TCDD Taşımacılık duyurularından kontrol edin."],
+    tips: ["Rota, Ankara–İzmir yüksek hızlı tren hattına göre planlanmıştır. Hattın hizmete giriş durumunu ve sefer saatlerini TCDD Taşımacılık duyurularından kontrol edin."],
     source: SRC,
   },
 ];

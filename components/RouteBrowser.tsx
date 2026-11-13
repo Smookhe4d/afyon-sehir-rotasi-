@@ -55,7 +55,7 @@ export default function RouteBrowser() {
             {items.map((r) => (
               <li key={r.slug}>
                 <Link href={`/rotalar/${r.slug}`} className="flex items-center gap-3 rounded-[24px] bg-white p-2.5 shadow-card">
-                  <PhotoSlot id={routeCover[r.slug]} label={false} className="h-[84px] w-[84px] shrink-0 rounded-[18px]" />
+                  <PhotoSlot id={routeCover[r.slug]} label={false} small className="h-[84px] w-[84px] shrink-0 rounded-[18px]" />
                   <div className="flex min-w-0 flex-col gap-1.5"><CategoryChip r={r} /><span className="font-display text-[16px] leading-tight">{r.title}</span>
                     <span className="flex flex-wrap gap-1.5 text-xs font-bold text-mute">{(() => { const m = (r.modes?.find((x) => routeTimes[r.slug]?.[x]) ?? "arac"); const t = routeTimes[r.slug]?.[m]; return <>
                       <span className="rounded-full bg-ac/[.06] px-2.5 py-1">{g("stopCount", {count: r.stops.length})}</span>

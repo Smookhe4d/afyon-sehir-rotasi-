@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "rotAfyon",
-    "description": "Afyonkarahisar için resmî rehber rotaları, QR ile başlayan sesli anlatım ve canlı harita.",
+    "description": "Afyonkarahisar için hazır rotalar, QR ile başlayan sesli anlatım ve canlı harita.",
     "ogDescription": "Afyonkarahisar için rehber rotaları, sesli anlatım ve canlı yönlendirmeli harita.",
     "pages": {
       "home": "rotAfyon",
@@ -712,7 +712,7 @@
     "tagline": "Afyonkarahisar rotaları"
   },
   "g011": {
-    "guides": "Afyonkarahisar rehberleri",
+    "guides": "Afyonkarahisar rotaları",
     "all": "Tümü",
     "inCenter": "Şehir merkezinde",
     "themes": "Temalar",
@@ -755,7 +755,8 @@
     "catRoutes": "{label} rotaları",
     "noRouteInCat": "Bu temada rota yok.",
     "offroadNav": "Yol durağa kadar gitmiyor. Son {dist} patikadan yürünür, turuncu kesikli çizgi yönü gösterir.",
-    "themeHint": "Butonlar bu renge döner"
+    "themeHint": "Butonlar bu renge döner",
+    "tilt": "3B görünüm"
   },
   "g015": {
     "change": "Profil görseli",

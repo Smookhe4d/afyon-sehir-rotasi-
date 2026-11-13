@@ -26,24 +26,24 @@ export default function Splash() {
     let cancelled = false;
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
     (async () => {
-      await wait(200);
-      await mark.animate([{ transform: "translateY(30px) scale(.55)", opacity: 0 }, { transform: "none", opacity: 1, offset: .7 }, { transform: "scale(1.03)", offset: .85 }, { transform: "none", opacity: 1 }], { duration: 900, easing: "cubic-bezier(.34,1.4,.64,1)", fill: "both" }).finished;
-      await wait(200); if (cancelled) return;
+      await wait(80);
+      await mark.animate([{ transform: "translateY(30px) scale(.55)", opacity: 0 }, { transform: "none", opacity: 1, offset: .7 }, { transform: "scale(1.03)", offset: .85 }, { transform: "none", opacity: 1 }], { duration: 620, easing: "cubic-bezier(.34,1.4,.64,1)", fill: "both" }).finished;
+      await wait(60); if (cancelled) return;
       const mr = mark.getBoundingClientRect(), wr = word.getBoundingClientRect();
       const aX = wr.left + wr.width * 0.455, aY = wr.top + wr.height * 0.52;
       const sc = (wr.width * 0.2) / mr.width, dx = aX - (mr.left + mr.width / 2), dy = aY - (mr.top + mr.height / 2);
-      mark.animate([{ transform: "none", opacity: 1 }, { transform: `translate(${dx}px,${dy}px) scale(${sc})`, opacity: 1, offset: .8 }, { transform: `translate(${dx}px,${dy}px) scale(${sc})`, opacity: 0 }], { duration: 760, easing: EASE, fill: "both" });
-      await wait(380);
-      word.animate([{ opacity: 1, clipPath: "inset(0 54.5% 0 45.5% round 20px)" }, { opacity: 1, clipPath: "inset(0 0 0 0 round 20px)" }], { duration: 900, easing: EASE, fill: "both" });
-      tag.animate([{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 700, delay: 500, fill: "both" });
-      await wait(1700); if (cancelled) return;
+      mark.animate([{ transform: "none", opacity: 1 }, { transform: `translate(${dx}px,${dy}px) scale(${sc})`, opacity: 1, offset: .8 }, { transform: `translate(${dx}px,${dy}px) scale(${sc})`, opacity: 0 }], { duration: 560, easing: EASE, fill: "both" });
+      await wait(260);
+      word.animate([{ opacity: 1, clipPath: "inset(0 54.5% 0 45.5% round 20px)" }, { opacity: 1, clipPath: "inset(0 0 0 0 round 20px)" }], { duration: 620, easing: EASE, fill: "both" });
+      tag.animate([{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 450, delay: 250, fill: "both" });
+      await wait(850); if (cancelled) return;
       const cx = aX, cy = aY - wr.height * 0.16, R = Math.hypot(innerWidth, innerHeight);
       el.style.background = "transparent";
       el.querySelector<HTMLElement>("[data-fill]")!.style.display = "block";
       const hole = el.querySelector<HTMLElement>("[data-fill]")!;
-      [mark, word, tag].forEach((n) => n.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }));
+      [mark, word, tag].forEach((n) => n.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" }));
       // Mor zemin, A'nın iğnesinde açılan bir delikten içeriyi gösterir.
-      await hole.animate([{ maskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent 0px, #000 1px)`, WebkitMaskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent 0px, #000 1px)` }, { maskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent ${R}px, #000 ${R + 1}px)`, WebkitMaskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent ${R}px, #000 ${R + 1}px)` }] as Keyframe[], { duration: 1000, easing: "cubic-bezier(.65,0,.25,1)", fill: "forwards" }).finished;
+      await hole.animate([{ maskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent 0px, #000 1px)`, WebkitMaskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent 0px, #000 1px)` }, { maskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent ${R}px, #000 ${R + 1}px)`, WebkitMaskImage: `radial-gradient(circle at ${cx}px ${cy}px, transparent ${R}px, #000 ${R + 1}px)` }] as Keyframe[], { duration: 650, easing: "cubic-bezier(.65,0,.25,1)", fill: "forwards" }).finished;
       setGone(true);
     })();
     return () => { cancelled = true; };

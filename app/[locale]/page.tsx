@@ -11,7 +11,7 @@ import GuideRail, { type GuideCard } from "@/components/kesfet/GuideRail";
 import CatBadge from "@/components/CatBadge";
 import Icon from "@/components/Icon";
 import { routeCover } from "@/lib/covers";
-import { photos } from "@/lib/photos";
+import { thumbOf } from "@/lib/photos";
 import { routeGeo } from "@/lib/routeGeo";
 import { routeTimes } from "@/lib/durations";
 import { CAT_ORDER, CAT_STYLE } from "@/lib/categories";
@@ -52,7 +52,7 @@ export default async function Kesfet({ params }: { params: Promise<{locale: Loca
     const mode = (r.modes?.find((m) => routeTimes[r.slug]?.[m]) ?? "arac") as keyof typeof MODE_ICON;
     const t = routeTimes[r.slug]?.[mode];
     const cover = routeCover[r.slug];
-    return { slug: r.slug, title: r.title.replace(/^Afyonkarahisar |^Afyon /, ""), cat: r.category, img: cover ? photos[cover].src : undefined, stops: g("stopCount", {count: r.stops.length}), time: t ? fmtTotal(g, t.total) : undefined, modeIcon: MODE_ICON[mode] };
+    return { slug: r.slug, title: r.title.replace(/^Afyonkarahisar |^Afyon /, ""), cat: r.category, img: cover ? thumbOf(cover) : undefined, stops: g("stopCount", {count: r.stops.length}), time: t ? fmtTotal(g, t.total) : undefined, modeIcon: MODE_ICON[mode] };
   });
   const center = stops.filter((s) => placesFull[s.id].area === "Merkez" || placesFull[s.id].area === "Center").slice(0, 6);
   const routeOf = (id: string) => local.find((r) => r.stops.some((s) => s.placeId === id));
@@ -60,18 +60,18 @@ export default async function Kesfet({ params }: { params: Promise<{locale: Loca
 
   return (
     <KesfetUI stops={stops} routes={mapRoutes} chips={CAT_ORDER.map((c) => ({ cat: c, label: categoryLabels[c] }))}
-      labels={{ map: g("mapLabel"), profile: nav("profile"), locate: tx("showMyLocation_ad4f4"), tilt: g("fullMap"), grab: g("guides"), panel: g("guides"), poi: { food: g15("t_restaurant"), mosque: g15("t_place_of_worship"), wc: g15("t_toilets") } }}>
+      labels={{ map: g("mapLabel"), profile: nav("profile"), locate: tx("showMyLocation_ad4f4"), tilt: g("tilt"), grab: g("guides"), panel: g("guides"), poi: { food: g15("t_restaurant"), mosque: g15("t_place_of_worship"), wc: g15("t_toilets") } }}>
       <div className="px-4 pb-1"><SearchBox items={searchItems} /></div>
       <GuideRail cards={cards} onMap={g("onMap")} empty={g("noRouteInCat")} heading={g("guides")} allLabel={g("all")}
         headingCat={Object.fromEntries(CAT_ORDER.map((c) => [c, g("catRoutes", {label: categoryLabels[c]})]))} />
       {center.length > 0 && <>
         <h3 className="px-4 pb-1 pt-5 text-sm font-bold text-mute">{g("inCenter")}</h3>
         <ul className="px-4">
-          {center.map((s) => { const r = routeOf(s.id); const idx = r ? r.stops.findIndex((x) => x.placeId === s.id) + 1 : 0; const ph = photos[s.id]; return (
+          {center.map((s) => { const r = routeOf(s.id); const idx = r ? r.stops.findIndex((x) => x.placeId === s.id) + 1 : 0; const ph = thumbOf(s.id); return (
             <li key={s.id} className="border-b border-line last:border-0">
               <Link href={`/duraklar/${s.id}`} className="flex items-center gap-3 py-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {ph ? <img src={ph.src} alt="" loading="lazy" className="h-14 w-14 shrink-0 rounded-2xl object-cover" /> : <CatBadge cat={s.cat} size={56} radius={16} />}
+                {ph ? <img src={ph} alt="" loading="lazy" decoding="async" className="h-14 w-14 shrink-0 rounded-2xl object-cover" /> : <CatBadge cat={s.cat} size={56} radius={16} />}
                 <span className="min-w-0 flex-1"><b className="block text-[16px] leading-tight text-navy">{s.name}</b>{r && <span className="text-[13px] text-mute">{r.title.replace(/^Afyonkarahisar |^Afyon /, "")}, {idx}.</span>}</span>
                 <Icon name="caret-right" size={18} className="text-mute/60" />
               </Link>

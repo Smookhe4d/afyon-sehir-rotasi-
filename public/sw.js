@@ -1,5 +1,5 @@
 // Çevrimdışı destek: statik dosyalar önbellekten, sayfalar önce ağdan (olmazsa son görülen kopya).
-const V = "afyon-v3";
+const V = "afyon-v4";
 const SHELL = ["/", "/rotalar", "/harita", "/art/hero-kale.svg", "/art/pattern.svg"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL).catch(() => {})).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });

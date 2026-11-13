@@ -712,7 +712,7 @@
     "tagline": "Routes of Afyonkarahisar"
   },
   "g011": {
-    "guides": "Afyonkarahisar guides",
+    "guides": "Afyonkarahisar routes",
     "all": "See all",
     "inCenter": "In the city centre",
     "themes": "Themes",
@@ -755,7 +755,8 @@
     "catRoutes": "{label} routes",
     "noRouteInCat": "No routes in this theme.",
     "offroadNav": "The road does not reach this stop. Walk the last {dist} along the path, the orange dashed line shows the way.",
-    "themeHint": "Buttons take this colour"
+    "themeHint": "Buttons take this colour",
+    "tilt": "3D view"
   },
   "g015": {
     "change": "Profile picture",
