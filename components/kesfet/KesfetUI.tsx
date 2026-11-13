@@ -84,7 +84,7 @@ export default function KesfetUI({ stops, routes, chips, labels, children }: {
           <span className="flex-1" />
           <Link href="/profil" aria-label={labels.profile} className="glass flex h-[52px] w-[52px] items-center justify-center rounded-full text-ac"><Icon name="user-circle" size={26} fill /></Link>
         </div>
-        <div data-hscroll className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1.5 [scrollbar-width:none]">
+        <div data-hscroll className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-2 pt-1 [scrollbar-width:none]">
           {chips.map((c) => {
             const on = cat === c.cat;
             return (

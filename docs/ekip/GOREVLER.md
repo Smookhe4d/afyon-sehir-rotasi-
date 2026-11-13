@@ -343,3 +343,17 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - "Bireysel başla" ve "Grupla başla" düğmeleri. 11 yeni Wikimedia Commons fotoğrafı. Ekranlardaki fotoğrafçı etiketi kaldırıldı, kaynaklar Hakkında sayfasında "Görsel kaynakları" bölümünde.
   - Simgeler Phosphor (MIT) yollarından, paket eklenmeden `lib/icons.ts` içinde.
 - **Açık kalan (2. aşama):** sosyal ve rotanı belirle sayfalarının görsel uyumu, tam ekran haritanın yeni kart tasarımı, İngilizce metinlerin gözden geçirilmesi.
+
+---
+
+## G-014: yeni logo, sayfa geçişleri, tema illüstrasyonları, eksik fotoğraflar
+
+- **Durum:** Tamamlandı (yönetici uyguladı, proje sahibinin isteğiyle)
+- **Dal:** `claude/G-014-logo-gecis-tema`
+- **Yapılanlar:**
+  - Eski logo dosyaları yeni logoyla değiştirildi (açık ve mor zeminli sürümler, uygulama simgeleri, paylaşım görseli).
+  - Sayfa geçişleri: View Transitions ile ileri gidişte yeni sayfa sağdan gelir, geri dönüşte ters yönde kapanır, sekmeler arasında yumuşak geçiş olur. Rehber kartının görseli rota sayfasının büyük görseline, durak küçük görseli durak sayfasının görseline büyüyerek geçer. Desteklemeyen tarayıcıda normal gezinme sürer.
+  - Kartlara basınca hafif küçülme ve kararma. Yatay kaydırılan kartların üst kenarı ve seçim halkası artık kesilmiyor.
+  - Dokuz tema için yeni illüstrasyonlar (`components/ThemeScenes.tsx`), tema düğmeleri de küçük illüstrasyon gösteriyor.
+  - 22 durağa Wikimedia Commons fotoğrafı eklendi. Yalnızca o yeri gösterdiği doğrulanan fotoğraflar alındı.
+- **Açık kalan:** Afyon merkezindeki bazı duraklar (Taşhan, Uzun Çarşı, Anıtpark, küçük camiler), Seydiler çevresi köyleri ve Başkomutanlık Tarihi Milli Parkı tepeleri için doğru yeri gösteren serbest lisanslı fotoğraf bulunamadı. Ekibin kendi çekimleri beklenecek.

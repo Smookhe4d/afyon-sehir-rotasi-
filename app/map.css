@@ -19,3 +19,6 @@
 .kz-pin { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px; background: var(--ac); color: #fff; border: 2.5px solid #fff; font: 800 12.5px var(--font-onest), system-ui, sans-serif; box-shadow: 0 6px 14px -6px rgba(44,18,66,.8); animation: kz-pin .55s cubic-bezier(.2,.9,.25,1.12) both; }
 @keyframes kz-pin { from { opacity: 0; transform: scale(.2) translateY(-14px); } to { opacity: 1; transform: none; } }
 .kz-map .maplibregl-ctrl-top-left { top: 128px; }
+/* G-014: Keşfet'te atıf düğmesi küçük "i" olarak durur, dokununca açılır. */
+.kz-map .maplibregl-ctrl-attrib.maplibregl-compact-show:not(:hover):not(:focus-within) .maplibregl-ctrl-attrib-inner { display: none; }
+.kz-map .maplibregl-ctrl-attrib.maplibregl-compact-show:not(:hover):not(:focus-within) { padding: 0; }

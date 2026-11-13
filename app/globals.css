@@ -118,3 +118,24 @@ html[data-motion="on"] [data-motion-page] :is([data-reveal], [data-motion-list] 
 @keyframes qr-in { from { clip-path: circle(32px at calc(100% - 42px) calc(100% - 42px)); } to { clip-path: circle(150% at calc(100% - 42px) calc(100% - 42px)); } }
 @keyframes qr-frame { from { opacity: 0; transform: scale(1.25); } to { opacity: 1; transform: none; } }
 @keyframes qr-scan { 0%, 100% { top: 10%; } 50% { top: 88%; } }
+
+/* G-014: sayfa geçişleri (View Transitions). İleri: yeni sayfa sağdan gelir, eski sola kayıp kararır. */
+::view-transition-group(*) { animation-duration: .5s; animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+html[data-vt="push"]::view-transition-old(root) { animation: vt-out-left .5s cubic-bezier(.22,1,.36,1) both; }
+html[data-vt="push"]::view-transition-new(root) { animation: vt-in-right .5s cubic-bezier(.22,1,.36,1) both; }
+html[data-vt="back"]::view-transition-old(root) { animation: vt-out-right .45s cubic-bezier(.22,1,.36,1) both; z-index: 2; }
+html[data-vt="back"]::view-transition-new(root) { animation: vt-in-left .45s cubic-bezier(.22,1,.36,1) both; }
+html[data-vt="tab"]::view-transition-old(root) { animation: vt-fade-out .22s ease-in both; }
+html[data-vt="tab"]::view-transition-new(root) { animation: vt-tab-in .42s cubic-bezier(.22,1,.36,1) both; }
+@keyframes vt-out-left { to { transform: translateX(-28%); filter: brightness(.75); } }
+@keyframes vt-in-right { from { transform: translateX(100%); box-shadow: -20px 0 40px rgba(0,0,0,0); } to { box-shadow: -20px 0 40px rgba(0,0,0,.18); } }
+@keyframes vt-out-right { to { transform: translateX(100%); } }
+@keyframes vt-in-left { from { transform: translateX(-28%); filter: brightness(.75); } }
+@keyframes vt-fade-out { to { opacity: 0; } }
+@keyframes vt-tab-in { from { opacity: 0; transform: scale(.975) translateY(8px); } }
+/* Alt menü geçişte yerinde kalır */
+[data-tabbar] { view-transition-name: tabbar; }
+::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation: none; }
+/* Kartlara basma: hafif küçülme ve kararma */
+a:has(> img, > span > img, > .cov):active, .press:active { transform: scale(.965); filter: brightness(.94); transition: transform .12s, filter .12s; }
+a:has(> img, > span > img):not(:active), .press:not(:active) { transition: transform .45s var(--ease-spring), filter .3s; }
