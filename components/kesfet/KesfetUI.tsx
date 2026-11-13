@@ -100,7 +100,7 @@ export default function KesfetUI({ stops, routes, chips, labels, children }: {
         <div className="flex items-center gap-2.5 lg:hidden">
           <Link href="/" className="glass sheen flex h-[52px] items-center rounded-full pl-3.5 pr-[18px]" aria-label="rotAfyon">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/rotafyon-acik-480.webp" srcSet="/brand/rotafyon-acik-480.webp 1x, /brand/rotafyon-acik-960.webp 2x" alt="rotAfyon" className="h-[30px] w-auto" />
+            <img src="/brand/2/rotafyon-acik-480.webp" srcSet="/brand/2/rotafyon-acik-480.webp 1x, /brand/2/rotafyon-acik-960.webp 2x" alt="rotAfyon" className="h-[30px] w-auto" />
           </Link>
           <span className="flex-1" />
           <Link href="/profil" aria-label={labels.profile} className="glass flex h-[52px] w-[52px] items-center justify-center rounded-full text-ac">{me ? <Avatar value={me.v} name={me.name} size={44} /> : <Icon name="user-circle" size={26} fill />}</Link>

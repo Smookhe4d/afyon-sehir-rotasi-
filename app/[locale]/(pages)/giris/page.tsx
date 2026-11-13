@@ -23,7 +23,7 @@ export default async function Giris({ params }: { params: Promise<{locale: Local
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/photos/aslankaya.jpg" alt="" className="absolute inset-0 h-full w-full object-cover [animation:onb-kb_16s_ease-out_both]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#4B0266]/30 via-transparent to-cream" />
-        <h1 className="relative px-6 pt-[max(1.5rem,env(safe-area-inset-top))]">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/brand/rotafyon-beyaz-960.webp" width={168} height={42} alt={tx("afyonCityRoutes_f38c8")} className="h-[42px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,.35)]" /></h1>
+        <h1 className="relative px-6 pt-[max(1.5rem,env(safe-area-inset-top))]">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/brand/2/rotafyon-beyaz-960.webp" width={168} height={42} alt={tx("afyonCityRoutes_f38c8")} className="h-[42px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,.35)]" /></h1>
       </section>
       <div className="relative -mt-24 px-3 [animation:onb-rise_.8s_.15s_var(--ease-spring)_both]">
         <p className="mb-3 px-3 text-[15px] font-medium leading-relaxed text-white drop-shadow-[0_1px_6px_rgba(0,0,0,.45)]">{tx("guidedRoutesThroughTheCastle_41055")}</p>

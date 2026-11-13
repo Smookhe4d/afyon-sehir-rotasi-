@@ -370,7 +370,7 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - **Açık kalan:** OpenStreetMap'te puan bilgisi yok, bu yüzden "4 puan üzeri" süzgeci uygulanamadı. Afyon'da OSM'de kayıtlı restoran ve tuvalet sayısı az. Temsilî görseller ekibin kendi çekimleriyle değiştirilmeli.
 
 ## G-016: Hız, dokunma ve geçiş animasyonları
-- **Durum:** PR açıldı, canlıya geçiş proje sahibinin onayını bekliyor.
+- **Durum:** Proje sahibinin onayıyla canlıya alındı (PR #13).
 - **Yapılanlar:**
   - Keşfet başlığı "Afyonkarahisar rotaları" oldu. 3B düğmesinin erişilebilirlik etiketi düzeltildi.
   - Kart ve listelerde 480 piksellik küçük görseller (`public/photos/t`). Ana sayfa görsel yükü yaklaşık 3,6 MB'tan belirgin biçimde düştü.
@@ -379,3 +379,12 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Bağlantıya dokunur dokunmaz sayfa önceden isteniyor. Rota sayfasına anında görünen iskelet eklendi.
   - Açılış ekranı yaklaşık 5 saniyeden 2,5 saniyeye indi.
   - Temsilî görsel rota kapağı olmuyor. Rota ve durak metinlerindeki cümle içi noktalı virgüller kaldırıldı.
+
+## G-017: Eski logonun takılı kalması ve eski adres
+- **Durum:** PR açıldı, canlıya geçiş proje sahibinin onayını bekliyor.
+- **Neden:** Logo dosyaları G-014'te aynı adla değiştirildi. Hizmet çalışanı (`public/sw.js`) görselleri kalıcı önbellekten verdiği için eski logo telefonlarda kaldı.
+- **Yapılanlar:**
+  - Logolar `public/brand/2/` altına taşındı, ikon ve paylaşım görseli yeni adla yayımlandı.
+  - Hizmet çalışanı v5: görseller önbellekten gösterilip arkada yenileniyor, eski önbellekler siliniyor, her açılışta güncelleme kontrol ediliyor.
+  - `afyon-sehir-rotasi.vercel.app` her yolda kalıcı olarak `rotafyon.vercel.app` adresine yönleniyor (`next.config.ts`).
+  - Uygulama simgesi ve tema rengi yeni marka rengine geçti.

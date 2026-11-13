@@ -21,7 +21,7 @@ export function pageMetadata(locale: Locale, path: string, title?: string, descr
       description: description ?? messages.metadata.description,
       locale: locale === "en" ? "en_US" : "tr_TR",
       alternateLocale: locale === "en" ? "tr_TR" : "en_US",
-      type: "website", images: [{url: "/og.jpg", width: 1200, height: 630}]
+      type: "website", images: [{url: "/og-v2.jpg", width: 1200, height: 630}]
     }
   };
 }
