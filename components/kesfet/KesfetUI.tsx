@@ -4,6 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import Icon from "@/components/Icon";
 import CatBadge from "@/components/CatBadge";
+import Avatar from "@/components/profile/Avatar";
+import { AVATAR_CACHE } from "@/lib/avatars";
+import { createClient } from "@/lib/supabase/client";
 import type { RouteCategory } from "@/lib/types";
 import type { KRoute, KStop } from "./KesfetMap";
 
@@ -14,13 +17,31 @@ type Chip = { cat: RouteCategory; label: string };
 /** G-011: Keşfet kabuğu. Tam ekran harita, üstte cam logo ve tema çipleri, altta sürüklenen panel. */
 export default function KesfetUI({ stops, routes, chips, labels, children }: {
   stops: KStop[]; routes: KRoute[]; chips: Chip[];
-  labels: { map: string; profile: string; locate: string; tilt: string; grab: string; panel: string };
+  labels: { map: string; profile: string; locate: string; tilt: string; grab: string; panel: string; poi?: Record<string, string> };
   children: React.ReactNode;
 }) {
   const sheet = useRef<HTMLElement>(null);
   const body = useRef<HTMLDivElement>(null);
   const [y, setY] = useState<number | null>(null);
   const [cat, setCat] = useState<RouteCategory | null>(null);
+  const [me, setMe] = useState<{ v: string | null; name: string } | null>(null);
+  useEffect(() => {
+    // G-015: sağ üstte profil görseli. Önce önbellek, sonra oturumdan güncel değer.
+    try { const c = localStorage.getItem(AVATAR_CACHE); if (c) setMe(JSON.parse(c)); } catch {}
+    let off = false;
+    (async () => {
+      try {
+        const sb = createClient();
+        const { data: { user } } = await sb.auth.getUser();
+        if (!user) { if (!off) setMe(null); try { localStorage.removeItem(AVATAR_CACHE); } catch {} return; }
+        const { data } = await sb.from("profiles").select("avatar_url, display_name").eq("id", user.id).maybeSingle();
+        if (off || !data) return;
+        const v = { v: data.avatar_url ?? null, name: data.display_name ?? "" };
+        setMe(v); try { localStorage.setItem(AVATAR_CACHE, JSON.stringify(v)); } catch {}
+      } catch {}
+    })();
+    return () => { off = true; };
+  }, []);
   const yRef = useRef(0);
   const det = useCallback(() => { const H = innerHeight; return { full: 64, mid: Math.round(H * 0.5), peek: H - 250 }; }, []);
   const snap = useCallback((v: number, anim = true) => {
@@ -74,7 +95,7 @@ export default function KesfetUI({ stops, routes, chips, labels, children }: {
 
   return (
     <div data-kesfet className="fixed inset-0 z-0 overflow-hidden lg:top-16">
-      <KesfetMap stops={stops} routes={routes} label={labels.map} />
+      <KesfetMap stops={stops} routes={routes} label={labels.map} poiLabel={labels.poi} />
       <div className={`absolute inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] z-10 flex flex-col gap-2.5 transition-opacity duration-300 lg:left-[452px] ${y !== null && y < 150 ? "pointer-events-none opacity-0" : ""}`}>
         <div className="flex items-center gap-2.5 lg:hidden">
           <Link href="/" className="glass sheen flex h-[52px] items-center rounded-full pl-3.5 pr-[18px]" aria-label="rotAfyon">
@@ -82,7 +103,7 @@ export default function KesfetUI({ stops, routes, chips, labels, children }: {
             <img src="/brand/rotafyon-acik-480.webp" srcSet="/brand/rotafyon-acik-480.webp 1x, /brand/rotafyon-acik-960.webp 2x" alt="rotAfyon" className="h-[30px] w-auto" />
           </Link>
           <span className="flex-1" />
-          <Link href="/profil" aria-label={labels.profile} className="glass flex h-[52px] w-[52px] items-center justify-center rounded-full text-ac"><Icon name="user-circle" size={26} fill /></Link>
+          <Link href="/profil" aria-label={labels.profile} className="glass flex h-[52px] w-[52px] items-center justify-center rounded-full text-ac">{me ? <Avatar value={me.v} name={me.name} size={44} /> : <Icon name="user-circle" size={26} fill />}</Link>
         </div>
         <div data-hscroll className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-2 pt-1 [scrollbar-width:none]">
           {chips.map((c) => {

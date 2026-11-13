@@ -10,7 +10,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "@/app/map.css";
 import { Link } from "@/i18n/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AttributionControl, LngLatBounds, Map as MLMap, Marker, setWorkerUrl, type GeoJSONSource } from "maplibre-gl";
+import { AttributionControl, LngLatBounds, Map as MLMap, Marker, Popup, setWorkerUrl, type GeoJSONSource } from "maplibre-gl";
 import { setVisited } from "@/app/actions";
 import { bearingText, fetchNav, formatDuration, type NavResult, type TravelMode } from "@/lib/map/nav";
 import { useGroup } from "@/lib/map/useGroup";
@@ -18,7 +18,7 @@ import { loadWarmStyle } from "@/lib/map/style";
 import { circlePolygon, directionsUrl, formatDistance, haversineM, type LngLat } from "@/lib/map/geo";
 
 export type MapStop = { id: string; name: string; area: string; coords: LngLat; approx: boolean; index: number; note?: string };
-type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode; grup?: string; lider?: boolean; /** Tüm duraklar: çizgi yok, yakın duraklar kümelenir */ overview?: boolean };
+type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode; grup?: string; lider?: boolean; /** Tüm duraklar: çizgi yok, yakın duraklar kümelenir */ overview?: boolean; /** G-015: çevredeki yemek, cami, tuvalet noktaları */ pois?: { k: string; n?: string; c: LngLat }[] };
 
 // MapLibre 6 çalışma dosyası (worker) ayrı bir modüldür; aynı kökenli bir blob üzerinden CDN'den içe aktarılır.
 const MAPLIBRE_VERSION = "6.11.2";
@@ -37,7 +37,7 @@ function pinEl(label: string, approx: boolean) {
   return el;
 }
 
-export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false, overview = false }: Props) {
+export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false, overview = false, pois }: Props) {
   const num = useUiFormatter().number;
 
   const dx = useUiTranslations("dynamic");
@@ -111,6 +111,11 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
       m.addControl(new AttributionControl({ compact: true }), "bottom-left");
       m.on("load", () => {
         if (!m) return;
+        if (pois?.length) {
+          m.addSource("pois", { type: "geojson", data: { type: "FeatureCollection", features: pois.map((p) => ({ type: "Feature", properties: { k: p.k, n: p.n ?? "" }, geometry: { type: "Point", coordinates: p.c } })) } });
+          m.addLayer({ id: "pois", type: "circle", source: "pois", paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 13, 4, 17, 7], "circle-color": ["match", ["get", "k"], "food", "#E9762B", "mosque", "#1F8A7A", "#2F6FD6"], "circle-stroke-color": "#fff", "circle-stroke-width": 1.5 } });
+          m.on("click", "pois", (e) => { const f = e.features?.[0]; const n = f?.properties?.n; if (f && n) new Popup({ closeButton: false, offset: 10, className: "kz-pop" }).setLngLat((f.geometry as GeoJSON.Point).coordinates as LngLat).setText(String(n)).addTo(m!); });
+        }
         m.addSource("route", { type: "geojson", data: overview ? { type: "FeatureCollection", features: [] } : { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: line && line.length > 1 ? line : stops.map((s) => s.coords) } } });
         const real = Boolean(line && line.length > 1);
         m.addLayer({ id: "route-casing", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#FFFFFF", "line-width": ["interpolate", ["linear"], ["zoom"], 8, 5, 15, 10], "line-opacity": 0.95 } });

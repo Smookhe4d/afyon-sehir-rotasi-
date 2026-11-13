@@ -3,7 +3,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "@/app/map.css";
 import { useEffect, useRef } from "react";
 import { useRouter } from "@/i18n/navigation";
-import { AttributionControl, LngLatBounds, Map as MLMap, Marker, setWorkerUrl, type GeoJSONSource } from "maplibre-gl";
+import { AttributionControl, LngLatBounds, Map as MLMap, Marker, Popup, setWorkerUrl, type GeoJSONSource } from "maplibre-gl";
 import { loadWarmStyle } from "@/lib/map/style";
 import type { LngLat } from "@/lib/map/geo";
 
@@ -20,7 +20,7 @@ const fc = (features: GeoJSON.Feature[]) => ({ type: "FeatureCollection" as cons
  * Panelde öne gelen rota haritada baştan sona çizilir, durakları sırayla belirir.
  * Tema seçimi ("kesfet-cat") noktaları süzer, tema rengi ("afyon-theme") çizgiyi boyar.
  */
-export default function KesfetMap({ stops, routes, label }: { stops: KStop[]; routes: KRoute[]; label: string }) {
+export default function KesfetMap({ stops, routes, label, poiLabel = {} }: { stops: KStop[]; routes: KRoute[]; label: string; poiLabel?: Record<string, string> }) {
   const box = useRef<HTMLDivElement>(null);
   const router = useRouter();
   useEffect(() => {
@@ -70,6 +70,26 @@ export default function KesfetMap({ stops, routes, label }: { stops: KStop[]; ro
         m.on("click", "stops", (e) => { const id = e.features?.[0]?.properties?.id; if (id) router.push(`/duraklar/${id}`); });
         m.on("mouseenter", "stops", () => { m!.getCanvas().style.cursor = "pointer"; });
         m.on("mouseleave", "stops", () => { m!.getCanvas().style.cursor = ""; });
+        // G-015: yakın zoomda OpenStreetMap kayıtlı yemek, cami ve tuvalet noktaları.
+        let poisOn = false;
+        const POI_COL = ["match", ["get", "k"], "food", "#E9762B", "mosque", "#1F8A7A", "#2F6FD6"];
+        const loadPois = async () => {
+          if (poisOn || !m || m.getZoom() < 14) return; poisOn = true;
+          try {
+            const data = await (await fetch("/pois.geojson")).json();
+            if (!m || m.getSource("pois")) return;
+            m.addSource("pois", { type: "geojson", data });
+            m.addLayer({ id: "pois", type: "circle", source: "pois", minzoom: 14, paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 14, 3.5, 17, 6.5], "circle-color": POI_COL as never, "circle-stroke-color": "#fff", "circle-stroke-width": 1.5 } }, "stops-h");
+            m.on("click", "pois", (e) => {
+              const f = e.features?.[0]; if (!f) return;
+              const pr = f.properties as { n?: string; k: string };
+              new Popup({ closeButton: false, offset: 10, className: "kz-pop" }).setLngLat((f.geometry as GeoJSON.Point).coordinates as LngLat).setText(pr.n || poiLabel[pr.k] || "").addTo(m!);
+            });
+            m.on("mouseenter", "pois", () => { m!.getCanvas().style.cursor = "pointer"; });
+            m.on("mouseleave", "pois", () => { m!.getCanvas().style.cursor = ""; });
+          } catch { poisOn = false; }
+        };
+        m.on("zoomend", loadPois);
         m.flyTo({ center: [30.6, 38.7], zoom: 8.3, duration: reduce ? 0 : 2400, curve: 1.2, padding: pad(), essential: true });
       });
     })();

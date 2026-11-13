@@ -9,7 +9,8 @@ import { Link } from "@/i18n/navigation";
 import PageHeader from "@/components/PageHeader";
 import SignInPrompt from "@/components/SignInPrompt";
 import ProfileName from "@/components/ProfileName";
-import ProfileBanner from "@/components/ProfileBanner";
+import ThemeRow from "@/components/profile/ThemeRow";
+import AvatarPicker from "@/components/profile/AvatarPicker";
 import { cookies } from "next/headers";
 import {earnedBadges} from "@/lib/badges";
 
@@ -31,7 +32,7 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
 
   setRequestLocale((await params).locale);
   const { supabase, user, profile } = await getSession();
-  if (!user) return (<main><PageHeader eyebrow={tx("myAccount_858f8")} title={tx("profile_669fe")} /><ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} /><div className="h-3" /><SignInPrompt title={tx("saveYourProgress_bbb83")} text={tx("signInToSaveYour_cee23")} /><div className="px-5"><LanguageSwitcher /></div></main>);
+  if (!user) return (<main><PageHeader eyebrow={tx("myAccount_858f8")} title={tx("profile_669fe")} /><div className="px-5"><ThemeRow initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} /></div><div className="h-3" /><SignInPrompt title={tx("saveYourProgress_bbb83")} text={tx("signInToSaveYour_cee23")} /><div className="px-5"><LanguageSwitcher /></div></main>);
   const [prog, favs, photo] = await Promise.all([
     supabase.from("route_progress").select("route_slug, visited_place_ids, completed_at").eq("user_id", user.id),
     supabase.from("favorites").select("route_slug").eq("user_id", user.id).order("created_at", { ascending: false }),
@@ -50,12 +51,11 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
   return (
     <main>
       <PageHeader eyebrow={tx("myAccount_858f8")} title={tx("profile_669fe")} />
-      <ProfileBanner initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} who={<>
-        <span className="flex h-[58px] w-[58px] shrink-0 items-center justify-center rounded-full border-[3px] border-white/80 bg-white/20 font-display text-[26px] text-white backdrop-blur" aria-hidden>{name.charAt(0).toLocaleUpperCase("tr")}</span>
-        <span className="min-w-0"><b className="block truncate text-[21px] font-extrabold leading-tight drop-shadow">{name}</b><span className="block truncate text-[13px] opacity-90">{guest ? tx("guestAccount_8b6de") : user.email}</span></span>
-      </>} />
+      <section className="flex items-center gap-4 px-5 pt-1">
+        <AvatarPicker userId={user.id} value={profile?.avatar_url ?? null} name={name} canUpload={!guest} />
+        <div className="min-w-0"><ProfileName name={name} /><p className="truncate text-[13px] text-mute">{guest ? tx("guestAccount_8b6de") : user.email}</p></div>
+      </section>
       <div className="relative px-5">
-        <div className="mt-4"><ProfileName name={name} /></div>
         {guest && <p className="mt-3 rounded-2xl bg-sand px-4 py-3 text-sm text-ink-2">{tx("asAGuestYouCan_a77cd")}<Link href="/giris" className="ml-1 font-bold text-terra" prefetch={false}>{tx("createAnAccount_45824")}</Link></p>}
 
         <dl className="mt-5 grid grid-cols-3 rounded-[22px] border border-line bg-white shadow-card py-3 text-center">
@@ -63,6 +63,8 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
             <div key={k as string}><dd className="font-display text-[22px] font-semibold leading-none">{typeof v === "number" ? num(v) : v}</dd><dt className="mt-1 text-[11px] font-semibold text-mute">{k}</dt></div>
           ))}
         </dl>
+
+        <div className="mt-3"><ThemeRow initial={(await cookies()).get("afyon-tema")?.value ?? "rotafyon"} /></div>
 
         <Link href="/qr" className="mt-4 flex h-16 items-center gap-3 rounded-3xl bg-gradient-to-br from-navy-2 to-navy px-4 text-white shadow-lg">
           <span className="terra-grad flex h-11 w-11 items-center justify-center rounded-full"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M3 5a2 2 0 0 1 2-2h3v5H3zM16 3h3a2 2 0 0 1 2 2v3h-5zM3 16h5v5H5a2 2 0 0 1-2-2zM21 16h-3a2 2 0 0 0-2 2v3M12 7v3a2 2 0 0 1-2 2H7" /></svg></span>

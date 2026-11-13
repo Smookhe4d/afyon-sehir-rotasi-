@@ -1,6 +1,7 @@
 "use server";
 import {getTranslations as getUiTranslations} from "next-intl/server";
 
+import { supabaseUrl } from "@/lib/supabase/env";
 import { revalidateLocalizedPath } from "@/i18n/revalidate";
 import { getRoute } from "@/lib/routes";
 import { places } from "@/lib/places";
@@ -195,6 +196,23 @@ export async function deleteCustomRoute(id: string): Promise<Result> {
   const { error } = await supabase.from("custom_routes").delete().eq("id", id).eq("user_id", user.id);
   if (error) return fail(tx("theRouteCouldNotBe_e8284"));
   revalidateLocalizedPath("/rotani-belirle"); revalidateLocalizedPath("/profil");
+  return { ok: true };
+}
+
+export async function setAvatar(value: string | null): Promise<Result> {
+  const tx = await getUiTranslations("g015");
+  const _s = await requireUser();
+  if (!_s) return fail(tx("signIn"));
+  const { supabase, user } = _s;
+  const base = `${supabaseUrl}/storage/v1/object/public/avatars/${user.id}/`;
+  const ok = value === null || /^avatar:[a-z0-9-]{1,20}$/.test(value) || (value.startsWith(base) && /^[0-9]+\.webp$/.test(value.slice(base.length)));
+  if (!ok) return fail(tx("uploadFail"));
+  const { data: prev } = await supabase.from("profiles").select("avatar_url").eq("id", user.id).maybeSingle();
+  const { error } = await supabase.from("profiles").update({ avatar_url: value }).eq("id", user.id);
+  if (error) return fail(tx("uploadFail"));
+  const old = prev?.avatar_url;
+  if (old && old !== value && old.startsWith(base)) await supabase.storage.from("avatars").remove([old.slice(base.length - user.id.length - 1)]);
+  revalidateLocalizedPath("/profil");
   return { ok: true };
 }
 

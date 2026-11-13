@@ -11,6 +11,11 @@ import BackButton from "@/components/BackButton";
 import PhotoSlot from "@/components/PhotoSlot";
 import MapView from "@/components/map/LazyMap";
 import {placeListFull} from "@/lib/placesFull";
+import StopGuide from "@/components/stop/StopGuide";
+import StopAlbum from "@/components/stop/StopAlbum";
+import { photos } from "@/lib/photos";
+import { ALBUMS } from "@/lib/albums";
+import { POIS } from "@/lib/pois";
 
 export function generateStaticParams() { return placeListFull.map((p) => ({ id: p.id })); }
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale; id: string }> }) {
@@ -24,6 +29,7 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
   const {placeListFull, placesFull: places, routes} = getContent((await params).locale);
 
   const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
+  const g15 = await getUiTranslations({locale: (await params).locale, namespace: "g015"});
 
   setRequestLocale((await params).locale);
   const { id } = await params;
@@ -55,17 +61,16 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
           </dl>
         )}
 
-        {p.visitTips && p.visitTips.length > 0 && (
-          <><h2 className="mt-6 font-display text-xl font-semibold">{tx("visitingTips_6bae5")}</h2>
-          <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-ink-2">{p.visitTips.map((t) => <li key={t}>{t}</li>)}</ul></>
-        )}
+        <StopAlbum title={g15("album")} repLabel={g15("rep")} photos={[...(photos[id] ? [{ src: photos[id].src, alt: photos[id].alt, rep: photos[id].rep }] : []), ...(ALBUMS[id] ?? []).map((a) => ({ src: a.src, alt: p.name, rep: a.rep }))]} />
+
+        <StopGuide place={p} routes={inRoutes} locale={(await params).locale} />
 
         <div className="side">
         <h2 className="mt-6 font-display text-xl font-semibold">{tx("onTheMap_47ce7")}</h2>
         {p.coords ? (
           <>
             <div className="mt-2 h-[280px] overflow-hidden rounded-3xl border border-line lg:h-[460px]">
-              <MapView stops={[{ id: p.id, name: p.name, area: p.area, coords: p.coords, approx: p.precision !== "exact", index: 1 }]} className="h-full w-full" />
+              <MapView stops={[{ id: p.id, name: p.name, area: p.area, coords: p.coords, approx: p.precision !== "exact", index: 1 }]} pois={(POIS[id] ?? []).map((x) => ({ k: x.k, n: x.n, c: x.c }))} className="h-full w-full" />
             </div>
           </>
         ) : <p className="mt-2 rounded-2xl border border-line bg-white/70 shadow-card p-3 text-sm text-ink-2">{tx("thisStopSLocationHas_35a00")}</p>}
