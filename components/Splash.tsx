@@ -56,9 +56,9 @@ export default function Splash() {
       <div data-fill className="absolute inset-0 hidden bg-[#4B0266]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(250,144,36,.28),transparent_55%)]" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img data-mark src="/brand/isaret.webp" alt="" width={560} height={403} className="relative w-[58%] max-w-[260px] opacity-0" />
+      <img data-mark src="/brand/2/isaret.webp" alt="" width={560} height={403} className="relative w-[58%] max-w-[260px] opacity-0" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img data-word src="/brand/rotafyon-beyaz-960.webp" alt="" width={960} height={240} className="absolute left-1/2 top-1/2 w-[86%] max-w-[420px] -translate-x-1/2 -translate-y-1/2 opacity-0" />
+      <img data-word src="/brand/2/rotafyon-beyaz-960.webp" alt="" width={960} height={240} className="absolute left-1/2 top-1/2 w-[86%] max-w-[420px] -translate-x-1/2 -translate-y-1/2 opacity-0" />
       <p data-tag className="absolute inset-x-0 bottom-16 text-center text-sm font-medium text-white/75 opacity-0">{t("tagline")}</p>
     </div>
   );

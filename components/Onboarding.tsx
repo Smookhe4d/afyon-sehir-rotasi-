@@ -136,7 +136,7 @@ export default function Onboarding({routeCount}: {routeCount: number}) {
         {step > 0 && <button type="button" onClick={finish} className="glass absolute right-4 top-[max(1rem,env(safe-area-inset-top))] z-10 flex h-10 items-center rounded-full px-4 text-[13px] font-bold text-navy">{t("skip")}</button>}
         <div className="glass sheen relative mx-3 mb-[max(0.875rem,env(safe-area-inset-bottom))] mt-auto flex flex-col gap-3.5 rounded-[36px] p-5 [animation:onb-rise_.8s_.2s_var(--ease-spring)_both]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/rotafyon-acik-480.webp" srcSet="/brand/rotafyon-acik-480.webp 1x, /brand/rotafyon-acik-960.webp 2x" alt="rotAfyon" className="-ml-1 h-10 w-auto self-start" />
+          <img src="/brand/2/rotafyon-acik-480.webp" srcSet="/brand/2/rotafyon-acik-480.webp 1x, /brand/2/rotafyon-acik-960.webp 2x" alt="rotAfyon" className="-ml-1 h-10 w-auto self-start" />
           <div key={step} className="[animation:onb-text_.6s_.1s_var(--ease-spring)_both]">
             <h2 className="font-display text-[28px] leading-[1.08] text-navy [text-wrap:balance]">{step === 0 ? w("title") : t(isMap ? "map.title" : "audio.title")}</h2>
             <p className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{step === 0 ? w("text", {count: routeCount}) : t(isMap ? "map.text" : "audio.text")}</p>
