@@ -4,6 +4,8 @@ import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
 import { photos } from "@/lib/photos";
+import { ALBUMS } from "@/lib/albums";
+import { getContent } from "@/lib/content";
 import LegalPage from "@/components/LegalPage";
 export async function generateMetadata({params}: {params: Promise<{locale: Locale}>}) {
   const {locale} = await params;
@@ -13,6 +15,8 @@ export default async function Hakkinda({ params }: { params: Promise<{locale: Lo
   const tx = await getUiTranslations({locale: (await params).locale, namespace: "ui"});
   const g = await getUiTranslations({locale: (await params).locale, namespace: "g011"});
   const pt = await getUiTranslations({locale: (await params).locale, namespace: "photos"});
+  const g15 = await getUiTranslations({locale: (await params).locale, namespace: "g015"});
+  const { places } = getContent((await params).locale);
 
   setRequestLocale((await params).locale);
   return (
@@ -31,7 +35,11 @@ export default async function Hakkinda({ params }: { params: Promise<{locale: Lo
           {Object.entries(photos).map(([id, ph]) => (
             <li key={id} className="rounded-2xl bg-white px-3.5 py-2.5 text-[13px] leading-snug shadow-card"><b className="block text-navy">{pt(id)}</b><a href={ph.page} target="_blank" rel="noopener noreferrer" className="text-mute underline decoration-line underline-offset-2">{g("photoBy", {author: ph.author, license: ph.license})}</a></li>
           ))}
+          {Object.entries(ALBUMS).flatMap(([id, list]) => list.map((ph) => (
+            <li key={ph.page + id} className="rounded-2xl bg-white px-3.5 py-2.5 text-[13px] leading-snug shadow-card"><b className="block text-navy">{places[id]?.name ?? id}{ph.rep ? ` · ${g15("rep")}` : ""}</b><a href={ph.page} target="_blank" rel="noopener noreferrer" className="text-mute underline decoration-line underline-offset-2">{g("photoBy", {author: ph.author, license: ph.license})}</a></li>
+          )))}
         </ul>
+        <p className="mt-4 text-[12px] leading-relaxed text-mute">{g15("osmCredit")}</p>
       </section>
     </>
   );

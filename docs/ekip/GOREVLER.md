@@ -357,3 +357,14 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Dokuz tema için yeni illüstrasyonlar (`components/ThemeScenes.tsx`), tema düğmeleri de küçük illüstrasyon gösteriyor.
   - 22 durağa Wikimedia Commons fotoğrafı eklendi. Yalnızca o yeri gösterdiği doğrulanan fotoğraflar alındı.
 - **Açık kalan:** Afyon merkezindeki bazı duraklar (Taşhan, Uzun Çarşı, Anıtpark, küçük camiler), Seydiler çevresi köyleri ve Başkomutanlık Tarihi Milli Parkı tepeleri için doğru yeri gösteren serbest lisanslı fotoğraf bulunamadı. Ekibin kendi çekimleri beklenecek.
+
+## G-015: Çevredeki yerler, durak rehberi, albüm ve profil görseli
+- **Durum:** PR açıldı, canlıya geçiş proje sahibinin onayını bekliyor.
+- **Yapılanlar:**
+  - Alt sekme çubuğu artık opak beyaz, şeffaflık kaldırıldı.
+  - Profildeki büyük tema alanı ve illüstrasyonlar kaldırıldı. Tema, ayarlar satırında 9 renk noktası olarak seçiliyor.
+  - Profil görseli: fotoğraf yükleme (Supabase `avatars` deposu, kullanıcı yalnızca kendi klasörüne yazar) ya da 9 hazır avatar. Keşfet sağ üstte de görünüyor. Göç: `supabase/migrations/003_avatars.sql` (uygulandı).
+  - Durak sayfası: "Mutlaka gör" (yalnızca mevcut tanıtım metninden), "Gitmeden önce bilmen gerekenler", araç yolu olan duraklarda trafik uyarısı, kaydırmalı fotoğraf albümü.
+  - OpenStreetMap'ten yemek, cami ve umumi tuvalet kayıtları (`lib/pois.ts`, `public/pois.geojson`). Durak sayfasında liste ve harita, Keşfet haritasında yakın zoomda nokta olarak.
+  - Fotoğrafı olmayan 37 durağa Commons görseli eklendi. Durağın kendisini göstermeyenler "Temsilî" etiketiyle gösteriliyor. Albüm görselleri `public/photos/c` altında, künyeleri Hakkında sayfasında.
+- **Açık kalan:** OpenStreetMap'te puan bilgisi yok, bu yüzden "4 puan üzeri" süzgeci uygulanamadı. Afyon'da OSM'de kayıtlı restoran ve tuvalet sayısı az. Temsilî görseller ekibin kendi çekimleriyle değiştirilmeli.

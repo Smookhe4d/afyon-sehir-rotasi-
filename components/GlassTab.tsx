@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 import Icon from "./Icon";
 
-// G-011: yüzen cam sekme çubuğu ve ayrı QR düğmesi. Harita Keşfet'in içinde, Rotanı belirle Rotalar sayfasında.
+// G-011: yüzen sekme çubuğu (G-015: opak beyaz zemin) ve ayrı QR düğmesi. Harita Keşfet'in içinde, Rotanı belirle Rotalar sayfasında.
 const TABS = [
   { id: "kesfet", label: "home", href: "/", icon: "compass" },
   { id: "rotalar", label: "routes", href: "/rotalar", icon: "path" },
@@ -27,7 +27,7 @@ export default function GlassTab() {
   if (path.startsWith("/giris")) return null;
   return (
     <nav data-tabbar aria-label={tNav("tabs")} className="fixed inset-x-2.5 bottom-[max(0.625rem,env(safe-area-inset-bottom))] z-50 mx-auto flex max-w-[520px] items-center gap-2.5 lg:hidden">
-      <div ref={bar} className="glass sheen relative flex h-16 flex-1 rounded-full p-1">
+      <div ref={bar} className="relative flex h-16 flex-1 rounded-full border border-line bg-white p-1 shadow-[0_14px_32px_-16px_rgba(40,10,60,.35)]">
         {pill && <span aria-hidden className="absolute bottom-1 top-1 rounded-full bg-ac-soft transition-[transform,width] duration-500 [transition-timing-function:var(--ease-spring)]" style={{ width: pill.w, transform: `translateX(${pill.x - 4}px)`, left: 4 }} />}
         {TABS.map((t) => {
           const on = t.id === activeId;
