@@ -535,8 +535,8 @@
       "frig": "Frig"
     },
     "scopes": {
-      "il-ici": "Afyonkarahisar",
-      "cevre-il": "Çevre illerle"
+      "il-ici": "Afyonkarahisar şehir içi",
+      "cevre-il": "Afyonkarahisar şehir dışıyla bağlantılı"
     },
     "modes": {
       "arac": "Araçlı",
