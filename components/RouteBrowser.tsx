@@ -29,17 +29,24 @@ export default function RouteBrowser() {
   const g = useUiTranslations("g011");
   const sp = useSearchParams();
   const [cat, setCat] = useState<RouteCategory | "">((sp.get("tema") as RouteCategory | null) ?? "");
+  // G-018: rotalar iki sekmede: şehir içi ve şehir dışıyla bağlantılı
+  const [scope, setScope] = useState<"il-ici" | "cevre-il">(sp.get("kapsam") === "cevre-il" ? "cevre-il" : "il-ici");
   const cats = useMemo(() => [...new Set(routes.map((r) => r.category))], []);
   const filtered = useMemo(() => {
     const n = q.trim().toLocaleLowerCase("tr");
     return routes.filter((r) => (!cat || r.category === cat) && (!n ||
       `${r.title} ${r.summary} ${r.stops.map((s) => getPlace(s.placeId).name).join(" ")}`.toLocaleLowerCase("tr").includes(n)));
   }, [q, cat, routes, getPlace]);
-  const groups = (["il-ici", "cevre-il"] as const).map((s) => ({ s, items: filtered.filter((r) => r.scope === s) })).filter((g) => g.items.length);
+  const groups = (q.trim() ? (["il-ici", "cevre-il"] as const) : [scope]).map((s) => ({ s, items: filtered.filter((r) => r.scope === s) })).filter((g) => g.items.length);
 
   return (
     <>
       <div className="px-5 lg:max-w-[720px]">
+        <div role="tablist" aria-label={tx("routes_c1ecc")} className="mb-3 grid grid-cols-2 gap-1 rounded-full bg-[rgba(60,30,80,.07)] p-1">
+          {(["il-ici", "cevre-il"] as const).map((v) => (
+            <button key={v} type="button" role="tab" aria-selected={scope === v} onClick={() => setScope(v)} className={`h-11 rounded-full px-3 text-[13.5px] font-bold leading-tight transition-colors ${scope === v ? "bg-white text-ac shadow-card" : "text-mute"}`}>{scopeLabels[v]}</button>
+          ))}
+        </div>
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={tx("searchRoutesOrPlacesE_9bc2d")} aria-label={tx("searchRoutes_51ab6")} className="h-12 w-full rounded-2xl bg-[rgba(60,30,80,.07)] px-4 text-[16px] font-medium outline-none placeholder:text-mute focus:ring-2 focus:ring-ac/40" />
         <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1" role="group" aria-label={tx("category_b7964")}>
           {([["", tx("all_8daf7")], ...cats.map((c) => [c, categoryLabels[c]])] as [RouteCategory | "", string][]).map(([v, l]) => (

@@ -535,8 +535,8 @@
       "frig": "Phrygian"
     },
     "scopes": {
-      "il-ici": "Afyonkarahisar",
-      "cevre-il": "Neighboring provinces"
+      "il-ici": "Within Afyonkarahisar",
+      "cevre-il": "Linked beyond Afyonkarahisar"
     },
     "modes": {
       "arac": "Driving",
