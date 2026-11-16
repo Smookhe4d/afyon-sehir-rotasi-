@@ -5,7 +5,8 @@ import {useContent} from "@/i18n/useContent";
 import {useTranslations as useUiTranslations} from "next-intl";
 
 import { Link } from "@/i18n/navigation";
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import MapView from "@/components/map/LazyMap";
 import { deleteCustomRoute, saveCustomRoute } from "@/app/actions";
 import { placeList } from "@/lib/places";
 
@@ -15,7 +16,7 @@ const names = Object.fromEntries(placeList.map((p) => [p.id, p]));
 export default function Builder({ saved }: { saved: SavedRoute[] }) {
   const num = useUiFormatter().number;
 
-  const {placeList} = useContent();
+  const {placeList, getPlace} = useContent();
 
   const tx = useUiTranslations("ui");
 
@@ -25,6 +26,10 @@ export default function Builder({ saved }: { saved: SavedRoute[] }) {
   const [isPublic, setPublic] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [pending, run] = useTransition();
+  // G-019: masaüstünde seçilen duraklar haritada da gösterilir. Telefonda harita yüklenmez.
+  const [desk, setDesk] = useState(false);
+  useEffect(() => { const m = matchMedia("(min-width: 1024px)"); const f = () => setDesk(m.matches); f(); m.addEventListener("change", f); return () => m.removeEventListener("change", f); }, []);
+  const mapStops = picked.map((id, i) => ({ p: getPlace(id), i })).filter(({ p }) => p?.coords).map(({ p, i }) => ({ id: p.id, name: p.name, area: p.area, coords: p.coords!, approx: p.precision !== "exact", index: i + 1 }));
 
   const results = useMemo(() => {
     const n = q.trim().toLocaleLowerCase("tr");
@@ -41,7 +46,7 @@ export default function Builder({ saved }: { saved: SavedRoute[] }) {
   }
 
   return (
-    <div className="px-5">
+    <div className="split px-5">
       <label className="block text-xs font-bold text-mute" htmlFor="title">{tx("routeName_aeb65")}</label>
       <input id="title" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={80} placeholder={tx("eGWeekendCityWalk_1a019")} className="mt-1 h-12 w-full rounded-2xl border border-line bg-white shadow-card px-4 text-[15px] outline-none focus:border-terra" />
 
@@ -55,6 +60,8 @@ export default function Builder({ saved }: { saved: SavedRoute[] }) {
         {results.length === 0 && <li className="px-1 text-sm text-mute">{tx("noMatchingStops_e4b6b")}</li>}
       </ul>
 
+      <div className="side">
+      {desk && mapStops.length > 0 && <div className="mb-2 h-[300px] overflow-hidden rounded-3xl border border-line"><MapView key={picked.join(",")} stops={mapStops} className="h-full w-full" /></div>}
       <h2 className="mt-6 font-display text-lg font-semibold">{tx("selectedStops_01b9b")} <span className="text-sm font-medium text-mute">· {num(picked.length)}</span></h2>
       {picked.length === 0 ? <p className="mt-1 text-sm text-mute">{tx("selectAtLeast2Stops_8ad12")}</p> : (
         <ol className="mt-2 flex flex-col gap-2">
@@ -76,6 +83,7 @@ export default function Builder({ saved }: { saved: SavedRoute[] }) {
         className={`terra-grad mt-4 flex h-14 w-full items-center justify-center rounded-full font-bold text-white shadow-[0_8px_20px_rgba(166,75,34,.4)] ${picked.length < 2 ? "pointer-events-none opacity-50" : ""}`}>{tx("start_558be")}</Link>
       <button type="button" onClick={save} disabled={pending || picked.length < 2 || title.trim().length < 3} className="mt-2.5 h-12 w-full rounded-full border border-line bg-white shadow-card text-sm font-bold text-navy disabled:opacity-50">{tx("saveRoute_c8a58")}</button>
       <p className="mt-1.5 text-center text-[11px] text-mute">{tx("startOpensTheRouteOn_f8761")}</p>
+      </div>
 
       <h2 className="mt-9 font-display text-lg font-semibold">{tx("mySavedRoutes_8a7bf")}</h2>
       <ul className="mt-2 flex flex-col gap-2.5">

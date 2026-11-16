@@ -95,6 +95,10 @@ html[data-motion="on"] [data-motion-page] :is([data-reveal], [data-motion-list] 
 @media (min-width: 1024px) {
   main { max-width: 760px; margin-inline: auto; }
   main.wide { max-width: none; }
+  /* G-019: tam genişlik sayfalar (harita) kapsayıcı sınırını aşar */
+  main.page-xl { max-width: 1120px; }
+  main.bleed { width: 100vw; max-width: none; margin-left: calc(50% - 50vw); }
+  body:has([data-kesfet]) [data-site-footer], body:has(main.bleed) [data-site-footer] { display: none; }
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); column-gap: 44px; align-items: start; }
   .split > * { grid-column: 1; }
   .split > .side { grid-column: 2; grid-row: 1 / span 40; position: sticky; top: 84px; margin-top: 0; }

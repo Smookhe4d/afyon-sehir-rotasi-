@@ -25,12 +25,12 @@ export default async function Harita({ params, searchParams }: { params: Promise
   const stops = data ? data.stops : allMapStops(locale);
   const chip = "shrink-0 rounded-full px-3.5 py-2 text-xs font-bold";
   return (
-    <main className="wide relative h-dvh lg:h-[calc(100dvh-64px)]">
+    <main className="wide bleed relative h-dvh lg:h-[calc(100dvh-64px)]">
       <MapView key={custom ? `ozel-${duraklar}` : opt?.slug ?? "tum"} stops={stops} line={data?.line} title={custom?.stops.length ? tx("myRoute_875cf") : opt ? opt.title : tx("allStops_2db0a")} initialStopId={durak} bottomInset={108} guide={takip === "1" && Boolean(opt || custom)} routeSlug={opt?.slug} overview={!opt && !(custom && custom.stops.length)} grup={takip === "1" ? code : undefined} lider={lider === "1"} travelMode={mod === "arac" || mod === "bisiklet" ? mod : "yuruyus"} className="h-full w-full" />
-      {takip !== "1" && <nav aria-label={tx("routeSelection_b7729")} className="absolute inset-x-0 top-[68px] z-10 flex gap-2 overflow-x-auto pl-3 pr-[68px] pb-1 [scrollbar-width:none]">
-        <Link href="/harita" className={`${chip} ${!opt && !custom ? "terra-grad text-white" : "glass text-navy"}`}>{tx("all_8daf7")}</Link>
+      {takip !== "1" && <nav aria-label={tx("routeSelection_b7729")} className="absolute inset-x-0 top-[68px] z-10 flex gap-2 overflow-x-auto pl-3 pr-[68px] pb-1 [scrollbar-width:none] lg:bottom-6 lg:left-4 lg:right-auto lg:w-[320px] lg:flex-col lg:overflow-y-auto lg:rounded-[26px] lg:bg-[rgba(250,248,252,.9)] lg:p-3 lg:pr-3 lg:shadow-card lg:backdrop-blur-xl">
+        <Link href="/harita" className={`${chip} lg:rounded-2xl lg:px-4 lg:py-3 lg:text-sm ${!opt && !custom ? "terra-grad text-white" : "glass text-navy lg:bg-white lg:shadow-card"}`}>{tx("all_8daf7")}</Link>
         {routeOptions.map((r) => (
-          <Link key={r.slug} href={`/harita?rota=${r.slug}`} className={`${chip} whitespace-nowrap ${opt?.slug === r.slug ? "terra-grad text-white" : "glass text-navy"}`}>{r.title}</Link>
+          <Link key={r.slug} href={`/harita?rota=${r.slug}`} className={`${chip} whitespace-nowrap lg:whitespace-normal lg:rounded-2xl lg:px-4 lg:py-3 lg:text-sm lg:leading-snug ${opt?.slug === r.slug ? "terra-grad text-white" : "glass text-navy lg:bg-white lg:shadow-card"}`}>{r.title}</Link>
         ))}
       </nav>}
     </main>

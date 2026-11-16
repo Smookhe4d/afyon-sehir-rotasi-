@@ -67,7 +67,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
   return (
     <MotionProvider key={(await params).locale + slug}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="relative h-[340px] overflow-hidden bg-navy px-4 pt-[max(1rem,env(safe-area-inset-top))] lg:mx-4 lg:mt-4 lg:h-[360px] lg:rounded-[32px]">
+      <section className="relative h-[340px] overflow-hidden bg-navy px-4 pt-[max(1rem,env(safe-area-inset-top))] lg:mx-4 lg:mt-4 lg:h-[300px] lg:rounded-[32px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img data-parallax="cover" src={routeCover[slug] ? photos[routeCover[slug]!].src : "/art/banner-afyon-1200.webp"} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#14081c]/45 via-transparent via-40% to-transparent" />

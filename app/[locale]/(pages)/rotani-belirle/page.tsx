@@ -17,7 +17,7 @@ export default async function Belirle({ params }: { params: Promise<{locale: Loc
   const { supabase, user } = await getSession();
   const { data } = user ? await supabase.from("custom_routes").select("id, title, place_ids, is_public").eq("user_id", user.id).order("created_at", { ascending: false }) : { data: [] };
   return (
-    <main>
+    <main className="page-xl">
       <PageHeader eyebrow={tx("newRoute_0cfdf")} title={tx("planYourRoute_cdc25")} />
       <Builder saved={data ?? []} />
     </main>
