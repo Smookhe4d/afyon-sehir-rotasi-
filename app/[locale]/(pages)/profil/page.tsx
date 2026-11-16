@@ -49,13 +49,13 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
   const name = profile?.display_name ?? tx("traveler_c4a46");
 
   return (
-    <main>
+    <main className="page-xl">
       <PageHeader eyebrow={tx("myAccount_858f8")} title={tx("profile_669fe")} />
       <section className="flex items-center gap-4 px-5 pt-1">
         <AvatarPicker userId={user.id} value={profile?.avatar_url ?? null} name={name} canUpload={!guest} />
         <div className="min-w-0"><ProfileName name={name} /><p className="truncate text-[13px] text-mute">{guest ? tx("guestAccount_8b6de") : user.email}</p></div>
       </section>
-      <div className="relative px-5">
+      <div className="split relative px-5">
         {guest && <p className="mt-3 rounded-2xl bg-sand px-4 py-3 text-sm text-ink-2">{tx("asAGuestYouCan_a77cd")}<Link href="/giris" className="ml-1 font-bold text-terra" prefetch={false}>{tx("createAnAccount_45824")}</Link></p>}
 
         <dl className="mt-5 grid grid-cols-3 rounded-[22px] border border-line bg-white shadow-card py-3 text-center">
@@ -71,7 +71,8 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
           <span><span className="block font-display text-base font-semibold">{tx("startARouteWithQr_8ea80")}</span><span className="text-xs opacity-80">{tx("scanACodeAtA_e2b46")}</span></span>
         </Link>
 
-        <h2 className="mt-7 font-display text-xl font-semibold">{tx("badges_6c1b9")}</h2>
+        <div className="side">
+        <h2 className="mt-7 font-display text-xl font-semibold lg:mt-5">{tx("badges_6c1b9")}</h2>
         <ul className="mt-3 grid grid-cols-3 gap-3">
           {badgeDefs.map((b) => { const on = earned.has(b.id); return (
             <li key={b.id} className="text-center" title={b.hint}>
@@ -93,6 +94,7 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
           <ul className="mt-3 flex flex-col gap-2">{(favs.data ?? []).map((f) => { const r = getRoute(f.route_slug); return r ? <li key={f.route_slug}><Link href={`/rotalar/${r.slug}`} className="block rounded-2xl border border-line bg-white shadow-card px-4 py-3 text-sm font-bold">{r.title}</Link></li> : null; })}</ul>
         )}
 
+        </div>
         <nav aria-label={tx("more_861fe")} className="mt-8 flex flex-col gap-2">
           {[["/geri-bildirim", tx("suggestionsContributionsAndComplaints_bedd0")], ["/hakkinda", tx("about_12a5d")], ["/gizlilik", tx("privacy_9e93e")], ["/sartlar", tx("termsOfUse_8a73f")], ...(isAdmin ? [["/yonetim", tx("adminPanel_5d22e")]] : [])].map(([h, l]) => (
             <Link key={h} href={h} className="flex h-12 items-center justify-between rounded-2xl border border-line bg-white px-4 text-sm font-bold shadow-card">{l}<span className="text-terra" aria-hidden>›</span></Link>

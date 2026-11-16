@@ -14,6 +14,7 @@ import Track from "@/components/Track";
 import SwRegister from "@/components/SwRegister";
 import Onboarding from "@/components/Onboarding";
 import { routes } from "@/lib/routes";
+import SiteFooter from "@/components/SiteFooter";
 import TopNav from "@/components/TopNav";
 import GlassTab from "@/components/GlassTab";
 import "../globals.css";
@@ -47,6 +48,7 @@ export default async function RootLayout({ children, params }: { children: React
         <IntlProvider locale={locale} messages={messages}>
         <TopNav />
         <div className="lg:mx-auto lg:max-w-[1280px]">{children}</div>
+        <SiteFooter />
         <GlassTab />
         <Onboarding routeCount={routes.length} />
         <Splash />

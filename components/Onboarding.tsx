@@ -99,8 +99,8 @@ export default function Onboarding({routeCount}: {routeCount: number}) {
   return (
     <div ref={root} tabIndex={-1} data-lenis-prevent role="dialog" aria-modal="true" aria-label={t("label")} lang={step === 0 ? lang : undefined} {...(step > 0 ? swipe : {})}
       className="fixed inset-0 z-[100] flex justify-center bg-[#20102A] outline-none">
-      <div className="relative flex w-full max-w-[520px] flex-col overflow-hidden">
-        <div key={step} aria-hidden className="absolute inset-0 [animation:onb-slide_.7s_var(--ease-out-soft)_both]">
+      <div className="relative flex w-full max-w-[520px] flex-col overflow-hidden lg:max-w-none">
+        <div key={step} aria-hidden className="absolute inset-0 [animation:onb-slide_.7s_var(--ease-out-soft)_both] lg:right-[520px]">
           {step === 0 && <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/photos/afyon-kalesi.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_35%] [animation:onb-kb_16s_ease-out_both]" />
@@ -108,8 +108,8 @@ export default function Onboarding({routeCount}: {routeCount: number}) {
           </>}
           {isMap && <div className="absolute inset-0 bg-[#F7F3EC]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/art/onb-rota.webp" alt="" className="absolute inset-x-0 top-0 w-full" />
-            <svg viewBox={`0 0 ${ONB_ROUTE.w} ${ONB_ROUTE.h}`} className="absolute inset-x-0 top-0 w-full overflow-visible">
+            <img src="/art/onb-rota.webp" alt="" className="absolute inset-x-0 top-0 w-full lg:inset-x-auto lg:left-1/2 lg:top-1/2 lg:w-[62vh] lg:max-w-[600px] lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-[32px] lg:shadow-[0_30px_60px_-30px_rgba(44,18,66,.45)]" />
+            <svg viewBox={`0 0 ${ONB_ROUTE.w} ${ONB_ROUTE.h}`} className="absolute inset-x-0 top-0 w-full overflow-visible lg:inset-x-auto lg:left-1/2 lg:top-1/2 lg:w-[62vh] lg:max-w-[600px] lg:-translate-x-1/2 lg:-translate-y-1/2">
               {[["#fff", 9], ["var(--ac)", 5]].map(([c, w]) => <path key={String(c)} d={ONB_ROUTE.d} fill="none" stroke={String(c)} strokeWidth={Number(w)} strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: ONB_ROUTE.len, strokeDashoffset: ONB_ROUTE.len, animation: "onb-draw 2.2s .35s cubic-bezier(.45,0,.2,1) forwards" }} />)}
               {ONB_ROUTE.stops.map(([n, x, y], k) => (
                 <g key={n} style={{ transformOrigin: `${x}px ${y}px`, animation: `onb-pop .5s ${0.5 + k * 0.17}s cubic-bezier(.34,1.56,.64,1) both` }}>
@@ -122,7 +122,7 @@ export default function Onboarding({routeCount}: {routeCount: number}) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/photos/ayazini.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[35%_50%] [animation:onb-kb_16s_ease-out_both]" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#14081c]/10 to-[#14081c]/60" />
-            <div className="glass sheen absolute inset-x-5 top-[16%] rounded-[30px] p-4 [animation:onb-rise_.7s_.25s_var(--ease-spring)_both]">
+            <div className="glass sheen absolute inset-x-5 top-[16%] rounded-[30px] p-4 [animation:onb-rise_.7s_.25s_var(--ease-spring)_both] lg:left-[calc(50%-220px)] lg:right-auto lg:top-[38%] lg:w-[440px]">
               <div className="flex items-center gap-3">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-ac2 text-navy"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z" /></svg></span>
                 <span className="min-w-0"><b className="block text-[15px] leading-tight text-navy">{t("audio.stopName")}</b><span className="text-xs font-semibold text-mute">{t("audio.stop")}</span></span>
@@ -133,13 +133,13 @@ export default function Onboarding({routeCount}: {routeCount: number}) {
             </div>
           </>}
         </div>
-        {step > 0 && <button type="button" onClick={finish} className="glass absolute right-4 top-[max(1rem,env(safe-area-inset-top))] z-10 flex h-10 items-center rounded-full px-4 text-[13px] font-bold text-navy">{t("skip")}</button>}
-        <div className="glass sheen relative mx-3 mb-[max(0.875rem,env(safe-area-inset-bottom))] mt-auto flex flex-col gap-3.5 rounded-[36px] p-5 [animation:onb-rise_.8s_.2s_var(--ease-spring)_both]">
+        {step > 0 && <button type="button" onClick={finish} className="glass absolute right-4 top-[max(1rem,env(safe-area-inset-top))] z-10 flex h-10 items-center rounded-full px-4 text-[13px] font-bold text-navy lg:right-[544px] lg:top-6">{t("skip")}</button>}
+        <div className="glass sheen relative mx-3 mb-[max(0.875rem,env(safe-area-inset-bottom))] mt-auto flex flex-col gap-3.5 rounded-[36px] p-5 [animation:onb-rise_.8s_.2s_var(--ease-spring)_both] lg:absolute lg:inset-y-0 lg:right-0 lg:m-0 lg:w-[520px] lg:justify-center lg:gap-5 lg:rounded-none lg:bg-cream lg:px-14 lg:shadow-none lg:backdrop-blur-none">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/2/rotafyon-acik-480.webp" srcSet="/brand/2/rotafyon-acik-480.webp 1x, /brand/2/rotafyon-acik-960.webp 2x" alt="rotAfyon" className="-ml-1 h-10 w-auto self-start" />
+          <img src="/brand/2/rotafyon-acik-480.webp" srcSet="/brand/2/rotafyon-acik-480.webp 1x, /brand/2/rotafyon-acik-960.webp 2x" alt="rotAfyon" className="-ml-1 h-10 w-auto self-start lg:mb-4 lg:h-12" />
           <div key={step} className="[animation:onb-text_.6s_.1s_var(--ease-spring)_both]">
-            <h2 className="font-display text-[28px] leading-[1.08] text-navy [text-wrap:balance]">{step === 0 ? w("title") : t(isMap ? "map.title" : "audio.title")}</h2>
-            <p className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{step === 0 ? w("text", {count: routeCount}) : t(isMap ? "map.text" : "audio.text")}</p>
+            <h2 className="font-display text-[28px] leading-[1.08] text-navy [text-wrap:balance] lg:text-[40px]">{step === 0 ? w("title") : t(isMap ? "map.title" : "audio.title")}</h2>
+            <p className="mt-2 text-[15.5px] leading-relaxed text-ink-2 lg:mt-3 lg:text-[17px]">{step === 0 ? w("text", {count: routeCount}) : t(isMap ? "map.text" : "audio.text")}</p>
           </div>
           {step === 0 && (
             <div role="radiogroup" aria-label={w("language")} className="relative grid grid-cols-2 rounded-full bg-ac/10 p-1">

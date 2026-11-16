@@ -796,5 +796,11 @@
     "album": "Photos",
     "poiToggle": "Places nearby",
     "osmCredit": "Nearby food, mosque and toilet listings © OpenStreetMap contributors (ODbL)."
+  },
+  "g019": {
+    "footTag": "Routes from the Afyonkarahisar Tourism Master and Action Plan, stop by stop with audio guides.",
+    "footExplore": "Explore",
+    "footInfo": "Information",
+    "footNav": "Footer links"
   }
 }

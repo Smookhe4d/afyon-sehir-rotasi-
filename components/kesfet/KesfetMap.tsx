@@ -27,13 +27,15 @@ export default function KesfetMap({ stops, routes, label, poiLabel = {} }: { sto
     let m: MLMap | null = null, cancelled = false, raf = 0;
     let pins: Marker[] = [];
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const pad = () => ({ top: 160, left: 30, right: 70, bottom: Math.round(innerHeight * 0.5) + 20 });
+    // G-019: masaüstünde panel solda durduğu için rota panelin sağına sığdırılır
+    const pad = () => (matchMedia("(min-width: 1024px)").matches ? { top: 120, left: 540, right: 90, bottom: 50 } : { top: 160, left: 30, right: 70, bottom: Math.round(innerHeight * 0.5) + 20 });
     const draw = (slug: string | null) => {
       if (!m) return;
       cancelAnimationFrame(raf); pins.forEach((p) => p.remove()); pins = [];
       const src = m.getSource("rl") as GeoJSONSource | undefined;
       const r = routes.find((x) => x.slug === slug);
-      m.setPaintProperty("stops", "circle-opacity", r ? 0.3 : 1); m.setPaintProperty("stops-h", "circle-opacity", r ? 0.35 : 0.92);
+      if (m.getLayer("stops")) m.setPaintProperty("stops", "circle-opacity", r ? 0.3 : 1);
+      if (m.getLayer("stops-h")) m.setPaintProperty("stops-h", "circle-opacity", r ? 0.35 : 0.92);
       if (!r || !src) { src?.setData(fc([])); return; }
       const pts = r.line.length > 1 ? r.line : r.stops.map((s) => s.c);
       const b = pts.reduce((bb, p) => bb.extend(p), new LngLatBounds(pts[0], pts[0]));

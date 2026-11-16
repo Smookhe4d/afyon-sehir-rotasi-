@@ -388,3 +388,18 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Hizmet çalışanı v5: görseller önbellekten gösterilip arkada yenileniyor, eski önbellekler siliniyor, her açılışta güncelleme kontrol ediliyor.
   - `afyon-sehir-rotasi.vercel.app` her yolda kalıcı olarak `rotafyon.vercel.app` adresine yönleniyor (`next.config.ts`).
   - Uygulama simgesi ve tema rengi yeni marka rengine geçti.
+
+## G-019: Masaüstü görünümü
+- **Durum:** PR açıldı, canlıya geçiş proje sahibinin onayını bekliyor.
+- **Neden:** Site mobil öncelikli tasarlandığı için geniş ekranda bazı sayfalar telefon görünümü gibi dar kalıyordu.
+- **Yapılanlar (yalnızca 1024 px ve üzeri):**
+  - Keşfet: sol panel genişledi, rota kartları iki sütunlu ızgaraya geçti, kartın üzerine gelince rota haritada çiziliyor, tema düğmeleri iki satıra yayılıyor. Harita rotayı panelin sağına sığdırıyor.
+  - Harita: tam genişlik, rota seçimi solda dikey panelde.
+  - Rotalar: solda sabit filtre sütunu (Rotanı belirle, şehir içi ve şehir dışı seçimi, arama, temalar), sağda fotoğraflı kart ızgarası.
+  - Rotanı belirle: solda durak arama, sağda seçilen duraklar ve haritası.
+  - Profil ve Sosyal: iki sütunlu düzen. Giriş: solda fotoğraf, sağda form.
+  - Rota ve durak sayfalarında üst fotoğraf alçaltıldı.
+  - İlk açılış tanıtımı: solda görsel ve rota haritası, sağda sabit metin paneli.
+  - Sayfa sonu bilgi alanı (yalnızca masaüstü): Keşfet ve Bilgi bağlantıları.
+  - Keşfet haritasında katman yüklenmeden çizim yapılınca oluşan konsol hatası giderildi.
+- **Test:** `npm run build` hatasız. 390 px genişlikte dokuz sayfanın önceki ve sonraki ekran görüntüleri piksel piksel karşılaştırıldı, fark yok. Ekran görüntüleri `docs/ekip/ekran/G-019/`.

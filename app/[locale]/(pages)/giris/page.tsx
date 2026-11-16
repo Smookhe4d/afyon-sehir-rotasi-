@@ -17,16 +17,16 @@ export default async function Giris({ params }: { params: Promise<{locale: Local
 
   setRequestLocale((await params).locale);
   return (
-    <main className="relative flex min-h-dvh flex-col pb-8">
+    <main className="relative flex min-h-dvh flex-col pb-8 lg:grid lg:min-h-[calc(100dvh-64px)] page-xl lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:content-center lg:items-center lg:gap-x-12 lg:px-6 lg:py-8">
       {/* G-011: üstte fotoğraf ve beyaz logo, altta buzlu cam form */}
-      <section className="relative h-[44dvh] min-h-[300px] overflow-hidden">
+      <section className="relative h-[44dvh] min-h-[300px] overflow-hidden lg:row-span-3 lg:h-[calc(100dvh-128px)] lg:max-h-[720px] lg:rounded-[32px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/photos/aslankaya.jpg" alt="" className="absolute inset-0 h-full w-full object-cover [animation:onb-kb_16s_ease-out_both]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#4B0266]/30 via-transparent to-cream" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#4B0266]/30 via-transparent to-cream lg:to-[#14081c]/40" />
         <h1 className="relative px-6 pt-[max(1.5rem,env(safe-area-inset-top))]">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/brand/2/rotafyon-beyaz-960.webp" width={168} height={42} alt={tx("afyonCityRoutes_f38c8")} className="h-[42px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,.35)]" /></h1>
       </section>
-      <div className="relative -mt-24 px-3 [animation:onb-rise_.8s_.15s_var(--ease-spring)_both]">
-        <p className="mb-3 px-3 text-[15px] font-medium leading-relaxed text-white drop-shadow-[0_1px_6px_rgba(0,0,0,.45)]">{tx("guidedRoutesThroughTheCastle_41055")}</p>
+      <div className="relative -mt-24 px-3 [animation:onb-rise_.8s_.15s_var(--ease-spring)_both] lg:mt-0 lg:self-end lg:px-0">
+        <p className="mb-3 px-3 text-[15px] font-medium leading-relaxed text-white drop-shadow-[0_1px_6px_rgba(0,0,0,.45)] lg:mb-5 lg:px-1 lg:text-[18px] lg:text-navy lg:drop-shadow-none">{tx("guidedRoutesThroughTheCastle_41055")}</p>
         {supabaseConfigured ? (
           <Suspense><AuthForm /></Suspense>
         ) : (
@@ -36,8 +36,8 @@ export default async function Giris({ params }: { params: Promise<{locale: Local
           </div>
         )}
       </div>
-      <Link href="/" className="mt-5 text-center text-[15px] font-bold text-ac">{tx("browseWithoutSigningIn_13358")}</Link>
-      <p className="mt-4 text-center text-[12px] text-mute"><Link href="/gizlilik" className="underline">{tx("privacy_9e93e")}</Link> · <Link href="/sartlar" className="underline">{tx("termsOfUse_8a73f")}</Link></p>
+      <Link href="/" className="mt-5 text-center text-[15px] font-bold text-ac lg:self-start">{tx("browseWithoutSigningIn_13358")}</Link>
+      <p className="mt-4 text-center text-[12px] text-mute lg:self-start"><Link href="/gizlilik" className="underline">{tx("privacy_9e93e")}</Link> · <Link href="/sartlar" className="underline">{tx("termsOfUse_8a73f")}</Link></p>
     </main>
   );
 }

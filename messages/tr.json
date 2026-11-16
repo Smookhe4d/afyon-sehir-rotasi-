@@ -796,5 +796,11 @@
     "album": "Fotoğraflar",
     "poiToggle": "Çevredeki yerler",
     "osmCredit": "Çevredeki yemek, cami ve tuvalet kayıtları © OpenStreetMap katkıcıları (ODbL)."
+  },
+  "g019": {
+    "footTag": "Afyonkarahisar Turizm Master ve Eylem Planı'ndaki rotalar, durak durak ve sesli anlatımla.",
+    "footExplore": "Keşfet",
+    "footInfo": "Bilgi",
+    "footNav": "Sayfa sonu bağlantıları"
   }
 }

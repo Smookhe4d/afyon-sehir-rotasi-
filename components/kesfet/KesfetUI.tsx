@@ -96,7 +96,7 @@ export default function KesfetUI({ stops, routes, chips, labels, children }: {
   return (
     <div data-kesfet className="fixed inset-0 z-0 overflow-hidden lg:top-16">
       <KesfetMap stops={stops} routes={routes} label={labels.map} poiLabel={labels.poi} />
-      <div className={`absolute inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] z-10 flex flex-col gap-2.5 transition-opacity duration-300 lg:left-[452px] ${y !== null && y < 150 ? "pointer-events-none opacity-0" : ""}`}>
+      <div className={`absolute inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] z-10 flex flex-col gap-2.5 transition-opacity duration-300 lg:left-[512px] ${y !== null && y < 150 ? "pointer-events-none opacity-0" : ""}`}>
         <div className="flex items-center gap-2.5 lg:hidden">
           <Link href="/" className="glass sheen flex h-[52px] items-center rounded-full pl-3.5 pr-[18px]" aria-label="rotAfyon">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -105,7 +105,7 @@ export default function KesfetUI({ stops, routes, chips, labels, children }: {
           <span className="flex-1" />
           <Link href="/profil" aria-label={labels.profile} className="glass flex h-[52px] w-[52px] items-center justify-center rounded-full text-ac">{me ? <Avatar value={me.v} name={me.name} size={44} /> : <Icon name="user-circle" size={26} fill />}</Link>
         </div>
-        <div data-hscroll className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-2 pt-1 [scrollbar-width:none]">
+        <div data-hscroll className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-2 pt-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0">
           {chips.map((c) => {
             const on = cat === c.cat;
             return (
@@ -123,7 +123,7 @@ export default function KesfetUI({ stops, routes, chips, labels, children }: {
         <button type="button" aria-label={labels.tilt} onClick={() => dispatchEvent(new Event("kesfet-3d"))} className="flex h-12 items-center justify-center text-ac"><Icon name="mountains" size={22} /></button>
       </div>
       <section ref={sheet} aria-label={labels.panel} data-cat="" style={{ transform: "translateY(50dvh)" }}
-        className="absolute inset-x-0 top-0 z-20 flex h-full flex-col rounded-t-[30px] bg-[rgba(250,248,252,.88)] shadow-[0_-10px_40px_-18px_rgba(44,18,66,.45),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-[30px] backdrop-saturate-[180%] will-change-transform lg:bottom-0 lg:left-4 lg:right-auto lg:top-4 lg:h-auto lg:w-[420px] lg:rounded-[30px] lg:!transform-none">
+        className="absolute inset-x-0 top-0 z-20 flex h-full flex-col rounded-t-[30px] bg-[rgba(250,248,252,.88)] shadow-[0_-10px_40px_-18px_rgba(44,18,66,.45),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-[30px] backdrop-saturate-[180%] will-change-transform lg:bottom-0 lg:left-4 lg:right-auto lg:top-4 lg:h-auto lg:w-[480px] lg:rounded-[30px] lg:!transform-none">
         <button type="button" onClick={toggle} aria-label={labels.grab} className="flex h-[22px] shrink-0 cursor-grab justify-center pt-2 lg:hidden"><i className="h-[5px] w-[38px] rounded-full bg-[rgba(60,30,80,.22)]" /></button>
         <div ref={body} data-sheet-body data-lenis-prevent className="flex-1 overflow-y-auto overscroll-contain pb-40 [scrollbar-width:none] lg:pb-8 lg:pt-4">{children}</div>
       </section>

@@ -47,10 +47,10 @@ export default async function Sosyal({ params }: { params: Promise<{locale: Loca
   const registered = Boolean(profile && !profile.is_guest);
 
   return (
-    <main>
+    <main className="page-xl">
       <PageHeader eyebrow={tx("community_92216")} title={tx("community_6c29e")} />
-      <div className="flex flex-col gap-3">
-        <Composer userId={user.id} canPost={registered} />
+      <div className="split flex flex-col gap-3">
+        <div className="side"><Composer userId={user.id} canPost={registered} /></div>
         {error && <p role="alert" className="mx-5 rounded-2xl bg-[#FBE4DC] px-4 py-3 text-sm text-[#8E2C12]">{tx("theFeedCouldNotBe_3ce00")}</p>}
         {!error && rows.length === 0 && <p className="mx-5 rounded-2xl border border-dashed border-line px-4 py-8 text-center text-sm text-mute">{tx("noPostsYetBeThe_043d5")}</p>}
         {rows.map((p) => <PostCard key={p.id} p={p} userId={user.id} canComment={registered} />)}
