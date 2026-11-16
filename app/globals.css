@@ -15,6 +15,9 @@
   --color-ac: var(--ac);
   --color-ac2: var(--ac2);
   --color-ac-soft: var(--ac-soft);
+  /* G-020: gezildi işareti */
+  --color-ok: #36561F;
+  --color-ok-soft: #E3F0DA;
   --font-display: var(--font-onest), system-ui, sans-serif;
   --font-sans: var(--font-onest), system-ui, sans-serif;
   --shadow-card: 0 0 0 1px rgba(40, 20, 60, 0.06), 0 10px 26px -14px rgba(44, 18, 66, 0.28);
