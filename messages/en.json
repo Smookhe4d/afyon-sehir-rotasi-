@@ -670,7 +670,6 @@
     "konak-saat-kulesi": "Photo of Konak Meydanı ve Saat Kulesi",
     "kemeralti": "Photo of Kemeraltı Çarşısı",
     "izmir-agora": "Photo of Smyrna Agorası",
-    "alimoglu-muzik": "Representative photo near İbrahim Alimoğlu Müzik Koleksiyonu",
     "kadinanalar-turbesi": "Representative photo near Kadınanalar Türbesi",
     "tashan-merkez": "Representative photo near Taşhan (Taş Han / Hoca Üveys Hanı)",
     "uzun-carsi": "Representative photo near Uzun Çarşı",
@@ -706,7 +705,9 @@
     "omer-gecek": "Representative photo near Ömer–Gecek Termal Turizm Merkezleri",
     "sakarilica": "Representative photo near Sakarılıca ve Hasırca Kaplıcaları",
     "yenice-ciftligi": "Representative photo near Yenice Çiftliği",
-    "aslantas-yilantas": "Representative photo near Aslantaş, Yılantaş ve Maltaş"
+    "aslantas-yilantas": "Representative photo near Aslantaş, Yılantaş ve Maltaş",
+    "kapak-gastronomi": "A local dish decorated with the word Afyonkarahisar",
+    "alimoglu-muzik": "String instruments on display at the İbrahim Alimoğlu Müzik Koleksiyonu"
   },
   "splash": {
     "tagline": "Routes of Afyonkarahisar"

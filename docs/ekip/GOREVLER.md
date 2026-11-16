@@ -419,3 +419,13 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Sıradaki durağın adı ile yol mesafesi ve süresi (G-011 verisi).
 - **Dosyalar:** `app/[locale]/rotalar/[slug]/tur/page.tsx`, `tur/loading.tsx`, `components/tour/TourView.tsx`, `components/map/RouteMap.tsx` (gömülü kullanım), `components/route/StartPanel.tsx`, `app/globals.css` (gezildi rengi), `messages/tr.json`, `messages/en.json`.
 - **Ekran görüntüleri:** `docs/ekip/ekran/G-020/`
+
+## G-021: Gastronomi Rotası kapağı ve Alimoğlu görseli
+- **Durum:** İncelemede.
+- **Neden:** Gastronomi Rotası'nın duraklarında yalnızca temsilî görsel olduğu için rota kartında ve rota sayfasında fotoğraf yoktu. İbrahim Alimoğlu Müzik Koleksiyonu için kullanılan temsilî görsel (AKÜ Camii) yanlıştı.
+- **Yapılanlar:**
+  - Gastronomi Rotası'na proje sahibinin verdiği görsel rota kapağı olarak eklendi. Rota kartında, ana sayfada ve rota sayfasında görünür.
+  - Alimoğlu durağındaki yanlış görsel, proje sahibinin verdiği koleksiyon görseliyle değiştirildi.
+  - Proje sahibinin isteğiyle bu iki görsel Hakkında sayfasındaki fotoğraf listesinde ve görsel üstündeki kaynak etiketinde gösterilmez (`owner` alanı).
+- **Not:** İki görselin kaynağı ve lisansı belirtilmedi. Valiliğe teslimden önce kullanım izninin netleştirilmesi önerilir.
+- **Dosyalar:** `lib/photos.ts`, `lib/covers.ts`, `components/PhotoSlot.tsx`, `app/[locale]/(pages)/hakkinda/page.tsx`, `messages/tr.json`, `messages/en.json`, `public/photos/`.

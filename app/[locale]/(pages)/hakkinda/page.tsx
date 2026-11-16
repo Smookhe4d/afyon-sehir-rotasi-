@@ -32,7 +32,7 @@ export default async function Hakkinda({ params }: { params: Promise<{locale: Lo
         <h2 className="font-display text-xl text-navy">{g("credits")}</h2>
         <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{g("creditsIntro")}</p>
         <ul className="mt-3 flex flex-col gap-2">
-          {Object.entries(photos).map(([id, ph]) => (
+          {Object.entries(photos).filter(([, ph]) => !ph.owner).map(([id, ph]) => (
             <li key={id} className="rounded-2xl bg-white px-3.5 py-2.5 text-[13px] leading-snug shadow-card"><b className="block text-navy">{pt(id)}</b><a href={ph.page} target="_blank" rel="noopener noreferrer" className="text-mute underline decoration-line underline-offset-2">{g("photoBy", {author: ph.author, license: ph.license})}</a></li>
           ))}
           {Object.entries(ALBUMS).flatMap(([id, list]) => list.map((ph) => (
