@@ -18,7 +18,9 @@ import { loadWarmStyle } from "@/lib/map/style";
 import { circlePolygon, directionsUrl, formatDistance, haversineM, type LngLat } from "@/lib/map/geo";
 
 export type MapStop = { id: string; name: string; area: string; coords: LngLat; approx: boolean; index: number; note?: string };
-type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode; grup?: string; lider?: boolean; /** Tüm duraklar: çizgi yok, yakın duraklar kümelenir */ overview?: boolean; /** G-015: çevredeki yemek, cami, tuvalet noktaları */ pois?: { k: string; n?: string; c: LngLat }[] };
+type Props = { stops: MapStop[]; line?: LngLat[]; title?: string; backHref?: string; className?: string; initialStopId?: string; bottomInset?: number; guide?: boolean; routeSlug?: string; travelMode?: TravelMode; grup?: string; lider?: boolean; /** Tüm duraklar: çizgi yok, yakın duraklar kümelenir */ overview?: boolean; /** G-015: çevredeki yemek, cami, tuvalet noktaları */ pois?: { k: string; n?: string; c: LngLat }[];
+  /** G-020: tur ekranı içinde gömülü kullanım. Hedef durak dışarıdan verilir (-1: haritada yok). */ embedded?: boolean; cur?: number; onArrive?: (id: string) => void;
+  /** G-020: grup için tur sırası (konum kaydı olmayan duraklar da sayılır) */ groupCur?: number; onGroupStop?: (n: number) => void; inviteHref?: string };
 
 // MapLibre 6 çalışma dosyası (worker) ayrı bir modüldür; aynı kökenli bir blob üzerinden CDN'den içe aktarılır.
 const MAPLIBRE_VERSION = "6.11.2";
@@ -37,7 +39,7 @@ function pinEl(label: string, approx: boolean) {
   return el;
 }
 
-export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false, overview = false, pois }: Props) {
+export default function RouteMap({ stops, line, title, backHref, className = "", initialStopId, bottomInset = 12, guide = false, routeSlug, travelMode = "yuruyus", grup, lider = false, overview = false, pois, embedded = false, cur: ctlCur, onArrive, groupCur, onGroupStop, inviteHref }: Props) {
   const num = useUiFormatter().number;
 
   const dx = useUiTranslations("dynamic");
@@ -58,7 +60,8 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   const [geoState, setGeoState] = useState<"off" | "asking" | "on" | "denied" | "error">("off");
   const [full, setFull] = useState(false);
   // Yönlendirme modu
-  const [cur, setCur] = useState(0);
+  const [curState, setCur] = useState(0);
+  const cur = ctlCur !== undefined ? ctlCur : curState;
   const [nav, setNav] = useState<NavResult | null>(null);
   const [navFail, setNavFail] = useState(false);
   const [arrivedId, setArrivedId] = useState<string | null>(null);
@@ -66,7 +69,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
   const [voiceOn, setVoiceOn] = useState(false);
   const lastFetch = useRef<{ t: number; pos: LngLat; cur: number; locale: Locale } | null>(null);
   const lastSpoken = useRef("");
-  const target = guide ? stops[cur] ?? null : null;
+  const target = guide && cur >= 0 ? stops[cur] ?? null : null;
   const [gname, setGname] = useState("");
   const [gdraft, setGdraft] = useState("");
   const [gopen, setGopen] = useState(false);
@@ -77,7 +80,9 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     if (n < 0 || n >= stops.length) return;
     setCur(n); setArrivedId(null); setNav(null); setFinished(false); lastFetch.current = null; follow.current = true;
   }, [stops.length]);
-  const group = useGroup({ code: grup, leader: lider, name: gname, pos: me?.pos ?? null, cur, onStop: applyStop });
+  const group = useGroup({ code: grup, leader: lider, name: gname, pos: me?.pos ?? null, cur: groupCur ?? cur, onStop: onGroupStop ?? applyStop });
+  // G-020: rehber tur ekranında durak değiştirince grup aynı durağa geçer.
+  useEffect(() => { if (embedded && grup && lider && groupCur !== undefined) group.broadcastStop(groupCur); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [embedded, grup, lider, groupCur, group.status]);
 
   const sel = useMemo(() => stops.find((s) => s.id === selected) ?? null, [stops, selected]);
   const selIdx = sel ? stops.findIndex((s) => s.id === sel.id) : -1;
@@ -274,9 +279,10 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     if (haversineM(me.pos, target.coords) <= 45) {
       setArrivedId(target.id);
       if (routeSlug) setVisited(routeSlug, target.id, true).catch(() => {});
+      onArrive?.(target.id);
       if ("vibrate" in navigator) navigator.vibrate?.(200);
     }
-  }, [guide, target, me, arrivedId, finished, routeSlug]);
+  }, [guide, target, me, arrivedId, finished, routeSlug, onArrive]);
 
   const nextStop = useCallback(() => {
     const n = cur + 1;
@@ -284,6 +290,16 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     setCur(n); setArrivedId(null); setNav(null); lastFetch.current = null; focusStop(stops[n].id); follow.current = true;
     if (grup && lider) group.broadcastStop(n);
   }, [cur, stops, focusStop, grup, lider, group]);
+
+  // G-020: dışarıdan gelen hedef durak değişince yönlendirmeyi sıfırla ve haritayı o durağa getir
+  useEffect(() => {
+    if (ctlCur === undefined) return;
+    setArrivedId(null); setNav(null); setFinished(false); lastFetch.current = null;
+    (map.current?.getSource("nav") as unknown as { setData: (d: GeoJSON.FeatureCollection) => void } | undefined)?.setData({ type: "FeatureCollection", features: [] });
+    const s = stops[ctlCur];
+    if (s && ready) { focusStop(s.id); if (watchId.current !== null) follow.current = true; }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctlCur, ready]);
 
   useEffect(() => { lastSpoken.current = ""; setNav(null); if ("speechSynthesis" in window) window.speechSynthesis.cancel(); return () => { if ("speechSynthesis" in window) window.speechSynthesis.cancel(); }; }, [locale]);
   const step = nav?.steps[0];
@@ -306,13 +322,13 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
       {/* Üst: başlık + kontroller */}
       <div className="pointer-events-none absolute inset-x-3 top-3 z-10 flex items-start justify-between gap-2">
         <div className="pointer-events-auto flex min-w-0 items-center gap-2">
-          {backHref && <Link href={backHref} aria-label={tx("back_4928c")} className="glass flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-navy">‹</Link>}
-          {title && <div className="glass min-w-0 rounded-full px-4 py-2.5"><p className="truncate text-[13px] font-bold text-navy">{title}</p></div>}
+          {backHref && !embedded && <Link href={backHref} aria-label={tx("back_4928c")} className="glass flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-navy">‹</Link>}
+          {title && !embedded && <div className="glass min-w-0 rounded-full px-4 py-2.5"><p className="truncate text-[13px] font-bold text-navy">{title}</p></div>}
         </div>
         <div className="pointer-events-auto flex flex-col gap-2">
-          <button type="button" aria-label={tx("fullScreen_617ce")} onClick={() => setFull((f) => !f)} className="glass flex h-11 w-11 items-center justify-center rounded-full text-navy">
+          {!embedded && <button type="button" aria-label={tx("fullScreen_617ce")} onClick={() => setFull((f) => !f)} className="glass flex h-11 w-11 items-center justify-center rounded-full text-navy">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>{full ? <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" /> : <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />}</svg>
-          </button>
+          </button>}
           <button type="button" aria-label={tx("showAllStops_2823a")} onClick={fitAll} className="glass flex h-11 w-11 items-center justify-center rounded-full text-navy">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z M9 3v15 M15 6v15" /></svg>
           </button>
@@ -336,7 +352,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
 
       {/* Yönlendirme: sıradaki manevra */}
       {guide && target && !finished && arrivedId !== target.id && (
-        <div className="absolute left-3 right-[68px] top-[64px] z-10 lg:right-auto lg:w-[420px] flex items-center gap-3 rounded-[22px] bg-navy/95 p-3 text-white shadow-lift backdrop-blur">
+        <div className={`absolute left-3 right-[68px] ${embedded ? "top-3" : "top-[64px]"} z-10 lg:right-auto lg:w-[420px] flex items-center gap-3 rounded-[22px] bg-navy/95 p-3 text-white shadow-lift backdrop-blur`}>
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/12" aria-hidden>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" style={{ transform: `rotate(${step?.rot ?? 0}deg)`, transition: "transform .3s" }}><path d="M12 20V5M5 11l7-7 7 7" /></svg>
           </span>
@@ -358,7 +374,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
               <div className="glass w-full rounded-[22px] p-3">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-mute">{tx("groupCode_14257")} <b className="ml-1 font-display text-[17px] tracking-[3px] text-navy">{grup}</b></p>
-                  <button type="button" onClick={() => { const u = location.origin + localizePath(`/harita?rota=${routeSlug ?? ""}&takip=1&mod=${travelMode}&grup=${grup}`, locale); if (navigator.share) { navigator.share({ title: tx("joinAnAfyonTour_55ad1"), text: dx("groupInvite", {code: grup}), url: u }).catch(() => {}); } else { navigator.clipboard?.writeText(u); setCopied(true); setTimeout(() => setCopied(false), 1800); } }} className="rounded-full bg-navy px-3 py-1.5 text-[11px] font-bold text-white">{copied ? tx("copied_a2d6a") : tx("invite_13cb8")}</button>
+                  <button type="button" onClick={() => { const u = location.origin + localizePath(inviteHref ?? `/harita?rota=${routeSlug ?? ""}&takip=1&mod=${travelMode}&grup=${grup}`, locale); if (navigator.share) { navigator.share({ title: tx("joinAnAfyonTour_55ad1"), text: dx("groupInvite", {code: grup}), url: u }).catch(() => {}); } else { navigator.clipboard?.writeText(u); setCopied(true); setTimeout(() => setCopied(false), 1800); } }} className="rounded-full bg-navy px-3 py-1.5 text-[11px] font-bold text-white">{copied ? tx("copied_a2d6a") : tx("invite_13cb8")}</button>
                 </div>
                 <ul className="mt-2 flex flex-col gap-1.5">
                   {[{ id: group.myId, name: `${gname} (siz)`, color: "#B4532A", pos: me?.pos ?? null, cur, leader: lider }, ...group.members.filter((g) => g.id !== group.myId)].map((g) => (
@@ -381,7 +397,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
         {geoState === "denied" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">{tx("locationPermissionWasDeniedYou_77de8")}</p>}
         {geoState === "error" && <p role="alert" className="self-center rounded-2xl bg-[#FBE4DC] px-4 py-2 text-xs font-semibold text-[#8E2C12]">{tx("couldNotGetYourLocation_fd568")}</p>}
         {live && nearest && <button type="button" onClick={() => focusStop(nearest.stop.id)} className="glass self-center rounded-full px-4 py-2 text-xs font-semibold text-navy">{tx("nearestStop_c02d8")} <b>{nearest.stop.name}</b> · {formatDistance(nearest.d, locale)}</button>}
-        {guide && target && !finished && (
+        {guide && target && !finished && !embedded && (
           <div className="glass rounded-[26px] p-3.5">
             {arrivedId === target.id ? (
               <>
@@ -413,7 +429,7 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
             )}
           </div>
         )}
-        {guide && finished && (
+        {guide && finished && !embedded && (
           <div className="glass rounded-[26px] p-4 text-center">
             <p className="font-display text-xl font-semibold text-navy">{tx("youHaveCompletedTheRoute_435af")}</p>
             <p className="mt-1 text-xs text-ink-2">{tx("youHaveVisitedEveryStop_d0143")}</p>

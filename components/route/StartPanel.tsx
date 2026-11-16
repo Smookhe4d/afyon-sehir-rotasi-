@@ -30,7 +30,8 @@ export default function StartPanel({ slug, mode, defaultName = "" }: { slug: str
 
   const [curMode, setCurMode] = useState(mode);
   useEffect(() => { const f = (e: Event) => setCurMode((e as CustomEvent<typeof mode>).detail); addEventListener("route-mode", f); return () => removeEventListener("route-mode", f); }, []);
-  const base = `/harita?rota=${slug}&takip=1&mod=${curMode}`;
+  // G-020: başlatınca durak durak tur ekranı açılır. Eski /harita?takip=1 bağlantıları da çalışmaya devam eder.
+  const base = `/rotalar/${slug}/tur?mod=${curMode}`;
   const solo = () => { warmLocation(); run(async () => { await startRoute(slug); }); router.push(base); };
   const saveName = () => { try { localStorage.setItem("afyon-ad", name.trim().slice(0, 24)); } catch { /* yok say */ } };
   const link = (c: string) => (typeof location !== "undefined" ? location.origin : "") + localizePath(base + "&grup=" + c, locale);

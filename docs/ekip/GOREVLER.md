@@ -403,3 +403,19 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Sayfa sonu bilgi alanı (yalnızca masaüstü): Keşfet ve Bilgi bağlantıları.
   - Keşfet haritasında katman yüklenmeden çizim yapılınca oluşan konsol hatası giderildi.
 - **Test:** `npm run build` hatasız. 390 px genişlikte dokuz sayfanın önceki ve sonraki ekran görüntüleri piksel piksel karşılaştırıldı, fark yok. Ekran görüntüleri `docs/ekip/ekran/G-019/`.
+
+## G-020: Durak durak tur ekranı
+- **Durum:** İncelemede. G-019 dalının üzerine kuruldu, önce G-019 birleştirilmeli.
+- **Neden:** "Bireysel başla" ya da "Grupla başla" denince yalnızca harita açılıyordu. Duraklar arasında ileri geri geçip anlatımı, fotoğrafları ve bilgi kartını aynı yerde görmek mümkün değildi.
+- **Proje sahibinin kararları:** Durak konuma göre otomatik gezildi sayılır. Sesli anlatımı kullanıcı başlatır. Tur kaldığı yerden sürer. Canlı yönlendirme ekranın içindedir.
+- **Yapılanlar:**
+  - Yeni sayfa `/rotalar/<rota>/tur`. Başlat düğmeleri artık buraya gider. Eski `/harita?takip=1` bağlantıları çalışmaya devam eder.
+  - Her durak için fotoğraf, bölge, rotadaki not, sesli anlatım (kullanıcı başlatır), tanıtım metni, bilgi kartı, albüm ve "Mutlaka gör / Gitmeden önce" bölümü.
+  - Önceki ve Sonraki düğmeleri, üstte durak sayacı ve ilerleme çubuğu, durak listesi. Masaüstünde ok tuşlarıyla geçiş.
+  - Telefonda "Anlatım | Harita" seçimi. Harita sekmesinde canlı konum ve adım adım yönlendirme. Masaüstünde anlatım solda, harita sağda.
+  - Durağa 45 m yaklaşınca durak otomatik gezildi sayılır ve ekranda gösterilir.
+  - Kaldığı yer cihazda saklanır. Tekrar açılınca son durağa döner, "Baştan başla" seçeneği vardır. Giriş yapan kullanıcıda sunucudaki gezilen duraklar da hesaba katılır.
+  - Grup turu: rehber durak değiştirince üyeler de geçer. Üye kendi başına başka durağa bakarsa "Rehbere dön" çıkar.
+  - Sıradaki durağın adı ile yol mesafesi ve süresi (G-011 verisi).
+- **Dosyalar:** `app/[locale]/rotalar/[slug]/tur/page.tsx`, `tur/loading.tsx`, `components/tour/TourView.tsx`, `components/map/RouteMap.tsx` (gömülü kullanım), `components/route/StartPanel.tsx`, `app/globals.css` (gezildi rengi), `messages/tr.json`, `messages/en.json`.
+- **Ekran görüntüleri:** `docs/ekip/ekran/G-020/`

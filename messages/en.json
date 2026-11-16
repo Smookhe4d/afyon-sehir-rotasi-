@@ -802,5 +802,32 @@
     "footExplore": "Explore",
     "footInfo": "Information",
     "footNav": "Footer links"
+  },
+  "g020": {
+    "close": "Close tour",
+    "stopOf": "Stop {n} of {total}",
+    "stopsList": "Stops",
+    "progress": "Tour progress",
+    "view": "View",
+    "tabStory": "Story",
+    "tabMap": "Map",
+    "prev": "Previous",
+    "next": "Next",
+    "finish": "Finish route",
+    "nextUp": "Up next",
+    "lastStop": "This is the last stop on the route.",
+    "directions": "Directions",
+    "arrived": "You're here. This stop is now marked as visited.",
+    "visited": "Visited",
+    "guideAt": "Your guide is at stop {n}",
+    "backToGuide": "Join the guide",
+    "resumed": "Picking up where you left off.",
+    "restart": "Start over",
+    "doneTitle": "Route complete",
+    "doneText": "{visited} of {total} stops visited",
+    "backToRoute": "Back to the route page",
+    "keepGoing": "Back to the tour",
+    "onThisStop": "At this stop:",
+    "noMap": "This stop isn't on the map yet."
   }
 }

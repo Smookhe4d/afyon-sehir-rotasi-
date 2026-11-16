@@ -802,5 +802,32 @@
     "footExplore": "Keşfet",
     "footInfo": "Bilgi",
     "footNav": "Sayfa sonu bağlantıları"
+  },
+  "g020": {
+    "close": "Turu kapat",
+    "stopOf": "Durak {n} / {total}",
+    "stopsList": "Duraklar",
+    "progress": "Tur ilerlemesi",
+    "view": "Görünüm",
+    "tabStory": "Anlatım",
+    "tabMap": "Harita",
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "finish": "Rotayı bitir",
+    "nextUp": "Sıradaki",
+    "lastStop": "Bu, rotanın son durağı.",
+    "directions": "Yol tarifi",
+    "arrived": "Buradasınız. Durak gezildi olarak işaretlendi.",
+    "visited": "Gezildi",
+    "guideAt": "Rehber {n}. durakta",
+    "backToGuide": "Rehbere dön",
+    "resumed": "Kaldığınız yerden devam ediyorsunuz.",
+    "restart": "Baştan başla",
+    "doneTitle": "Rotayı tamamladınız",
+    "doneText": "{visited} / {total} durak gezildi",
+    "backToRoute": "Rota sayfasına dön",
+    "keepGoing": "Tura dön",
+    "onThisStop": "Bu durakta:",
+    "noMap": "Bu durağın konumu haritada henüz yok."
   }
 }
