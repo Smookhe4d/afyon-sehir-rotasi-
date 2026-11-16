@@ -1,7 +1,7 @@
 import tr from "@/messages/tr.json";
 /** Fotoğraflar Wikimedia Commons'tan; sahibi ve lisansı her kayıtta belirtilir. Doğrulanmamış duraklar bilerek yok. */
 /** rep: aynı bölgeden temsilî görsel (durağın kendisi değil). Arayüzde "Temsilî" etiketiyle gösterilir. */
-export type Photo = { src: string; alt: string; author: string; license: string; page: string; pos?: string; rep?: boolean };
+export type Photo = { src: string; alt: string; author: string; license: string; page: string; pos?: string; rep?: boolean; /** G-021: proje sahibinin sağladığı görsel, kaynak listesinde gösterilmez */ owner?: boolean };
 
 export const photos: Record<string, Photo> = {
   "afyon-muzesi": {"src": "/photos/afyon-muzesi.jpg", "alt": tr.photos["afyon-muzesi"], "author": "Nabbegat", "license": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Afyonkarahisar_M%C3%BCzesi_01.jpg"},
@@ -57,8 +57,9 @@ export const photos: Record<string, Photo> = {
   "kadinanalar-turbesi": {"src": "/photos/c/8118ca31fa05.webp", "alt": tr.photos["kadinanalar-turbesi"], "author": "Dosseman", "license": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Afyonkarahisar_Mevlevihanesi_Ablutions_fountain_1799.jpg", "rep": true},
   "tashan-merkez": {"src": "/photos/c/d40f0390675a.webp", "alt": tr.photos["tashan-merkez"], "author": "Maarten Sepp", "license": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Afyon,_Turkey._-_panoramio_(1).jpg", "rep": true},
   "uzun-carsi": {"src": "/photos/c/cbbcf55419c3.webp", "alt": tr.photos["uzun-carsi"], "author": "Maarten Sepp", "license": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Afyon,_Turkey._-_panoramio_(3).jpg", "rep": true},
-  /* G-021: Gastronomi Rotası kapağı. Durak değil, rota görseli. Sağdaki marka kutusu kırpıldı. */
-  "kapak-gastronomi": {"src": "/photos/c/57631fd1213b.webp", "alt": tr.photos["kapak-gastronomi"], "author": "Campo Carlo Magno", "license": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Traditional_Turkish_Delight_in_Afyonkarahisar.jpg"},
+  /* G-021: Gastronomi Rotası kapağı ve Alimoğlu görseli proje sahibinin sağladığı görsellerdir. */
+  "kapak-gastronomi": {"src": "/photos/c/8489dd4abb5c.webp", "alt": tr.photos["kapak-gastronomi"], "author": "", "license": "", "page": "", "owner": true},
+  "alimoglu-muzik": {"src": "/photos/c/86cfa5277b2d.webp", "alt": tr.photos["alimoglu-muzik"], "author": "", "license": "", "page": "", "owner": true},
   "anitpark": {"src": "/photos/c/5ea004772c85.webp", "alt": tr.photos["anitpark"], "author": "Raicem", "license": "CC0", "page": "https://commons.wikimedia.org/wiki/File:The_Great_Victory_Monument_in_Afyonkarahisar.jpg"},
   "vesvese-dede": {"src": "/photos/c/fb2d10e345c9.webp", "alt": tr.photos["vesvese-dede"], "author": "Hüseyin Öcal", "license": "CC BY 3.0", "page": "https://commons.wikimedia.org/wiki/File:AFYON_KALES%C4%B0_-_panoramio.jpg", "rep": true},
   "tacahmet-cami": {"src": "/photos/c/fb2d10e345c9.webp", "alt": tr.photos["tacahmet-cami"], "author": "Hüseyin Öcal", "license": "CC BY 3.0", "page": "https://commons.wikimedia.org/wiki/File:AFYON_KALES%C4%B0_-_panoramio.jpg", "rep": true},

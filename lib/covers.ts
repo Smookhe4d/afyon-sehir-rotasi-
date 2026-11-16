@@ -3,7 +3,7 @@ import { routes } from "./routes";
 
 /** Her rota için, başka bir rotada kullanılmamış ilk fotoğraflı durağı seçer. Aynı fotoğraf iki kartta tekrarlanmaz, temsilî görsel kapak olmaz (G-016). */
 /** G-021: duraklarında gerçek fotoğraf olmayan rotalar için rota kapağı */
-const COVER_OVERRIDE: Record<string, string> = { "gastronomi-rotasi": "kapak-gastronomi" };
+const COVER_OVERRIDE: Record<string, string> = { "gastronomi-rotasi": "kapak-gastronomi", "merkez-kultur-rotasi": "afyon-muzesi" };
 
 export const routeCover: Record<string, string | undefined> = (() => {
   const used = new Set<string>(); const out: Record<string, string | undefined> = {};

@@ -422,9 +422,10 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 
 ## G-021: Gastronomi Rotası kapağı ve Alimoğlu görseli
 - **Durum:** İncelemede.
-- **Neden:** Gastronomi Rotası'nın duraklarında yalnızca temsilî görsel olduğu için rota kartında ve rota sayfasında fotoğraf yoktu. İbrahim Alimoğlu Müzik Koleksiyonu için kullanılan temsilî görsel (AKÜ Camii) yanıltıcıydı.
+- **Neden:** Gastronomi Rotası'nın duraklarında yalnızca temsilî görsel olduğu için rota kartında ve rota sayfasında fotoğraf yoktu. İbrahim Alimoğlu Müzik Koleksiyonu için kullanılan temsilî görsel (AKÜ Camii) yanlıştı.
 - **Yapılanlar:**
-  - Gastronomi Rotası'na rota kapağı eklendi: Afyonkarahisar'da bir şekerci vitrininde lokum (Wikimedia Commons, Campo Carlo Magno, CC BY-SA 4.0). Sağdaki marka kutusu kırpıldı. Kapak, rota kartında, ana sayfada ve rota sayfasında görünür. Hakkında sayfasındaki fotoğraf listesine kendiliğinden eklenir.
-  - Alimoğlu durağındaki yanlış görsel kaldırıldı. Wikimedia Commons'ta koleksiyonun kendisine ait özgür lisanslı bir fotoğraf bulunamadı. Durakta "Fotoğraf eklenecek" alanı görünür.
-- **Açık soru:** Koleksiyonun fotoğrafı proje sahibinden ya da AKÜ Devlet Konservatuvarı'ndan izinle alınırsa eklenecek.
-- **Dosyalar:** `lib/photos.ts`, `lib/covers.ts`, `messages/tr.json`, `messages/en.json`, `public/photos/`.
+  - Gastronomi Rotası'na proje sahibinin verdiği görsel rota kapağı olarak eklendi. Rota kartında, ana sayfada ve rota sayfasında görünür.
+  - Alimoğlu durağındaki yanlış görsel, proje sahibinin verdiği koleksiyon görseliyle değiştirildi.
+  - Proje sahibinin isteğiyle bu iki görsel Hakkında sayfasındaki fotoğraf listesinde ve görsel üstündeki kaynak etiketinde gösterilmez (`owner` alanı).
+- **Not:** İki görselin kaynağı ve lisansı belirtilmedi. Valiliğe teslimden önce kullanım izninin netleştirilmesi önerilir.
+- **Dosyalar:** `lib/photos.ts`, `lib/covers.ts`, `components/PhotoSlot.tsx`, `app/[locale]/(pages)/hakkinda/page.tsx`, `messages/tr.json`, `messages/en.json`, `public/photos/`.
