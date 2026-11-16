@@ -399,6 +399,7 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Rotanı belirle: solda durak arama, sağda seçilen duraklar ve haritası.
   - Profil ve Sosyal: iki sütunlu düzen. Giriş: solda fotoğraf, sağda form.
   - Rota ve durak sayfalarında üst fotoğraf alçaltıldı.
+  - İlk açılış tanıtımı: solda görsel ve rota haritası, sağda sabit metin paneli.
   - Sayfa sonu bilgi alanı (yalnızca masaüstü): Keşfet ve Bilgi bağlantıları.
   - Keşfet haritasında katman yüklenmeden çizim yapılınca oluşan konsol hatası giderildi.
 - **Test:** `npm run build` hatasız. 390 px genişlikte dokuz sayfanın önceki ve sonraki ekran görüntüleri piksel piksel karşılaştırıldı, fark yok. Ekran görüntüleri `docs/ekip/ekran/G-019/`.
