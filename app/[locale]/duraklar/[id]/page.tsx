@@ -7,6 +7,8 @@ import {pageMetadata} from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import AudioGuide from "@/components/AudioGuide";
+import NarrationPlayer from "@/components/NarrationPlayer";
+import { narrationFor } from "@/lib/narration";
 import BackButton from "@/components/BackButton";
 import PhotoSlot from "@/components/PhotoSlot";
 import MapView from "@/components/map/LazyMap";
@@ -32,6 +34,7 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
   const g15 = await getUiTranslations({locale: (await params).locale, namespace: "g015"});
 
   setRequestLocale((await params).locale);
+  const nr = narrationFor((await params).id, (await params).locale);
   const { id } = await params;
   const p = places[id];
   if (!p) notFound();
@@ -47,7 +50,7 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
         <p className="text-[13px] font-bold text-ac">{p.area}</p>
         <h1 className="mt-1 font-display text-[28px] leading-[1.08] lg:text-[40px]">{p.name}</h1>
 
-        <AudioGuide title={p.name} text={(p.about?.length ? p.about : p.note ? [p.note] : []).join(" ")} />
+        {nr ? <NarrationPlayer title={p.name} {...nr} /> : <AudioGuide title={p.name} text={(p.about?.length ? p.about : p.note ? [p.note] : []).join(" ")} />}
 
         <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-ink-2">
           {p.about?.length ? p.about.map((t, i) => <p key={i}>{t}</p>) : p.note && <p>{p.note}</p>}

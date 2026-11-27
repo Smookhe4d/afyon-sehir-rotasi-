@@ -830,5 +830,18 @@
     "keepGoing": "Tura dön",
     "onThisStop": "Bu durakta:",
     "noMap": "Bu durağın konumu haritada henüz yok."
+  },
+  "g022": {
+    "narrators": "Elif ve Kerem anlatıyor",
+    "listen": "Sesli anlatım, {min} dakika",
+    "play": "Sesli anlatımı dinle",
+    "pause": "Duraklat",
+    "speed": "Konuşma hızı",
+    "back15": "15 saniye geri",
+    "fwd15": "15 saniye ileri",
+    "position": "Anlatımdaki konum",
+    "showText": "Anlatım metnini göster",
+    "hideText": "Anlatım metnini gizle",
+    "survey": "Değerlendirme anketini doldur"
   }
 }

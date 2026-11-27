@@ -12,13 +12,15 @@ export type TourStop = { id: string; name: string; area: string; mapIdx: number;
 type Props = {
   slug: string; title: string; mode: string; grup?: string; lider: boolean; startId?: string;
   stops: TourStop[]; mapStops: MapStop[]; line?: [number, number][]; panels: ReactNode[]; serverVisited: string[];
+  /** G-022: rota sonunda gösterilecek anket */ survey?: string;
 };
 type Saved = { i?: number; v?: string[] };
 
 /** G-020: durak durak tur ekranı. Anlatım, fotoğraf ve bilgi kartı ile canlı yönlendirme aynı ekranda. */
-export default function TourView({ slug, title, mode, grup, lider, startId, stops, mapStops, line, panels, serverVisited }: Props) {
+export default function TourView({ slug, title, mode, grup, lider, startId, stops, mapStops, line, panels, serverVisited, survey }: Props) {
   const t = useTranslations("g020");
   const tx = useTranslations("ui");
+  const tg = useTranslations("g022");
   const locale = useLocale() as "tr" | "en";
   const key = `afyon-tur-${slug}`;
   const total = stops.length;
@@ -205,7 +207,8 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
           <div className="w-full max-w-[380px] rounded-[30px] bg-cream p-6 text-center">
             <p className="font-display text-2xl font-semibold text-navy">{t("doneTitle")}</p>
             <p className="mt-1.5 text-sm text-ink-2">{t("doneText", { visited: visitedCount, total })}</p>
-            <Link href={`/rotalar/${slug}`} className="terra-grad mt-5 flex h-12 items-center justify-center rounded-full text-sm font-bold text-white">{t("backToRoute")}</Link>
+            {survey && <a href={survey} target="_blank" rel="noopener noreferrer" className="terra-grad mt-5 flex h-12 items-center justify-center rounded-full text-sm font-bold text-white">{tg("survey")}</a>}
+            <Link href={`/rotalar/${slug}`} className={survey ? "mt-2 flex h-12 items-center justify-center rounded-full border border-line bg-white text-sm font-bold text-navy shadow-card" : "terra-grad mt-5 flex h-12 items-center justify-center rounded-full text-sm font-bold text-white"}>{t("backToRoute")}</Link>
             <button type="button" onClick={() => setDone(false)} className="mt-2 h-12 w-full rounded-full border border-line bg-white text-sm font-bold text-navy shadow-card">{t("keepGoing")}</button>
           </div>
         </div>

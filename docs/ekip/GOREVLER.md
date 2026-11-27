@@ -429,3 +429,13 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Proje sahibinin isteğiyle bu iki görsel Hakkında sayfasındaki fotoğraf listesinde ve görsel üstündeki kaynak etiketinde gösterilmez (`owner` alanı).
 - **Not:** İki görselin kaynağı ve lisansı belirtilmedi. Valiliğe teslimden önce kullanım izninin netleştirilmesi önerilir.
 - **Dosyalar:** `lib/photos.ts`, `lib/covers.ts`, `components/PhotoSlot.tsx`, `app/[locale]/(pages)/hakkinda/page.tsx`, `messages/tr.json`, `messages/en.json`, `public/photos/`.
+
+## G-022: Merkez Kültür Rotası iki anlatıcılı sesli anlatım
+- **Durum:** Uygulamada. 30 Kasım öğrenci gezisi için.
+- **Neden:** Proje sahibi, Merkez Kültür Rotası'nın 3. durağından (Ulu Cami) itibaren turist rehberi anlatımı gibi kurgulanmış, kayıtlı ve etkileşimli bir sesli anlatım istedi.
+- **Yapılanlar:**
+  - 10 durak için Elif ve Kerem adlı iki anlatıcının diyalog metni yazıldı (`lib/narration/merkez.json`). Temel kaynak proje sahibinin Merkez tanıtım metni. Eksik duraklar (Kadınanalar, Gedik Ahmet Paşa) için kaynak taraması yapıldı. Çelişkili bilgiler proje sahibine ayrı bir belgeyle sunuldu.
+  - Satırlar ElevenLabs ile proje sahibinin hesabındaki Türkçe seslerle kaydedildi (Elif: EDA ATLAS, Kerem: Adilcan). Satırlar birleştirilip durak başına tek mp3 yapıldı (`public/audio/merkez/`, 64 kbps mono).
+  - Yeni `NarrationPlayer`: kullanıcı başlatır, 15 saniye ileri ve geri, hız seçimi, konuşan anlatıcının cümlesi ve tıklanabilir metin. Kaydı olan duraklarda tur ekranında ve durak sayfasında cihaz sesinin yerine geçer. Yalnızca Türkçe arayüzde.
+  - Rota sonunda anket bağlantısı gösterilebilir (`surveys`).
+- **Açık:** ElevenLabs kotası dolduğu için 8 durağın kaydı eksik. Kredi eklenince tamamlanacak.
