@@ -842,6 +842,8 @@
     "position": "Position in the guide",
     "showText": "Show transcript",
     "hideText": "Hide transcript",
-    "survey": "Fill in the feedback survey"
+    "survey": "Fill in the feedback survey",
+    "introTitle": "Before you start",
+    "introLabel": "Start here: how the app works"
   }
 }

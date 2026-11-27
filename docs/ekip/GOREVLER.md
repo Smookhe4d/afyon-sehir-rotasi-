@@ -431,11 +431,13 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - **Dosyalar:** `lib/photos.ts`, `lib/covers.ts`, `components/PhotoSlot.tsx`, `app/[locale]/(pages)/hakkinda/page.tsx`, `messages/tr.json`, `messages/en.json`, `public/photos/`.
 
 ## G-022: Merkez Kültür Rotası iki anlatıcılı sesli anlatım
-- **Durum:** Uygulamada. 30 Kasım öğrenci gezisi için.
+- **Durum:** İncelemede. 30 Kasım öğrenci gezisi için.
 - **Neden:** Proje sahibi, Merkez Kültür Rotası'nın 3. durağından (Ulu Cami) itibaren turist rehberi anlatımı gibi kurgulanmış, kayıtlı ve etkileşimli bir sesli anlatım istedi.
 - **Yapılanlar:**
   - 10 durak için Elif ve Kerem adlı iki anlatıcının diyalog metni yazıldı (`lib/narration/merkez.json`). Temel kaynak proje sahibinin Merkez tanıtım metni. Eksik duraklar (Kadınanalar, Gedik Ahmet Paşa) için kaynak taraması yapıldı. Çelişkili bilgiler proje sahibine ayrı bir belgeyle sunuldu.
   - Satırlar ElevenLabs ile proje sahibinin hesabındaki Türkçe seslerle kaydedildi (Elif: EDA ATLAS, Kerem: Adilcan). Satırlar birleştirilip durak başına tek mp3 yapıldı (`public/audio/merkez/`, 64 kbps mono).
   - Yeni `NarrationPlayer`: kullanıcı başlatır, 15 saniye ileri ve geri, hız seçimi, konuşan anlatıcının cümlesi ve tıklanabilir metin. Kaydı olan duraklarda tur ekranında ve durak sayfasında cihaz sesinin yerine geçer. Yalnızca Türkçe arayüzde.
   - Rota sonunda anket bağlantısı gösterilebilir (`surveys`).
-- **Açık:** ElevenLabs kotası dolduğu için 8 durağın kaydı eksik. Kredi eklenince tamamlanacak.
+  - Proje sahibinin isteğiyle anlatımlar akıcılık için kısaltıldı (toplam yaklaşık 23 dakika). Ulu Cami'nin panelinde tura başlarken dinlenecek 1 dakikalık uygulama tanıtımı var.
+  - Aynı anda tek anlatım çalar, başka bir oynatıcı başlarsa öncekisi durur.
+- **Açık:** Anket bağlantısı gelince `surveys` doldurulacak.

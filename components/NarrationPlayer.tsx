@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 export type NarrationLine = { s: "E" | "K"; t: string; a: number; b: number };
-type Props = { title: string; src: string; dur: number; lines: NarrationLine[] };
+type Props = { title: string; src: string; dur: number; lines: NarrationLine[]; label?: string };
 
 const NAMES = { E: "Elif", K: "Kerem" } as const;
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 
 /** G-022: kayıtlı iki anlatıcılı sesli anlatım. Kullanıcı başlatır, metin satırları sesle birlikte ilerler. */
-export default function NarrationPlayer({ title, src, dur, lines }: Props) {
+export default function NarrationPlayer({ title, src, dur, lines, label }: Props) {
   const t = useTranslations("g022");
   const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -22,7 +22,10 @@ export default function NarrationPlayer({ title, src, dur, lines }: Props) {
 
   useEffect(() => {
     const a = audio.current;
-    return () => { a?.pause(); };
+    // Aynı anda tek anlatım çalsın: başka bir oynatıcı başlarsa bu durur.
+    const other = (e: Event) => { if ((e as CustomEvent).detail !== a) a?.pause(); };
+    addEventListener("narration-play", other);
+    return () => { removeEventListener("narration-play", other); a?.pause(); };
   }, []);
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function NarrationPlayer({ title, src, dur, lines }: Props) {
   return (
     <div className="mt-4">
       <audio ref={audio} src={src} preload="metadata"
-        onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
+        onPlay={(e) => { setPlaying(true); dispatchEvent(new CustomEvent("narration-play", { detail: e.currentTarget })); }} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
         onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)} />
       <div className="rounded-[26px] bg-white p-3.5 shadow-[0_18px_36px_-20px_rgba(44,18,66,.6)]">
         <div className="flex items-center gap-3">
@@ -54,7 +57,7 @@ export default function NarrationPlayer({ title, src, dur, lines }: Props) {
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>{playing ? <path d="M7 5h4v14H7zM13 5h4v14h-4z" /> : <path d="M8 5v14l11-7z" />}</svg>
           </button>
           <span className="min-w-0 flex-1">
-            <span className="block text-[12.5px] font-semibold text-mute">{t("narrators")}</span>
+            <span className="block text-[12.5px] font-semibold text-mute">{label ?? t("narrators")}</span>
             <b className="block text-[16.5px] text-navy">{time > 0 ? `${fmt(time)} / ${fmt(dur)}` : t("listen", { min: Math.max(1, Math.round(dur / 60)) })}</b>
           </span>
           <button type="button" onClick={nextRate} aria-label={t("speed")} className="h-10 min-w-[52px] rounded-full bg-ac-soft px-3 text-[13px] font-bold text-ac">{rate}x</button>

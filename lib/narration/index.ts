@@ -8,3 +8,6 @@ export const narrationFor = (placeId: string, locale: string): Narration | undef
 
 /** G-022: rota sonunda gösterilen değerlendirme anketi bağlantısı. */
 export const surveys: Record<string, string> = {};
+
+/** G-022: tura başlarken dinletilen uygulama tanıtımı. `at` durağının panelinde, anlatımın üstünde görünür. */
+export const intros: Record<string, { at: string; key: string }> = { "merkez-kultur-rotasi": { at: "ulu-cami", key: "merkez-giris" } };

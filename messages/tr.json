@@ -842,6 +842,8 @@
     "position": "Anlatımdaki konum",
     "showText": "Anlatım metnini göster",
     "hideText": "Anlatım metnini gizle",
-    "survey": "Değerlendirme anketini doldur"
+    "survey": "Değerlendirme anketini doldur",
+    "introTitle": "Tura başlarken",
+    "introLabel": "Önce bunu dinleyin: uygulamayı tanıyın"
   }
 }
