@@ -34,7 +34,7 @@ export default async function Sosyal({ params }: { params: Promise<{locale: Loca
   if (!user) return (<main><PageHeader eyebrow={tx("community_92216")} title={tx("community_6c29e")} /><GuestJoin /></main>);
   const { data, error } = await supabase
     .from("posts")
-    .select("id, body, photo_path, route_slug, created_at, user_id, profiles(display_name), post_likes(user_id), comments(id, body, user_id, created_at, profiles(display_name))")
+    .select("id, body, photo_path, route_slug, created_at, user_id, profiles!posts_user_id_fkey(display_name), post_likes(user_id), comments(id, body, user_id, created_at, profiles!comments_user_id_fkey(display_name))")
     .order("created_at", { ascending: false }).limit(40);
 
   const rows: PostRow[] = (data ?? []).map((p) => ({

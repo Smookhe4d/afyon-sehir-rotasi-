@@ -49,7 +49,7 @@ export default async function Yonetim({ params }: { params: Promise<{locale: Loc
     supabase.from("feedback").select("id, kind, place_id, message, contact, status, admin_note, created_at").order("created_at", { ascending: false }).limit(150),
     supabase.from("announcements").select("id, title, body, active").order("created_at", { ascending: false }).limit(30),
     supabase.rpc("admin_tour_stats"),
-    supabase.from("post_reports").select("post_id, posts(id, body, photo_path, created_at, profiles(display_name))").order("created_at", { ascending: false }).limit(200),
+    supabase.from("post_reports").select("post_id, posts(id, body, photo_path, created_at, profiles!posts_user_id_fkey(display_name))").order("created_at", { ascending: false }).limit(200),
   ]);
   type TS = { routes: { slug: string; started: number; finished: number; group: number; audio_start: number; audio_end: number; survey: number }[]; stops: { slug: string; stop: string; n: number; visitors: number }[] };
   const tstats = ts.data as TS | null;

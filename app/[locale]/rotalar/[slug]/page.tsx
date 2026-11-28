@@ -51,7 +51,7 @@ export default async function RotaDetay({ params }: { params: Promise<{ locale: 
   const [fav, progress, comments] = await Promise.all([
     user ? supabase.from("favorites").select("route_slug").eq("user_id", user.id).eq("route_slug", slug).maybeSingle() : noRow,
     user ? supabase.from("route_progress").select("visited_place_ids").eq("user_id", user.id).eq("route_slug", slug).maybeSingle() : noRow,
-    supabase.from("comments").select("id, body, created_at, user_id, profiles(display_name)").eq("route_slug", slug).order("created_at", { ascending: false }).limit(50),
+    supabase.from("comments").select("id, body, created_at, user_id, profiles!comments_user_id_fkey(display_name)").eq("route_slug", slug).order("created_at", { ascending: false }).limit(50),
   ]);
   const rows: CommentRow[] = (comments.data ?? []).map((c) => {
     const p = c.profiles as unknown as { display_name: string } | { display_name: string }[] | null;
