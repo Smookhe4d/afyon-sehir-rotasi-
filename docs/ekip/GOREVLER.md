@@ -455,3 +455,10 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Grup turundaki "Rehber" ifadeleri "Turist rehberi" yapıldı.
   - Proje sahibinin hazırladığı eşleştirme listesindeki 27 Wikimedia Commons fotoğrafı lisansları API ile denetlenerek eklendi (CC0 ve CC BY-SA 4.0). Her durakta üç fotoğraflık galeri var, atıflar fotoğrafın üstünde ve Hakkında sayfasında. Kadınanalar, Uzun Çarşı ve Alimoğlu için lisanslı fotoğraf bulunamadığından eskileri kaldı.
 - **Açık:** Kayıtlar ElevenLabs v3 ile tamamlandı. Places API anahtarı proje sahibi tarafından Vercel'e eklendi. Anket bağlantısı eklendi. Canlıya geçiş proje sahibinin onayını bekliyor.
+
+## G-025: Grup turunda kalıcı üyelik ve konum
+- **Durum:** İncelemede.
+- **Neden:** Proje sahibinin grup denemesinde siteden çıkan üye gruptan düşüyor, turist rehberi üyelerin konumunu göremiyordu.
+- **Yapılanlar:** Grup turunda konum paylaşımı harita açılmasını beklemeden başlıyor ve sekmeye dönüşte yenileniyor. Kimlik ve etkin grup kalıcı, siteyi yeniden açan üye aynı gruba aynı adla dönüyor, diğer sayfalarda "Grup turunuz devam ediyor" şeridi çıkıyor. Bağlantısı kopan üye turist rehberinin haritasında son konumu ve "x dk önce" bilgisiyle soluk görünüyor. "Turdan ayrıl" ve "Grup turunu bitir" düğmeleri eklendi, tur bitince kayıt siliniyor. Ekran grup turunda açık tutuluyor.
+- **Tanıtım:** Proje sahibinin isteğiyle uygulama tanıtımı 5 adıma indirildi ve yalnızca yazılı yapıldı.
+- **Sınır:** Tarayıcı kapalıyken ya da ekran kilitliyken web sitesi konum gönderemez.

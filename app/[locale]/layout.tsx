@@ -14,6 +14,7 @@ import Track from "@/components/Track";
 import SwRegister from "@/components/SwRegister";
 import Onboarding from "@/components/Onboarding";
 import AppTour from "@/components/AppTour";
+import GroupResume from "@/components/GroupResume";
 import { routes } from "@/lib/routes";
 import SiteFooter from "@/components/SiteFooter";
 import TopNav from "@/components/TopNav";
@@ -53,6 +54,7 @@ export default async function RootLayout({ children, params }: { children: React
         <GlassTab />
         <Onboarding routeCount={routes.length} />
         <AppTour />
+        <GroupResume />
         <Splash />
         <PageTransitions />
         <SwRegister />

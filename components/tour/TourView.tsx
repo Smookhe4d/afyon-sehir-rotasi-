@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import MapView from "@/components/map/LazyMap";
 import type { MapStop } from "@/components/map/RouteMap";
 import { startRoute } from "@/app/actions";
@@ -18,6 +18,7 @@ type Saved = { i?: number; v?: string[] };
 
 /** G-020: durak durak tur ekranı. Anlatım, fotoğraf ve bilgi kartı ile canlı yönlendirme aynı ekranda. */
 export default function TourView({ slug, title, mode, grup, lider, startId, stops, mapStops, line, panels, serverVisited, survey }: Props) {
+  const router = useRouter();
   const t = useTranslations("g020");
   const tx = useTranslations("ui");
   const tg = useTranslations("g022");
@@ -53,6 +54,14 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
     }
     setInit(true);
     if (grup) startRoute(slug).catch(() => {});
+    // G-025: grup turu hatırlanır. Siteyi kapatıp aynı rotaya dönen üye kendiliğinden gruba bağlanır.
+    try {
+      if (grup) localStorage.setItem("afyon-grup-aktif", JSON.stringify({ slug, grup, lider, mode, t: Date.now() }));
+      else {
+        const a = JSON.parse(localStorage.getItem("afyon-grup-aktif") ?? "null") as { slug: string; grup: string; lider: boolean; mode: string; t: number } | null;
+        if (a && a.slug === slug && Date.now() - a.t < 12 * 3600_000) router.replace(`/rotalar/${slug}/tur?mod=${a.mode}&grup=${a.grup}${a.lider ? "&lider=1" : ""}`);
+      }
+    } catch { /* yok say */ }
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = prev; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,7 +91,7 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
     setVisitedIds((v) => (v.has(id) ? v : new Set(v).add(id)));
   }, []);
 
-  const next = () => { if (idx + 1 < total) go(idx + 1); else { setDone(true); try { localStorage.setItem(key, JSON.stringify({ v: [...visited] })); } catch { /* yok say */ } } };
+  const next = () => { if (idx + 1 < total) go(idx + 1); else { setDone(true); try { localStorage.setItem(key, JSON.stringify({ v: [...visited] })); localStorage.removeItem("afyon-grup-aktif"); } catch { /* yok say */ } } };
 
   useEffect(() => {
     const f = (e: KeyboardEvent) => {
