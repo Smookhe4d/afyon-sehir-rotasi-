@@ -10,11 +10,11 @@
   ],
   [
    "E",
-   "Önce günün planını konuşalım. Ulu Cami ile başlayıp on durak yürüyeceğiz. Öğle arasını Uzun Çarşı'da vereceğiz, günü de Zafer Müzesi'nin önünde bitireceğiz."
+   "Önce günün planını konuşalım. Ulu Cami'den başlayıp on durağı yürüyerek gezeceğiz. Öğle arasını Uzun Çarşı'da vereceğiz, günü de Zafer Müzesi'nin önünde bitireceğiz."
   ],
   [
    "K",
-   "Rotanın ilk iki durağı Alimoğlu Müzik Koleksiyonu ve Afyonkarahisar Müzesi. Onları bugün gezmiyoruz, merak edenler uygulamadan bilgilerine bakabilir."
+   "Rotanın ilk iki durağı İbrahim Alimoğlu Müzik Aletleri Koleksiyonu ve Afyonkarahisar Müzesi. Onları bugün gezmiyoruz, merak edenler uygulamadan bilgilerine bakabilir."
   ],
   [
    "E",
@@ -30,7 +30,7 @@
   ],
   [
    "K",
-   "O kaya aslında sönmüş bir volkanın bacasında sertleşen lav. Jeologlar buna volkan boynu diyor. Yani şehrin simgesi, milyonlarca yıl önce bir yanardağın içinde oluşmuş."
+   "O kaya aslında sönmüş bir volkanın bacasında katılaşan magma. Jeologlar buna volkan boynu diyor. Yani şehrin simgesi, milyonlarca yıl önce bir yanardağın içinde oluşmuş."
   ],
   [
    "E",
@@ -38,7 +38,7 @@
   ],
   [
    "K",
-   "Peki baştaki Afyon kısmı? Bu toprakların bir başka simgesinden, haşhaş bitkisinden. Halk şehre uzun yıllar kısaca Afyon dedi."
+   "Peki baştaki Afyon kısmı? Bu toprakların bir başka simgesinden, haşhaş bitkisinden. Şehrin resmî adı da uzun yıllar kısaca Afyon'du, iki bin dörtte yeniden Afyonkarahisar oldu."
   ],
   [
    "E",
@@ -58,11 +58,11 @@
   ],
   [
    "E",
-   "Ve bin dört yüz yirmi sekizde şehir kesin olarak Osmanlı topraklarına katılıyor. Bugün göreceğiniz camilerin, hanların, çarşının büyük kısmı bu uzun dönemden kalma."
+   "On beşinci yüzyılın başlarında da şehir kesin olarak Osmanlı topraklarına katılıyor. Bugün göreceğiniz camilerin, hanların, çarşının büyük kısmı bu uzun dönemden kalma."
   ],
   [
    "K",
-   "Bir de Mevlevilik var. Mevlana'nın ailesiyle bu şehir arasında yakın bir bağ var. Konya'dan sonra en önemli mevlevihanelerden biri burada. Birazdan onu da gezeceğiz."
+   "Bir de Mevlevilik var. Mevlana'nın ailesiyle bu şehir arasında yakın bir bağ kurulmuş. Birazdan şehrin mevlevihanesini de gezeceğiz."
   ],
   [
    "E",
@@ -78,7 +78,7 @@
   ],
   [
    "K",
-   "Türkiye'den Gaziantep ve Hatay'dan sonra bu unvanı alan üçüncü şehir. Kaymağı, sucuğu, lokumu, haşhaşlı çöreği ve ekmek kadayıfı ünlüdür."
+   "Gaziantep ve Hatay'dan sonra bu unvanı alan üçüncü Türk şehri. Lezzetlerin peşine öğle arasında Uzun Çarşı'da düşeceğiz."
   ],
   [
    "E",
@@ -86,7 +86,7 @@
   ],
   [
    "K",
-   "Turizm okuyan biri için çok öğretici bir şehir burası. Tarih, inanç, lezzet ve sağlık turizmi aynı yerde buluşuyor."
+   "Tarih, inanç, lezzet ve sağlık turizmi aynı şehirde buluşuyor. Gün boyunca her durakta turizmle ilgili bir kavramı da birlikte konuşacağız."
   ],
   [
    "E",
@@ -102,17 +102,17 @@
   ],
   [
    "K",
-   "[warmly] Otobüsten indiğimizde ilk durağımız Ulu Cami. Hazırsanız, kalenin eteğinde görüşmek üzere."
+   "[warmly] Otobüsten indiğimizde ilk durağımız Ulu Cami. Hazırsanız, kalenin eteğindeki Ulu Cami'ye doğru yola çıkıyoruz."
   ]
  ],
  "ulu-cami": [
   [
    "E",
-   "[curious] Ulu Cami'nin kapısındaysanız önce dışarıdan bir bakın. Sade bir taş bina gibi görünüyor, değil mi?"
+   "[softly] Ulu Cami'nin kapısındaysanız önce dışarıdan bakın. Sade bir taş bina. Şimdi içeriyi hayal etmeye çalışın, sonra birlikte görelim."
   ],
   [
    "K",
-   "[warmly] Ama içi bambaşka bir dünya. Afyon Ulu Cami, Anadolu Selçuklu döneminde, bin iki yüz yetmiş iki ile bin iki yüz yetmiş yedi yılları arasında yapıldı."
+   "[warmly] Afyon Ulu Cami, Anadolu Selçuklu döneminde, bin iki yüz yetmiş iki ile bin iki yüz yetmiş yedi yılları arasında yapıldı."
   ],
   [
    "E",
@@ -120,7 +120,7 @@
   ],
   [
    "K",
-   "Caminin bir de hikâyesi var. Bu alanda eskiden bir arasta, yani çarşı varmış. Bir yangında dükkânlar zarar görünce esnaf bir araya gelmiş ve buraya bir cami yapılmasını istemiş."
+   "Caminin anlatılan bir de hikâyesi var. Bu alanda eskiden bir arasta, yani çarşı varmış. Bir yangında dükkânlar zarar görünce esnaf bir araya gelmiş ve buraya bir cami yapılmasını istemiş."
   ],
   [
    "E",
@@ -128,15 +128,15 @@
   ],
   [
    "K",
-   "Girişin üstündeki mermer kitabeye göre camiyi Sahip Ata'nın oğlu Nusretüddin Hasan Bey yaptırmış. Şimdi içeri girelim. Ayakkabılarınızı çıkarın ve sessiz olalım, burası hâlâ ibadet edilen bir mekân."
+   "Kaynaklara göre camiyi Sahip Ata'nın oğlu Nusretüddin Hasan Bey yaptırmış. Şimdi içeri girelim. Ayakkabılarınızı çıkarın ve sessiz olalım, burası hâlâ ibadet edilen bir mekân."
   ],
   [
    "E",
-   "[softly] İçeride bir an durup çevrenize bakın. Direkleri saymayı deneyin. Kırk tane mi?"
+   "[curious] İçeride bir an durup çevrenize bakın. Direkleri saymayı deneyin. Kırk tane mi?"
   ],
   [
    "K",
-   "Saydıysanız kırk çıkmalı. Bu çam direklerin her biri beş metreden biraz uzun. Ama kırk direkten yalnızca yirmi ikisi özgün. Diğerleri onarımlarda aslına uygun olarak yenilenmiş."
+   "Saydıysanız kırk çıkmalı. Bu ahşap direklerin her biri beş metreden biraz uzun. Bazıları onarımlarda yenilenmiş, özgün olanlardan bir kısmı müzede korunuyor."
   ],
   [
    "E",
@@ -144,39 +144,31 @@
   ],
   [
    "K",
-   "[curious] Afyon bir deprem kuşağında Elif. Bu cami yüzyıllardır nasıl ayakta kalıyor?"
+   "[curious] Afyon bir deprem kuşağında, Elif. Bu cami yüzyıllardır nasıl ayakta kalıyor?"
   ],
   [
    "E",
-   "Ahşap esnektir. Sarsıntıda kırılmak yerine biraz esner. Ahşap parçaların kündekari denen teknikle birbirine geçirildiği de anlatılır."
+   "Ahşap esnektir. Sarsıntıda kırılmak yerine biraz esner. Yapının ahşap işçiliğinde çivi kullanılmadığı da anlatılır."
   ],
   [
    "K",
-   "Şimdi başınızı tavana kaldırın. Koyu zemin üzerinde motifler göreceksiniz. Bu motiflerin bir kısmı, cami ilk açıldığında yerde serili olan Selçuklu halılarının desenleriyle aynı."
+   "Şimdi başınızı tavana kaldırın. Tavanda ve kirişlerde iki yüzü aşkın boyalı ahşap pano var. Bitkisel ve geometrik motiflerle süslü."
   ],
   [
    "E",
-   "[amused] Neden mi? Halı eskirse ya da kaybolursa tavana bakıp aynısını yeniden dokuyabilmek için. Yani tavan, halının yedek deseni gibi."
+   "Kıble yönündeki taş nişe, yani mihraba bakalım. Altı sıra mukarnasla süslenmiş beyaz taştan bir mihrap. Çerçevesinde Ayetel Kürsi, alınlığında İhlas Suresi yazılı."
   ],
   [
    "K",
-   "Şimdi kıble yönündeki taş nişe, yani mihraba bakalım. Altı sıra mukarnasla süslenmiş beyaz taştan bir mihrap. Kenar bordürlerinde Ayetel Kürsi yazılı."
+   "Mihrabın sağındaki ahşap minbere bakın. Geometrik geçmelerle süslenmiş. Kapısının üstündeki kitabede Hicri altı yüz yetmiş bir, yani bin iki yüz yetmiş iki yılı ve usta Emir Hac Bey'in adı okunuyor."
   ],
   [
    "E",
-   "Mihrabın iç yüzlerinden birinde ilginç bir ifade var. Adlen ya emirallah. Yani ey Allah'ın emiri, adil ol. Ülkenin başındakine yazılmış bir hatırlatma gibi."
+   "Bazı araştırmacılar bu minber kapısının başka bir yapıdan getirilmiş olabileceğini düşünüyor. Yani bu camide bile hâlâ cevap bekleyen sorular var."
   ],
   [
    "K",
-   "Mihrabın sağındaki ahşap minbere bakın. Selçuklu ağaç işçiliğinin en güzel örneklerinden biri. Asıl dikkat çeken ise kapısı, çünkü bu kapı camiden bile eski."
-  ],
-  [
-   "E",
-   "Daha önce burada bulunan ve yangında yok olan bir mescitten kurtarıldığı düşünülüyor. Üzerinde Hicri altı yüz bir, yani Miladi bin iki yüz beş tarihi okunuyor."
-  ],
-  [
-   "K",
-   "Çıkarken minareye de bir göz atın. Tuğla gövdeli minare, Yıldırım Bayezid döneminde, on dördüncü yüzyılın sonunda eklenmiş."
+   "Çıkarken minareye de bir göz atın. Tuğla gövdeli minarenin, Yıldırım Bayezid döneminde, on dördüncü yüzyılın sonunda eklendiği düşünülüyor."
   ],
   [
    "E",
@@ -190,11 +182,11 @@
  "millet-hamami": [
   [
    "K",
-   "[curious] Millet Hamamı'nın önündeyseniz kubbelere bir bakın. Bu hamamın eskiden başka bir adı varmış Elif."
+   "[playfully] Millet Hamamı'nın önündeyseniz kubbelere bir bakın. Bu hamamın eskiden başka bir adı varmış, Elif."
   ],
   [
    "E",
-   "Evet, Gavur Hamamı. Yapımında Ermeni ustaların çalıştığı anlatılır. Zamanla adı Millet Hamamı olarak yerleşmiş."
+   "Evet, Gavur Hamamı. Bin dokuz yüz on birdeki yangından sonra yapıyı mahallenin Ermeni sakinlerinin yeniden yaptığı anlatılır. Zamanla adı Millet Hamamı olarak yerleşmiş."
   ],
   [
    "K",
@@ -202,11 +194,11 @@
   ],
   [
    "E",
-   "Bin dokuz yüz on birde bir yangın geçirmiş. Kadınlar bölümünün soyunmalığı o yangından sonra yeniden yapılmış. Erkekler soyunmalığı ise bin dokuz yüz elli beşte eklenmiş."
+   "Yangından sonra kadınlar bölümünün soyunmalığı yeniden yapılmış. Erkekler soyunmalığında da bin dokuz yüz elli beşte yeniden yapım işleri olmuş."
   ],
   [
    "K",
-   "İki bin üç ile iki bin beş arasında restore edildi. İçeri girmeden önce karşıdaki bölüme bakın. Orası hamamın külhanı, yani suyu ısıtan ocağı."
+   "Yapı bugün restore edilmiş halde. İçeri girmeden önce karşıdaki bölüme bakın. Orası hamamın külhanı, yani suyu ısıtan ocağı."
   ],
   [
    "E",
@@ -214,7 +206,7 @@
   ],
   [
    "K",
-   "İlk büyük salon kadınların soğukluk bölümü, yani soyunma ve dinlenme yeri. Bugün konferans ve etkinliklerde kullanılıyor."
+   "İlk büyük salon kadınların soyunmalığı, yani soyunma ve dinlenme yeri. Hamamlarda buraya soğukluk da denir. Bugün konferans ve etkinliklerde kullanılıyor."
   ],
   [
    "E",
@@ -230,7 +222,7 @@
   ],
   [
    "K",
-   "[thoughtful] Turizm açısından güzel bir örnek bu. Tarihî bir yapı korunuyor ama aynı zamanda şehrin günlük hayatına yeniden katılıyor. Buna uyarlamalı yeniden kullanım deniyor."
+   "[thoughtful] Turizmden bir kavram verelim. Tarihî bir yapıyı koruyup ona bugün yeni bir görev vermeye yeniden işlevlendirme denir. Bu hamam bunun güzel bir örneği."
   ],
   [
    "E",
@@ -244,19 +236,19 @@
  "mevlevihane": [
   [
    "E",
-   "[curious] Bin bir gün boyunca bulaşık yıkadığınızı, ortalığı süpürdüğünüzü düşünün. Hem de kim olursanız olun. Bu dergâha giren her derviş bunu yapardı."
+   "[thoughtful] Bin bir gün boyunca bulaşık yıkadığınızı, ortalığı süpürdüğünüzü düşünün. Hem de kim olursanız olun. Bu dergâha giren her derviş bunu yapardı."
   ],
   [
    "K",
-   "Burası Afyonkarahisar Mevlevihanesi. Bilinen adıyla Sultan Divani Mevlevihanesi. Konya'dan sonra Anadolu'nun en önemli mevlevihanelerinden biri."
+   "Burası Afyonkarahisar Mevlevihanesi. Bilinen adıyla Sultan Divani Mevlevihanesi. Anadolu'nun önemli mevlevihanelerinden biri."
   ],
   [
    "E",
-   "Hikâye Mevlana'ya kadar gidiyor. Mevlana'nın torunu Mutahhara Hatun, buradaki Germiyan beyiyle evlenmiş. Böylece aile ile şehir arasında güçlü bir bağ kurulmuş."
+   "Hikâye Mevlana'nın ailesine kadar gidiyor. Mevlana'nın torunu Mutahhara Hatun, Germiyan ailesinden Umur Bey'le evlendirilmiş."
   ],
   [
    "K",
-   "Bin üç yüz on altıda torunu Ulu Arif Çelebi şehre geliyor ve ilk ahşap dergâh kuruluyor. Dergâh adını ise bin dört yüz seksen beşte başına geçen Sultan Divani'den alıyor."
+   "Mevlana'nın bir başka torunu Ulu Arif Çelebi, bin üç yüz on altıda şehre geliyor ve ilk ahşap dergâh kuruluyor. Dergâh adını ise on beşinci yüzyılın sonlarında başına geçen Sultan Divani'den alıyor."
   ],
   [
    "E",
@@ -288,7 +280,7 @@
   ],
   [
    "K",
-   "Sema alanına dikkat edin. Pek çok mevlevihanede bu alan yuvarlaktır, burada ise kare."
+   "Sema alanına dikkat edin. Buradaki semahane kare planlı, yaklaşık on beşe on beş metre."
   ],
   [
    "E",
@@ -296,7 +288,7 @@
   ],
   [
    "K",
-   "Çıkarken bir türbeye daha bakın. Namık Kemal'in annesi Fatma Zehra Hanım burada yatıyor."
+   "[thoughtful] Turizm açısından bir kavram verelim. Buradaki gibi bir inanç mekânını gezmek inanç turizmi sayılır. Ziyaretçi ile mekânın anlamına saygı burada her şeyden önce gelir."
   ],
   [
    "E",
@@ -304,7 +296,7 @@
   ],
   [
    "K",
-   "Türbe sağ tarafta, Zaviye Türbe Caddesi üzerinde. Orada bizi şehrin suyuyla ilgili bir sır bekliyor."
+   "Türbe sağ tarafta. Orada şehrin suyuyla ilgili bir soruyu konuşacağız."
   ]
  ],
  "kadinanalar-turbesi": [
@@ -318,7 +310,7 @@
   ],
   [
    "K",
-   "Biri şehre suyu getirmiş, biri kanalları ve köprüleri yaptırmış. Halk da onlara Kadınanalar demiş. Bu türbede ikisinin, Melek Peyker ve Naime Gevher hatunların yattığı kabul edilir."
+   "Biri şehre suyu getirmiş, diğerleri kanalları ve köprüleri yaptırmış. Halk da onlara Kadınanalar demiş. Bu türbede ikisinin, Melek Peyker ve Naime Gevher hatunların yattığı kabul edilir."
   ],
   [
    "E",
@@ -330,7 +322,7 @@
   ],
   [
    "E",
-   "Belgelere göre suyu şehre taşıyan taş kanal, bin beş yüz altmışlarda Semiz Ali Paşa'nın emriyle yapılmış. Kanalın adı Hark-ı Kebir, yani büyük ark."
+   "Belgelere göre suyu şehre taşıyan taş kanal, bin beş yüz altmışlarda Semiz Ali Paşa'nın emriyle başlatılmış, paşanın ölümünden sonra devlet tamamlamış. Kanalın adı Hark-ı Kebir, yani büyük ark."
   ],
   [
    "K",
@@ -338,7 +330,7 @@
   ],
   [
    "E",
-   "[warmly] İşte bu yüzden bu durağı seviyorum. Bir yerin hikâyesi ile belgelerdeki tarihi her zaman aynı değil. İyi bir turist rehberi ikisini de anlatır, ama hangisi hangisi onu da söyler."
+   "[warmly] İşte bu yüzden bu durağı seviyorum. Bir yerin hikâyesi ile belgelerdeki tarihi her zaman aynı değil. İyi bir turist rehberi ikisini de anlatır, ama hangisinin hangisi olduğunu da söyler."
   ],
   [
    "K",
@@ -352,7 +344,7 @@
  "afyon-konaklari": [
   [
    "E",
-   "[curious] Sokaktaki evlere bakın arkadaşlar. Üst kat sokağa doğru taşıyor, değil mi? Bu çıkmaya cumba denir."
+   "[cheerfully] Sokaktaki evlere bakın arkadaşlar. Üst kat sokağa doğru taşıyor, değil mi? Bu çıkmaya cumba denir."
   ],
   [
    "K",
@@ -360,7 +352,7 @@
   ],
   [
    "E",
-   "Afyonkarahisar'da korunması gereken yaklaşık altı yüz tarihî yapı var. İki bin ikiden bu yana yüzlercesi restore edildi."
+   "Belediye yıllardır bu evleri aslına uygun olarak restore ediyor. Rengârenk cepheler bu çalışmaların sonucu."
   ],
   [
    "K",
@@ -372,11 +364,11 @@
   ],
   [
    "K",
-   "[thoughtful] Turizm işletmeciliği açısından güzel bir örnek. Tarihî dokuyu koruyup içine yemek ve el sanatlarını koyarsanız ziyaretçi şehirde daha uzun kalır."
+   "[thoughtful] Buradan turizme bir kavram: kalış süresi. Tarihî dokuyu koruyup ona yemek ve el sanatları gibi yeni işlevler kazandırırsanız ziyaretçi şehirde daha uzun kalır, daha çok harcar."
   ],
   [
    "E",
-   "[playfully] Küçük bir yarışma yapalım. Bir sonraki durağa yürürken en güzel cumbanın fotoğrafını çekin. Kimin fotoğrafı en güzel, sonra birlikte seçeriz."
+   "[playfully] Küçük bir yarışma yapalım. Bir sonraki durağa yürürken en güzel cumbanın fotoğrafını çekin. Öğle arasında fotoğrafları turist rehberinize gösterin, en güzelini birlikte seçelim."
   ],
   [
    "K",
@@ -390,7 +382,7 @@
  "tashan-merkez": [
   [
    "K",
-   "[warmly] Dört yüz yıl önce bu avluda kervanlar konaklardı. Bugün siz burada çay içebiliyorsunuz."
+   "[warmly] Üç yüz elli yılı aşkın bir süre önce bu avluda kervanlar konaklardı. Bugün siz burada çay içebiliyorsunuz."
   ],
   [
    "E",
@@ -406,7 +398,7 @@
   ],
   [
    "K",
-   "Yani hem otel hem iş merkezi. Turizm okuyan biri için bu hanlar, konaklama işletmelerinin tarihteki ataları sayılır."
+   "[curious] Yani hem otel hem iş merkezi. Sizce bugünün hangi işletmesi hana en çok benziyor? Kervansaraylar ve hanlar, konaklama işletmelerinin tarihteki ataları sayılır."
   ],
   [
    "E",
@@ -424,31 +416,23 @@
  "uzun-carsi": [
   [
    "E",
-   "[cheerfully] Uzun Çarşı, Afyon'un dört yüz yılı aşkın alışveriş caddesi."
+   "[cheerfully] Uzun Çarşı, şehrin yüzyıllardır süren ticaret geleneğinin bugünkü merkezi."
   ],
   [
    "K",
-   "On altıncı yüzyılın sonlarında şehirde sekiz yüze yakın dükkân olduğu biliniyor. Bezzazlar, demirciler, fırıncılar, keçeciler. Her esnafın kendi bölümü varmış."
+   "On altıncı yüzyılın sonlarında şehirde sekiz yüze yakın dükkân ve iki bedesten olduğu biliniyor. Bezzazlar, yani kumaşçılar, demirciler, fırıncılar, keçeciler. Her esnafın kendi bölümü varmış."
   ],
   [
    "E",
-   "O dönem için çok büyük bir sayı. Afyon'u Batı ve Orta Anadolu'nun önemli ticaret merkezlerinden biri yapan da bu çarşı."
+   "O dönem için çok büyük bir sayı. Bu da Afyon'un Batı ve Orta Anadolu'nun önemli ticaret merkezlerinden biri olduğunu gösteriyor."
   ],
   [
    "K",
-   "Bugün de yüzü aşkın dükkân var. Kuyumcular ve yöresel ürün satanlar çoğunlukta. Çarşının en eski işletmelerinden İkbal Lokantası da hâlâ burada."
-  ],
-  [
-   "E",
    "[playfully] Bir oyun oynayalım. Çarşıda Afyon'un beş simge lezzetini bulun. Sucuk, kaymak, lokum, haşhaşlı ürünler ve ekmek kadayıfı. Kaçını görebileceksiniz?"
   ],
   [
-   "K",
-   "Çarşının ortasında bir de Bedesten var. Bedesten, değerli malların satıldığı, kapıları kilitlenebilen kapalı çarşı demek."
-  ],
-  [
    "E",
-   "Burada önce Mimar Sinan'ın yaptığı Rüstem Paşa Bedesteni varmış. Bugünkü yapı bin dokuz yüz on dörtte yeniden yapılmış. Güney kapısının yanındaki çinilerde bu tarihi bulabilirsiniz."
+   "Çarşının hemen yanındaki bugünkü Bedesten, bin dokuz yüz on dörtte açıldı. Bedesten, değerli malların satıldığı, kapıları kilitlenebilen kapalı çarşı demek."
   ],
   [
    "K",
@@ -456,21 +440,25 @@
   ],
   [
    "E",
-   "[warmly] Dükkânlara girin, esnafla sohbet edin. Bir çarşıyı çarşı yapan binası değil, içindeki insanlar."
+   "[thoughtful] Turizm açısından bugünün kavramı yerel ekonomi. Burada yaptığınız her alışveriş doğrudan şehrin esnafına gidiyor."
   ],
   [
    "K",
-   "[cheerfully] Şimdi öğle arası. Kırk beş dakikanız var, çarşıdaki lokantalarda yöresel bir şeyler yiyin. Afiyet olsun!"
+   "[warmly] Dükkânlara girin, esnafla sohbet edin. Bir çarşıyı çarşı yapan binası değil, içindeki insanlar."
   ],
   [
    "E",
-   "Molanın sonunda Gedik Ahmet Paşa Külliyesi'nde, yani İmaret Camii'nde buluşuyoruz. Çarşının doğu ucundan Millet Caddesi'ne çıkın, cami yaklaşık beş dakika uzaklıkta. Lacivert çinili minareyi uzaktan görürsünüz."
+   "[cheerfully] Şimdi öğle arası. Çarşıdaki lokantalarda yöresel bir şeyler yiyin. Afiyet olsun!"
+  ],
+  [
+   "K",
+   "Kırk beş dakika sonra, yürüme süresi dahil, Gedik Ahmet Paşa Külliyesi'nde, yani İmaret Camii'nin avlusunda buluşuyoruz. Çarşının doğu ucundan Millet Caddesi'ne çıkın, cami yaklaşık beş dakika uzaklıkta. Lacivert çinili minareyi uzaktan görürsünüz."
   ]
  ],
  "imaret-cami": [
   [
    "K",
-   "[curious] Şu minareye bakın. Gövdesi burgu gibi kıvrılıyor, aralarında lacivert çini şeritler var. Afyon'da bu minareyi gören hemen tanır."
+   "[warmly] Şu minareye bakın. Gövdesi burgu gibi kıvrılıyor, aralarında lacivert çini şeritler var."
   ],
   [
    "E",
@@ -478,7 +466,7 @@
   ],
   [
    "K",
-   "Külliye bin dört yüz yetmişli yıllarda yapılmış. Külliye ne demek? Bir caminin çevresinde toplanan ve bir vakıfla birlikte yaşayan yapılar."
+   "Külliye bin dört yüz yetmişli yıllarda yapılmış. Külliye ne demek? Bir caminin çevresinde toplanan ve aynı vakıfla yaşatılan yapılar topluluğu."
   ],
   [
    "E",
@@ -486,11 +474,11 @@
   ],
   [
    "K",
-   "İçeri girerseniz planı fark etmeye çalışın. Ters bir T harfi gibi. Bu plan, Osmanlı'nın ilk başkenti Bursa'daki camileri hatırlatır."
+   "İçeri girerseniz planı fark etmeye çalışın. Ters bir T harfi gibi. Bu plan, Osmanlı'nın erken dönem başkenti Bursa'daki camileri hatırlatır."
   ],
   [
    "E",
-   "Hemen yanındaki yapı Taş Medrese. Ortada açık bir avlu, çevresinde öğrenci odaları var. Bin dokuz yüz otuz üçten bin dokuz yüz yetmişe kadar Afyonkarahisar Müzesi de burada hizmet vermiş."
+   "Hemen yanındaki yapı Taş Medrese. Ortada açık bir avlu, çevresinde öğrenci odaları var. Bin dokuz yüz otuz üçten bin dokuz yüz yetmiş bire kadar Afyonkarahisar Müzesi de burada hizmet vermiş."
   ],
   [
    "K",
@@ -516,41 +504,37 @@
   ],
   [
    "E",
-   "Bu, Zafer Anıtı ya da Utku Anıtı. Utku, zafer anlamında eski bir Türkçe kelime. Büyük Taarruz bu şehirde planlandı ve buradan başladı."
+   "Bu, Zafer Anıtı ya da Utku Anıtı. Utku, zafer anlamında eski bir Türkçe kelime. Büyük Taarruz bu şehrin yakınındaki Kocatepe'den başladı ve ertesi gün şehir kurtuldu."
   ],
   [
    "K",
-   "Anıtı Avusturyalı heykeltıraş Heinrich Krippel tasarladı. Yirmi beş Mart bin dokuz yüz otuz altıda İsmet İnönü tarafından açıldı. Yüksekliği yaklaşık sekiz metre."
+   "Anıtı Avusturyalı heykeltıraş Heinrich Krippel tasarladı. Yirmi beş Mart bin dokuz yüz otuz altıda İsmet İnönü tarafından açıldı. Heykel dört metreden biraz yüksek, kaidesiyle birlikte altı buçuk metreyi buluyor."
   ],
   [
    "E",
-   "Kaidenin dört yüzündeki bronz kabartmalara da bakın. Her birinde savaştan bir sahne var."
-  ],
-  [
-   "K",
    "Atatürk, bin dokuz yüz otuz yedideki ziyaretinde bu anıtı, büyük utkuyu en iyi anlatan anıt olarak nitelendirmiş."
   ],
   [
-   "E",
+   "K",
    "[warmly] Şimdi başınızı kaldırın. Kale yine karşınızda. Güne onun eteğinde başladık, şimdi bu meydandan ona bakıyoruz."
   ],
   [
-   "K",
+   "E",
    "Son durak Zafer Müzesi, meydanın karşısındaki iki katlı bina. Yolun karşısına geçerken dikkatli olun, bir dakikalık yolumuz kaldı."
   ]
  ],
  "zafer-muzesi": [
   [
    "K",
-   "[seriously] Bu binaya iyi bakın. Ağustos bin dokuz yüz yirmi ikide Türkiye'nin kaderini belirleyen karar burada alındı."
+   "[seriously] Bu binaya iyi bakın. Ağustos bin dokuz yüz yirmi ikinin son günlerinde Başkomutanlık Meydan Muharebesi bu binada planlandı."
   ],
   [
    "E",
-   "Bina bin dokuz yüz on üç ile bin dokuz yüz on dört arasında belediye binası olarak yapılmış. Kurtuluş Savaşı'nda Batı Cephesi'nin karargâhı oldu."
+   "Bina bin dokuz yüz on üç ile bin dokuz yüz on dört arasında belediye binası olarak yapılmış. Yirmi yedi Ağustos'ta şehir kurtulunca Batı Cephesi'nin karargâhı oldu."
   ],
   [
    "K",
-   "Yirmi yedi Ağustos bin dokuz yüz yirmi ikide Afyonkarahisar işgalden kurtarıldı. Mustafa Kemal Paşa ve silah arkadaşları bu binada kaldı."
+   "Mustafa Kemal Paşa ve silah arkadaşları o günlerde bu binada kaldı."
   ],
   [
    "E",
@@ -558,22 +542,26 @@
   ],
   [
    "K",
-   "Müze pazartesi günleri kapalı olabiliyor. Bugün giremezsek bir gün mutlaka tekrar gelin."
+   "[curious] Bir soru sorayım. Sizce bir müze, bir savaşı anlatırken neyi göstermeli? Silahları mı, insanları mı? İçeride bunu düşünerek gezin."
   ],
   [
    "E",
-   "[warmly] Ve arkadaşlar, rotamızın sonuna ulaştık. Bir Selçuklu camisinden başladık. Bir hamamdan, bir mevlevihaneden, konaklardan, bir handan ve çarşıdan geçtik."
+   "Müze kapalıysa binayı dışarıdan inceleyelim. Bir gün mutlaka içini de gezin."
   ],
   [
    "K",
+   "[warmly] Ve arkadaşlar, bu rotamızın son anlatımı. Bir Selçuklu camisinden başladık. Bir hamamdan, bir mevlevihaneden, konaklardan, bir handan ve çarşıdan geçtik."
+  ],
+  [
+   "E",
    "Yedi yüz yılı aşkın bir tarihi birkaç saatte yürüdük. Bize eşlik ettiğiniz için teşekkür ederiz."
   ],
   [
-   "E",
+   "K",
    "Son bir ricamız var. Uygulamayı değerlendirmek için kısa bir anket hazırladık. Ekrandaki düğmeden birkaç dakikanızı ayırıp doldurursanız uygulamayı birlikte geliştirmiş oluruz."
   ],
   [
-   "K",
+   "E",
    "[cheerfully] Afyonkarahisar'da kalırsanız kaleye çıkmayı ve bir parça kaymaklı lokum almayı unutmayın. Görüşmek üzere!"
   ]
  ],
@@ -598,7 +586,7 @@
  "tanitim-4": [
   [
    "E",
-   "Rotalar sekmesinde tüm hazır rotalar var. Bir rotayı açıp Tura başla dediğinizde durak durak gezmeye başlarsınız."
+   "Rotalar sekmesinde tüm hazır rotalar var. Bir rotayı açıp Tura başla düğmesine bastığınızda durak durak gezmeye başlarsınız."
   ]
  ],
  "tanitim-5": [

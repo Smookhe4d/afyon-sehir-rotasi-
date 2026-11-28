@@ -21,7 +21,7 @@ export const TOUR_STEPS: TourStep[] = [
   },
   {
     "title": "Rotalar",
-    "text": "Rotalar sekmesinde tüm hazır rotalar var. Bir rotayı açıp Tura başla dediğinizde durak durak gezmeye başlarsınız.",
+    "text": "Rotalar sekmesinde tüm hazır rotalar var. Bir rotayı açıp Tura başla düğmesine bastığınızda durak durak gezmeye başlarsınız.",
     "audio": "/audio/tanitim/tanitim-4.mp3",
     "target": "[data-tab=\"rotalar\"]"
   },
