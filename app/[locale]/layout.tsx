@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Track from "@/components/Track";
 import SwRegister from "@/components/SwRegister";
 import Onboarding from "@/components/Onboarding";
+import AppTour from "@/components/AppTour";
 import { routes } from "@/lib/routes";
 import SiteFooter from "@/components/SiteFooter";
 import TopNav from "@/components/TopNav";
@@ -51,6 +52,7 @@ export default async function RootLayout({ children, params }: { children: React
         <SiteFooter />
         <GlassTab />
         <Onboarding routeCount={routes.length} />
+        <AppTour />
         <Splash />
         <PageTransitions />
         <SwRegister />

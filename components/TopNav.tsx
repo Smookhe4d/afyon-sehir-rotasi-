@@ -3,6 +3,7 @@ import {useTranslations} from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 
+const TAB: Record<string, string> = { "/": "kesfet", "/rotalar": "rotalar", "/sosyal": "sosyal" };
 const links = [["/", "home"], ["/rotalar", "routes"], ["/harita", "map"], ["/rotani-belirle", "plan"], ["/sosyal", "community"], ["/hakkinda", "about"]] as const;
 
 /** Yalnızca geniş ekranda görünen üst menü; telefonda alttaki sekme çubuğu kullanılır. */
@@ -19,10 +20,10 @@ export default function TopNav() {
         </Link>
         <ul className="flex flex-1 items-center gap-1">
           {links.map(([h, l]) => (
-            <li key={h}><Link href={h} aria-current={on(h) ? "page" : undefined} className={`rounded-full px-3.5 py-2 text-sm font-semibold transition-colors ${on(h) ? "bg-navy text-white" : "text-ink-2 hover:bg-sand"}`}>{t(l)}</Link></li>
+            <li key={h}><Link href={h} data-tab={TAB[h]} aria-current={on(h) ? "page" : undefined} className={`rounded-full px-3.5 py-2 text-sm font-semibold transition-colors ${on(h) ? "bg-navy text-white" : "text-ink-2 hover:bg-sand"}`}>{t(l)}</Link></li>
           ))}
         </ul>
-        <Link href="/profil" className="terra-grad rounded-full px-5 py-2.5 text-sm font-bold text-white">{t("profile")}</Link>
+        <Link href="/profil" data-tab="profil" className="terra-grad rounded-full px-5 py-2.5 text-sm font-bold text-white">{t("profile")}</Link>
       </nav>
     </header>
   );

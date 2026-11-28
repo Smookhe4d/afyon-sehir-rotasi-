@@ -35,6 +35,9 @@ export default async function Hakkinda({ params }: { params: Promise<{locale: Lo
           {Object.entries(photos).filter(([, ph]) => !ph.owner).map(([id, ph]) => (
             <li key={id} className="rounded-2xl bg-white px-3.5 py-2.5 text-[13px] leading-snug shadow-card"><b className="block text-navy">{pt(id)}</b><a href={ph.page} target="_blank" rel="noopener noreferrer" className="text-mute underline decoration-line underline-offset-2">{g("photoBy", {author: ph.author, license: ph.license})}</a></li>
           ))}
+          {Object.entries(photos).flatMap(([id, ph]) => (ph.gallery ?? []).slice(1).map((g2) => (
+            <li key={g2.src} className="rounded-2xl bg-white px-3.5 py-2.5 text-[13px] leading-snug shadow-card"><b className="block text-navy">{pt(id)}</b><a href={g2.page} target="_blank" rel="noopener noreferrer" className="text-mute underline decoration-line underline-offset-2">{g("photoBy", {author: g2.author, license: g2.license})}</a></li>
+          )))}
           {Object.entries(ALBUMS).flatMap(([id, list]) => list.map((ph) => (
             <li key={ph.page + id} className="rounded-2xl bg-white px-3.5 py-2.5 text-[13px] leading-snug shadow-card"><b className="block text-navy">{places[id]?.name ?? id}{ph.rep ? ` · ${g15("rep")}` : ""}</b><a href={ph.page} target="_blank" rel="noopener noreferrer" className="text-mute underline decoration-line underline-offset-2">{g("photoBy", {author: ph.author, license: ph.license})}</a></li>
           )))}

@@ -429,3 +429,29 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Proje sahibinin isteğiyle bu iki görsel Hakkında sayfasındaki fotoğraf listesinde ve görsel üstündeki kaynak etiketinde gösterilmez (`owner` alanı).
 - **Not:** İki görselin kaynağı ve lisansı belirtilmedi. Valiliğe teslimden önce kullanım izninin netleştirilmesi önerilir.
 - **Dosyalar:** `lib/photos.ts`, `lib/covers.ts`, `components/PhotoSlot.tsx`, `app/[locale]/(pages)/hakkinda/page.tsx`, `messages/tr.json`, `messages/en.json`, `public/photos/`.
+
+## G-022: Merkez Kültür Rotası iki anlatıcılı sesli anlatım
+- **Durum:** İncelemede. 30 Kasım öğrenci gezisi için.
+- **Neden:** Proje sahibi, Merkez Kültür Rotası'nın 3. durağından (Ulu Cami) itibaren turist rehberi anlatımı gibi kurgulanmış, kayıtlı ve etkileşimli bir sesli anlatım istedi.
+- **Yapılanlar:**
+  - 10 durak için Elif ve Kerem adlı iki anlatıcının diyalog metni yazıldı (`lib/narration/merkez.json`). Temel kaynak proje sahibinin Merkez tanıtım metni. Eksik duraklar (Kadınanalar, Gedik Ahmet Paşa) için kaynak taraması yapıldı. Çelişkili bilgiler proje sahibine ayrı bir belgeyle sunuldu.
+  - Satırlar ElevenLabs ile proje sahibinin hesabındaki Türkçe seslerle kaydedildi (Elif: EDA ATLAS, Kerem: Adilcan). Satırlar birleştirilip durak başına tek mp3 yapıldı (`public/audio/merkez/`, 64 kbps mono).
+  - Yeni `NarrationPlayer`: kullanıcı başlatır, 15 saniye ileri ve geri, hız seçimi, konuşan anlatıcının cümlesi ve tıklanabilir metin. Kaydı olan duraklarda tur ekranında ve durak sayfasında cihaz sesinin yerine geçer. Yalnızca Türkçe arayüzde.
+  - Rota sonunda anket bağlantısı gösterilebilir (`surveys`).
+  - Proje sahibinin isteğiyle anlatımlar akıcılık için kısaltıldı (toplam yaklaşık 23 dakika). Ulu Cami'nin panelinde tura başlarken dinlenecek 1 dakikalık uygulama tanıtımı var.
+  - Aynı anda tek anlatım çalar, başka bir oynatıcı başlarsa öncekisi durur.
+- **Açık:** Anket bağlantısı gelince `surveys` doldurulacak.
+
+## G-023: Merkez turu yenileme: ses, yönlendirme, tanıtım ve fotoğraf
+- **Durum:** İncelemede. 30 Kasım öğrenci gezisi için.
+- **Neden:** Proje sahibi ilk kayıtları dinledi. Bazı Türkçe karakterler ve tarihler yanlış okunuyor, tonlama ve vurgu yetersiz, duraklar "geldik" diye açılıyordu. Ayrıca yönlendirmenin Google Haritalar'da doğrulanmasını, uygulama tanıtımının giriş sonrasına taşınmasını, otobüste karşılama anlatımını, 1. ve 2. durakta sesin kapatılmasını ve güncel Google fotoğraflarını istedi.
+- **Yapılanlar:**
+  - Yürüyüş güzergâhı Google Haritalar'da durak durak doğrulandı. Konakların koordinatı yanlıştı (şehrin kuzeyi), Ulu Cami'nin batısındaki Çıracıoğlu Yan Sokak'a düzeltildi. Rota çizgisi ve süreleri yeniden hesaplandı.
+  - Metinler yeniden yazıldı: sayı ve tarihler yazıyla, ElevenLabs v3 duygu etiketleri, duraklar "geldik" demeden açılıyor, her durak Google'daki yürüyüş tarifiyle bitiyor. Gastronomi şehri yılı 2019 olarak düzeltildi (önceki metinde 2023 yazıyordu).
+  - Otobüste dinlenecek karşılama ve Afyonkarahisar anlatımı eklendi (Ulu Cami panelinde, durak anlatımından önce).
+  - Ulu Cami panelindeki uygulama tanıtımı kaldırıldı. Yerine giriş yaptıktan sonra bir kez açılan, düğmeleri ekranda gösteren yazılı ve sesli tanıtım geldi (`AppTour`). Profil sayfasından yeniden izlenebilir.
+  - Merkez rotasında Alimoğlu ve Afyon Müzesi duraklarında sesli anlatım gösterilmiyor.
+  - Google Places API ile durakların güncel fotoğrafları atıflı olarak gösteriliyor. `GOOGLE_MAPS_API_KEY` tanımlı değilse eski fotoğraflar kalır.
+  - Grup turundaki "Rehber" ifadeleri "Turist rehberi" yapıldı.
+  - Proje sahibinin hazırladığı eşleştirme listesindeki 27 Wikimedia Commons fotoğrafı lisansları API ile denetlenerek eklendi (CC0 ve CC BY-SA 4.0). Her durakta üç fotoğraflık galeri var, atıflar fotoğrafın üstünde ve Hakkında sayfasında. Kadınanalar, Uzun Çarşı ve Alimoğlu için lisanslı fotoğraf bulunamadığından eskileri kaldı.
+- **Açık:** Kayıtlar ElevenLabs v3 ile tamamlandı. Places API anahtarı proje sahibi tarafından Vercel'e eklendi. Anket bağlantısı eklendi. Canlıya geçiş proje sahibinin onayını bekliyor.

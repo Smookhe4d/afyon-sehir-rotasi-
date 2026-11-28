@@ -40,7 +40,7 @@ export default function GlassTab() {
           );
         })}
       </div>
-      <Link href="/qr" aria-label={tx("startARouteWithQr_8ea80")} className="flex h-16 w-16 items-center justify-center rounded-full bg-ac2 text-navy shadow-[inset_0_1px_0_rgba(255,255,255,.5),0_14px_26px_-12px_var(--ac2)]">
+      <Link href="/qr" data-tour="qr" aria-label={tx("startARouteWithQr_8ea80")} className="flex h-16 w-16 items-center justify-center rounded-full bg-ac2 text-navy shadow-[inset_0_1px_0_rgba(255,255,255,.5),0_14px_26px_-12px_var(--ac2)]">
         <Icon name="qr-code" size={28} />
       </Link>
     </nav>

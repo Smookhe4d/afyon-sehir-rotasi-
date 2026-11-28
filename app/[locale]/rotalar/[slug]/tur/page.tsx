@@ -5,6 +5,10 @@ import type {Locale} from "@/i18n/routing";
 import {pageMetadata} from "@/i18n/metadata";
 import { notFound } from "next/navigation";
 import AudioGuide from "@/components/AudioGuide";
+import NarrationPlayer from "@/components/NarrationPlayer";
+import GooglePhotos from "@/components/GooglePhotos";
+import PhotoGallery from "@/components/PhotoGallery";
+import { narrationFor, surveys, intros, narrations, silentStops } from "@/lib/narration";
 import PhotoSlot from "@/components/PhotoSlot";
 import StopGuide from "@/components/stop/StopGuide";
 import StopAlbum from "@/components/stop/StopAlbum";
@@ -35,6 +39,7 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
   if (!r) notFound();
   const g15 = await getTranslations({ locale, namespace: "g015" });
   const t = await getTranslations({ locale, namespace: "g020" });
+  const g22 = await getTranslations({ locale, namespace: "g022" });
   const { mod, grup, lider, durak } = await searchParams;
   const modes = r.modes ?? ["arac"];
   const mode = mod === "arac" || mod === "bisiklet" || mod === "yuruyus" ? mod : modes.includes("yuruyus") ? "yuruyus" : modes[0];
@@ -55,14 +60,16 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
   const panels = list.map((s) => {
     const p = s.place;
     const inRoutes = allRoutes.filter((x) => x.stops.some((y) => y.placeId === p.id));
+    const nr = narrationFor(p.id, locale);
     const text = (p.about?.length ? p.about : p.note ? [p.note] : []).join(" ");
     return (
       <article key={p.id}>
-        <PhotoSlot id={p.id} eager className="h-[230px] w-full rounded-[28px] lg:h-[260px]" />
+        <div className="relative"><PhotoSlot id={p.id} eager className="h-[230px] w-full rounded-[28px] lg:h-[260px]" />{photos[p.id]?.gallery && <PhotoGallery items={photos[p.id].gallery!} alt={p.name} className="rounded-[28px]" />}<GooglePhotos id={p.id} alt={p.name} className="rounded-[28px]" /></div>
         <p className="mt-4 text-[13px] font-bold text-ac">{p.area}</p>
         <h2 className="mt-1 font-display text-[27px] leading-[1.08] text-navy lg:text-[32px]">{p.name}</h2>
         {s.note && <p className="mt-2 rounded-2xl bg-ac-soft px-3.5 py-2.5 text-[13.5px] font-medium leading-snug text-ac"><b>{t("onThisStop")}</b> {s.note}</p>}
-        <AudioGuide title={p.name} text={text} />
+        {locale === "tr" && intros[slug]?.at === p.id && narrations[intros[slug].key] && <NarrationPlayer title={g22("introTitle")} label={g22("introLabel")} {...narrations[intros[slug].key]} />}
+        {locale === "tr" && silentStops[slug]?.includes(p.id) ? null : nr ? <NarrationPlayer title={p.name} {...nr} /> : <AudioGuide title={p.name} text={text} />}
         <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-ink-2">
           {p.about?.length ? p.about.map((x, i) => <p key={i}>{x}</p>) : p.note && <p>{p.note}</p>}
         </div>
@@ -84,6 +91,7 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
       slug={slug} title={r.title} mode={mode} grup={code} lider={lider === "1"} startId={durak}
       stops={stops} mapStops={geo.stops} line={geo.line} panels={panels}
       serverVisited={progress.data?.visited_place_ids ?? []}
+      survey={surveys[slug]}
     />
   );
 }
