@@ -110,6 +110,7 @@ export default function AppTour() {
     const a = audio.current;
     if (!a || !step) return;
     a.pause();
+    if (!step.audio) return;
     if (!a.src.endsWith(step.audio)) a.src = step.audio;
     a.currentTime = 0;
     a.play().then(() => setBlocked(false)).catch(() => setBlocked(true));
@@ -178,13 +179,13 @@ export default function AppTour() {
           {step.mock && <Mock kind={step.mock} />}
           <div className="flex items-start justify-between gap-3">
             <h2 id="tanitim-baslik" className="font-display text-[22px] leading-tight text-navy">{step.title}</h2>
-            <button type="button" onClick={blocked && !muted ? play : toggleMute} aria-pressed={!muted && !blocked}
+            {step.audio && <button type="button" onClick={blocked && !muted ? play : toggleMute} aria-pressed={!muted && !blocked}
               aria-label={blocked && !muted ? t("listen") : t("sound")} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-ac/10 text-ac">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>{muted
                 ? <path d="M4 9v6h4l5 4V5L8 9H4zm12.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4z" />
                 : blocked ? <path d="M8 5.5v13l10.5-6.5z" />
                 : <path d="M4 9v6h4l5 4V5L8 9H4zm11.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM13 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z" />}</svg>
-            </button>
+            </button>}
           </div>
           <p id="tanitim-metin" className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{step.text}</p>
           <div className="mt-4 flex flex-wrap items-center gap-2">

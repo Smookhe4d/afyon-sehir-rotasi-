@@ -460,4 +460,5 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - **Durum:** İncelemede.
 - **Neden:** Proje sahibinin grup denemesinde siteden çıkan üye gruptan düşüyor, turist rehberi üyelerin konumunu göremiyordu.
 - **Yapılanlar:** Grup turunda konum paylaşımı harita açılmasını beklemeden başlıyor ve sekmeye dönüşte yenileniyor. Kimlik ve etkin grup kalıcı, siteyi yeniden açan üye aynı gruba aynı adla dönüyor, diğer sayfalarda "Grup turunuz devam ediyor" şeridi çıkıyor. Bağlantısı kopan üye turist rehberinin haritasında son konumu ve "x dk önce" bilgisiyle soluk görünüyor. "Turdan ayrıl" ve "Grup turunu bitir" düğmeleri eklendi, tur bitince kayıt siliniyor. Ekran grup turunda açık tutuluyor.
+- **Tanıtım:** Proje sahibinin isteğiyle uygulama tanıtımı 5 adıma indirildi ve yalnızca yazılı yapıldı.
 - **Sınır:** Tarayıcı kapalıyken ya da ekran kilitliyken web sitesi konum gönderemez.
