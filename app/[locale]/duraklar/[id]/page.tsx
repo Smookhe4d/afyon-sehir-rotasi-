@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import AudioGuide from "@/components/AudioGuide";
 import NarrationPlayer from "@/components/NarrationPlayer";
 import GooglePhotos from "@/components/GooglePhotos";
+import PhotoGallery from "@/components/PhotoGallery";
 import { narrationFor } from "@/lib/narration";
 import BackButton from "@/components/BackButton";
 import PhotoSlot from "@/components/PhotoSlot";
@@ -43,7 +44,7 @@ export default async function Durak({ params }: { params: Promise<{ locale: Loca
   return (
     <main className="wide pb-36 lg:pb-16">
       <section className="relative lg:mx-4 lg:mt-4">
-        <div className="relative"><PhotoSlot id={id} eager className="h-[380px] w-full lg:h-[340px] lg:rounded-[32px] [&_img]:[animation:onb-kb_18s_ease-out_both]" /><GooglePhotos id={id} alt={p.name} lift className="lg:rounded-[32px]" /></div>
+        <div className="relative"><PhotoSlot id={id} eager className="h-[380px] w-full lg:h-[340px] lg:rounded-[32px] [&_img]:[animation:onb-kb_18s_ease-out_both]" />{photos[id]?.gallery && <PhotoGallery items={photos[id].gallery!} alt={p.name} lift className="lg:rounded-[32px]" />}<GooglePhotos id={id} alt={p.name} lift className="lg:rounded-[32px]" /></div>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#14081c]/40 via-transparent via-30% to-[#14081c]/55 lg:rounded-[32px]" />
         <BackButton className="glass-dark absolute left-4 top-[max(1rem,env(safe-area-inset-top))] inline-flex h-11 w-11 items-center justify-center rounded-full text-white" />
       </section>

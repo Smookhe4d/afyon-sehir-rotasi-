@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import AudioGuide from "@/components/AudioGuide";
 import NarrationPlayer from "@/components/NarrationPlayer";
 import GooglePhotos from "@/components/GooglePhotos";
+import PhotoGallery from "@/components/PhotoGallery";
 import { narrationFor, surveys, intros, narrations, silentStops } from "@/lib/narration";
 import PhotoSlot from "@/components/PhotoSlot";
 import StopGuide from "@/components/stop/StopGuide";
@@ -63,7 +64,7 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
     const text = (p.about?.length ? p.about : p.note ? [p.note] : []).join(" ");
     return (
       <article key={p.id}>
-        <div className="relative"><PhotoSlot id={p.id} eager className="h-[230px] w-full rounded-[28px] lg:h-[260px]" /><GooglePhotos id={p.id} alt={p.name} className="rounded-[28px]" /></div>
+        <div className="relative"><PhotoSlot id={p.id} eager className="h-[230px] w-full rounded-[28px] lg:h-[260px]" />{photos[p.id]?.gallery && <PhotoGallery items={photos[p.id].gallery!} alt={p.name} className="rounded-[28px]" />}<GooglePhotos id={p.id} alt={p.name} className="rounded-[28px]" /></div>
         <p className="mt-4 text-[13px] font-bold text-ac">{p.area}</p>
         <h2 className="mt-1 font-display text-[27px] leading-[1.08] text-navy lg:text-[32px]">{p.name}</h2>
         {s.note && <p className="mt-2 rounded-2xl bg-ac-soft px-3.5 py-2.5 text-[13.5px] font-medium leading-snug text-ac"><b>{t("onThisStop")}</b> {s.note}</p>}

@@ -453,4 +453,5 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Merkez rotasında Alimoğlu ve Afyon Müzesi duraklarında sesli anlatım gösterilmiyor.
   - Google Places API ile durakların güncel fotoğrafları atıflı olarak gösteriliyor. `GOOGLE_MAPS_API_KEY` tanımlı değilse eski fotoğraflar kalır.
   - Grup turundaki "Rehber" ifadeleri "Turist rehberi" yapıldı.
+  - Proje sahibinin hazırladığı eşleştirme listesindeki 27 Wikimedia Commons fotoğrafı lisansları API ile denetlenerek eklendi (CC0 ve CC BY-SA 4.0). Her durakta üç fotoğraflık galeri var, atıflar fotoğrafın üstünde ve Hakkında sayfasında. Kadınanalar, Uzun Çarşı ve Alimoğlu için lisanslı fotoğraf bulunamadığından eskileri kaldı.
 - **Açık:** Kayıtlar ElevenLabs v3 ile tamamlandı. Places API anahtarı proje sahibi tarafından Vercel'e eklendi. Anket bağlantısı eklendi. Canlıya geçiş proje sahibinin onayını bekliyor.
