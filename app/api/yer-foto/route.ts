@@ -46,7 +46,7 @@ async function placeIdOf(id: string): Promise<string | null> {
     body: JSON.stringify(body),
     next: { revalidate: 60 * 60 * 24 * 30 },
   });
-  if (!r.ok) return null;
+  if (!r.ok) { console.error("yer-foto searchText", r.status, (await r.text()).slice(0, 300)); return null; }
   return ((await r.json()).places?.[0]?.id as string | undefined) ?? null;
 }
 
@@ -76,7 +76,7 @@ export async function GET(req: Request) {
     const d = await fetch(`https://places.googleapis.com/v1/places/${pid}?languageCode=tr`, {
       headers: { "X-Goog-Api-Key": KEY, "X-Goog-FieldMask": "photos,googleMapsUri" }, cache: "no-store",
     });
-    if (!d.ok) return none();
+    if (!d.ok) { console.error("yer-foto details", d.status, (await d.text()).slice(0, 300)); return none(); }
     const place = (await d.json()) as { googleMapsUri?: string; photos?: { name: string; authorAttributions?: { displayName?: string; uri?: string }[] }[] };
     const photos = (place.photos ?? []).slice(0, 6).map((p) => ({
       ref: p.name,
@@ -84,7 +84,8 @@ export async function GET(req: Request) {
     }));
     if (!photos.length) return none();
     return NextResponse.json({ photos, maps: place.googleMapsUri ?? "" }, { headers: { "Cache-Control": "no-store" } });
-  } catch {
+  } catch (e) {
+    console.error("yer-foto", e);
     return none();
   }
 }
