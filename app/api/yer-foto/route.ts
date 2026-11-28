@@ -33,9 +33,10 @@ function limited(ip: string) {
   return h.n > 60;
 }
 
-const none = () => new NextResponse(null, { status: 204, headers: { "Cache-Control": "no-store" } });
+const none = (why = "") => new NextResponse(null, { status: 204, headers: { "Cache-Control": "no-store", "X-Yer-Foto": why } });
 
 /** Yer kimliği Google kurallarına göre süresiz saklanabilir. Yalnızca kimlik istenir (ücretsiz SKU). */
+let lastErr = "";
 async function placeIdOf(id: string): Promise<string | null> {
   const p = placesFull[id];
   const body: Record<string, unknown> = { textQuery: QUERY[id], languageCode: "tr", maxResultCount: 1 };
@@ -46,7 +47,7 @@ async function placeIdOf(id: string): Promise<string | null> {
     body: JSON.stringify(body),
     next: { revalidate: 60 * 60 * 24 * 30 },
   });
-  if (!r.ok) { console.error("yer-foto searchText", r.status, (await r.text()).slice(0, 300)); return null; }
+  if (!r.ok) { lastErr = `arama-${r.status}`; console.error("yer-foto searchText", r.status, (await r.text()).slice(0, 300)); return null; }
   return ((await r.json()).places?.[0]?.id as string | undefined) ?? null;
 }
 
@@ -54,13 +55,13 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const id = url.searchParams.get("id") ?? "";
   if (!(id in QUERY)) return NextResponse.json({ error: "bilinmeyen durak" }, { status: 404 });
-  if (!KEY) return none();
+  if (!KEY) return none("anahtar-yok");
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "?";
   if (limited(ip)) return new NextResponse(null, { status: 429 });
 
   try {
     const pid = await placeIdOf(id);
-    if (!pid) return none();
+    if (!pid) return none(lastErr || "yer-bulunamadi");
 
     // Tek fotoğraf: Google'dan o anki adres alınır ve tarayıcı oraya yönlendirilir.
     const foto = url.searchParams.get("foto");
@@ -76,13 +77,13 @@ export async function GET(req: Request) {
     const d = await fetch(`https://places.googleapis.com/v1/places/${pid}?languageCode=tr`, {
       headers: { "X-Goog-Api-Key": KEY, "X-Goog-FieldMask": "photos,googleMapsUri" }, cache: "no-store",
     });
-    if (!d.ok) { console.error("yer-foto details", d.status, (await d.text()).slice(0, 300)); return none(); }
+    if (!d.ok) { console.error("yer-foto details", d.status, (await d.text()).slice(0, 300)); return none(`ayrinti-${d.status}`); }
     const place = (await d.json()) as { googleMapsUri?: string; photos?: { name: string; authorAttributions?: { displayName?: string; uri?: string }[] }[] };
     const photos = (place.photos ?? []).slice(0, 6).map((p) => ({
       ref: p.name,
       authors: (p.authorAttributions ?? []).map((a) => ({ name: a.displayName ?? "", uri: a.uri ?? "" })).filter((a) => a.name),
     }));
-    if (!photos.length) return none();
+    if (!photos.length) return none("foto-yok");
     return NextResponse.json({ photos, maps: place.googleMapsUri ?? "" }, { headers: { "Cache-Control": "no-store" } });
   } catch (e) {
     console.error("yer-foto", e);
