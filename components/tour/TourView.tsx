@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import MapView from "@/components/map/LazyMap";
@@ -26,6 +26,11 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
   const key = `afyon-tur-${slug}`;
   const total = stops.length;
   const member = Boolean(grup && !lider);
+  // G-026: oynatıcılar rolü ilk etkilerinde okuduğu için alt bileşenlerin etkilerinden önce yazılır
+  useLayoutEffect(() => {
+    document.body.dataset.grupRol = grup ? (lider ? "lider" : "uye") : "";
+    return () => { delete document.body.dataset.grupRol; };
+  }, [grup, lider]);
 
   const [idx, setIdx] = useState(() => Math.max(0, startId ? stops.findIndex((s) => s.id === startId) : 0));
   const [init, setInit] = useState(false);
@@ -63,8 +68,7 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
       }
     } catch { /* yok say */ }
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
-    document.body.dataset.grupRol = grup ? (lider ? "lider" : "uye") : "";
-    return () => { document.body.style.overflow = prev; delete document.body.dataset.grupRol; };
+    return () => { document.body.style.overflow = prev; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
