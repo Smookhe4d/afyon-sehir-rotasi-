@@ -83,13 +83,14 @@ export async function GET(req: Request) {
       body: JSON.stringify(body),
     });
     if (!d.ok) { console.error("yer-foto search", d.status, (await d.text()).slice(0, 300)); return none(`arama-${d.status}`); }
-    const place = ((await d.json()).places?.[0] ?? {}) as { id?: string; googleMapsUri?: string; photos?: { name: string; authorAttributions?: { displayName?: string; uri?: string }[] }[] };
+    const js = await d.json();
+    const place = (js.places?.[0] ?? {}) as { id?: string; googleMapsUri?: string; photos?: { name: string; authorAttributions?: { displayName?: string; uri?: string }[] }[] };
     if (place.id && place.id !== pid) return none("kimlik-farkli");
     const photos = (place.photos ?? []).slice(0, 6).map((p) => ({
       ref: p.name,
       authors: (p.authorAttributions ?? []).map((a) => ({ name: a.displayName ?? "", uri: a.uri ?? "" })).filter((a) => a.name),
     }));
-    if (!photos.length) return none("foto-yok");
+    if (!photos.length) return none(`foto-yok-${js.places?.length ?? 0}-${Object.keys(place).join(".")}`);
     return NextResponse.json({ photos, maps: place.googleMapsUri ?? "" }, { headers: { "Cache-Control": "no-store" } });
   } catch (e) {
     console.error("yer-foto", e);
