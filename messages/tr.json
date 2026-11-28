@@ -870,5 +870,14 @@
     "photoOf": "Fotoğraf {n} / {total}",
     "prevPhoto": "Önceki fotoğraf",
     "nextPhoto": "Sonraki fotoğraf"
+  },
+  "g025": {
+    "shareNote": "Konumunuz tur bitene kadar turist rehberinizle paylaşılır. Site kapalıyken ya da ekran kilitliyken paylaşılamaz, açınca kendiliğinden devam eder.",
+    "leave": "Turdan ayrıl",
+    "endTour": "Grup turunu bitir",
+    "justNow": "az önce",
+    "minAgo": "{m} dk önce",
+    "resume": "Grup turunuz devam ediyor",
+    "resumeGo": "Gruba dön"
   }
 }

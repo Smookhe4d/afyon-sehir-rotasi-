@@ -870,5 +870,14 @@
     "photoOf": "Photo {n} of {total}",
     "prevPhoto": "Previous photo",
     "nextPhoto": "Next photo"
+  },
+  "g025": {
+    "shareNote": "Your location is shared with your tour guide until the tour ends. It can't be shared while the site is closed or the screen is locked, and resumes when you reopen it.",
+    "leave": "Leave the tour",
+    "endTour": "End the group tour",
+    "justNow": "just now",
+    "minAgo": "{m} min ago",
+    "resume": "Your group tour is still on",
+    "resumeGo": "Back to the group"
   }
 }

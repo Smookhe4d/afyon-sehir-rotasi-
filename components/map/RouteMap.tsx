@@ -80,6 +80,8 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     if (n < 0 || n >= stops.length) return;
     setCur(n); setArrivedId(null); setNav(null); setFinished(false); lastFetch.current = null; follow.current = true;
   }, [stops.length]);
+  const g25 = useUiTranslations("g025");
+  const agoText = useCallback((t: number) => { const m = Math.max(0, Math.round((Date.now() - t) / 60000)); return m < 1 ? g25("justNow") : g25("minAgo", { m }); }, [g25]);
   const group = useGroup({ code: grup, leader: lider, name: gname, pos: me?.pos ?? null, cur: groupCur ?? cur, onStop: onGroupStop ?? applyStop });
   // G-020: rehber tur ekranında durak değiştirince grup aynı durağa geçer.
   useEffect(() => { if (embedded && grup && lider && groupCur !== undefined) group.broadcastStop(groupCur); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [embedded, grup, lider, groupCur, group.status]);
@@ -223,6 +225,13 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
     setMe(null); setGeoState("off");
   }, []);
 
+  // G-025: gruptan bilerek ayrılma. Kayıtlı grup silinir, rota sayfasına dönülür.
+  const leaveGroup = useCallback(async () => {
+    await group.leave();
+    try { localStorage.removeItem("afyon-grup-aktif"); } catch { /* yok say */ }
+    location.assign(localizePath(routeSlug ? `/rotalar/${routeSlug}` : "/", locale));
+  }, [group, routeSlug, locale]);
+
   // Grup üyelerinin işaretçileri
   useEffect(() => {
     const m = map.current; if (!m || !ready) return;
@@ -231,25 +240,32 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
       if (g.id === group.myId || !g.pos) continue;
       seen.add(g.id);
       let mk = gMarkers.current.get(g.id);
+      const ago = g.online ? "" : ` · ${agoText(g.seen)}`;
       if (!mk) {
         const el = document.createElement("div");
         el.style.cssText = `width:30px;height:30px;border-radius:50%;background:${g.color};color:#fff;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font:700 12px sans-serif`;
-        el.textContent = g.name.slice(0, 1).toLocaleUpperCase("tr"); el.title = g.name;
+        el.textContent = g.name.slice(0, 1).toLocaleUpperCase("tr");
         mk = new Marker({ element: el }).setLngLat(g.pos).addTo(m); gMarkers.current.set(g.id, mk);
       } else mk.setLngLat(g.pos);
+      const el = mk.getElement(); el.title = g.name + ago; el.style.opacity = g.online ? "1" : "0.5";
     }
     gMarkers.current.forEach((mk, id) => { if (!seen.has(id)) { mk.remove(); gMarkers.current.delete(id); } });
   }, [group.members, group.myId, ready]);
 
-  // Yönlendirme: açılışta canlı konumu başlat, ekranı açık tut
+  // Yönlendirme: açılışta canlı konumu başlat, ekranı açık tut.
+  // G-025: grup turunda harita beklenmeden başlar, sekmeye dönüldüğünde konum ve ekran kilidi yenilenir.
   useEffect(() => {
-    if (!guide || !ready) return;
+    if (!(guide && ready) && !grup) return;
     startLive();
-    let lock: { release: () => Promise<void> } | null = null;
-    (navigator as unknown as { wakeLock?: { request: (t: string) => Promise<{ release: () => Promise<void> }> } }).wakeLock?.request("screen").then((l) => { lock = l; }).catch(() => {});
-    return () => { lock?.release().catch(() => {}); };
+    type Lock = { release: () => Promise<void> };
+    let lock: Lock | null = null;
+    const askLock = () => { (navigator as unknown as { wakeLock?: { request: (t: string) => Promise<Lock> } }).wakeLock?.request("screen").then((l) => { lock = l; }).catch(() => {}); };
+    askLock();
+    const onVis = () => { if (document.visibilityState === "visible") { askLock(); if (grup) startLive(); } };
+    document.addEventListener("visibilitychange", onVis);
+    return () => { document.removeEventListener("visibilitychange", onVis); lock?.release().catch(() => {}); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [guide, ready]);
+  }, [guide, ready, grup]);
 
   // Hedef durağa yürüyüş/sürüş yönlendirmesi (konum 40 m değişince veya 30 sn'de bir tazelenir)
   useEffect(() => {
@@ -381,10 +397,12 @@ export default function RouteMap({ stops, line, title, backHref, className = "",
                     <li key={g.id} className="flex items-center gap-2 text-[13px] font-semibold">
                       <span className="flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold text-white" style={{ background: g.color }}>{g.name.slice(0, 1).toLocaleUpperCase("tr")}</span>
                       <span className="min-w-0 flex-1 truncate">{g.name}{g.leader ? tx("guide_883a7") : ""}</span>
-                      <span className="text-[11px] text-mute">{g.id === group.myId ? "" : g.pos && me ? formatDistance(haversineM(me.pos, g.pos), locale) : tx("noLocation_93d5e")}</span>
+                      <span className="text-[11px] text-mute">{g.id === group.myId ? "" : ("online" in g && !g.online ? agoText(g.seen) : g.pos && me ? formatDistance(haversineM(me.pos, g.pos), locale) : tx("noLocation_93d5e"))}</span>
                     </li>
                   ))}
                 </ul>
+                {!lider && <p className="mt-2 text-[11.5px] leading-snug text-ink-2">{g25("shareNote")}</p>}
+                <button type="button" onClick={leaveGroup} className="mt-2 min-h-11 w-full rounded-full border border-line bg-white text-[12.5px] font-bold text-navy">{lider ? g25("endTour") : g25("leave")}</button>
               </div>
             )}
             <button type="button" onClick={() => setGopen((o) => !o)} aria-expanded={gopen} className="glass rounded-full px-4 py-2 text-xs font-bold text-navy">
