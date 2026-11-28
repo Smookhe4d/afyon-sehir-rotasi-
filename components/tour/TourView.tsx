@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import MapView from "@/components/map/LazyMap";
@@ -10,14 +10,14 @@ import { formatDuration } from "@/lib/map/nav";
 
 export type TourStop = { id: string; name: string; area: string; mapIdx: number; leg: [number, number] | null };
 type Props = {
-  slug: string; title: string; mode: string; grup?: string; lider: boolean; startId?: string;
+  slug: string; title: string; mode: string; grup?: string; lider: boolean; startId?: string; walkFrom?: string;
   stops: TourStop[]; mapStops: MapStop[]; line?: [number, number][]; panels: ReactNode[]; serverVisited: string[];
   /** G-022: rota sonunda gösterilecek anket */ survey?: string;
 };
 type Saved = { i?: number; v?: string[] };
 
 /** G-020: durak durak tur ekranı. Anlatım, fotoğraf ve bilgi kartı ile canlı yönlendirme aynı ekranda. */
-export default function TourView({ slug, title, mode, grup, lider, startId, stops, mapStops, line, panels, serverVisited, survey }: Props) {
+export default function TourView({ slug, title, mode, grup, lider, startId, walkFrom, stops, mapStops, line, panels, serverVisited, survey }: Props) {
   const router = useRouter();
   const t = useTranslations("g020");
   const tx = useTranslations("ui");
@@ -26,6 +26,11 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
   const key = `afyon-tur-${slug}`;
   const total = stops.length;
   const member = Boolean(grup && !lider);
+  // G-026: oynatıcılar rolü ilk etkilerinde okuduğu için alt bileşenlerin etkilerinden önce yazılır
+  useLayoutEffect(() => {
+    document.body.dataset.grupRol = grup ? (lider ? "lider" : "uye") : "";
+    return () => { delete document.body.dataset.grupRol; };
+  }, [grup, lider]);
 
   const [idx, setIdx] = useState(() => Math.max(0, startId ? stops.findIndex((s) => s.id === startId) : 0));
   const [init, setInit] = useState(false);
@@ -161,7 +166,7 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
           </div>
           <div className={`absolute inset-0 lg:fixed lg:inset-auto lg:bottom-0 lg:left-[520px] lg:right-0 lg:top-16 ${tab === "story" ? "pointer-events-none invisible opacity-0 lg:pointer-events-auto lg:visible lg:opacity-100" : ""}`}>
             {showMap ? (
-              <MapView stops={mapStops} line={line} guide embedded routeSlug={slug} travelMode={mode === "arac" || mode === "bisiklet" ? mode : "yuruyus"}
+              <MapView stops={mapStops} line={line} guide embedded routeSlug={slug} travelMode={mode === "bisiklet" ? mode : mode === "arac" && !(walkFrom && idx > stops.findIndex((s) => s.id === walkFrom) && stops.some((s) => s.id === walkFrom)) ? "arac" : "yuruyus"}
                 cur={cur.mapIdx} onArrive={onArrive} grup={grup} lider={lider} groupCur={idx} onGroupStop={onGroupStop}
                 inviteHref={`/rotalar/${slug}/tur?${qs}`} className="h-full w-full" />
             ) : <div className="skeleton h-full w-full" />}

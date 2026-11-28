@@ -844,7 +844,10 @@
     "hideText": "Hide transcript",
     "survey": "Fill in the feedback survey",
     "introTitle": "On the way: welcome to Afyonkarahisar",
-    "introLabel": "Listen before you arrive"
+    "introLabel": "Listen before you arrive",
+    "guideControls": "Your tour guide will start the narration.",
+    "guidePlaying": "Your tour guide is playing the narration.",
+    "tapToListen": "The narration has started. Tap to listen."
   },
   "g023": {
     "label": "App tour",

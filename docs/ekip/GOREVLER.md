@@ -462,3 +462,10 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - **Yapılanlar:** Grup turunda konum paylaşımı harita açılmasını beklemeden başlıyor ve sekmeye dönüşte yenileniyor. Kimlik ve etkin grup kalıcı, siteyi yeniden açan üye aynı gruba aynı adla dönüyor, diğer sayfalarda "Grup turunuz devam ediyor" şeridi çıkıyor. Bağlantısı kopan üye turist rehberinin haritasında son konumu ve "x dk önce" bilgisiyle soluk görünüyor. "Turdan ayrıl" ve "Grup turunu bitir" düğmeleri eklendi, tur bitince kayıt siliniyor. Ekran grup turunda açık tutuluyor.
 - **Tanıtım:** Proje sahibinin isteğiyle uygulama tanıtımı 5 adıma indirildi ve yalnızca yazılı yapıldı.
 - **Sınır:** Tarayıcı kapalıyken ya da ekran kilitliyken web sitesi konum gönderemez.
+
+## G-026: Yeni durak sırası ve grup turunda anlatım kontrolü
+- **Durum:** İncelemede.
+- **Neden:** Proje sahibi rotayı canlı yürürken sıranın zorladığını, Kadınana Türbesi konumunun yanlış olduğunu bildirdi. Grup turunda anlatımı turist rehberinin yönetmesini istedi.
+- **Yapılanlar:** Merkez rotası Ulu Cami, Millet Hamamı, Tarihi Konaklar, Mevlevihane, Taşhan, Gedik Ahmet Paşa Camii, Kadınana Türbesi, Uzun Çarşı (öğle arası), Anıtpark, Zafer Müzesi sırasına alındı. Durak konumları proje sahibinin Google Haritalar bağlantılarından alındı, yürüme süreleri ve rota çizgisi yeniden üretildi. Yedi durağın anlatım sonu yeni sıraya göre yeniden seslendirildi. Grup turunda turist rehberi oynat, duraklat ve ileri geri sarınca tüm üyelerde anlatım aynı yerden çalıyor, üyelerde kontroller gizli. Bireysel turda oynatıcı değişmedi.
+- **Yürüyüş bölümü:** Araçlı turda Ulu Cami sonrası duraklar arası mesafe, süre, rota çizgisi ve canlı yol tarifi yürüyüşe göre hesaplanıyor. Gedik Ahmet Paşa Camii ile Kadınana Türbesi arası Google Haritalar yürüyüş değeriyle 350 m, 4 dk.
+- **Sınır:** Telefon tarayıcısı otomatik sesi engellerse üye bir kez "Oynat" düğmesine dokunmalı.

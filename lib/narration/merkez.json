@@ -226,11 +226,11 @@
   ],
   [
    "E",
-   "Sıradaki durak Mevlevihane, iki dakikalık bir yürüyüş. Tabak Hamam Sokağı'ndan Boyahane Sokağı'na, oradan Zaviye Türbe Caddesi'ne devam ediyoruz."
+   "Sıradaki durak tarihî konaklar, yalnızca iki dakikalık bir yürüyüş. Tabak Hamam Sokağı'na sağa dönüp Tac Ahmet Caddesi'ndeki eski evlere çıkıyoruz."
   ],
   [
    "K",
-   "Mevlevihane sağ tarafta kalıyor. Yolda bir düşünün, bin bir gün boyunca bir mutfakta çalışabilir miydiniz?"
+   "Yürürken başınızı kaldırın. Sokağa doğru taşan ahşap çıkmaları göreceksiniz."
   ]
  ],
  "mevlevihane": [
@@ -292,11 +292,11 @@
   ],
   [
    "E",
-   "Sıradaki durak Kadınanalar Türbesi, yalnızca yüz metre ötede. Canbaba Yokuşu'ndan birkaç adım yürüyüp Tac Ahmet Caddesi'ne sağa dönüyoruz."
+   "Sıradaki durak Taşhan, yaklaşık beş dakikalık bir yürüyüş. Zaviye Türbe Caddesi boyunca ilerleyip Yemenciler Caddesi'ne sağa dönüyoruz."
   ],
   [
    "K",
-   "Türbe sağ tarafta. Orada şehrin suyuyla ilgili bir soruyu konuşacağız."
+   "Oradan Taşhan Sokağı'ndaki hana varıyoruz. Osmanlı döneminin otellerinden birine gidiyoruz."
   ]
  ],
  "kadinanalar-turbesi": [
@@ -310,7 +310,7 @@
   ],
   [
    "K",
-   "Biri şehre suyu getirmiş, diğerleri kanalları ve köprüleri yaptırmış. Halk da onlara Kadınanalar demiş. Bu türbede ikisinin, Melek Peyker ve Naime Gevher hatunların yattığı kabul edilir."
+   "Biri şehre suyu getirmiş, diğerleri kanalları ve köprüleri yaptırmış. Halk da onlara Kadınanalar demiş. Bu türbede kız kardeşlerden Asiye Hatun'un yattığı kabul edilir. Diğer ikisi, Melek Peyker ve Naime Gevher hatunlar, Mevlevi Camii yakınındaki türbede."
   ],
   [
    "E",
@@ -334,11 +334,11 @@
   ],
   [
    "K",
-   "Sıradaki durak tarihî konaklar. Yaklaşık sekiz dakika yürüyeceğiz ve Ulu Cami'nin hemen arkasındaki sokaklara döneceğiz."
+   "[cheerfully] Sıradaki durak Uzun Çarşı ve öğle arası. Milli Egemenlik Caddesi'ne geri dönüp çarşının girişine yürüyoruz. Yaklaşık dört dakika."
   ],
   [
    "E",
-   "Tabak Hamam Sokağı'ndan Yukarı Pazar Caddesi'ne çıkıp sola dönüyoruz. Askeri Hastane Caddesi boyunca ilerleyip Çıracıoğlu Yan Sokağı'na sağa sapıyoruz. Yürürken evlerin cumbalarına bakın."
+   "Kokulara hazır olun."
   ]
  ],
  "afyon-konaklari": [
@@ -372,11 +372,11 @@
   ],
   [
    "K",
-   "Sıradaki durak Taşhan, yaklaşık on dakika uzaklıkta. Askeri Hastane Caddesi'nden Yukarı Pazar Caddesi'ne iniyoruz."
+   "Sıradaki durak Mevlevihane, iki dakikalık bir yürüyüş. Tac Ahmet Caddesi'nin sonunda sola, Yeni Karakol Sokağı'na dönüyoruz."
   ],
   [
    "E",
-   "Oradan Yeni Camii Caddesi'ne, ardından Taşhan Sokağı'na sağa dönüyoruz. Osmanlı döneminin otellerinden birine gidiyoruz."
+   "Oradan Zaviye Türbe Caddesi'ne sağa dönünce Mevlevihane sağ tarafta. Yolda bir düşünün, bin bir gün boyunca bir mutfakta çalışabilir miydiniz?"
   ]
  ],
  "tashan-merkez": [
@@ -410,7 +410,7 @@
   ],
   [
    "E",
-   "[cheerfully] Sıradaki durak Uzun Çarşı, hemen yanı başımızda. Hanın kapısından çıkıp birkaç dakika yürüyoruz. Kokulara hazır olun."
+   "[cheerfully] Sıradaki durak Gedik Ahmet Paşa Külliyesi, halk arasında İmaret Camii. Hanın arkasındaki sokaklardan doğuya, Hal Ar Sokağı'na yürüyoruz. Yaklaşık altı dakika. Lacivert çinili minareyi uzaktan görürsünüz."
   ]
  ],
  "uzun-carsi": [
@@ -452,7 +452,7 @@
   ],
   [
    "K",
-   "Kırk beş dakika sonra, yürüme süresi dahil, Gedik Ahmet Paşa Külliyesi'nde, yani İmaret Camii'nin avlusunda buluşuyoruz. Çarşının doğu ucundan Millet Caddesi'ne çıkın, cami yaklaşık beş dakika uzaklıkta. Lacivert çinili minareyi uzaktan görürsünüz."
+   "Kırk beş dakika sonra, yürüme süresi dahil, Anıtpark'ta anıtın önünde buluşuyoruz. Çarşıdan Basın Caddesi'ne çıkın, meydan yaklaşık üç dakika uzaklıkta."
   ]
  ],
  "imaret-cami": [
@@ -486,11 +486,11 @@
   ],
   [
    "E",
-   "Sıradaki durak şehrin meydanı, Anıtpark. Tuz Pazarı Caddesi üzerinden yaklaşık on dakika yürüyeceğiz."
+   "Sıradaki durak Kadınana Türbesi, yaklaşık dört dakika ötede. İkinci Küp Çeşme Sokağı'ndan Milli Egemenlik Caddesi'ne çıkıp Kadınana Caddesi'ne dönüyoruz."
   ],
   [
    "K",
-   "Yolda kaleyi gözünüzden kaçırmayın. Büyük Taarruz'un hikâyesine geçiyoruz."
+   "Orada şehrin suyuyla ilgili bir soruyu konuşacağız."
   ]
  ],
  "anitpark": [
