@@ -51,6 +51,8 @@ export type Route = {
   difficultyNote?: string;
   /** Yürüyüş / bisiklet gibi belgede geçen yapılabilirlik */
   modes?: ("arac" | "yuruyus" | "bisiklet")[];
+  /** G-026: araçlı turda bu duraktan sonraki bölüm yürünerek gezilir */
+  walkFrom?: string;
   /** Rota kapsadığı iller (çok il için) */
   provinces?: string[];
   stops: RouteStop[];

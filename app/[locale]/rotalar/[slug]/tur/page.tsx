@@ -88,7 +88,7 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
 
   return (
     <TourView
-      slug={slug} title={r.title} mode={mode} grup={code} lider={lider === "1"} startId={durak}
+      slug={slug} title={r.title} mode={mode} grup={code} lider={lider === "1"} startId={durak} walkFrom={r.walkFrom}
       stops={stops} mapStops={geo.stops} line={geo.line} panels={panels}
       serverVisited={progress.data?.visited_place_ids ?? []}
       survey={surveys[slug]}
