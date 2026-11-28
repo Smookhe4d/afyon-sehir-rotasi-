@@ -844,7 +844,10 @@
     "hideText": "Anlatım metnini gizle",
     "survey": "Değerlendirme anketini doldur",
     "introTitle": "Yolda: Afyonkarahisar'a hoş geldiniz",
-    "introLabel": "Durağa varmadan dinleyin"
+    "introLabel": "Durağa varmadan dinleyin",
+    "guideControls": "Anlatımı turist rehberiniz başlatacak.",
+    "guidePlaying": "Turist rehberiniz anlatımı oynatıyor.",
+    "tapToListen": "Anlatım başladı. Dinlemek için dokunun."
   },
   "g023": {
     "label": "Uygulama tanıtımı",

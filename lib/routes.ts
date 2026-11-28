@@ -16,8 +16,8 @@ export const routes: Route[] = [
     distanceKm: 20, distanceNote: "Yaklaşık", modes: ["arac", "yuruyus"],
     stops: [
       { placeId: "alimoglu-muzik", role: "baslangic" }, { placeId: "afyon-muzesi" }, { placeId: "ulu-cami" }, { placeId: "millet-hamami" },
-      { placeId: "mevlevihane" }, { placeId: "kadinanalar-turbesi" }, { placeId: "afyon-konaklari" }, { placeId: "tashan-merkez" },
-      { placeId: "uzun-carsi", role: "mola", note: "Öğle yemeği ve kısa alışveriş molası" }, { placeId: "imaret-cami" },
+      { placeId: "afyon-konaklari" }, { placeId: "mevlevihane" }, { placeId: "tashan-merkez" }, { placeId: "imaret-cami" },
+      { placeId: "kadinanalar-turbesi" }, { placeId: "uzun-carsi", role: "mola", note: "Öğle yemeği ve kısa alışveriş molası" },
       { placeId: "anitpark" }, { placeId: "zafer-muzesi", role: "bitis" },
     ],
     tips: ["Kaymak, lokum, sucuk ve haşhaş ürünleri Uzun Çarşı'da bulunur."],

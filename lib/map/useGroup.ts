@@ -21,6 +21,7 @@ export function useGroup(opts: { code?: string; leader: boolean; name: string; p
   const onStopRef = useRef(onStop);
   const synced = useRef(false);
   const known = useRef(new Map<string, Member>());
+  const lastAudio = useRef<{ src: string; action: string; t: number; at: number } | null>(null);
   latest.current = { pos, cur, name, leader }; onStopRef.current = onStop;
 
   const track = useCallback(() => {
@@ -54,6 +55,8 @@ export function useGroup(opts: { code?: string; leader: boolean; name: string; p
       try { localStorage.setItem(`afyon-grup-uyeler-${code}`, JSON.stringify([...known.current.values()])); } catch { /* yok say */ }
       const list = [...known.current.values()];
       setMembers(list);
+      // G-026: sonradan katılan üye, turist rehberinin o anki anlatımını yakalasın
+      if (latest.current.leader && lastAudio.current) void c.send({ type: "broadcast", event: "ses", payload: lastAudio.current });
       // Sonradan katılan üye, rehberin bulunduğu durağa geçer
       if (!latest.current.leader && !synced.current) { const l = list.find((m) => m.leader); if (l) { synced.current = true; onStopRef.current(l.cur); } }
     })
@@ -61,6 +64,7 @@ export function useGroup(opts: { code?: string; leader: boolean; name: string; p
         known.current.delete(String(payload?.id)); setMembers([...known.current.values()]);
         try { localStorage.setItem(`afyon-grup-uyeler-${code}`, JSON.stringify([...known.current.values()])); } catch { /* yok say */ }
       })
+      .on("broadcast", { event: "ses" }, ({ payload }) => { if (!latest.current.leader) dispatchEvent(new CustomEvent("grup-ses-al", { detail: payload })); })
       .on("broadcast", { event: "stop" }, ({ payload }) => { if (!latest.current.leader) onStopRef.current(Number(payload?.cur) || 0); })
       .subscribe((s) => {
         if (s === "SUBSCRIBED") { setStatus("ok"); track(); }
@@ -77,6 +81,18 @@ export function useGroup(opts: { code?: string; leader: boolean; name: string; p
     const t = setTimeout(() => { last.current = Date.now(); track(); }, wait);
     return () => clearTimeout(t);
   }, [pos, cur, status, track]);
+
+  // G-026: turist rehberinin anlatım komutlarını gruba ilet
+  useEffect(() => {
+    if (!leader || !code) return;
+    const on = (e: Event) => {
+      const d = (e as CustomEvent<{ src: string; action: string; t: number }>).detail;
+      lastAudio.current = { ...d, at: Date.now() };
+      void ch.current?.send({ type: "broadcast", event: "ses", payload: d });
+    };
+    addEventListener("grup-ses-gonder", on);
+    return () => removeEventListener("grup-ses-gonder", on);
+  }, [leader, code]);
 
   const broadcastStop = useCallback((n: number) => { void ch.current?.send({ type: "broadcast", event: "stop", payload: { cur: n } }); }, []);
   /** G-025: üye turdan bilerek ayrılınca diğerlerinin listesinden de çıkar */

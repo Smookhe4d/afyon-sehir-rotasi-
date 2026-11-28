@@ -63,7 +63,8 @@ export default function TourView({ slug, title, mode, grup, lider, startId, stop
       }
     } catch { /* yok say */ }
     const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
+    document.body.dataset.grupRol = grup ? (lider ? "lider" : "uye") : "";
+    return () => { document.body.style.overflow = prev; delete document.body.dataset.grupRol; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
