@@ -40,7 +40,7 @@ let lastErr = "";
 async function placeIdOf(id: string): Promise<string | null> {
   const p = placesFull[id];
   const body: Record<string, unknown> = { textQuery: QUERY[id], languageCode: "tr", maxResultCount: 1 };
-  if (p?.coords) body.locationRestriction = { rectangle: { low: { latitude: p.coords[1] - 0.004, longitude: p.coords[0] - 0.005 }, high: { latitude: p.coords[1] + 0.004, longitude: p.coords[0] + 0.005 } } };
+  if (p?.coords) body.locationBias = { circle: { center: { latitude: p.coords[1], longitude: p.coords[0] }, radius: 300 } };
   const r = await fetch("https://places.googleapis.com/v1/places:searchText", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Goog-Api-Key": KEY!, "X-Goog-FieldMask": "places.id" },
@@ -73,12 +73,18 @@ export async function GET(req: Request) {
       return NextResponse.redirect(uri, { status: 302, headers: { "Cache-Control": "no-store" } });
     }
 
-    // Fotoğraf listesi ve atıflar.
-    const d = await fetch(`https://places.googleapis.com/v1/places/${pid}?languageCode=tr`, {
-      headers: { "X-Goog-Api-Key": KEY, "X-Goog-FieldMask": "photos,googleMapsUri" }, cache: "no-store",
+    // Fotoğraf listesi ve atıflar. Her istekte Google'dan alınır, önbelleğe alınmaz.
+    const p = placesFull[id];
+    const body: Record<string, unknown> = { textQuery: QUERY[id], languageCode: "tr", maxResultCount: 1 };
+    if (p?.coords) body.locationBias = { circle: { center: { latitude: p.coords[1], longitude: p.coords[0] }, radius: 300 } };
+    const d = await fetch("https://places.googleapis.com/v1/places:searchText", {
+      method: "POST", cache: "no-store",
+      headers: { "Content-Type": "application/json", "X-Goog-Api-Key": KEY, "X-Goog-FieldMask": "places.id,places.photos,places.googleMapsUri" },
+      body: JSON.stringify(body),
     });
-    if (!d.ok) { console.error("yer-foto details", d.status, (await d.text()).slice(0, 300)); return none(`ayrinti-${d.status}`); }
-    const place = (await d.json()) as { googleMapsUri?: string; photos?: { name: string; authorAttributions?: { displayName?: string; uri?: string }[] }[] };
+    if (!d.ok) { console.error("yer-foto search", d.status, (await d.text()).slice(0, 300)); return none(`arama-${d.status}`); }
+    const place = ((await d.json()).places?.[0] ?? {}) as { id?: string; googleMapsUri?: string; photos?: { name: string; authorAttributions?: { displayName?: string; uri?: string }[] }[] };
+    if (place.id && place.id !== pid) return none("kimlik-farkli");
     const photos = (place.photos ?? []).slice(0, 6).map((p) => ({
       ref: p.name,
       authors: (p.authorAttributions ?? []).map((a) => ({ name: a.displayName ?? "", uri: a.uri ?? "" })).filter((a) => a.name),
