@@ -2,6 +2,7 @@ import {getContent} from "@/lib/content";
 
 import {getTranslations as getUiTranslations} from "next-intl/server";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import TourReplay from "@/components/profile/TourReplay";
 import {setRequestLocale} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
@@ -102,6 +103,7 @@ export default async function Profil({ params }: { params: Promise<{locale: Loca
         </nav>
         <form action="/auth/cikis" method="post" className="mt-8"><input type="hidden" name="locale" value={(await params).locale} /><button className="h-12 w-full rounded-full border border-line bg-white shadow-card text-sm font-bold">{tx("signOut_8d1ab")}</button></form>
         <LanguageSwitcher />
+        {(await params).locale === "tr" && <TourReplay />}
       </div>
     </main>
   );

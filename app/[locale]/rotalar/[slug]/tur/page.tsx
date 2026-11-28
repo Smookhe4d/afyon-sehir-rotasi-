@@ -6,7 +6,8 @@ import {pageMetadata} from "@/i18n/metadata";
 import { notFound } from "next/navigation";
 import AudioGuide from "@/components/AudioGuide";
 import NarrationPlayer from "@/components/NarrationPlayer";
-import { narrationFor, surveys, intros, narrations } from "@/lib/narration";
+import GooglePhotos from "@/components/GooglePhotos";
+import { narrationFor, surveys, intros, narrations, silentStops } from "@/lib/narration";
 import PhotoSlot from "@/components/PhotoSlot";
 import StopGuide from "@/components/stop/StopGuide";
 import StopAlbum from "@/components/stop/StopAlbum";
@@ -62,12 +63,12 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
     const text = (p.about?.length ? p.about : p.note ? [p.note] : []).join(" ");
     return (
       <article key={p.id}>
-        <PhotoSlot id={p.id} eager className="h-[230px] w-full rounded-[28px] lg:h-[260px]" />
+        <div className="relative"><PhotoSlot id={p.id} eager className="h-[230px] w-full rounded-[28px] lg:h-[260px]" /><GooglePhotos id={p.id} alt={p.name} className="rounded-[28px]" /></div>
         <p className="mt-4 text-[13px] font-bold text-ac">{p.area}</p>
         <h2 className="mt-1 font-display text-[27px] leading-[1.08] text-navy lg:text-[32px]">{p.name}</h2>
         {s.note && <p className="mt-2 rounded-2xl bg-ac-soft px-3.5 py-2.5 text-[13.5px] font-medium leading-snug text-ac"><b>{t("onThisStop")}</b> {s.note}</p>}
         {locale === "tr" && intros[slug]?.at === p.id && narrations[intros[slug].key] && <NarrationPlayer title={g22("introTitle")} label={g22("introLabel")} {...narrations[intros[slug].key]} />}
-        {nr ? <NarrationPlayer title={p.name} {...nr} /> : <AudioGuide title={p.name} text={text} />}
+        {locale === "tr" && silentStops[slug]?.includes(p.id) ? null : nr ? <NarrationPlayer title={p.name} {...nr} /> : <AudioGuide title={p.name} text={text} />}
         <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-ink-2">
           {p.about?.length ? p.about.map((x, i) => <p key={i}>{x}</p>) : p.note && <p>{p.note}</p>}
         </div>

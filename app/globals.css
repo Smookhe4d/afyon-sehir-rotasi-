@@ -147,3 +147,7 @@ a:has(> img, > span > img, > .cov):active, .press:active { transform: scale(.97)
 a:has(> img, > span > img, > .cov), .press { transition: transform .28s cubic-bezier(.22,1,.36,1); }
 /* Geçiş sırasında sayfa içi giriş animasyonları ikinci kez oynamasın */
 html[data-vt] .page-in, html[data-vt] .stagger > * { animation: none !important; }
+
+/* G-023: uygulama tanıtımının karartması ve vurgu deliği */
+.tour-dim { background: color-mix(in srgb, var(--color-navy) 72%, transparent); }
+.tour-hole { box-shadow: 0 0 0 9999px color-mix(in srgb, var(--color-navy) 72%, transparent); }

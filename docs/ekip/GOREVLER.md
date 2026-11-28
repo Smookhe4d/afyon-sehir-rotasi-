@@ -441,3 +441,16 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Proje sahibinin isteğiyle anlatımlar akıcılık için kısaltıldı (toplam yaklaşık 23 dakika). Ulu Cami'nin panelinde tura başlarken dinlenecek 1 dakikalık uygulama tanıtımı var.
   - Aynı anda tek anlatım çalar, başka bir oynatıcı başlarsa öncekisi durur.
 - **Açık:** Anket bağlantısı gelince `surveys` doldurulacak.
+
+## G-023: Merkez turu yenileme: ses, yönlendirme, tanıtım ve fotoğraf
+- **Durum:** Uygulamada. 30 Kasım öğrenci gezisi için.
+- **Neden:** Proje sahibi ilk kayıtları dinledi. Bazı Türkçe karakterler ve tarihler yanlış okunuyor, tonlama ve vurgu yetersiz, duraklar "geldik" diye açılıyordu. Ayrıca yönlendirmenin Google Haritalar'da doğrulanmasını, uygulama tanıtımının giriş sonrasına taşınmasını, otobüste karşılama anlatımını, 1. ve 2. durakta sesin kapatılmasını ve güncel Google fotoğraflarını istedi.
+- **Yapılanlar:**
+  - Yürüyüş güzergâhı Google Haritalar'da durak durak doğrulandı. Konakların koordinatı yanlıştı (şehrin kuzeyi), Ulu Cami'nin batısındaki Çıracıoğlu Yan Sokak'a düzeltildi. Rota çizgisi ve süreleri yeniden hesaplandı.
+  - Metinler yeniden yazıldı: sayı ve tarihler yazıyla, ElevenLabs v3 duygu etiketleri, duraklar "geldik" demeden açılıyor, her durak Google'daki yürüyüş tarifiyle bitiyor. Gastronomi şehri yılı 2019 olarak düzeltildi (önceki metinde 2023 yazıyordu).
+  - Otobüste dinlenecek karşılama ve Afyonkarahisar anlatımı eklendi (Ulu Cami panelinde, durak anlatımından önce).
+  - Ulu Cami panelindeki uygulama tanıtımı kaldırıldı. Yerine giriş yaptıktan sonra bir kez açılan, düğmeleri ekranda gösteren yazılı ve sesli tanıtım geldi (`AppTour`). Profil sayfasından yeniden izlenebilir.
+  - Merkez rotasında Alimoğlu ve Afyon Müzesi duraklarında sesli anlatım gösterilmiyor.
+  - Google Places API ile durakların güncel fotoğrafları atıflı olarak gösteriliyor. `GOOGLE_MAPS_API_KEY` tanımlı değilse eski fotoğraflar kalır.
+  - Grup turundaki "Rehber" ifadeleri "Turist rehberi" yapıldı.
+- **Açık:** Ses kayıtları proje sahibinin örnek onayından sonra yapılacak. Places API anahtarı Vercel'e eklenecek. Anket bağlantısı bekleniyor.

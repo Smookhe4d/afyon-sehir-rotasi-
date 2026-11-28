@@ -843,7 +843,32 @@
     "showText": "Show transcript",
     "hideText": "Hide transcript",
     "survey": "Fill in the feedback survey",
-    "introTitle": "Before you start",
-    "introLabel": "Start here: how the app works"
+    "introTitle": "On the way: welcome to Afyonkarahisar",
+    "introLabel": "Listen before you arrive"
+  },
+  "g023": {
+    "label": "App tour",
+    "skip": "Skip",
+    "back": "Back",
+    "next": "Next",
+    "done": "Start",
+    "replay": "Replay the app tour",
+    "stopOf": "Stop 3 of 12",
+    "prev": "Previous",
+    "nextStop": "Next",
+    "back15": "Back 15 s",
+    "showText": "Show text",
+    "story": "Story",
+    "map": "Map",
+    "arrived": "You're here. Stop marked as visited.",
+    "guideAt": "Tour guide is at stop 3",
+    "backToGuide": "Back to the tour guide",
+    "listen": "Listen",
+    "sound": "Narration",
+    "mockStop": "Ulu Cami",
+    "gallery": "photo gallery",
+    "photoOf": "Photo {n} of {total}",
+    "prevPhoto": "Previous photo",
+    "nextPhoto": "Next photo"
   }
 }

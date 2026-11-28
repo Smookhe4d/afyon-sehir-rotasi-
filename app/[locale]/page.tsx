@@ -61,7 +61,7 @@ export default async function Kesfet({ params }: { params: Promise<{locale: Loca
   return (
     <KesfetUI stops={stops} routes={mapRoutes} chips={CAT_ORDER.map((c) => ({ cat: c, label: categoryLabels[c] }))}
       labels={{ map: g("mapLabel"), profile: nav("profile"), locate: tx("showMyLocation_ad4f4"), tilt: g("tilt"), grab: g("guides"), panel: g("guides"), poi: { food: g15("t_restaurant"), mosque: g15("t_place_of_worship"), wc: g15("t_toilets") } }}>
-      <div className="px-4 pb-1"><SearchBox items={searchItems} /></div>
+      <div data-tour="search" className="px-4 pb-1"><SearchBox items={searchItems} /></div>
       <GuideRail cards={cards} onMap={g("onMap")} empty={g("noRouteInCat")} heading={g("guides")} allLabel={g("all")}
         headingCat={Object.fromEntries(CAT_ORDER.map((c) => [c, g("catRoutes", {label: categoryLabels[c]})]))} />
       {center.length > 0 && <>
