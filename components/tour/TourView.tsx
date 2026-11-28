@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import MapView from "@/components/map/LazyMap";
 import type { MapStop } from "@/components/map/RouteMap";
+import { olay } from "@/lib/olay";
 import { startRoute } from "@/app/actions";
 import { formatDistance } from "@/lib/map/geo";
 import { formatDuration } from "@/lib/map/nav";
@@ -13,11 +14,12 @@ type Props = {
   slug: string; title: string; mode: string; grup?: string; lider: boolean; startId?: string; walkFrom?: string;
   stops: TourStop[]; mapStops: MapStop[]; line?: [number, number][]; panels: ReactNode[]; serverVisited: string[];
   /** G-022: rota sonunda gösterilecek anket */ survey?: string;
+  /** G-027: arka planda indirilecek fotoğraf ve ses yolları */ assets?: string[];
 };
 type Saved = { i?: number; v?: string[] };
 
 /** G-020: durak durak tur ekranı. Anlatım, fotoğraf ve bilgi kartı ile canlı yönlendirme aynı ekranda. */
-export default function TourView({ slug, title, mode, grup, lider, startId, walkFrom, stops, mapStops, line, panels, serverVisited, survey }: Props) {
+export default function TourView({ slug, title, mode, grup, lider, startId, walkFrom, stops, mapStops, line, panels, serverVisited, survey, assets = [] }: Props) {
   const router = useRouter();
   const t = useTranslations("g020");
   const tx = useTranslations("ui");
@@ -26,6 +28,17 @@ export default function TourView({ slug, title, mode, grup, lider, startId, walk
   const key = `afyon-tur-${slug}`;
   const total = stops.length;
   const member = Boolean(grup && !lider);
+  // G-027: rota içeriği kullanıcıya bir şey göstermeden arka planda telefona indirilir, internet kesilince tur sürer
+  useEffect(() => {
+    if (!("serviceWorker" in navigator) || !assets.length) return;
+    const go = () => navigator.serviceWorker.ready.then((r) => r.active?.postMessage({ type: "onbellek", urls: [location.pathname + location.search, ...assets] })).catch(() => {});
+    const t = setTimeout(go, 4000);
+    addEventListener("online", go);
+    return () => { clearTimeout(t); removeEventListener("online", go); };
+  }, [assets]);
+  // G-027: tur kayıtları (anonim)
+  const role = grup ? (lider ? "lider" : "uye") : "bireysel";
+  useEffect(() => { olay({ kind: "tur_basla", route_slug: slug, mode, role }); }, [slug, mode, role]);
   // G-026: oynatıcılar rolü ilk etkilerinde okuduğu için alt bileşenlerin etkilerinden önce yazılır
   useLayoutEffect(() => {
     document.body.dataset.grupRol = grup ? (lider ? "lider" : "uye") : "";
@@ -96,7 +109,7 @@ export default function TourView({ slug, title, mode, grup, lider, startId, walk
     setVisitedIds((v) => (v.has(id) ? v : new Set(v).add(id)));
   }, []);
 
-  const next = () => { if (idx + 1 < total) go(idx + 1); else { setDone(true); try { localStorage.setItem(key, JSON.stringify({ v: [...visited] })); localStorage.removeItem("afyon-grup-aktif"); } catch { /* yok say */ } } };
+  const next = () => { if (idx + 1 < total) go(idx + 1); else { setDone(true); olay({ kind: "tur_bitir", route_slug: slug, mode, role, value: visited.size }); try { localStorage.setItem(key, JSON.stringify({ v: [...visited] })); localStorage.removeItem("afyon-grup-aktif"); } catch { /* yok say */ } } };
 
   useEffect(() => {
     const f = (e: KeyboardEvent) => {
@@ -111,6 +124,7 @@ export default function TourView({ slug, title, mode, grup, lider, startId, walk
   }, [go, idx, listOpen, done]);
 
   const cur = stops[idx];
+  useEffect(() => { if (init) olay({ kind: "durak", route_slug: slug, stop_id: cur.id, mode, role, value: idx + 1 }); }, [init, cur.id, idx, slug, mode, role]);
   const after = stops[idx + 1];
   const visitedCount = useMemo(() => stops.filter((s) => visited.has(s.id)).length, [stops, visited]);
   const qs = `mod=${mode}${grup ? `&grup=${grup}` : ""}`;
@@ -221,7 +235,7 @@ export default function TourView({ slug, title, mode, grup, lider, startId, walk
           <div className="w-full max-w-[380px] rounded-[30px] bg-cream p-6 text-center">
             <p className="font-display text-2xl font-semibold text-navy">{t("doneTitle")}</p>
             <p className="mt-1.5 text-sm text-ink-2">{t("doneText", { visited: visitedCount, total })}</p>
-            {survey && <a href={survey} target="_blank" rel="noopener noreferrer" className="terra-grad mt-5 flex h-12 items-center justify-center rounded-full text-sm font-bold text-white">{tg("survey")}</a>}
+            {survey && <a href={survey} onClick={() => olay({ kind: "anket", route_slug: slug, mode, role })} target="_blank" rel="noopener noreferrer" className="terra-grad mt-5 flex h-12 items-center justify-center rounded-full text-sm font-bold text-white">{tg("survey")}</a>}
             <Link href={`/rotalar/${slug}`} className={survey ? "mt-2 flex h-12 items-center justify-center rounded-full border border-line bg-white text-sm font-bold text-navy shadow-card" : "terra-grad mt-5 flex h-12 items-center justify-center rounded-full text-sm font-bold text-white"}>{t("backToRoute")}</Link>
             <button type="button" onClick={() => setDone(false)} className="mt-2 h-12 w-full rounded-full border border-line bg-white text-sm font-bold text-navy shadow-card">{t("keepGoing")}</button>
           </div>

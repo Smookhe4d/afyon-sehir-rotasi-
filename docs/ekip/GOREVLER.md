@@ -469,3 +469,12 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - **Yapılanlar:** Merkez rotası Ulu Cami, Millet Hamamı, Tarihi Konaklar, Mevlevihane, Taşhan, Gedik Ahmet Paşa Camii, Kadınana Türbesi, Uzun Çarşı (öğle arası), Anıtpark, Zafer Müzesi sırasına alındı. Durak konumları proje sahibinin Google Haritalar bağlantılarından alındı, yürüme süreleri ve rota çizgisi yeniden üretildi. Yedi durağın anlatım sonu yeni sıraya göre yeniden seslendirildi. Grup turunda turist rehberi oynat, duraklat ve ileri geri sarınca tüm üyelerde anlatım aynı yerden çalıyor, üyelerde kontroller gizli. Bireysel turda oynatıcı değişmedi.
 - **Yürüyüş bölümü:** Araçlı turda Ulu Cami sonrası duraklar arası mesafe, süre, rota çizgisi ve canlı yol tarifi yürüyüşe göre hesaplanıyor. Gedik Ahmet Paşa Camii ile Kadınana Türbesi arası Google Haritalar yürüyüş değeriyle 350 m, 4 dk.
 - **Sınır:** Telefon tarayıcısı otomatik sesi engellerse üye bir kez "Oynat" düğmesine dokunmalı.
+
+## G-027: Çevrimdışı tur, tur kayıtları ve sosyal alan
+- **Durum:** İncelemede.
+- **Neden:** Proje sahibi ziyaretçi kayıtlarının toplanmasını, internet çekmeyen yerlerde turun sürmesini ve sosyal alanda herkesin kendi adıyla paylaşım yapmasını istedi. "Turu indir" düğmesi istemedi, altyapının görünmeden çalışmasını istedi.
+- **Çevrimdışı:** Tur açılınca rotanın fotoğrafları ve sesli anlatımları arka planda telefona iniyor. Sesler internetsiz de çalıyor, görülen harita bölgesi saklanıyor. İnternet kesilince üstte kısa bir bilgi şeridi çıkıyor.
+- **Tur kayıtları:** Tur başlama, durak açma, tur bitirme, anlatımı başlatma ve sonuna kadar dinleme, ankete gitme anonim olarak `tour_events` tablosuna yazılıyor. İnternet yoksa kayıt telefonda bekliyor, bağlantı gelince gönderiliyor. Yönetim panelinde rota özeti, durak başına kişi sayısı ve Excel indirme var.
+- **Sosyal:** Hesabı olmayan ziyaretçi adını yazıp misafir olarak katılıyor ve o adla paylaşım, yorum, beğeni yapıyor. Paylaşımlar hemen yayına çıkıyor. Küfür içeren yazı gönderilmeden durduruluyor. Kullanıcılar uygunsuz paylaşımı bildirebiliyor, yönetici sosyal sayfada ya da yönetim panelinde kaldırabiliyor. Fotoğraflar yüklenmeden önce telefonda küçültülüyor.
+- **Veritabanı:** `supabase/migrations/004_tur_kayit_sosyal.sql` canlı Supabase projesinde çalıştırılmalı.
+- **Sınır:** Çıplaklık otomatik algılanmıyor, bildirim ve yönetici kontrolüyle kaldırılıyor.

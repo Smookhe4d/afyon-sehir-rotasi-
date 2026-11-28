@@ -1,4 +1,5 @@
 "use client";
+import { olay } from "@/lib/olay";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
@@ -37,6 +38,13 @@ export default function NarrationPlayer({ title, src, dur, lines, label }: Props
     addEventListener("grup-ses-al", on);
     return () => removeEventListener("grup-ses-al", on);
   }, [role, src]);
+  // G-027: anlatımın başlatılması ve sonuna kadar dinlenmesi kaydedilir (her oynatıcı için bir kez)
+  const logged = useRef<Set<string>>(new Set());
+  const log = (kind: "ses_basla" | "ses_bitir") => {
+    if (logged.current.has(kind)) return; logged.current.add(kind);
+    const m = /\/rotalar\/([^/]+)/.exec(location.pathname);
+    olay({ kind, route_slug: m?.[1] ?? "-", stop_id: src.split("/").pop()?.replace(/\.mp3$/, ""), role: role || "bireysel", value: Math.round(audio.current?.currentTime ?? 0) });
+  };
   const tell = (action: "play" | "pause") => {
     if (role !== "lider") return;
     dispatchEvent(new CustomEvent("grup-ses-gonder", { detail: { src, action, t: audio.current?.currentTime ?? 0 } }));
@@ -70,8 +78,8 @@ export default function NarrationPlayer({ title, src, dur, lines, label }: Props
   return (
     <div className="mt-4">
       <audio ref={audio} src={src} preload="metadata"
-        onPlay={(e) => { setPlaying(true); dispatchEvent(new CustomEvent("narration-play", { detail: e.currentTarget })); tell("play"); }} onPause={() => { setPlaying(false); tell("pause"); }}
-        onSeeked={() => { if (role === "lider" && audio.current && !audio.current.paused) tell("play"); }} onEnded={() => setPlaying(false)}
+        onPlay={(e) => { setPlaying(true); dispatchEvent(new CustomEvent("narration-play", { detail: e.currentTarget })); tell("play"); log("ses_basla"); }} onPause={() => { setPlaying(false); tell("pause"); }}
+        onSeeked={() => { if (role === "lider" && audio.current && !audio.current.paused) tell("play"); }} onEnded={() => { setPlaying(false); log("ses_bitir"); }}
         onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)} />
       <div className="rounded-[26px] bg-white p-3.5 shadow-[0_18px_36px_-20px_rgba(44,18,66,.6)]">
         {role === "uye" && (

@@ -57,6 +57,14 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
     leg: i > 0 && legs[s.placeId] ? legs[s.placeId] : null,
   }));
 
+  // G-027: tur açılınca arka planda telefona indirilecek fotoğraf ve sesler
+  const assets = [...new Set(list.flatMap((s) => {
+    const id = s.placeId; const nr = narrationFor(id, locale);
+    const intro = locale === "tr" && intros[slug]?.at === id ? narrations[intros[slug].key]?.src : undefined;
+    const silent = locale === "tr" && silentStops[slug]?.includes(id);
+    return [photos[id]?.src, ...(photos[id]?.gallery ?? []).map((g) => g.src), ...(ALBUMS[id] ?? []).map((a) => a.src), intro, silent ? undefined : nr?.src];
+  }).filter((u): u is string => typeof u === "string" && u.startsWith("/")))];
+
   const panels = list.map((s) => {
     const p = s.place;
     const inRoutes = allRoutes.filter((x) => x.stops.some((y) => y.placeId === p.id));
@@ -91,7 +99,7 @@ export default async function Tur({ params, searchParams }: { params: Promise<{ 
       slug={slug} title={r.title} mode={mode} grup={code} lider={lider === "1"} startId={durak} walkFrom={r.walkFrom}
       stops={stops} mapStops={geo.stops} line={geo.line} panels={panels}
       serverVisited={progress.data?.visited_place_ids ?? []}
-      survey={surveys[slug]}
+      survey={surveys[slug]} assets={assets}
     />
   );
 }

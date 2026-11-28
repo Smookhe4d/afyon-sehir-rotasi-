@@ -9,6 +9,7 @@ import { THEMES, THEME_COOKIE } from "@/lib/themes";
 import Splash from "@/components/Splash";
 import PageTransitions from "@/components/motion/PageTransitions";
 import { Analytics } from "@vercel/analytics/next";
+import OfflineBar from "@/components/OfflineBar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Track from "@/components/Track";
 import SwRegister from "@/components/SwRegister";
@@ -58,6 +59,7 @@ export default async function RootLayout({ children, params }: { children: React
         <Splash />
         <PageTransitions />
         <SwRegister />
+        <OfflineBar />
         <Track />
         <Analytics />
         <SpeedInsights />
