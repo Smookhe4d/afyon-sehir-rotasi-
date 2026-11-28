@@ -46,7 +46,11 @@ export function useGroup(opts: { code?: string; leader: boolean; name: string; p
       // G-025: daha önce görülen ama şu an bağlı olmayan üyeler son konum ve zamanla listede kalır
       const now = Date.now();
       for (const m of live) { const prev = known.current.get(m.id); known.current.set(m.id, { ...m, pos: m.pos ?? prev?.pos ?? null, online: true, seen: m.pos ? now : prev?.seen ?? now }); }
-      known.current.forEach((m, k) => { if (!live.some((x) => x.id === k)) known.current.set(k, { ...m, online: false }); });
+      known.current.forEach((m, k) => {
+        if (live.some((x) => x.id === k)) return;
+        // Aynı adla yeniden bağlanan üyenin eski kaydı silinir, listede iki kez görünmez
+        if (live.some((x) => x.name === m.name)) known.current.delete(k); else known.current.set(k, { ...m, online: false });
+      });
       try { localStorage.setItem(`afyon-grup-uyeler-${code}`, JSON.stringify([...known.current.values()])); } catch { /* yok say */ }
       const list = [...known.current.values()];
       setMembers(list);
