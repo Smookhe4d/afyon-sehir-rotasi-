@@ -443,7 +443,7 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
 - **Açık:** Anket bağlantısı gelince `surveys` doldurulacak.
 
 ## G-023: Merkez turu yenileme: ses, yönlendirme, tanıtım ve fotoğraf
-- **Durum:** Uygulamada. 30 Kasım öğrenci gezisi için.
+- **Durum:** İncelemede. 30 Kasım öğrenci gezisi için.
 - **Neden:** Proje sahibi ilk kayıtları dinledi. Bazı Türkçe karakterler ve tarihler yanlış okunuyor, tonlama ve vurgu yetersiz, duraklar "geldik" diye açılıyordu. Ayrıca yönlendirmenin Google Haritalar'da doğrulanmasını, uygulama tanıtımının giriş sonrasına taşınmasını, otobüste karşılama anlatımını, 1. ve 2. durakta sesin kapatılmasını ve güncel Google fotoğraflarını istedi.
 - **Yapılanlar:**
   - Yürüyüş güzergâhı Google Haritalar'da durak durak doğrulandı. Konakların koordinatı yanlıştı (şehrin kuzeyi), Ulu Cami'nin batısındaki Çıracıoğlu Yan Sokak'a düzeltildi. Rota çizgisi ve süreleri yeniden hesaplandı.
@@ -453,4 +453,4 @@ Uygulayıcının kullanım limiti dolduğu için proje sahibi işin yönetici ta
   - Merkez rotasında Alimoğlu ve Afyon Müzesi duraklarında sesli anlatım gösterilmiyor.
   - Google Places API ile durakların güncel fotoğrafları atıflı olarak gösteriliyor. `GOOGLE_MAPS_API_KEY` tanımlı değilse eski fotoğraflar kalır.
   - Grup turundaki "Rehber" ifadeleri "Turist rehberi" yapıldı.
-- **Açık:** Ses kayıtları proje sahibinin örnek onayından sonra yapılacak. Places API anahtarı Vercel'e eklenecek. Anket bağlantısı bekleniyor.
+- **Açık:** Kayıtlar ElevenLabs v3 ile tamamlandı. Places API anahtarı proje sahibi tarafından Vercel'e eklendi. Anket bağlantısı eklendi. Canlıya geçiş proje sahibinin onayını bekliyor.
