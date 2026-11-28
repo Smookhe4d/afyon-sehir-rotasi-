@@ -4,6 +4,8 @@ import {useTranslations as useUiTranslations} from "next-intl";
 
 import { useState, useTransition } from "react";
 import { addAnnouncement, deleteAnnouncement, deleteFeedback, setFeedbackStatus, toggleAnnouncement } from "@/app/yonetim/actions";
+import { adminDeletePost } from "@/app/actions";
+import { supabaseUrl } from "@/lib/supabase/env";
 
 export type FeedbackRow = { id: string; kind: string; place_id: string | null; place_name: string | null; message: string; contact: string | null; status: string; admin_note: string | null; created_at: string };
 export type AnnRow = { id: string; title: string; body: string; active: boolean };
@@ -81,5 +83,27 @@ export function AnnouncementsAdmin({ rows }: { rows: AnnRow[] }) {
         ))}
       </ul>
     </>
+  );
+}
+
+// G-027: kullanıcıların bildirdiği paylaşımlar, en çok bildirilen üstte
+export type ReportedRow = { id: string; body: string; author: string; photo_path: string | null; created_at: string; count: number };
+export function ReportedPosts({ rows }: { rows: ReportedRow[] }) {
+  const g = useUiTranslations("g027");
+  const [gone, setGone] = useState<Set<string>>(new Set());
+  const [pending, run] = useTransition();
+  const list = rows.filter((r) => !gone.has(r.id));
+  if (!list.length) return <p className="mt-2 rounded-2xl border border-dashed border-line px-4 py-5 text-center text-xs text-mute">{g("noReports")}</p>;
+  return (
+    <ul className="mt-2 flex flex-col gap-2.5">{list.map((r) => (
+      <li key={r.id} className="rounded-2xl border border-line bg-white p-3 shadow-card">
+        <div className="flex items-start justify-between gap-3">
+          <p className="text-[13px] font-bold">{r.author} <span className="font-medium text-[#8E2C12]">· {g("reportCount", { n: r.count })}</span></p>
+          <button type="button" disabled={pending} onClick={() => { if (confirm(g("removeConfirm"))) run(async () => { const x = await adminDeletePost(r.id); if (x.ok) setGone((s) => new Set(s).add(r.id)); }); }} className="min-h-[44px] rounded-full bg-[#FBE4DC] px-4 text-xs font-bold text-[#8E2C12]">{g("remove")}</button>
+        </div>
+        {r.photo_path && /* eslint-disable-next-line @next/next/no-img-element */ <img src={`${supabaseUrl}/storage/v1/object/public/post-photos/${r.photo_path}`} alt="" loading="lazy" className="mt-2 max-h-56 w-full rounded-xl object-cover" />}
+        <p className="mt-2 whitespace-pre-wrap text-[13px] text-ink-2">{r.body}</p>
+      </li>
+    ))}</ul>
   );
 }

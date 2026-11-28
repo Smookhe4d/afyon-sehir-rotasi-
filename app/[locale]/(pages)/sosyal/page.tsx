@@ -6,7 +6,7 @@ import type {Locale} from "@/i18n/routing";
 import {pageMetadata, pageTitle} from "@/i18n/metadata";
 import PageHeader from "@/components/PageHeader";
 import SignInPrompt from "@/components/SignInPrompt";
-import { Composer, PostCard, type PostRow } from "@/components/social/Feed";
+import { Composer, GuestJoin, PostCard, type PostRow } from "@/components/social/Feed";
 
 import { getSession } from "@/lib/session";
 import { supabaseUrl } from "@/lib/supabase/env";
@@ -30,7 +30,8 @@ export default async function Sosyal({ params }: { params: Promise<{locale: Loca
 
   setRequestLocale((await params).locale);
   const { supabase, user, profile } = await getSession();
-  if (!user) return (<main><PageHeader eyebrow={tx("community_92216")} title={tx("community_6c29e")} /><SignInPrompt title={tx("joinTheCommunity_fb680")} text={tx("signInToSeeTravelers_85655")} /></main>);
+  // G-027: oturumu olmayan ziyaretçi adını yazıp misafir olarak katılır
+  if (!user) return (<main><PageHeader eyebrow={tx("community_92216")} title={tx("community_6c29e")} /><GuestJoin /></main>);
   const { data, error } = await supabase
     .from("posts")
     .select("id, body, photo_path, route_slug, created_at, user_id, profiles(display_name), post_likes(user_id), comments(id, body, user_id, created_at, profiles(display_name))")
@@ -44,16 +45,16 @@ export default async function Sosyal({ params }: { params: Promise<{locale: Loca
     comments: (p.comments as unknown as { id: string; body: string; user_id: string; created_at: string; profiles: Prof }[])
       .sort((a, b) => a.created_at.localeCompare(b.created_at)).map((c) => ({ id: c.id, body: c.body, user_id: c.user_id, author: nameOf(c.profiles) })),
   }));
-  const registered = Boolean(profile && !profile.is_guest);
+  const { data: isAdmin } = await supabase.rpc("is_admin");
 
   return (
     <main className="page-xl">
       <PageHeader eyebrow={tx("community_92216")} title={tx("community_6c29e")} />
       <div className="split flex flex-col gap-3">
-        <div className="side"><Composer userId={user.id} canPost={registered} /></div>
+        <div className="side"><Composer userId={user.id} name={profile?.display_name ?? ""} isGuest={Boolean(profile?.is_guest ?? true)} /></div>
         {error && <p role="alert" className="mx-5 rounded-2xl bg-[#FBE4DC] px-4 py-3 text-sm text-[#8E2C12]">{tx("theFeedCouldNotBe_3ce00")}</p>}
         {!error && rows.length === 0 && <p className="mx-5 rounded-2xl border border-dashed border-line px-4 py-8 text-center text-sm text-mute">{tx("noPostsYetBeThe_043d5")}</p>}
-        {rows.map((p) => <PostCard key={p.id} p={p} userId={user.id} canComment={registered} />)}
+        {rows.map((p) => <PostCard key={p.id} p={p} userId={user.id} isAdmin={isAdmin === true} />)}
       </div>
     </main>
   );

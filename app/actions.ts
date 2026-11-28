@@ -6,6 +6,7 @@ import { revalidateLocalizedPath } from "@/i18n/revalidate";
 import { getRoute } from "@/lib/routes";
 import { places } from "@/lib/places";
 import { getSession } from "@/lib/session";
+import { kufurVar } from "@/lib/kufur";
 
 type Result = { ok: true } | { ok: false; error: string };
 const fail = (error: string): Result => ({ ok: false, error });
@@ -108,16 +109,23 @@ export async function deleteComment(id: string, path: string): Promise<Result> {
   return { ok: true };
 }
 
-export async function createPost(input: { body: string; routeSlug?: string; photoPath?: string }): Promise<Result> {
+export async function createPost(input: { body: string; routeSlug?: string; photoPath?: string; name?: string }): Promise<Result> {
   const tx = await getUiTranslations("ui");
+  const g = await getUiTranslations("g027");
 
   const body = input.body.trim();
   if (body.length < 1 || body.length > 1000) return fail(tx("textMustBeBetween1_6f5da"));
+  if (kufurVar(body) || (input.name && kufurVar(input.name))) return fail(g("profanity"));
   if (input.routeSlug && !getRoute(input.routeSlug)) return fail(tx("routeNotFound_1658a"));
   const _s = await requireUser();
   if (!_s) return fail(tx("signInToContinue_9736a"));
   const { supabase, user, profile } = _s;
-  if (!registered(profile)) return fail(tx("createAnAccountToPost_5402e"));
+  // G-027: misafirler de kullandıkları adla paylaşabilir
+  const nm = input.name?.trim();
+  if (nm && nm !== profile?.display_name) {
+    if (nm.length < 2 || nm.length > 40) return fail(tx("namesMustBeBetween2_e6454"));
+    await supabase.from("profiles").update({ display_name: nm }).eq("id", user.id);
+  }
   if (input.photoPath && !input.photoPath.startsWith(`${user.id}/`)) return fail(tx("invalidPhoto_387ce"));
   const { error } = await supabase.from("posts").insert({ user_id: user.id, body, route_slug: input.routeSlug ?? null, photo_path: input.photoPath ?? null });
   if (error) return fail(tx("yourPostCouldNotBe_bec51"));
@@ -159,10 +167,10 @@ export async function addPostComment(postId: string, body: string): Promise<Resu
 
   const text = body.trim();
   if (text.length < 1 || text.length > 500) return fail(tx("commentsMustBeBetween1_fda6d"));
+  if (kufurVar(text)) return fail((await getUiTranslations("g027"))("profanity"));
   const _s = await requireUser();
   if (!_s) return fail(tx("signInToContinue_9736a"));
-  const { supabase, user, profile } = _s;
-  if (!registered(profile)) return fail(tx("createAnAccountToComment_57a27"));
+  const { supabase, user } = _s;
   const { error } = await supabase.from("comments").insert({ user_id: user.id, post_id: postId, body: text });
   if (error) return fail(tx("yourCommentCouldNotBe_016ea"));
   revalidateLocalizedPath("/sosyal");
@@ -243,5 +251,44 @@ export async function sendFeedback(input: { kind: string; placeId?: string; mess
   const { supabase } = await getSession();
   const { error } = await supabase.from("feedback").insert({ kind: input.kind, place_id: placeId, message, contact });
   if (error) return fail(/PGRST205|42P01|does not exist/i.test(`${error.code} ${error.message}`) ? tx("feedbackIsNotAvailableYet_45928") : tx("couldNotSendPleaseTry_62b45"));
+  return { ok: true };
+}
+
+// G-027: uygunsuz paylaşımı yöneticiye bildirme
+export async function reportPost(postId: string): Promise<Result> {
+  const g = await getUiTranslations("g027");
+  const _s = await requireUser();
+  if (!_s) return fail(g("reportFailed"));
+  const { error } = await _s.supabase.from("post_reports").upsert({ post_id: postId, user_id: _s.user.id }, { onConflict: "post_id,user_id", ignoreDuplicates: true });
+  if (error) return fail(g("reportFailed"));
+  return { ok: true };
+}
+
+// G-027: yönetici küfürlü, alakasız ya da çıplaklık içeren paylaşımı ve yorumu kaldırır
+export async function adminDeletePost(id: string): Promise<Result> {
+  const g = await getUiTranslations("g027");
+  const _s = await requireUser();
+  if (!_s) return fail(g("removeFailed"));
+  const { supabase } = _s;
+  const { data: isAdmin } = await supabase.rpc("is_admin");
+  if (isAdmin !== true) return fail(g("removeFailed"));
+  const { data } = await supabase.from("posts").select("photo_path").eq("id", id).maybeSingle();
+  const { error } = await supabase.from("posts").delete().eq("id", id);
+  if (error) return fail(g("removeFailed"));
+  if (data?.photo_path) await supabase.storage.from("post-photos").remove([data.photo_path]);
+  revalidateLocalizedPath("/sosyal"); revalidateLocalizedPath("/yonetim");
+  return { ok: true };
+}
+
+export async function adminDeleteComment(id: string): Promise<Result> {
+  const g = await getUiTranslations("g027");
+  const _s = await requireUser();
+  if (!_s) return fail(g("removeFailed"));
+  const { supabase } = _s;
+  const { data: isAdmin } = await supabase.rpc("is_admin");
+  if (isAdmin !== true) return fail(g("removeFailed"));
+  const { error } = await supabase.from("comments").delete().eq("id", id);
+  if (error) return fail(g("removeFailed"));
+  revalidateLocalizedPath("/sosyal"); revalidateLocalizedPath("/yonetim");
   return { ok: true };
 }
